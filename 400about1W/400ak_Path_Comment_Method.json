@@ -1,0 +1,737 @@
+[{
+	"Path": "com.sk89q.worldedit.math.Vector3.transform2D",
+	"Comment": "perform a 2d transformation on this vector and return a new one.",
+	"Method": "Vector3 transform2D(double angle,double aboutX,double aboutZ,double translateX,double translateZ){\r\n    angle = Math.toRadians(angle);\r\n    double x = this.x - aboutX;\r\n    double z = this.z - aboutZ;\r\n    double cos = Math.cos(angle);\r\n    double sin = Math.sin(angle);\r\n    double x2 = x * cos - z * sin;\r\n    double z2 = x * sin + z * cos;\r\n    return new Vector3(x2 + aboutX + translateX, y, z2 + aboutZ + translateZ);\r\n}"
+}, {
+	"Path": "com.sk89q.jnbt.CompoundTag.getList",
+	"Comment": "get a list of tags named with the given key.if the key does not exist or its value is not a list tag,then an empty list will be returned. if the given key referencesa list but the list of of a different type, then an emptylist will also be returned.",
+	"Method": "List<Tag> getList(String key,List<T> getList,String key,Class<T> listType){\r\n    Tag tag = value.get(key);\r\n    if (tag instanceof ListTag) {\r\n        ListTag listTag = (ListTag) tag;\r\n        if (listTag.getType().equals(listType)) {\r\n            return (List<T>) listTag.getValue();\r\n        } else {\r\n            return Collections.emptyList();\r\n        }\r\n    } else {\r\n        return Collections.emptyList();\r\n    }\r\n}"
+}, {
+	"Path": "org.web3j.crypto.TransactionUtils.generateTransactionHashHexEncoded",
+	"Comment": "utility method to provide the transaction hash for a given transaction.",
+	"Method": "String generateTransactionHashHexEncoded(RawTransaction rawTransaction,Credentials credentials,String generateTransactionHashHexEncoded,RawTransaction rawTransaction,byte chainId,Credentials credentials){\r\n    return Numeric.toHexString(generateTransactionHash(rawTransaction, chainId, credentials));\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.math.Vector2.transform2D",
+	"Comment": "perform a 2d transformation on this vector and return a new one.",
+	"Method": "Vector2 transform2D(double angle,double aboutX,double aboutZ,double translateX,double translateZ){\r\n    angle = Math.toRadians(angle);\r\n    double x = this.x - aboutX;\r\n    double z = this.z - aboutZ;\r\n    double cos = Math.cos(angle);\r\n    double sin = Math.sin(angle);\r\n    double x2 = x * cos - z * sin;\r\n    double z2 = x * sin + z * cos;\r\n    return new Vector2(x2 + aboutX + translateX, z2 + aboutZ + translateZ);\r\n}"
+}, {
+	"Path": "me.chanjar.weixin.common.util.res.StringManager.getString",
+	"Comment": "get a string from the underlying resource bundle and formatit with the given set of arguments.",
+	"Method": "String getString(String key,String getString,String key,Object args){\r\n    String value = getString(key);\r\n    if (value == null) {\r\n        value = key;\r\n    }\r\n    MessageFormat mf = new MessageFormat(value);\r\n    mf.setLocale(locale);\r\n    return mf.format(args, new StringBuffer(), null).toString();\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.math.Vector3.normalize",
+	"Comment": "get the normalized vector, which is the vector divided by itslength, as a new vector.",
+	"Method": "Vector3 normalize(){\r\n    return divide(length());\r\n}"
+}, {
+	"Path": "me.chanjar.weixin.common.session.StandardSessionManager.getName",
+	"Comment": "return the descriptive short name of this manager implementation.",
+	"Method": "String getName(){\r\n    return (name);\r\n}"
+}, {
+	"Path": "com.sk89q.util.yaml.YAMLProcessor.getEmptyNode",
+	"Comment": "this method returns an empty configurationnode for using as adefault in methods that select a node from a node list.",
+	"Method": "YAMLNode getEmptyNode(boolean writeDefaults){\r\n    return new YAMLNode(new LinkedHashMap(), writeDefaults);\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.world.gamemode.GameMode.getName",
+	"Comment": "gets the name of this game mode, or the id if the name cannot be found.",
+	"Method": "String getName(){\r\n    return getId();\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.function.entity.ExtentEntityCopy.transformNbtData",
+	"Comment": "transform nbt data in the given entity state and return a new instanceif the nbt data needs to be transformed.",
+	"Method": "BaseEntity transformNbtData(BaseEntity state){\r\n    CompoundTag tag = state.getNbtData();\r\n    if (tag != null) {\r\n        boolean hasTilePosition = tag.containsKey(\"TileX\") && tag.containsKey(\"TileY\") && tag.containsKey(\"TileZ\");\r\n        boolean hasDirection = tag.containsKey(\"Direction\");\r\n        boolean hasLegacyDirection = tag.containsKey(\"Dir\");\r\n        boolean hasFacing = tag.containsKey(\"Facing\");\r\n        if (hasTilePosition) {\r\n            Vector3 tilePosition = Vector3.at(tag.asInt(\"TileX\"), tag.asInt(\"TileY\"), tag.asInt(\"TileZ\"));\r\n            BlockVector3 newTilePosition = transform.apply(tilePosition.subtract(from)).add(to).toBlockPoint();\r\n            CompoundTagBuilder builder = tag.createBuilder().putInt(\"TileX\", newTilePosition.getBlockX()).putInt(\"TileY\", newTilePosition.getBlockY()).putInt(\"TileZ\", newTilePosition.getBlockZ());\r\n            if (hasDirection || hasLegacyDirection || hasFacing) {\r\n                int d;\r\n                if (hasDirection) {\r\n                    d = tag.asInt(\"Direction\");\r\n                } else if (hasLegacyDirection) {\r\n                    d = MCDirections.fromLegacyHanging((byte) tag.asInt(\"Dir\"));\r\n                } else {\r\n                    d = tag.asInt(\"Facing\");\r\n                }\r\n                Direction direction = MCDirections.fromHanging(d);\r\n                if (direction != null) {\r\n                    Vector3 vector = transform.apply(direction.toVector()).subtract(transform.apply(Vector3.ZERO)).normalize();\r\n                    Direction newDirection = Direction.findClosest(vector, Flag.CARDINAL);\r\n                    if (newDirection != null) {\r\n                        byte hangingByte = (byte) MCDirections.toHanging(newDirection);\r\n                        builder.putByte(\"Direction\", hangingByte);\r\n                        builder.putByte(\"Facing\", hangingByte);\r\n                        builder.putByte(\"Dir\", MCDirections.toLegacyHanging(MCDirections.toHanging(newDirection)));\r\n                    }\r\n                }\r\n            }\r\n            return new BaseEntity(state.getType(), builder.build());\r\n        }\r\n    }\r\n    return state;\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.extension.platform.PlatformManager.getPlatforms",
+	"Comment": "get a list of loaded platforms.the returned list is a copy of the original and is mutable.",
+	"Method": "List<Platform> getPlatforms(){\r\n    return new ArrayList(platforms);\r\n}"
+}, {
+	"Path": "cn.edu.hfut.dmic.webcollector.example.DemoBingCrawler.createBingUrl",
+	"Comment": "construct the bing search url by the search keyword and the pageindex",
+	"Method": "String createBingUrl(String keyword,int pageIndex){\r\n    int first = pageIndex * 10 - 9;\r\n    keyword = URLEncoder.encode(keyword, \"utf-8\");\r\n    return String.format(\"http://cn.bing.com/search?q=%s&first=%s\", keyword, first);\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.EditSession.makeWalls",
+	"Comment": "make the walls of the given region. the method by which the walls are foundmay be inefficient, because there may not be an efficient implementation supportedfor that specific shape.",
+	"Method": "int makeWalls(Region region,Pattern pattern){\r\n    checkNotNull(region);\r\n    checkNotNull(pattern);\r\n    if (region instanceof CuboidRegion) {\r\n        return makeCuboidWalls(region, pattern);\r\n    } else {\r\n        final int minY = region.getMinimumPoint().getBlockY();\r\n        final int maxY = region.getMaximumPoint().getBlockY();\r\n        final ArbitraryShape shape = new RegionShape(region) {\r\n            @Override\r\n            protected BlockStateHolder getMaterial(int x, int y, int z, BlockStateHolder defaultMaterial) {\r\n                if (y > maxY || y < minY) {\r\n                    return defaultMaterial;\r\n                }\r\n                return super.getMaterial(x, y, z, defaultMaterial);\r\n            }\r\n        };\r\n        return shape.generate(this, pattern, true);\r\n    }\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.EditSession.makeWalls",
+	"Comment": "make the walls of the given region. the method by which the walls are foundmay be inefficient, because there may not be an efficient implementation supportedfor that specific shape.",
+	"Method": "int makeWalls(Region region,Pattern pattern){\r\n    if (y > maxY || y < minY) {\r\n        return defaultMaterial;\r\n    }\r\n    return super.getMaterial(x, y, z, defaultMaterial);\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.math.BlockVector2.toBlockVector3",
+	"Comment": "creates a 3d vector by adding the specified y component to this vector.",
+	"Method": "BlockVector3 toBlockVector3(BlockVector3 toBlockVector3,int y){\r\n    return BlockVector3.at(x, y, z);\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.util.eventbus.EventBus.subscribe",
+	"Comment": "registers the given handler for the given class to receive events.",
+	"Method": "void subscribe(Class<?> clazz,EventHandler handler){\r\n    checkNotNull(clazz);\r\n    checkNotNull(handler);\r\n    handlersByType.put(clazz, handler);\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.command.FlattenedClipboardTransform.copyTo",
+	"Comment": "create an operation to copy from the original clipboard to the given extent.",
+	"Method": "Operation copyTo(Extent target){\r\n    BlockTransformExtent extent = new BlockTransformExtent(original, transform);\r\n    ForwardExtentCopy copy = new ForwardExtentCopy(extent, original.getRegion(), original.getOrigin(), target, original.getOrigin());\r\n    copy.setTransform(transform);\r\n    return copy;\r\n}"
+}, {
+	"Path": "com.xabber.android.data.time.FastDatePrinter.applyRulesToString",
+	"Comment": "creates a string representation of the given calendar by applying the rules of this printer to it.",
+	"Method": "String applyRulesToString(Calendar c){\r\n    return applyRules(c, new StringBuffer(mMaxLengthEstimate)).toString();\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.regions.polyhedron.Triangle.below",
+	"Comment": "returns whether the given point is above the plane the triangle is in.",
+	"Method": "boolean below(Vector3 pt){\r\n    checkNotNull(pt);\r\n    return normal.dot(pt) < b;\r\n}"
+}, {
+	"Path": "github.ankushsachdeva.emojicon.EmojiconsPopup.showAtBottomPending",
+	"Comment": "use this function when the soft keyboard has not been opened yet. thiswill show the emoji popup after the keyboard is up next time.generally, you will be calling inputmethodmanager.showsoftinput function aftercalling this function.",
+	"Method": "void showAtBottomPending(){\r\n    if (isKeyBoardOpen())\r\n        showAtBottom();\r\n    else\r\n        pendingOpen = true;\r\n}"
+}, {
+	"Path": "com.xabber.xmpp.SerializerUtils.serialize",
+	"Comment": "serialize container using its element name, namespace and content.",
+	"Method": "void serialize(XmlSerializer serializer,Container container){\r\n    serializer.setPrefix(\"\", container.getNamespace());\r\n    serializer.startTag(container.getNamespace(), container.getElementName());\r\n    container.serializeContent(serializer);\r\n    serializer.endTag(container.getNamespace(), container.getElementName());\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.EditSession.getBlockChangeCount",
+	"Comment": "get the number of blocks changed, including repeated block changes.this number may not be accurate.",
+	"Method": "int getBlockChangeCount(){\r\n    return changeSet.size();\r\n}"
+}, {
+	"Path": "org.web3j.crypto.Sign.signedPrefixedMessageToKey",
+	"Comment": "given an arbitrary message and an ethereum message signature encoded in bytes,returns the public key that was used to sign it. this can then be compared to theexpected public key to determine if the signature was correct.",
+	"Method": "BigInteger signedPrefixedMessageToKey(byte[] message,SignatureData signatureData){\r\n    return signedMessageHashToKey(getEthereumMessageHash(message), signatureData);\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.math.BlockVector3.transform2D",
+	"Comment": "perform a 2d transformation on this vector and return a new one.",
+	"Method": "BlockVector3 transform2D(double angle,double aboutX,double aboutZ,double translateX,double translateZ){\r\n    angle = Math.toRadians(angle);\r\n    double x = this.x - aboutX;\r\n    double z = this.z - aboutZ;\r\n    double cos = Math.cos(angle);\r\n    double sin = Math.sin(angle);\r\n    double x2 = x * cos - z * sin;\r\n    double z2 = x * sin + z * cos;\r\n    return BlockVector3.at(x2 + aboutX + translateX, y, z2 + aboutZ + translateZ);\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.math.Vector2.normalize",
+	"Comment": "get the normalized vector, which is the vector divided by itslength, as a new vector.",
+	"Method": "Vector2 normalize(){\r\n    return divide(length());\r\n}"
+}, {
+	"Path": "org.xbill.DNS.ExtLookup.run",
+	"Comment": "performs the lookup, using the specified cache, resolver, and search path.",
+	"Method": "Record[] run(){\r\n    if (done)\r\n        reset();\r\n    if (name.isAbsolute())\r\n        resolve(name, null);\r\n    else if (searchPath == null)\r\n        resolve(name, Name.root);\r\n    else {\r\n        if (name.labels() > defaultNdots)\r\n            resolve(name, Name.root);\r\n        if (done)\r\n            return answers;\r\n        for (int i = 0; i < searchPath.length; i++) {\r\n            resolve(name, searchPath[i]);\r\n            if (done)\r\n                return answers;\r\n            else if (foundAlias)\r\n                break;\r\n        }\r\n    }\r\n    if (!done) {\r\n        if (badresponse) {\r\n            result = TRY_AGAIN;\r\n            error = badresponse_error;\r\n            done = true;\r\n        } else if (timedout) {\r\n            result = TRY_AGAIN;\r\n            error = \"timed out\";\r\n            done = true;\r\n        } else if (networkerror) {\r\n            result = TRY_AGAIN;\r\n            error = \"network error\";\r\n            done = true;\r\n        } else if (nxdomain) {\r\n            result = HOST_NOT_FOUND;\r\n            done = true;\r\n        } else if (referral) {\r\n            result = UNRECOVERABLE;\r\n            error = \"referral\";\r\n            done = true;\r\n        } else if (nametoolong) {\r\n            result = UNRECOVERABLE;\r\n            error = \"name too long\";\r\n            done = true;\r\n        }\r\n    }\r\n    return answers;\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.math.BlockVector2.transform2D",
+	"Comment": "perform a 2d transformation on this vector and return a new one.",
+	"Method": "BlockVector2 transform2D(double angle,double aboutX,double aboutZ,double translateX,double translateZ){\r\n    angle = Math.toRadians(angle);\r\n    double x = this.x - aboutX;\r\n    double z = this.z - aboutZ;\r\n    double cos = Math.cos(angle);\r\n    double sin = Math.sin(angle);\r\n    double x2 = x * cos - z * sin;\r\n    double z2 = x * sin + z * cos;\r\n    return BlockVector2.at(x2 + aboutX + translateX, z2 + aboutZ + translateZ);\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.world.block.BaseBlock.equalsFuzzy",
+	"Comment": "checks if the type is the same, and if the matched states are the same.",
+	"Method": "boolean equalsFuzzy(BlockStateHolder o){\r\n    return this.toImmutableState().equalsFuzzy(o);\r\n}"
+}, {
+	"Path": "com.xabber.android.data.time.FastDateFormat.getInstance",
+	"Comment": "gets a formatter instance using the specified pattern, time zoneand locale.",
+	"Method": "FastDateFormat getInstance(FastDateFormat getInstance,String pattern,FastDateFormat getInstance,String pattern,TimeZone timeZone,FastDateFormat getInstance,String pattern,Locale locale,FastDateFormat getInstance,String pattern,TimeZone timeZone,Locale locale){\r\n    return cache.getInstance(pattern, timeZone, locale);\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.world.entity.EntityType.getName",
+	"Comment": "gets the name of this item, or the id if the name cannot be found.",
+	"Method": "String getName(){\r\n    return getId();\r\n}"
+}, {
+	"Path": "org.web3j.protocol.parity.methods.response.ParityAllAccountsInfo.getAccountsInfo",
+	"Comment": "we need to use a map type as a string value is returned with the account information",
+	"Method": "Map<String, AccountsInfo> getAccountsInfo(){\r\n    return getResult();\r\n}"
+}, {
+	"Path": "com.xabber.android.data.extension.privatestorage.XabberOptionsPrivateData.getNames",
+	"Comment": "returns a set of the names that can be used to getvalues of the private data.",
+	"Method": "Set<String> getNames(){\r\n    if (map == null) {\r\n        return Collections.<String>emptySet();\r\n    }\r\n    return Collections.unmodifiableSet(map.keySet());\r\n}"
+}, {
+	"Path": "com.sk89q.util.yaml.YAMLNode.getBoolean",
+	"Comment": "gets a boolean at a location. this will either return an booleanor the default value. if the object at the particular location is notactually a boolean, the default value will be returned.",
+	"Method": "Boolean getBoolean(String path,boolean getBoolean,String path,boolean def){\r\n    Boolean o = castBoolean(getProperty(path));\r\n    if (o == null) {\r\n        if (writeDefaults)\r\n            setProperty(path, def);\r\n        return def;\r\n    } else {\r\n        return o;\r\n    }\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.LocalSession.remember",
+	"Comment": "remember an edit session for the undo history. if the history maximumsize is reached, old edit sessions will be discarded.",
+	"Method": "void remember(EditSession editSession){\r\n    checkNotNull(editSession);\r\n    if (editSession.size() == 0)\r\n        return;\r\n    while (historyPointer < history.size()) {\r\n        history.remove(historyPointer);\r\n    }\r\n    history.add(editSession);\r\n    while (history.size() > MAX_HISTORY_SIZE) {\r\n        history.remove(0);\r\n    }\r\n    historyPointer = history.size();\r\n}"
+}, {
+	"Path": "org.web3j.ens.EnsResolver.reverseResolve",
+	"Comment": "reverse name resolution as documented in thespecification.",
+	"Method": "String reverseResolve(String address){\r\n    if (WalletUtils.isValidAddress(address)) {\r\n        String reverseName = Numeric.cleanHexPrefix(address) + REVERSE_NAME_SUFFIX;\r\n        PublicResolver resolver = obtainPublicResolver(reverseName);\r\n        byte[] nameHash = NameHash.nameHashAsBytes(reverseName);\r\n        String name = null;\r\n        try {\r\n            name = resolver.name(nameHash).send();\r\n        } catch (Exception e) {\r\n            throw new RuntimeException(\"Unable to execute Ethereum request\", e);\r\n        }\r\n        if (!isValidEnsName(name)) {\r\n            throw new RuntimeException(\"Unable to resolve name for address: \" + address);\r\n        } else {\r\n            return name;\r\n        }\r\n    } else {\r\n        throw new EnsResolutionException(\"Address is invalid: \" + address);\r\n    }\r\n}"
+}, {
+	"Path": "com.xabber.android.data.database.MessageDatabaseManager.getNewBackgroundRealm",
+	"Comment": "creates new realm instance for use from background thread.realm should be closed after use.",
+	"Method": "Realm getNewBackgroundRealm(){\r\n    if (Looper.myLooper() == Looper.getMainLooper()) {\r\n        throw new IllegalStateException(\"Request background thread message realm from UI thread\");\r\n    }\r\n    return Realm.getInstance(realmConfiguration);\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.math.Vector3.add",
+	"Comment": "add a list of vectors to this vector and return theresult as a new vector.",
+	"Method": "Vector3 add(Vector3 other,Vector3 add,double x,double y,double z,Vector3 add,Vector3 others){\r\n    double newX = x, newY = y, newZ = z;\r\n    for (Vector3 other : others) {\r\n        newX += other.x;\r\n        newY += other.y;\r\n        newZ += other.z;\r\n    }\r\n    return Vector3.at(newX, newY, newZ);\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.util.TargetBlock.getTargetBlock",
+	"Comment": "returns the block at the sight. returns null if out of range or if noviable target was found",
+	"Method": "Location getTargetBlock(){\r\n    while (getNextBlock() != null && world.getBlock(targetPos).getBlockType().getMaterial().isAir()) ;\r\n    return getCurrentBlock();\r\n}"
+}, {
+	"Path": "com.xabber.android.ui.adapter.AccountActionButtonsAdapter.rebuild",
+	"Comment": "rebuild list of accounts.call it on account creation, deletion, enable or disable.",
+	"Method": "void rebuild(){\r\n    accounts.clear();\r\n    accounts.addAll(AccountManager.getInstance().getEnabledAccounts());\r\n    Collections.sort(accounts);\r\n    final int size = accounts.size();\r\n    final LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);\r\n    while (linearLayout.getChildCount() < size) {\r\n        View view = inflater.inflate(R.layout.account_action_button, linearLayout, false);\r\n        view.setOnClickListener(onClickListener);\r\n        linearLayout.addView(view);\r\n    }\r\n    while (linearLayout.getChildCount() > size) {\r\n        linearLayout.removeViewAt(size);\r\n    }\r\n    onChange();\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.math.Vector3.sortByCoordsYzx",
+	"Comment": "returns a comparator that sorts vectors first by y, then z, then x.useful for sorting by chunk block storage order.",
+	"Method": "Comparator<Vector3> sortByCoordsYzx(){\r\n    return YzxOrderComparator.YZX_ORDER;\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.util.TargetBlock.getSolidTargetBlock",
+	"Comment": "returns the block at the sight. returns null if out of range or if noviable target was found",
+	"Method": "Location getSolidTargetBlock(){\r\n    while (getNextBlock() != null && !world.getBlock(targetPos).getBlockType().getMaterial().isMovementBlocker()) ;\r\n    return getCurrentBlock();\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.WorldEdit.getInstance",
+	"Comment": "gets the current instance of this class.an instance will always be available, but no platform may yet beregistered with worldedit, meaning that a number of operationsmay fail. however, event handlers can be registered.",
+	"Method": "WorldEdit getInstance(){\r\n    return instance;\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.world.block.BlockType.getName",
+	"Comment": "gets the name of this block, or the id if the name cannot be found.",
+	"Method": "String getName(){\r\n    BundledBlockData.BlockEntry entry = BundledBlockData.getInstance().findById(this.id);\r\n    if (entry == null) {\r\n        return getId();\r\n    } else {\r\n        return entry.localizedName;\r\n    }\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.math.Vector3.abs",
+	"Comment": "returns a vector with the absolute values of the components ofthis vector.",
+	"Method": "Vector3 abs(){\r\n    return Vector3.at(Math.abs(x), Math.abs(y), Math.abs(z));\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.EditSession.fixLiquid",
+	"Comment": "fix liquids so that they turn into stationary blocks and extend outward.",
+	"Method": "int fixLiquid(BlockVector3 origin,double radius,BlockType fluid){\r\n    checkNotNull(origin);\r\n    checkArgument(radius >= 0, \"radius >= 0 required\");\r\n    Mask liquidMask = new BlockTypeMask(this, fluid);\r\n    MaskIntersection blockMask = new MaskUnion(liquidMask, Masks.negate(new ExistingBlockMask(this)));\r\n    MaskIntersection mask = new MaskIntersection(new BoundedHeightMask(0, Math.min(origin.getBlockY(), getWorld().getMaxY())), new RegionMask(new EllipsoidRegion(null, origin, Vector3.at(radius, radius, radius))), blockMask);\r\n    BlockReplace replace = new BlockReplace(this, new BlockPattern(fluid.getDefaultState()));\r\n    NonRisingVisitor visitor = new NonRisingVisitor(mask, replace);\r\n    for (BlockVector3 position : CuboidRegion.fromCenter(origin, 1)) {\r\n        if (liquidMask.test(position)) {\r\n            visitor.visit(position);\r\n        }\r\n    }\r\n    Operations.completeLegacy(visitor);\r\n    return visitor.getAffected();\r\n}"
+}, {
+	"Path": "com.xabber.android.data.ActivityManager.fetchTaskIndex",
+	"Comment": "fetch task index from the intent and mark specified activity.",
+	"Method": "void fetchTaskIndex(Activity activity,Intent intent){\r\n    int index = intent.getIntExtra(EXTRA_TASK_INDEX, -1);\r\n    if (index == -1)\r\n        return;\r\n    LogManager.i(activity, \"Fetch task index \" + index);\r\n    taskIndexes.put(activity, index);\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.blocks.Blocks.shouldPlaceFinal",
+	"Comment": "checks to see whether a block should be placed in the final queue.this applies to blocks that can be attached to other blocks that have an attachment.",
+	"Method": "boolean shouldPlaceFinal(BlockType type){\r\n    return shouldPlaceFinal.contains(type);\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.math.BlockVector2.toVector3",
+	"Comment": "creates a 3d vector by adding the specified y component to this vector.",
+	"Method": "Vector3 toVector3(Vector3 toVector3,double y){\r\n    return Vector3.at(x, y, z);\r\n}"
+}, {
+	"Path": "ysoserial.payloads.TestHarnessTest.testHarnessExecPass",
+	"Comment": "make sure test harness passes properly with trivial execution gadget",
+	"Method": "void testHarnessExecPass(){\r\n    PayloadsTest.testPayload(ExecMockPayload.class, new Class[] { ExecMockSerializable.class });\r\n}"
+}, {
+	"Path": "github.ankushsachdeva.emojicon.EmojiconsPopup.setSizeForSoftKeyboard",
+	"Comment": "call this function to resize the emoji popup according to your soft keyboard size",
+	"Method": "void setSizeForSoftKeyboard(){\r\n    rootView.getViewTreeObserver().addOnGlobalLayoutListener(new OnGlobalLayoutListener() {\r\n        @Override\r\n        public void onGlobalLayout() {\r\n            Rect r = new Rect();\r\n            rootView.getWindowVisibleDisplayFrame(r);\r\n            int screenHeight = rootView.getRootView().getHeight();\r\n            int heightDifference = screenHeight - (r.bottom - r.top);\r\n            int resourceId = mContext.getResources().getIdentifier(\"status_bar_height\", \"dimen\", \"android\");\r\n            if (resourceId > 0) {\r\n                heightDifference -= mContext.getResources().getDimensionPixelSize(resourceId);\r\n            }\r\n            if (heightDifference > lessThanKeyboardHeight) {\r\n                keyBoardHeight = heightDifference - screenHeightDelta;\r\n                setSize(LayoutParams.MATCH_PARENT, keyBoardHeight);\r\n                if (!isOpened) {\r\n                    if (onSoftKeyboardOpenCloseListener != null)\r\n                        onSoftKeyboardOpenCloseListener.onKeyboardOpen(keyBoardHeight);\r\n                }\r\n                isOpened = true;\r\n                if (pendingOpen) {\r\n                    showAtBottom();\r\n                    pendingOpen = false;\r\n                }\r\n            } else {\r\n                screenHeightDelta = heightDifference;\r\n                isOpened = false;\r\n                if (onSoftKeyboardOpenCloseListener != null)\r\n                    onSoftKeyboardOpenCloseListener.onKeyboardClose();\r\n            }\r\n        }\r\n    });\r\n}"
+}, {
+	"Path": "github.ankushsachdeva.emojicon.EmojiconsPopup.setSizeForSoftKeyboard",
+	"Comment": "call this function to resize the emoji popup according to your soft keyboard size",
+	"Method": "void setSizeForSoftKeyboard(){\r\n    Rect r = new Rect();\r\n    rootView.getWindowVisibleDisplayFrame(r);\r\n    int screenHeight = rootView.getRootView().getHeight();\r\n    int heightDifference = screenHeight - (r.bottom - r.top);\r\n    int resourceId = mContext.getResources().getIdentifier(\"status_bar_height\", \"dimen\", \"android\");\r\n    if (resourceId > 0) {\r\n        heightDifference -= mContext.getResources().getDimensionPixelSize(resourceId);\r\n    }\r\n    if (heightDifference > lessThanKeyboardHeight) {\r\n        keyBoardHeight = heightDifference - screenHeightDelta;\r\n        setSize(LayoutParams.MATCH_PARENT, keyBoardHeight);\r\n        if (!isOpened) {\r\n            if (onSoftKeyboardOpenCloseListener != null)\r\n                onSoftKeyboardOpenCloseListener.onKeyboardOpen(keyBoardHeight);\r\n        }\r\n        isOpened = true;\r\n        if (pendingOpen) {\r\n            showAtBottom();\r\n            pendingOpen = false;\r\n        }\r\n    } else {\r\n        screenHeightDelta = heightDifference;\r\n        isOpened = false;\r\n        if (onSoftKeyboardOpenCloseListener != null)\r\n            onSoftKeyboardOpenCloseListener.onKeyboardClose();\r\n    }\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.math.BlockVector3.subtract",
+	"Comment": "subtract a list of vectors from this vector and return the resultas a new vector.",
+	"Method": "BlockVector3 subtract(BlockVector3 other,BlockVector3 subtract,int x,int y,int z,BlockVector3 subtract,BlockVector3 others){\r\n    int newX = x, newY = y, newZ = z;\r\n    for (BlockVector3 other : others) {\r\n        newX -= other.x;\r\n        newY -= other.y;\r\n        newZ -= other.z;\r\n    }\r\n    return BlockVector3.at(newX, newY, newZ);\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.session.PasteBuilder.ignoreAirBlocks",
+	"Comment": "set whether air blocks in the source are skipped over when pasting.",
+	"Method": "PasteBuilder ignoreAirBlocks(boolean ignoreAirBlocks){\r\n    this.ignoreAirBlocks = ignoreAirBlocks;\r\n    return this;\r\n}"
+}, {
+	"Path": "org.web3j.utils.Async.defaultExecutorService",
+	"Comment": "provide a new scheduledexecutorservice instance.a shutdown hook is created to terminate the thread pool on application termination.",
+	"Method": "ScheduledExecutorService defaultExecutorService(){\r\n    ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(getCpuCount());\r\n    Runtime.getRuntime().addShutdownHook(new Thread(() -> shutdown(scheduledExecutorService)));\r\n    return scheduledExecutorService;\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.extension.platform.PlatformManager.getWorldForEditing",
+	"Comment": "given a world, possibly return the same world but using a differentplatform preferred for world editing operations.",
+	"Method": "World getWorldForEditing(World base){\r\n    checkNotNull(base);\r\n    World match = queryCapability(Capability.WORLD_EDITING).matchWorld(base);\r\n    return match != null ? match : base;\r\n}"
+}, {
+	"Path": "me.chanjar.weixin.common.util.res.StringManager.getManager",
+	"Comment": "retrieve the stringmanager for a list of locales. the first stringmanagerfound will be returned.",
+	"Method": "StringManager getManager(String packageName,StringManager getManager,String packageName,Locale locale,StringManager getManager,String packageName,Enumeration<Locale> requestedLocales){\r\n    while (requestedLocales.hasMoreElements()) {\r\n        Locale locale = requestedLocales.nextElement();\r\n        StringManager result = getManager(packageName, locale);\r\n        if (result.getLocale().equals(locale)) {\r\n            return result;\r\n        }\r\n    }\r\n    return getManager(packageName);\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.regions.CylinderRegion.createRadius",
+	"Comment": "return a new instance with the given center and radius in the x and zaxes with a y that extends from the bottom of the extent to the topof the extent.",
+	"Method": "CylinderRegion createRadius(Extent extent,BlockVector3 center,double radius){\r\n    checkNotNull(extent);\r\n    checkNotNull(center);\r\n    Vector2 radiusVec = Vector2.at(radius, radius);\r\n    int minY = extent.getMinimumPoint().getBlockY();\r\n    int maxY = extent.getMaximumPoint().getBlockY();\r\n    return new CylinderRegion(center, radiusVec, minY, maxY);\r\n}"
+}, {
+	"Path": "org.web3j.protocol.core.ResponseTest.testEthBlockFullTransactionsGeth",
+	"Comment": "remove once geth & parity return the same v value in transactions",
+	"Method": "void testEthBlockFullTransactionsGeth(){\r\n    buildResponse(\"{\\n\" + \"\\\"id\\\":1,\\n\" + \"\\\"jsonrpc\\\":\\\"2.0\\\",\\n\" + \"\\\"result\\\": {\\n\" + \"    \\\"number\\\": \\\"0x1b4\\\",\\n\" + \"    \\\"hash\\\": \\\"0xe670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331\\\",\\n\" + \"    \\\"parentHash\\\": \\\"0x9646252be9520f6e71339a8df9c55e4d7619deeb018d2a3f2d21fc165dde5eb5\\\",\\n\" + \"    \\\"nonce\\\": \\\"0xe04d296d2460cfb8472af2c5fd05b5a214109c25688d3704aed5484f9a7792f2\\\",\\n\" + \"    \\\"sha3Uncles\\\": \\\"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\\\",\\n\" + \"    \\\"logsBloom\\\": \\\"0xe670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331\\\",\\n\" + \"    \\\"transactionsRoot\\\": \\\"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\\\",\\n\" + \"    \\\"stateRoot\\\": \\\"0xd5855eb08b3387c0af375e9cdb6acfc05eb8f519e419b874b6ff2ffda7ed1dff\\\",\\n\" + \"    \\\"receiptsRoot\\\": \\\"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\\\",\\n\" + \"    \\\"author\\\": \\\"0x1a95ad5ccdb0677af951810c6ddf4935afe4e5a6\\\",\\n\" + \"    \\\"miner\\\": \\\"0x4e65fda2159562a496f9f3522f89122a3088497a\\\",\\n\" + \"    \\\"mixHash\\\": \\\"0x57919c4e72e79ad7705a26e7ecd5a08ff546ac4fa37882e9cc57be87a3dab26b\\\",\\n\" + \"    \\\"difficulty\\\": \\\"0x027f07\\\",\\n\" + \"    \\\"totalDifficulty\\\":  \\\"0x027f07\\\",\\n\" + \"    \\\"extraData\\\": \\\"0x0000000000000000000000000000000000000000000000000000000000000000\\\",\\n\" + \"    \\\"size\\\":  \\\"0x027f07\\\",\\n\" + \"    \\\"gasLimit\\\": \\\"0x9f759\\\",\\n\" + \"    \\\"gasUsed\\\": \\\"0x9f759\\\",\\n\" + \"    \\\"timestamp\\\": \\\"0x54e34e8e\\\",\\n\" + \"    \\\"transactions\\\": [{\" + \"        \\\"hash\\\":\\\"0xc6ef2fc5426d6ad6fd9e2a26abeab0aa2411b7ab17f30a99d3cb96aed1d1055b\\\",\\n\" + \"        \\\"nonce\\\":\\\"0x\\\",\\n\" + \"        \\\"blockHash\\\": \\\"0xbeab0aa2411b7ab17f30a99d3cb9c6ef2fc5426d6ad6fd9e2a26a6aed1d1055b\\\",\\n\" + \"        \\\"blockNumber\\\": \\\"0x15df\\\",\\n\" + \"        \\\"transactionIndex\\\":  \\\"0x1\\\",\\n\" + \"        \\\"from\\\":\\\"0x407d73d8a49eeb85d32cf465507dd71d507100c1\\\",\\n\" + \"        \\\"to\\\":\\\"0x85h43d8a49eeb85d32cf465507dd71d507100c1\\\",\\n\" + \"        \\\"value\\\":\\\"0x7f110\\\",\\n\" + \"        \\\"gas\\\": \\\"0x7f110\\\",\\n\" + \"        \\\"gasPrice\\\":\\\"0x09184e72a000\\\",\\n\" + \"        \\\"input\\\":\\\"0x603880600c6000396000f300603880600c6000396000f3603880600c6000396000f360\\\",\" + \"        \\\"creates\\\":null,\\n\" + \"        \\\"publicKey\\\":\\\"0x6614d7d7bfe989295821985de0439e868b26ff05f98ae0da0ce5bccc24ea368a083b785323c9fcb405dd4c10a2c95d93312a1b2d68beb24ab4ea7c3c2f7c455b\\\",\\n\" + \"        \\\"raw\\\":\\\"0xf8cd83103a048504a817c800830e57e0945927c5cc723c4486f93bf90bad3be8831139499e80b864140f8dd300000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000c03905df347aa6490d5a98fbb8d8e49520000000000000000000000000000000000000000000000000000000057d56ee61ba0f115cc4d7516dd430046504e1c888198e0323e8ded016d755f89c226ba3481dca04a2ae8ee49f1100b5c0202b37ed8bacf4caeddebde6b7f77e12e7a55893e9f62\\\",\\n\" + \"        \\\"r\\\":\\\"0xf115cc4d7516dd430046504e1c888198e0323e8ded016d755f89c226ba3481dc\\\",\\n\" + \"        \\\"s\\\":\\\"0x4a2ae8ee49f1100b5c0202b37ed8bacf4caeddebde6b7f77e12e7a55893e9f62\\\",\\n\" + \"        \\\"v\\\":\\\"0x9d\\\"\\n\" + \"    }], \\n\" + \"    \\\"uncles\\\": [\\n\" + \"       \\\"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\\\",\\n\" + \"       \\\"0xd5855eb08b3387c0af375e9cdb6acfc05eb8f519e419b874b6ff2ffda7ed1dff\\\"\\n\" + \"    ],\\n\" + \"    \\\"sealFields\\\": [\\n\" + \"       \\\"0x57919c4e72e79ad7705a26e7ecd5a08ff546ac4fa37882e9cc57be87a3dab26b\\\",\\n\" + \"       \\\"0x39a3eb432fbef1fc\\\"\\n\" + \"    ]\\n\" + \"  }\\n\" + \"}\");\r\n    EthBlock ethBlock = deserialiseResponse(EthBlock.class);\r\n    EthBlock.Block block = new // CHECKSTYLE:OFF\r\n    EthBlock.Block(// CHECKSTYLE:OFF\r\n    \"0x1b4\", // CHECKSTYLE:OFF\r\n    \"0xe670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331\", // CHECKSTYLE:OFF\r\n    \"0x9646252be9520f6e71339a8df9c55e4d7619deeb018d2a3f2d21fc165dde5eb5\", // CHECKSTYLE:OFF\r\n    \"0xe04d296d2460cfb8472af2c5fd05b5a214109c25688d3704aed5484f9a7792f2\", // CHECKSTYLE:OFF\r\n    \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", // CHECKSTYLE:OFF\r\n    \"0xe670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331\", // CHECKSTYLE:OFF\r\n    \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", // CHECKSTYLE:OFF\r\n    \"0xd5855eb08b3387c0af375e9cdb6acfc05eb8f519e419b874b6ff2ffda7ed1dff\", // CHECKSTYLE:OFF\r\n    \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", // CHECKSTYLE:OFF\r\n    \"0x1a95ad5ccdb0677af951810c6ddf4935afe4e5a6\", // CHECKSTYLE:OFF\r\n    \"0x4e65fda2159562a496f9f3522f89122a3088497a\", // CHECKSTYLE:OFF\r\n    \"0x57919c4e72e79ad7705a26e7ecd5a08ff546ac4fa37882e9cc57be87a3dab26b\", // CHECKSTYLE:OFF\r\n    \"0x027f07\", // CHECKSTYLE:OFF\r\n    \"0x027f07\", // CHECKSTYLE:OFF\r\n    \"0x0000000000000000000000000000000000000000000000000000000000000000\", // CHECKSTYLE:OFF\r\n    \"0x027f07\", // CHECKSTYLE:OFF\r\n    \"0x9f759\", // CHECKSTYLE:OFF\r\n    \"0x9f759\", \"0x54e34e8e\", Arrays.asList(new EthBlock.TransactionObject(\"0xc6ef2fc5426d6ad6fd9e2a26abeab0aa2411b7ab17f30a99d3cb96aed1d1055b\", \"0x\", \"0xbeab0aa2411b7ab17f30a99d3cb9c6ef2fc5426d6ad6fd9e2a26a6aed1d1055b\", \"0x15df\", \"0x1\", \"0x407d73d8a49eeb85d32cf465507dd71d507100c1\", \"0x85h43d8a49eeb85d32cf465507dd71d507100c1\", \"0x7f110\", \"0x7f110\", \"0x09184e72a000\", \"0x603880600c6000396000f300603880600c6000396000f3603880600c6000396000f360\", null, \"0x6614d7d7bfe989295821985de0439e868b26ff05f98ae0da0ce5bccc24ea368a083b785323c9fcb405dd4c10a2c95d93312a1b2d68beb24ab4ea7c3c2f7c455b\", \"0xf8cd83103a048504a817c800830e57e0945927c5cc723c4486f93bf90bad3be8831139499e80b864140f8dd300000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000c03905df347aa6490d5a98fbb8d8e49520000000000000000000000000000000000000000000000000000000057d56ee61ba0f115cc4d7516dd430046504e1c888198e0323e8ded016d755f89c226ba3481dca04a2ae8ee49f1100b5c0202b37ed8bacf4caeddebde6b7f77e12e7a55893e9f62\", \"0xf115cc4d7516dd430046504e1c888198e0323e8ded016d755f89c226ba3481dc\", \"0x4a2ae8ee49f1100b5c0202b37ed8bacf4caeddebde6b7f77e12e7a55893e9f62\", 0x9d)), Arrays.asList(\"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"0xd5855eb08b3387c0af375e9cdb6acfc05eb8f519e419b874b6ff2ffda7ed1dff\"), Arrays.asList(\"0x57919c4e72e79ad7705a26e7ecd5a08ff546ac4fa37882e9cc57be87a3dab26b\", \"0x39a3eb432fbef1fc\"));\r\n    assertThat(ethBlock.getBlock(), equalTo(block));\r\n}"
+}, {
+	"Path": "org.xbill.DNS.ExtLookup.getDefaultResolver",
+	"Comment": "gets the resolver that will be used as the default by future lookups.",
+	"Method": "Resolver getDefaultResolver(){\r\n    return defaultResolver;\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.scripting.CraftScriptContext.checkArgs",
+	"Comment": "checks to make sure that there are enough but not too many arguments.",
+	"Method": "void checkArgs(int min,int max,String usage){\r\n    if (args.length <= min || (max != -1 && args.length - 1 > max)) {\r\n        throw new InsufficientArgumentsException(\"Usage: \" + usage);\r\n    }\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.util.command.binding.PrimitiveBindings.parseNumericInput",
+	"Comment": "try to parse numeric input as either a number or a mathematical expression.",
+	"Method": "Double parseNumericInput(String input){\r\n    if (input == null) {\r\n        return null;\r\n    }\r\n    try {\r\n        return Double.parseDouble(input);\r\n    } catch (NumberFormatException e1) {\r\n        try {\r\n            Expression expression = Expression.compile(input);\r\n            return expression.evaluate();\r\n        } catch (EvaluationException e) {\r\n            throw new ParameterException(String.format(\"Expected '%s' to be a valid number (or a valid mathematical expression)\", input));\r\n        } catch (ExpressionException e) {\r\n            throw new ParameterException(String.format(\"Expected '%s' to be a number or valid math expression (error: %s)\", input, e.getMessage()));\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.LocalSession.getRegionSelector",
+	"Comment": "get the region selector for defining the selection. if the selectionwas defined for a different world, the old selection will be discarded.",
+	"Method": "RegionSelector getRegionSelector(World world){\r\n    checkNotNull(world);\r\n    if (selector.getWorld() == null || !selector.getWorld().equals(world)) {\r\n        selector.setWorld(world);\r\n        selector.clear();\r\n    }\r\n    return selector;\r\n}"
+}, {
+	"Path": "com.xabber.android.ui.activity.ChatActivity.createSendIntent",
+	"Comment": "create intent to send message.contact list will not be shown on when chat will be closed.",
+	"Method": "Intent createSendIntent(Context context,AccountJid account,UserJid user,String text){\r\n    Intent intent = ChatActivity.createSpecificChatIntent(context, account, user);\r\n    intent.setAction(Intent.ACTION_SEND);\r\n    intent.putExtra(Intent.EXTRA_TEXT, text);\r\n    AbstractChat chat = MessageManager.getInstance().getChat(account, user);\r\n    intent.putExtra(KEY_SHOW_ARCHIVED, chat != null && chat.isArchived());\r\n    return intent;\r\n}"
+}, {
+	"Path": "com.sk89q.util.yaml.YAMLNode.getVector",
+	"Comment": "gets a string at a location. this will either return an vectoror the default value. if the object at the particular location is notactually a string, it will be converted to its string representation.",
+	"Method": "Vector3 getVector(String path,Vector3 getVector,String path,Vector3 def){\r\n    Vector3 v = getVector(path);\r\n    if (v == null) {\r\n        if (writeDefaults)\r\n            setProperty(path, def);\r\n        return def;\r\n    }\r\n    return v;\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.world.item.ItemType.getBlockType",
+	"Comment": "gets the block representation of this item type, if it exists.",
+	"Method": "BlockType getBlockType(){\r\n    return BlockTypes.get(this.id);\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.function.visitor.LayerVisitor.setMask",
+	"Comment": "set the mask that determines which columns within the flat regionwill be visited.",
+	"Method": "void setMask(Mask2D mask){\r\n    checkNotNull(mask);\r\n    this.mask = mask;\r\n}"
+}, {
+	"Path": "org.web3j.crypto.Sign.recoverFromSignature",
+	"Comment": "given the components of a signature and a selector value, recover and return the publickey that generated the signature according to the algorithm in sec1v2 section 4.1.6.the recid is an index from 0 to 3 which indicates which of the 4 possible keys is thecorrect one. because the key recovery operation yields multiple potential keys, the correctkey must either be stored alongside thesignature, or you must be willing to try each recid in turn until you find one that outputsthe key you are expecting.if this method returns null it means recovery was not possible and recid should beiterated.given the above two points, a correct usage of this method is inside a for loop from0 to 3, and if the output is null or a key that is not the one you expect, you try againwith the next recid.",
+	"Method": "BigInteger recoverFromSignature(int recId,ECDSASignature sig,byte[] message){\r\n    verifyPrecondition(recId >= 0, \"recId must be positive\");\r\n    verifyPrecondition(sig.r.signum() >= 0, \"r must be positive\");\r\n    verifyPrecondition(sig.s.signum() >= 0, \"s must be positive\");\r\n    verifyPrecondition(message != null, \"message cannot be null\");\r\n    BigInteger n = CURVE.getN();\r\n    BigInteger i = BigInteger.valueOf((long) recId / 2);\r\n    BigInteger x = sig.r.add(i.multiply(n));\r\n    BigInteger prime = SecP256K1Curve.q;\r\n    if (x.compareTo(prime) >= 0) {\r\n        return null;\r\n    }\r\n    ECPoint R = decompressKey(x, (recId & 1) == 1);\r\n    if (!R.multiply(n).isInfinity()) {\r\n        return null;\r\n    }\r\n    BigInteger e = new BigInteger(1, message);\r\n    BigInteger eInv = BigInteger.ZERO.subtract(e).mod(n);\r\n    BigInteger rInv = sig.r.modInverse(n);\r\n    BigInteger srInv = rInv.multiply(sig.s).mod(n);\r\n    BigInteger eInvrInv = rInv.multiply(eInv).mod(n);\r\n    ECPoint q = ECAlgorithms.sumOfTwoMultiplies(CURVE.getG(), eInvrInv, R, srInv);\r\n    byte[] qBytes = q.getEncoded(false);\r\n    return new BigInteger(1, Arrays.copyOfRange(qBytes, 1, qBytes.length));\r\n}"
+}, {
+	"Path": "com.sk89q.jnbt.ListTag.getList",
+	"Comment": "get a list of tags named with the given index.if the index does not exist or its value is not a list tag,then an empty list will be returned. if the given index referencesa list but the list of of a different type, then an emptylist will also be returned.",
+	"Method": "List<Tag> getList(int index,List<T> getList,int index,Class<T> listType){\r\n    Tag tag = getIfExists(index);\r\n    if (tag instanceof ListTag) {\r\n        ListTag listTag = (ListTag) tag;\r\n        if (listTag.getType().equals(listType)) {\r\n            return (List<T>) listTag.getValue();\r\n        } else {\r\n            return Collections.emptyList();\r\n        }\r\n    } else {\r\n        return Collections.emptyList();\r\n    }\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.math.Vector2.add",
+	"Comment": "add a list of vectors to this vector and return theresult as a new vector.",
+	"Method": "Vector2 add(Vector2 other,Vector2 add,double x,double z,Vector2 add,Vector2 others){\r\n    double newX = x, newZ = z;\r\n    for (Vector2 other : others) {\r\n        newX += other.x;\r\n        newZ += other.z;\r\n    }\r\n    return Vector2.at(newX, newZ);\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.math.geom.Polygons.polygonizeCylinder",
+	"Comment": "calculates the polygon shape of a cylinder which can then be used for e.g. intersection detection.",
+	"Method": "List<BlockVector2> polygonizeCylinder(BlockVector2 center,Vector2 radius,int maxPoints){\r\n    int nPoints = (int) Math.ceil(Math.PI * radius.length());\r\n    if (maxPoints >= 0 && nPoints >= maxPoints) {\r\n        nPoints = maxPoints - 1;\r\n    }\r\n    final List<BlockVector2> points = new ArrayList(nPoints);\r\n    for (int i = 0; i < nPoints; ++i) {\r\n        double angle = i * (2.0 * Math.PI) / nPoints;\r\n        final Vector2 pos = Vector2.at(Math.cos(angle), Math.sin(angle));\r\n        final BlockVector2 blockVector2D = pos.multiply(radius).toBlockPoint().add(center);\r\n        points.add(blockVector2D);\r\n    }\r\n    return points;\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.util.command.parametric.ParametricBuilder.setDefaultCompleter",
+	"Comment": "set the default command suggestions provider that will be used ifno suggestions are available.",
+	"Method": "void setDefaultCompleter(CommandCompleter defaultCompleter){\r\n    checkNotNull(defaultCompleter);\r\n    this.defaultCompleter = defaultCompleter;\r\n}"
+}, {
+	"Path": "com.sk89q.util.yaml.YAMLNode.getKeys",
+	"Comment": "get a list of keys at a location. if the map at the particular locationdoes not exist or it is not a map, null will be returned.",
+	"Method": "List<String> getKeys(String path){\r\n    if (path == null)\r\n        return new ArrayList(root.keySet());\r\n    Object o = getProperty(path);\r\n    if (o == null) {\r\n        return null;\r\n    } else if (o instanceof Map) {\r\n        return new ArrayList(((Map<String, Object>) o).keySet());\r\n    } else {\r\n        return null;\r\n    }\r\n}"
+}, {
+	"Path": "com.xabber.android.data.extension.cs.ChatStateManager.getChatState",
+	"Comment": "returns best information chat state for specified bare address.",
+	"Method": "ChatState getChatState(AccountJid account,UserJid bareAddress){\r\n    Map<Resourcepart, ChatState> map = chatStates.get(account.toString(), bareAddress.toString());\r\n    if (map == null) {\r\n        return null;\r\n    }\r\n    ChatState chatState = null;\r\n    for (ChatState check : map.values()) {\r\n        if (chatState == null || check.compareTo(chatState) < 0) {\r\n            chatState = check;\r\n        }\r\n    }\r\n    return chatState;\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.math.BlockVector3.distanceSq",
+	"Comment": "get the distance between this vector and another vector, squared.",
+	"Method": "int distanceSq(BlockVector3 other){\r\n    int dx = other.x - x;\r\n    int dy = other.y - y;\r\n    int dz = other.z - z;\r\n    return dx * dx + dy * dy + dz * dz;\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.util.Location.setPosition",
+	"Comment": "return a copy of this object with the position set to the given value.",
+	"Method": "Location setPosition(Vector3 position){\r\n    return new Location(extent, position, yaw, pitch);\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.math.Vector3.multiply",
+	"Comment": "multiply this vector by zero or more vectors on each component.",
+	"Method": "Vector3 multiply(Vector3 other,Vector3 multiply,double x,double y,double z,Vector3 multiply,Vector3 others,Vector3 multiply,double n){\r\n    return multiply(n, n, n);\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.regions.polyhedron.Triangle.above",
+	"Comment": "returns whether the given point is above the plane the triangle is in.",
+	"Method": "boolean above(Vector3 pt){\r\n    checkNotNull(pt);\r\n    return normal.dot(pt) > b;\r\n}"
+}, {
+	"Path": "com.xabber.android.presentation.mvp.contactlist.ContactListPresenter.unbindView",
+	"Comment": "force stop contact list updates before pause or application close.",
+	"Method": "void unbindView(){\r\n    this.view = null;\r\n    Application.getInstance().removeUIListener(OnAccountChangedListener.class, this);\r\n    Application.getInstance().removeUIListener(OnContactChangedListener.class, this);\r\n    EventBus.getDefault().unregister(this);\r\n    updateBackpressure.removeRefreshRequests();\r\n}"
+}, {
+	"Path": "cn.edu.hfut.dmic.webcollector.example.DemoAnnotatedBingCrawler.createBingUrl",
+	"Comment": "construct the bing search url by the search keyword and the pageindex",
+	"Method": "String createBingUrl(String keyword,int pageIndex){\r\n    int first = pageIndex * 10 - 9;\r\n    keyword = URLEncoder.encode(keyword, \"utf-8\");\r\n    return String.format(\"http://cn.bing.com/search?q=%s&first=%s\", keyword, first);\r\n}"
+}, {
+	"Path": "org.web3j.protocol.core.filters.BlockFilter.getFilterLogs",
+	"Comment": "since the block filter does not support historic filters, the filterid is ignoredand an empty optional is returned.",
+	"Method": "Optional<Request<?, EthLog>> getFilterLogs(BigInteger filterId){\r\n    return Optional.empty();\r\n}"
+}, {
+	"Path": "com.sk89q.minecraft.util.commands.CommandsManager.hasCommand",
+	"Comment": "checks to see whether there is a command named such at the root level.this will check aliases as well.",
+	"Method": "boolean hasCommand(String command){\r\n    return commands.get(null).containsKey(command.toLowerCase());\r\n}"
+}, {
+	"Path": "org.web3j.ens.EnsResolver.obtainPublicResolver",
+	"Comment": "provides an access to a valid public resolver in order to access other api methods.",
+	"Method": "PublicResolver obtainPublicResolver(String ensName){\r\n    if (isValidEnsName(ensName)) {\r\n        try {\r\n            if (!isSynced()) {\r\n                throw new EnsResolutionException(\"Node is not currently synced\");\r\n            } else {\r\n                return lookupResolver(ensName);\r\n            }\r\n        } catch (Exception e) {\r\n            throw new EnsResolutionException(\"Unable to determine sync status of node\", e);\r\n        }\r\n    } else {\r\n        throw new EnsResolutionException(\"EnsName is invalid: \" + ensName);\r\n    }\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.bukkit.BukkitAdapter.equals",
+	"Comment": "checks equality between a worldedit blocktype and a bukkit material",
+	"Method": "boolean equals(BlockType blockType,Material type){\r\n    return Objects.equals(blockType.getId(), type.getKey().toString());\r\n}"
+}, {
+	"Path": "com.xabber.android.data.time.FastDatePrinter.applyRules",
+	"Comment": "performs the formatting by applying the rules to thespecified calendar.",
+	"Method": "StringBuffer applyRules(Calendar calendar,StringBuffer buf){\r\n    for (final Rule rule : mRules) {\r\n        rule.appendTo(buf, calendar);\r\n    }\r\n    return buf;\r\n}"
+}, {
+	"Path": "com.xabber.android.data.time.FastDateFormat.applyRules",
+	"Comment": "performs the formatting by applying the rules to thespecified calendar.",
+	"Method": "StringBuffer applyRules(Calendar calendar,StringBuffer buf){\r\n    return printer.applyRules(calendar, buf);\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.extent.transform.BlockTransformExtent.transform",
+	"Comment": "transform the given block using the given transform.the provided block is modified.",
+	"Method": "T transform(T block,Transform transform,T transform,T block,Transform transform,T changedBlock){\r\n    checkNotNull(block);\r\n    checkNotNull(transform);\r\n    List<? extends Property> properties = block.getBlockType().getProperties();\r\n    for (Property<?> property : properties) {\r\n        if (property instanceof DirectionalProperty) {\r\n            Direction value = (Direction) block.getState(property);\r\n            if (value != null) {\r\n                Vector3 newValue = getNewStateValue((List<Direction>) property.getValues(), transform, value.toVector());\r\n                if (newValue != null) {\r\n                    changedBlock = (T) changedBlock.with(property, Direction.findClosest(newValue, Direction.Flag.ALL));\r\n                }\r\n            }\r\n        } else if (property instanceof EnumProperty) {\r\n            if (property.getName().equals(\"axis\")) {\r\n                Direction value = null;\r\n                switch((String) block.getState(property)) {\r\n                    case \"x\":\r\n                        value = Direction.EAST;\r\n                        break;\r\n                    case \"y\":\r\n                        value = Direction.UP;\r\n                        break;\r\n                    case \"z\":\r\n                        value = Direction.NORTH;\r\n                        break;\r\n                }\r\n                if (value != null) {\r\n                    Vector3 newValue = getNewStateValue(Direction.valuesOf(Direction.Flag.UPRIGHT | Direction.Flag.CARDINAL), transform, value.toVector());\r\n                    if (newValue != null) {\r\n                        String axis = null;\r\n                        Direction newDir = Direction.findClosest(newValue, Direction.Flag.UPRIGHT | Direction.Flag.CARDINAL);\r\n                        if (newDir == Direction.NORTH || newDir == Direction.SOUTH) {\r\n                            axis = \"z\";\r\n                        } else if (newDir == Direction.EAST || newDir == Direction.WEST) {\r\n                            axis = \"x\";\r\n                        } else if (newDir == Direction.UP || newDir == Direction.DOWN) {\r\n                            axis = \"y\";\r\n                        }\r\n                        if (axis != null) {\r\n                            changedBlock = (T) changedBlock.with(property, axis);\r\n                        }\r\n                    }\r\n                }\r\n            }\r\n        }\r\n    }\r\n    List<String> directionalProperties = properties.stream().filter(prop -> prop instanceof BooleanProperty).filter(prop -> directionNames.contains(prop.getName())).filter(property -> (Boolean) block.getState(property)).map(Property::getName).map(String::toUpperCase).map(Direction::valueOf).map(dir -> Direction.findClosest(transform.apply(dir.toVector()), Direction.Flag.CARDINAL)).filter(Objects::nonNull).map(Direction::name).map(String::toLowerCase).collect(Collectors.toList());\r\n    if (directionalProperties.size() > 0) {\r\n        for (String directionName : directionNames) {\r\n            changedBlock = (T) changedBlock.with(block.getBlockType().getProperty(directionName), directionalProperties.contains(directionName));\r\n        }\r\n    }\r\n    return changedBlock;\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.math.Vector2.multiply",
+	"Comment": "multiply this vector by zero or more vectors on each component.",
+	"Method": "Vector2 multiply(Vector2 other,Vector2 multiply,double x,double z,Vector2 multiply,Vector2 others,Vector2 multiply,double n){\r\n    return multiply(n, n);\r\n}"
+}, {
+	"Path": "com.xabber.xmpp.SerializerUtils.toXml",
+	"Comment": "returned packet as string with xml. string is ready to be written to thestream.",
+	"Method": "String toXml(Instance instance){\r\n    Writer writer = new StringWriter();\r\n    XmlSerializer serializer = Xml.newSerializer();\r\n    try {\r\n        serializer.setOutput(writer);\r\n        instance.serialize(serializer);\r\n        serializer.flush();\r\n    } catch (IOException e) {\r\n        return \"\";\r\n    }\r\n    return writer.toString();\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.math.BlockVector3.sortByCoordsYzx",
+	"Comment": "returns a comparator that sorts vectors first by y, then z, then x.useful for sorting by chunk block storage order.",
+	"Method": "Comparator<BlockVector3> sortByCoordsYzx(){\r\n    return YzxOrderComparator.YZX_ORDER;\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.extension.platform.PlatformManager.createProxyActor",
+	"Comment": "given an actor, return a new one that may use a different platformfor permissions and world editing.",
+	"Method": "T createProxyActor(T base){\r\n    checkNotNull(base);\r\n    if (base instanceof Player) {\r\n        Player player = (Player) base;\r\n        Player permActor = queryCapability(Capability.PERMISSIONS).matchPlayer(player);\r\n        if (permActor == null) {\r\n            permActor = player;\r\n        }\r\n        Player cuiActor = queryCapability(Capability.WORLDEDIT_CUI).matchPlayer(player);\r\n        if (cuiActor == null) {\r\n            cuiActor = player;\r\n        }\r\n        return (T) new PlayerProxy(player, permActor, cuiActor, getWorldForEditing(player.getWorld()));\r\n    } else {\r\n        return base;\r\n    }\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.function.block.ExtentBlockCopy.transformNbtData",
+	"Comment": "transform nbt data in the given block state and return a new instanceif the nbt data needs to be transformed.",
+	"Method": "BaseBlock transformNbtData(BaseBlock state){\r\n    CompoundTag tag = state.getNbtData();\r\n    if (tag != null) {\r\n        if (tag.containsKey(\"Rot\")) {\r\n            int rot = tag.asInt(\"Rot\");\r\n            Direction direction = MCDirections.fromRotation(rot);\r\n            if (direction != null) {\r\n                Vector3 vector = transform.apply(direction.toVector()).subtract(transform.apply(Vector3.ZERO)).normalize();\r\n                Direction newDirection = Direction.findClosest(vector, Flag.CARDINAL | Flag.ORDINAL | Flag.SECONDARY_ORDINAL);\r\n                if (newDirection != null) {\r\n                    CompoundTagBuilder builder = tag.createBuilder();\r\n                    builder.putByte(\"Rot\", (byte) MCDirections.toRotation(newDirection));\r\n                    return state.toBaseBlock(builder.build());\r\n                }\r\n            }\r\n        }\r\n    }\r\n    return state;\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.internal.cui.ServerCUIHandler.createStructureBlock",
+	"Comment": "creates a structure block that shows the region.null symbolises removal of the cui.",
+	"Method": "BaseBlock createStructureBlock(Player player){\r\n    LocalSession session = WorldEdit.getInstance().getSessionManager().get(player);\r\n    RegionSelector regionSelector = session.getRegionSelector(player.getWorld());\r\n    int posX, posY, posZ;\r\n    int width, height, length;\r\n    if (regionSelector instanceof CuboidRegionSelector) {\r\n        if (regionSelector.isDefined()) {\r\n            try {\r\n                CuboidRegion region = ((CuboidRegionSelector) regionSelector).getRegion();\r\n                posX = region.getMinimumPoint().getBlockX();\r\n                posY = region.getMinimumPoint().getBlockY();\r\n                posZ = region.getMinimumPoint().getBlockZ();\r\n                width = region.getWidth();\r\n                height = region.getHeight();\r\n                length = region.getLength();\r\n            } catch (IncompleteRegionException e) {\r\n                e.printStackTrace();\r\n                return null;\r\n            }\r\n        } else {\r\n            CuboidRegion region = ((CuboidRegionSelector) regionSelector).getIncompleteRegion();\r\n            BlockVector3 point;\r\n            if (region.getPos1() != null) {\r\n                point = region.getPos1();\r\n            } else if (region.getPos2() != null) {\r\n                point = region.getPos2();\r\n            } else {\r\n                return null;\r\n            }\r\n            posX = point.getBlockX();\r\n            posY = point.getBlockY();\r\n            posZ = point.getBlockZ();\r\n            width = 1;\r\n            height = 1;\r\n            length = 1;\r\n        }\r\n    } else {\r\n        return null;\r\n    }\r\n    if (width > 32 || length > 32 || height > 32) {\r\n        return null;\r\n    }\r\n    double rotX = player.getLocation().getYaw();\r\n    double rotY = player.getLocation().getPitch();\r\n    double xz = Math.cos(Math.toRadians(rotY));\r\n    int x = (int) (player.getLocation().getX() - (-xz * Math.sin(Math.toRadians(rotX))) * 12);\r\n    int z = (int) (player.getLocation().getZ() - (xz * Math.cos(Math.toRadians(rotX))) * 12);\r\n    int y = Math.max(0, Math.min(Math.min(255, posY + 32), posY + 3));\r\n    Map<String, Tag> structureTag = new HashMap();\r\n    posX -= x;\r\n    posY -= y;\r\n    posZ -= z;\r\n    if (Math.abs(posX) > 32 || Math.abs(posY) > 32 || Math.abs(posZ) > 32) {\r\n        return null;\r\n    }\r\n    structureTag.put(\"name\", new StringTag(\"worldedit:\" + player.getName()));\r\n    structureTag.put(\"author\", new StringTag(player.getName()));\r\n    structureTag.put(\"metadata\", new StringTag(\"\"));\r\n    structureTag.put(\"x\", new IntTag(x));\r\n    structureTag.put(\"y\", new IntTag(y));\r\n    structureTag.put(\"z\", new IntTag(z));\r\n    structureTag.put(\"posX\", new IntTag(posX));\r\n    structureTag.put(\"posY\", new IntTag(posY));\r\n    structureTag.put(\"posZ\", new IntTag(posZ));\r\n    structureTag.put(\"sizeX\", new IntTag(width));\r\n    structureTag.put(\"sizeY\", new IntTag(height));\r\n    structureTag.put(\"sizeZ\", new IntTag(length));\r\n    structureTag.put(\"rotation\", new StringTag(\"NONE\"));\r\n    structureTag.put(\"mirror\", new StringTag(\"NONE\"));\r\n    structureTag.put(\"mode\", new StringTag(\"SAVE\"));\r\n    structureTag.put(\"ignoreEntities\", new ByteTag((byte) 1));\r\n    structureTag.put(\"showboundingbox\", new ByteTag((byte) 1));\r\n    structureTag.put(\"id\", new StringTag(BlockTypes.STRUCTURE_BLOCK.getId()));\r\n    return BlockTypes.STRUCTURE_BLOCK.getDefaultState().toBaseBlock(new CompoundTag(structureTag));\r\n}"
+}, {
+	"Path": "org.web3j.crypto.TransactionUtils.generateTransactionHash",
+	"Comment": "utility method to provide the transaction hash for a given transaction.",
+	"Method": "byte[] generateTransactionHash(RawTransaction rawTransaction,Credentials credentials,byte[] generateTransactionHash,RawTransaction rawTransaction,byte chainId,Credentials credentials){\r\n    byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, chainId, credentials);\r\n    return Hash.sha3(signedMessage);\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.world.item.ItemType.getName",
+	"Comment": "gets the name of this item, or the id if the name cannot be found.",
+	"Method": "String getName(){\r\n    BundledItemData.ItemEntry entry = BundledItemData.getInstance().findById(this.id);\r\n    if (entry == null) {\r\n        return getId();\r\n    } else {\r\n        return entry.localizedName;\r\n    }\r\n}"
+}, {
+	"Path": "com.sk89q.minecraft.util.commands.CommandsManager.registerMethods",
+	"Comment": "register the methods of a class. this will automatically constructinstances as necessary.",
+	"Method": "List<Command> registerMethods(Class<?> cls,Method parent,List<Command> registerMethods,Class<?> cls,Method parent,Object obj){\r\n    Map<String, Method> map;\r\n    List<Command> registered = new ArrayList();\r\n    if (commands.containsKey(parent)) {\r\n        map = commands.get(parent);\r\n    } else {\r\n        map = new HashMap();\r\n        commands.put(parent, map);\r\n    }\r\n    for (Method method : cls.getMethods()) {\r\n        if (!method.isAnnotationPresent(Command.class)) {\r\n            continue;\r\n        }\r\n        boolean isStatic = Modifier.isStatic(method.getModifiers());\r\n        Command cmd = method.getAnnotation(Command.class);\r\n        for (String alias : cmd.aliases()) {\r\n            map.put(alias, method);\r\n        }\r\n        if (!isStatic) {\r\n            if (obj == null) {\r\n                continue;\r\n            }\r\n            instances.put(method, obj);\r\n        }\r\n        if (parent == null) {\r\n            final String commandName = cmd.aliases()[0];\r\n            final String desc = cmd.desc();\r\n            final String usage = cmd.usage();\r\n            if (usage.isEmpty()) {\r\n                descs.put(commandName, desc);\r\n            } else {\r\n                descs.put(commandName, usage + \" - \" + desc);\r\n            }\r\n            String help = cmd.help();\r\n            if (help.isEmpty()) {\r\n                help = desc;\r\n            }\r\n            final CharSequence arguments = getArguments(cmd);\r\n            for (String alias : cmd.aliases()) {\r\n                final String helpMessage = \"/\" + alias + \" \" + arguments + \"\\n\\n\" + help;\r\n                final String key = alias.replaceAll(\"/\", \"\");\r\n                String previous = helpMessages.put(key, helpMessage);\r\n                if (previous != null && !previous.replaceAll(\"^/[^ ]+ \", \"\").equals(helpMessage.replaceAll(\"^/[^ ]+ \", \"\"))) {\r\n                    helpMessages.put(key, previous + \"\\n\\n\" + helpMessage);\r\n                }\r\n            }\r\n        }\r\n        registered.add(cmd);\r\n        if (method.isAnnotationPresent(NestedCommand.class)) {\r\n            NestedCommand nestedCmd = method.getAnnotation(NestedCommand.class);\r\n            for (Class<?> nestedCls : nestedCmd.value()) {\r\n                registerMethods(nestedCls, method);\r\n            }\r\n        }\r\n    }\r\n    if (cls.getSuperclass() != null) {\r\n        registerMethods(cls.getSuperclass(), parent, obj);\r\n    }\r\n    return registered;\r\n}"
+}, {
+	"Path": "com.sk89q.util.yaml.YAMLNode.getString",
+	"Comment": "gets a string at a location. this will either return an stringor the default value. if the object at the particular location is notactually a string, it will be converted to its string representation.",
+	"Method": "String getString(String path,String getString,String path,String def){\r\n    String o = getString(path);\r\n    if (o == null) {\r\n        if (writeDefaults)\r\n            setProperty(path, def);\r\n        return def;\r\n    }\r\n    return o;\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.bukkit.BukkitAdapter.adapt",
+	"Comment": "create a bukkit blockdata from a worldedit blockstateholder",
+	"Method": "World adapt(org.bukkit.World world,BukkitPlayer adapt,Player player,Player adapt,com.sk89q.worldedit.entity.Player player,org.bukkit.World adapt,World world,Location adapt,org.bukkit.Location location,org.bukkit.Location adapt,Location location,org.bukkit.Location adapt,org.bukkit.World world,Vector3 position,org.bukkit.Location adapt,org.bukkit.World world,BlockVector3 position,org.bukkit.Location adapt,org.bukkit.World world,Location location,Entity adapt,org.bukkit.entity.Entity entity,Material adapt,ItemType itemType,Material adapt,BlockType blockType,GameMode adapt,org.bukkit.GameMode gameMode,EntityType adapt,org.bukkit.entity.EntityType entityType,org.bukkit.entity.EntityType adapt,EntityType entityType,BlockState adapt,BlockData blockData,BlockData adapt,BlockStateHolder block,BaseItemStack adapt,ItemStack itemStack,ItemStack adapt,BaseItemStack item){\r\n    checkNotNull(item);\r\n    return new ItemStack(adapt(item.getType()), item.getAmount());\r\n}"
+}, {
+	"Path": "com.sk89q.jnbt.ListTag.getByteArray",
+	"Comment": "get a byte array named with the given index.if the index does not exist or its value is not a byte array tag,then an empty byte array will be returned.",
+	"Method": "byte[] getByteArray(int index){\r\n    Tag tag = getIfExists(index);\r\n    if (tag instanceof ByteArrayTag) {\r\n        return ((ByteArrayTag) tag).getValue();\r\n    } else {\r\n        return new byte[0];\r\n    }\r\n}"
+}, {
+	"Path": "org.web3j.abi.FunctionReturnDecoder.decode",
+	"Comment": "decode abi encoded return values from smart contract function call.",
+	"Method": "List<Type> decode(String rawInput,List<TypeReference<Type>> outputParameters){\r\n    String input = Numeric.cleanHexPrefix(rawInput);\r\n    if (Strings.isEmpty(input)) {\r\n        return Collections.emptyList();\r\n    } else {\r\n        return build(input, outputParameters);\r\n    }\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.math.BlockVector3.normalize",
+	"Comment": "get the normalized vector, which is the vector divided by itslength, as a new vector.",
+	"Method": "BlockVector3 normalize(){\r\n    double len = length();\r\n    double x = this.x / len;\r\n    double y = this.y / len;\r\n    double z = this.z / len;\r\n    return BlockVector3.at(x, y, z);\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.LocalSession.isUsingInventory",
+	"Comment": "returns whether inventory usage is enabled for this session.",
+	"Method": "boolean isUsingInventory(){\r\n    return useInventory;\r\n}"
+}, {
+	"Path": "org.xbill.DNS.ExtLookup.getDefaultCache",
+	"Comment": "gets the cache that will be used as the default for the specifiedclass by future lookups.",
+	"Method": "Cache getDefaultCache(int dclass){\r\n    DClass.check(dclass);\r\n    Cache c = (Cache) defaultCaches.get(Mnemonic.toInteger(dclass));\r\n    if (c == null) {\r\n        c = new Cache(dclass);\r\n        defaultCaches.put(Mnemonic.toInteger(dclass), c);\r\n    }\r\n    return c;\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.world.snapshot.SnapshotRepository.getSnapshots",
+	"Comment": "get a list of snapshots in a directory. the newest snapshot isnear the top of the array.",
+	"Method": "List<Snapshot> getSnapshots(boolean newestFirst,String worldName){\r\n    FilenameFilter filter = (dir, name) -> {\r\n        File f = new File(dir, name);\r\n        return isValidSnapshot(f);\r\n    };\r\n    File[] snapshotFiles = dir.listFiles();\r\n    if (snapshotFiles == null) {\r\n        throw new MissingWorldException(worldName);\r\n    }\r\n    List<Snapshot> list = new ArrayList(snapshotFiles.length);\r\n    for (File file : snapshotFiles) {\r\n        if (isValidSnapshot(file)) {\r\n            Snapshot snapshot = new Snapshot(this, file.getName());\r\n            if (snapshot.containsWorld(worldName)) {\r\n                detectDate(snapshot);\r\n                list.add(snapshot);\r\n            }\r\n        } else if (file.isDirectory() && file.getName().equalsIgnoreCase(worldName)) {\r\n            for (String name : file.list(filter)) {\r\n                Snapshot snapshot = new Snapshot(this, file.getName() + \"/\" + name);\r\n                detectDate(snapshot);\r\n                list.add(snapshot);\r\n            }\r\n        }\r\n    }\r\n    if (newestFirst) {\r\n        list.sort(Collections.reverseOrder());\r\n    } else {\r\n        Collections.sort(list);\r\n    }\r\n    return list;\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.function.visitor.LayerVisitor.getMask",
+	"Comment": "get the mask that determines which columns within the flat regionwill be visited.",
+	"Method": "Mask2D getMask(){\r\n    return mask;\r\n}"
+}, {
+	"Path": "com.xabber.android.data.xaccount.XabberAccountManager.updateSettingsWithSaveLastAccount",
+	"Comment": "update account settingsif catches invalid token error disable sync in last account before logoutcalls only in add account function",
+	"Method": "void updateSettingsWithSaveLastAccount(AccountJid jid){\r\n    Subscription updateSettingsSubscription = AuthManager.patchClientSettings(createSettingsList()).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<List<XMPPAccountSettings>>() {\r\n        @Override\r\n        public void call(List<XMPPAccountSettings> s) {\r\n            Log.d(LOG_TAG, \"XMPP accounts loading from net: successfully\");\r\n        }\r\n    }, new Action1<Throwable>() {\r\n        @Override\r\n        public void call(Throwable throwable) {\r\n            Log.d(LOG_TAG, \"XMPP accounts loading from net: error: \" + throwable.toString());\r\n            String message = RetrofitErrorConverter.throwableToHttpError(throwable);\r\n            if (message != null && message.equals(\"Invalid token\")) {\r\n                setAccountSyncState(jid.getFullJid().asBareJid().toString(), false);\r\n                onInvalidToken();\r\n            }\r\n        }\r\n    });\r\n    compositeSubscription.add(updateSettingsSubscription);\r\n}"
+}, {
+	"Path": "com.xabber.android.data.xaccount.XabberAccountManager.updateSettingsWithSaveLastAccount",
+	"Comment": "update account settingsif catches invalid token error disable sync in last account before logoutcalls only in add account function",
+	"Method": "void updateSettingsWithSaveLastAccount(AccountJid jid){\r\n    Log.d(LOG_TAG, \"XMPP accounts loading from net: successfully\");\r\n}"
+}, {
+	"Path": "com.xabber.android.data.xaccount.XabberAccountManager.updateSettingsWithSaveLastAccount",
+	"Comment": "update account settingsif catches invalid token error disable sync in last account before logoutcalls only in add account function",
+	"Method": "void updateSettingsWithSaveLastAccount(AccountJid jid){\r\n    Log.d(LOG_TAG, \"XMPP accounts loading from net: error: \" + throwable.toString());\r\n    String message = RetrofitErrorConverter.throwableToHttpError(throwable);\r\n    if (message != null && message.equals(\"Invalid token\")) {\r\n        setAccountSyncState(jid.getFullJid().asBareJid().toString(), false);\r\n        onInvalidToken();\r\n    }\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.math.BlockVector3.toBlockVector2",
+	"Comment": "creates a 2d vector by dropping the y component from this vector.",
+	"Method": "BlockVector2 toBlockVector2(){\r\n    return BlockVector2.at(x, z);\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.session.ClipboardHolder.getClipboard",
+	"Comment": "get the clipboard.if there is a transformation applied, the returned clipboard willnot contain its effect.",
+	"Method": "Clipboard getClipboard(){\r\n    return clipboard;\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.util.command.InvalidUsageException.isFullHelpSuggested",
+	"Comment": "return whether the full usage of the command should be shown.",
+	"Method": "boolean isFullHelpSuggested(){\r\n    return fullHelpSuggested;\r\n}"
+}, {
+	"Path": "com.xabber.android.data.time.FastDatePrinter.getMaxLengthEstimate",
+	"Comment": "gets an estimate for the maximum string length that theformatter will produce.the actual formatted length will almost always be less than orequal to this amount.",
+	"Method": "int getMaxLengthEstimate(){\r\n    return mMaxLengthEstimate;\r\n}"
+}, {
+	"Path": "com.xabber.android.data.message.chat.ChatManager.setTyped",
+	"Comment": "sets typed message and selection options for specified chat.",
+	"Method": "void setTyped(AccountJid account,UserJid user,String typedMessage,int selectionStart,int selectionEnd){\r\n    ChatInput chat = chatInputs.get(account.toString(), user.toString());\r\n    if (chat == null) {\r\n        chat = new ChatInput();\r\n        chatInputs.put(account.toString(), user.toString(), chat);\r\n    }\r\n    chat.setTyped(typedMessage, selectionStart, selectionEnd);\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.EditSession.removeBelow",
+	"Comment": "remove a cuboid below the given position with a given apothem and a given height.",
+	"Method": "int removeBelow(BlockVector3 position,int apothem,int height){\r\n    checkNotNull(position);\r\n    checkArgument(apothem >= 1, \"apothem >= 1\");\r\n    checkArgument(height >= 1, \"height >= 1\");\r\n    Region region = new CuboidRegion(getWorld(), position.add(-apothem + 1, 0, -apothem + 1), position.add(apothem - 1, -height + 1, apothem - 1));\r\n    Pattern pattern = new BlockPattern(BlockTypes.AIR.getDefaultState());\r\n    return setBlocks(region, pattern);\r\n}"
+}, {
+	"Path": "com.sk89q.util.yaml.YAMLNode.getDouble",
+	"Comment": "gets a double at a location. this will either return an doubleor the default value. if the object at the particular location is notactually a double, the default value will be returned. however, othernumber types will be casted to an double.",
+	"Method": "Double getDouble(String path,double getDouble,String path,double def){\r\n    Double o = castDouble(getProperty(path));\r\n    if (o == null) {\r\n        if (writeDefaults)\r\n            setProperty(path, def);\r\n        return def;\r\n    } else {\r\n        return o;\r\n    }\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.EditSession.makePumpkinPatches",
+	"Comment": "makes pumpkin patches randomly in an area around the given position.",
+	"Method": "int makePumpkinPatches(BlockVector3 position,int apothem){\r\n    GardenPatchGenerator generator = new GardenPatchGenerator(this);\r\n    generator.setPlant(GardenPatchGenerator.getPumpkinPattern());\r\n    FlatRegion region = new CuboidRegion(getWorld(), position.add(-apothem, -5, -apothem), position.add(apothem, 10, apothem));\r\n    double density = 0.02;\r\n    GroundFunction ground = new GroundFunction(new ExistingBlockMask(this), generator);\r\n    LayerVisitor visitor = new LayerVisitor(region, minimumBlockY(region), maximumBlockY(region), ground);\r\n    visitor.setMask(new NoiseFilter2D(new RandomNoise(), density));\r\n    Operations.completeLegacy(visitor);\r\n    return ground.getAffected();\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.math.Vector3.distanceSq",
+	"Comment": "get the distance between this vector and another vector, squared.",
+	"Method": "double distanceSq(Vector3 other){\r\n    double dx = other.x - x;\r\n    double dy = other.y - y;\r\n    double dz = other.z - z;\r\n    return dx * dx + dy * dy + dz * dz;\r\n}"
+}, {
+	"Path": "org.xbill.DNS.ExtLookup.setCache",
+	"Comment": "sets the cache to use when performing this lookup.this overrides thedefault value.if the results of this lookup should not be permanentlycached, null can be provided here.",
+	"Method": "void setCache(Cache cache){\r\n    if (cache == null) {\r\n        this.cache = new Cache(dclass);\r\n        this.temporary_cache = true;\r\n    } else {\r\n        this.cache = cache;\r\n        this.temporary_cache = false;\r\n    }\r\n}"
+}, {
+	"Path": "org.web3j.crypto.Sign.signedMessageToKey",
+	"Comment": "given an arbitrary piece of text and an ethereum message signature encoded in bytes,returns the public key that was used to sign it. this can then be compared to the expectedpublic key to determine if the signature was correct.",
+	"Method": "BigInteger signedMessageToKey(byte[] message,SignatureData signatureData){\r\n    return signedMessageHashToKey(Hash.sha3(message), signatureData);\r\n}"
+}, {
+	"Path": "cn.edu.hfut.dmic.webcollector.example.DemoAnnotatedRedirectCrawler.createBingUrl",
+	"Comment": "construct the bing search url by the search keyword and the pageindex",
+	"Method": "String createBingUrl(String keyword,int pageIndex){\r\n    int first = pageIndex * 10 - 9;\r\n    keyword = URLEncoder.encode(keyword, \"utf-8\");\r\n    return String.format(\"http://cn.bing.com/search?q=%s&first=%s\", keyword, first);\r\n}"
+}, {
+	"Path": "com.sk89q.jnbt.CompoundTag.getByteArray",
+	"Comment": "get a byte array named with the given key.if the key does not exist or its value is not a byte array tag,then an empty byte array will be returned.",
+	"Method": "byte[] getByteArray(String key){\r\n    Tag tag = value.get(key);\r\n    if (tag instanceof ByteArrayTag) {\r\n        return ((ByteArrayTag) tag).getValue();\r\n    } else {\r\n        return new byte[0];\r\n    }\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.EditSession.setFastMode",
+	"Comment": "set whether fast mode is enabled.fast mode may skip lighting checks or adjacent blocknotification.",
+	"Method": "void setFastMode(boolean enabled){\r\n    if (fastModeExtent != null) {\r\n        fastModeExtent.setEnabled(enabled);\r\n    }\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.EditSessionFactory.getEditSession",
+	"Comment": "construct an edit session with a maximum number of blocks and a block bag.",
+	"Method": "EditSession getEditSession(World world,int maxBlocks,EditSession getEditSession,World world,int maxBlocks,Player player,EditSession getEditSession,World world,int maxBlocks,BlockBag blockBag,EditSession getEditSession,World world,int maxBlocks,BlockBag blockBag,Player player,EditSession getEditSession,World world,int maxBlocks,EditSession getEditSession,World world,int maxBlocks,Player player,EditSession getEditSession,World world,int maxBlocks,BlockBag blockBag,EditSession getEditSession,World world,int maxBlocks,BlockBag blockBag,Player player){\r\n    throw new RuntimeException(\"Method needs to be implemented\");\r\n}"
+}, {
+	"Path": "org.web3j.protocol.core.filters.PendingTransactionFilter.getFilterLogs",
+	"Comment": "since the pending transaction filter does not support historic filters,the filterid is ignored and an empty optional is returned",
+	"Method": "Optional<Request<?, EthLog>> getFilterLogs(BigInteger filterId){\r\n    return Optional.empty();\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.math.Vector2.abs",
+	"Comment": "returns a vector with the absolute values of the components ofthis vector.",
+	"Method": "Vector2 abs(){\r\n    return Vector2.at(Math.abs(x), Math.abs(z));\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.EditSession.makeFaces",
+	"Comment": "make the faces of the given region. the method by which the faces are foundmay be inefficient, because there may not be an efficient implementation supportedfor that specific shape.",
+	"Method": "int makeFaces(Region region,Pattern pattern){\r\n    checkNotNull(region);\r\n    checkNotNull(pattern);\r\n    if (region instanceof CuboidRegion) {\r\n        return makeCuboidFaces(region, pattern);\r\n    } else {\r\n        return new RegionShape(region).generate(this, pattern, true);\r\n    }\r\n}"
+}, {
+	"Path": "com.sk89q.util.yaml.YAMLNode.getNodes",
+	"Comment": "get a list of nodes at a location. if the map at the particular locationdoes not exist or it is not a map, null will be returned.",
+	"Method": "Map<String, YAMLNode> getNodes(String path){\r\n    Object o = getProperty(path);\r\n    if (o == null) {\r\n        return null;\r\n    } else if (o instanceof Map) {\r\n        Map<String, YAMLNode> nodes = new LinkedHashMap();\r\n        for (Map.Entry<String, Object> entry : ((Map<String, Object>) o).entrySet()) {\r\n            if (entry.getValue() instanceof Map) {\r\n                nodes.put(entry.getKey(), new YAMLNode((Map<String, Object>) entry.getValue(), writeDefaults));\r\n            }\r\n        }\r\n        return nodes;\r\n    } else {\r\n        return null;\r\n    }\r\n}"
+}, {
+	"Path": "com.sk89q.util.yaml.YAMLNode.getInt",
+	"Comment": "gets an integer at a location. this will either return an integeror the default value. if the object at the particular location is notactually a integer, the default value will be returned. however, othernumber types will be casted to an integer.",
+	"Method": "Integer getInt(String path,int getInt,String path,int def){\r\n    Integer o = castInt(getProperty(path));\r\n    if (o == null) {\r\n        if (writeDefaults)\r\n            setProperty(path, def);\r\n        return def;\r\n    } else {\r\n        return o;\r\n    }\r\n}"
+}, {
+	"Path": "com.xabber.android.data.time.FastDateFormat.getDateInstance",
+	"Comment": "gets a date formatter instance using the specified style, timezone and locale.",
+	"Method": "FastDateFormat getDateInstance(int style,FastDateFormat getDateInstance,int style,Locale locale,FastDateFormat getDateInstance,int style,TimeZone timeZone,FastDateFormat getDateInstance,int style,TimeZone timeZone,Locale locale){\r\n    return cache.getDateInstance(style, timeZone, locale);\r\n}"
+}, {
+	"Path": "org.xbill.DNS.ExtLookup.setPacketLogger",
+	"Comment": "sets a custom logger that will be used to log the send and received packets.",
+	"Method": "void setPacketLogger(PacketLogger logger){\r\n    Client.setPacketLogger(logger);\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.util.command.parametric.ParametricCallable.checkUnconsumed",
+	"Comment": "check to see if all arguments, including flag arguments, were consumed.",
+	"Method": "void checkUnconsumed(ContextArgumentStack scoped){\r\n    CommandContext context = scoped.getContext();\r\n    String unconsumed;\r\n    String unconsumedFlags = getUnusedFlags(context);\r\n    if ((unconsumed = scoped.getUnconsumed()) != null) {\r\n        throw new UnconsumedParameterException(unconsumed + \" \" + unconsumedFlags);\r\n    }\r\n    if (unconsumedFlags != null) {\r\n        throw new UnconsumedParameterException(unconsumedFlags);\r\n    }\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.util.TreeGenerator.lookup",
+	"Comment": "looks up a tree type. may return null if a tree type by thatname is not found.",
+	"Method": "TreeType lookup(String type){\r\n    return TreeType.lookup(type);\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.math.BlockVector2.subtract",
+	"Comment": "subtract a list of vectors from this vector and return the resultas a new vector.",
+	"Method": "BlockVector2 subtract(BlockVector2 other,BlockVector2 subtract,int x,int z,BlockVector2 subtract,BlockVector2 others){\r\n    int newX = x, newZ = z;\r\n    for (BlockVector2 other : others) {\r\n        newX -= other.x;\r\n        newZ -= other.z;\r\n    }\r\n    return BlockVector2.at(newX, newZ);\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.math.BlockVector2.add",
+	"Comment": "add a list of vectors to this vector and return theresult as a new vector.",
+	"Method": "BlockVector2 add(BlockVector2 other,BlockVector2 add,int x,int z,BlockVector2 add,BlockVector2 others){\r\n    int newX = x, newZ = z;\r\n    for (BlockVector2 other : others) {\r\n        newX += other.x;\r\n        newZ += other.z;\r\n    }\r\n    return BlockVector2.at(newX, newZ);\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.util.formatting.ColorCodeBuilder.wordWrap",
+	"Comment": "word wrap the given text and maintain color codes throughout lines.this is borrowed from bukkit.",
+	"Method": "String[] wordWrap(String rawString,int lineLength){\r\n    if (rawString == null) {\r\n        return new String[] { \"\" };\r\n    }\r\n    if (rawString.length() <= lineLength && !rawString.contains(\"\\n\")) {\r\n        return new String[] { rawString };\r\n    }\r\n    char[] rawChars = (rawString + ' ').toCharArray();\r\n    StringBuilder word = new StringBuilder();\r\n    StringBuilder line = new StringBuilder();\r\n    List<String> lines = new LinkedList();\r\n    int lineColorChars = 0;\r\n    for (int i = 0; i < rawChars.length; i++) {\r\n        char c = rawChars[i];\r\n        if (c == Style.COLOR_CHAR) {\r\n            word.append(Style.getByChar(rawChars[i + 1]));\r\n            lineColorChars += 2;\r\n            i++;\r\n            continue;\r\n        }\r\n        if (c == ' ' || c == '\\n') {\r\n            if (line.length() == 0 && word.length() > lineLength) {\r\n                String wordStr = word.toString();\r\n                String transformed;\r\n                if ((transformed = transform(wordStr)) != null) {\r\n                    line.append(transformed);\r\n                } else {\r\n                    lines.addAll(Arrays.asList(word.toString().split(\"(?<=\\\\G.{\" + lineLength + \"})\")));\r\n                }\r\n            } else if (line.length() + word.length() - lineColorChars == lineLength) {\r\n                line.append(' ');\r\n                line.append(word);\r\n                lines.add(line.toString());\r\n                line = new StringBuilder();\r\n                lineColorChars = 0;\r\n            } else if (line.length() + 1 + word.length() - lineColorChars > lineLength) {\r\n                String wordStr = word.toString();\r\n                String transformed;\r\n                if (word.length() > lineLength && (transformed = transform(wordStr)) != null) {\r\n                    if (line.length() + 1 + transformed.length() - lineColorChars > lineLength) {\r\n                        lines.add(line.toString());\r\n                        line = new StringBuilder(transformed);\r\n                        lineColorChars = 0;\r\n                    } else {\r\n                        if (line.length() > 0) {\r\n                            line.append(' ');\r\n                        }\r\n                        line.append(transformed);\r\n                    }\r\n                } else {\r\n                    for (String partialWord : wordStr.split(\"(?<=\\\\G.{\" + lineLength + \"})\")) {\r\n                        lines.add(line.toString());\r\n                        line = new StringBuilder(partialWord);\r\n                    }\r\n                    lineColorChars = 0;\r\n                }\r\n            } else {\r\n                if (line.length() > 0) {\r\n                    line.append(' ');\r\n                }\r\n                line.append(word);\r\n            }\r\n            word = new StringBuilder();\r\n            if (c == '\\n') {\r\n                lines.add(line.toString());\r\n                line = new StringBuilder();\r\n            }\r\n        } else {\r\n            word.append(c);\r\n        }\r\n    }\r\n    if (line.length() > 0) {\r\n        lines.add(line.toString());\r\n    }\r\n    if (lines.get(0).isEmpty() || lines.get(0).charAt(0) != Style.COLOR_CHAR) {\r\n        lines.set(0, Style.WHITE + lines.get(0));\r\n    }\r\n    for (int i = 1; i < lines.size(); i++) {\r\n        final String pLine = lines.get(i - 1);\r\n        final String subLine = lines.get(i);\r\n        char color = pLine.charAt(pLine.lastIndexOf(Style.COLOR_CHAR) + 1);\r\n        if (subLine.isEmpty() || subLine.charAt(0) != Style.COLOR_CHAR) {\r\n            lines.set(i, Style.getByChar(color) + subLine);\r\n        }\r\n    }\r\n    return lines.toArray(new String[lines.size()]);\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.function.operation.RunContext.shouldContinue",
+	"Comment": "return whether the current operation should still continue running.this method can be called frequently.",
+	"Method": "boolean shouldContinue(){\r\n    return true;\r\n}"
+}, {
+	"Path": "com.xabber.android.data.notification.BaseNotificationProvider.add",
+	"Comment": "adds new or update existed notification item and update notification bar.",
+	"Method": "void add(T item,Boolean notify){\r\n    boolean exists = items.remove(item);\r\n    if (notify == null)\r\n        notify = !exists;\r\n    items.add(item);\r\n    NotificationManager.getInstance().updateNotifications(this, notify ? item : null);\r\n}"
+}, {
+	"Path": "org.web3j.crypto.ContractUtils.generateContractAddress",
+	"Comment": "generate a smart contract address. this enables you to identify what address a smart contract will be deployed to on the network.",
+	"Method": "byte[] generateContractAddress(byte[] address,BigInteger nonce,String generateContractAddress,String address,BigInteger nonce){\r\n    byte[] result = generateContractAddress(Numeric.hexStringToByteArray(address), nonce);\r\n    return Numeric.toHexString(result);\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.util.command.parametric.ContextArgumentStack.getConsumed",
+	"Comment": "return the arguments that were consumed between this point and that marked point.the marked position initially starts at 0.",
+	"Method": "String getConsumed(){\r\n    return context.getString(markedIndex, index);\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.extension.platform.PlatformManager.getConfiguration",
+	"Comment": "get the current configuration.if no platform has been registered yet, then a default configurationwill be returned.",
+	"Method": "LocalConfiguration getConfiguration(){\r\n    return queryCapability(Capability.CONFIGURATION).getConfiguration();\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.extension.platform.PlatformManager.unregister",
+	"Comment": "unregister a platform from worldedit.if the platform has been chosen for any capabilities, then a newplatform will be found.",
+	"Method": "boolean unregister(Platform platform){\r\n    checkNotNull(platform);\r\n    boolean removed = platforms.remove(platform);\r\n    if (removed) {\r\n        logger.log(Level.FINE, \"Unregistering \" + platform.getClass().getCanonicalName() + \" from WorldEdit\");\r\n        boolean choosePreferred = false;\r\n        Iterator<Entry<Capability, Platform>> it = preferences.entrySet().iterator();\r\n        while (it.hasNext()) {\r\n            Entry<Capability, Platform> entry = it.next();\r\n            if (entry.getValue().equals(platform)) {\r\n                entry.getKey().unload(this, entry.getValue());\r\n                it.remove();\r\n                choosePreferred = true;\r\n            }\r\n        }\r\n        if (choosePreferred) {\r\n            choosePreferred();\r\n        }\r\n    }\r\n    return removed;\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.session.request.Request.request",
+	"Comment": "get the current request, which is specific to the current thread.",
+	"Method": "Request request(){\r\n    return threadLocal.get();\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.util.TargetBlock.getAnyTargetBlock",
+	"Comment": "returns any block at the sight. returns null if out of range or if noviable target was found. will try to return the last valid air block it finds.",
+	"Method": "Location getAnyTargetBlock(){\r\n    boolean searchForLastBlock = true;\r\n    Location lastBlock = null;\r\n    while (getNextBlock() != null) {\r\n        if (world.getBlock(targetPos).getBlockType().getMaterial().isAir()) {\r\n            if (searchForLastBlock) {\r\n                lastBlock = getCurrentBlock();\r\n                if (lastBlock.getBlockY() <= 0 || lastBlock.getBlockY() >= world.getMaxY()) {\r\n                    searchForLastBlock = false;\r\n                }\r\n            }\r\n        } else {\r\n            break;\r\n        }\r\n    }\r\n    Location currentBlock = getCurrentBlock();\r\n    return (currentBlock != null ? currentBlock : lastBlock);\r\n}"
+}, {
+	"Path": "com.xabber.android.data.time.FastDateFormat.getMaxLengthEstimate",
+	"Comment": "gets an estimate for the maximum string length that theformatter will produce.the actual formatted length will almost always be less than orequal to this amount.",
+	"Method": "int getMaxLengthEstimate(){\r\n    return printer.getMaxLengthEstimate();\r\n}"
+}, {
+	"Path": "com.xabber.android.data.time.FastDatePrinter.readObject",
+	"Comment": "create the object after serialization. this implementation reinitializes thetransient properties.",
+	"Method": "void readObject(ObjectInputStream in){\r\n    in.defaultReadObject();\r\n    init();\r\n}"
+}, {
+	"Path": "com.sk89q.util.yaml.YAMLNode.getVector2",
+	"Comment": "gets a 2d vector at a location. this will either return an vectoror a null. if the object at the particular location is notactually a string, it will be converted to its string representation.",
+	"Method": "Vector2 getVector2(String path){\r\n    YAMLNode o = getNode(path);\r\n    if (o == null) {\r\n        return null;\r\n    }\r\n    Double x = o.getDouble(\"x\");\r\n    Double z = o.getDouble(\"z\");\r\n    if (x == null || z == null) {\r\n        return null;\r\n    }\r\n    return Vector2.at(x, z);\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.extension.platform.PlatformManager.choosePreferred",
+	"Comment": "choose preferred platforms and perform necessary initialization.",
+	"Method": "void choosePreferred(){\r\n    for (Capability capability : Capability.values()) {\r\n        Platform preferred = findMostPreferred(capability);\r\n        if (preferred != null) {\r\n            preferences.put(capability, preferred);\r\n            capability.initialize(this, preferred);\r\n        }\r\n    }\r\n    if (preferences.containsKey(Capability.CONFIGURATION) && configured.compareAndSet(false, true)) {\r\n        worldEdit.getEventBus().post(new ConfigurationLoadEvent(queryCapability(Capability.CONFIGURATION).getConfiguration()));\r\n    }\r\n}"
+}, {
+	"Path": "com.xabber.android.data.ActivityManager.cancelTask",
+	"Comment": "either move main task to back, either close all activities in subtask.",
+	"Method": "void cancelTask(Activity activity){\r\n    Integer index = taskIndexes.get(activity);\r\n    LogManager.i(activity, \"Cancel task \" + index);\r\n    if (index == null) {\r\n        activity.moveTaskToBack(true);\r\n    } else {\r\n        for (Entry<Activity, Integer> entry : taskIndexes.entrySet()) {\r\n            if (entry.getValue().equals(index)) {\r\n                entry.getKey().finish();\r\n            }\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.math.BlockVector3.multiply",
+	"Comment": "multiply this vector by zero or more vectors on each component.",
+	"Method": "BlockVector3 multiply(BlockVector3 other,BlockVector3 multiply,int x,int y,int z,BlockVector3 multiply,BlockVector3 others,BlockVector3 multiply,int n){\r\n    return multiply(n, n, n);\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.WorldEdit.getEventBus",
+	"Comment": "get the event bus for worldedit.event handlers can be registered on the event bus.",
+	"Method": "EventBus getEventBus(){\r\n    return eventBus;\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.regions.CuboidRegion.makeCuboid",
+	"Comment": "make a cuboid region out of the given region using the minimum and maximumbounds of the provided region.",
+	"Method": "CuboidRegion makeCuboid(Region region){\r\n    checkNotNull(region);\r\n    return new CuboidRegion(region.getMinimumPoint(), region.getMaximumPoint());\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.EditSession.commitRequired",
+	"Comment": "pkg private for tracededitsession only, may later become public api",
+	"Method": "boolean commitRequired(){\r\n    if (isQueueEnabled() && reorderExtent.commitRequired()) {\r\n        return true;\r\n    }\r\n    if (isBatchingChunks() && chunkBatchingExtent.commitRequired()) {\r\n        return true;\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "me.chanjar.weixin.common.session.StandardSession.isValidInternal",
+	"Comment": "return the isvalid flag for this session without any expirationcheck.",
+	"Method": "boolean isValidInternal(){\r\n    return this.isValid;\r\n}"
+}, {
+	"Path": "org.web3j.protocol.websocket.WebSocketClient.setListener",
+	"Comment": "set a listener that will be called when a new message is received by the client.",
+	"Method": "void setListener(WebSocketListener listener){\r\n    this.listenerOpt = Optional.ofNullable(listener);\r\n}"
+}, {
+	"Path": "com.sk89q.util.yaml.YAMLNode.getList",
+	"Comment": "gets a list of objects at a location. if the list is not defined,null will be returned. the node must be an actual list.",
+	"Method": "List<Object> getList(String path){\r\n    Object o = getProperty(path);\r\n    if (o == null) {\r\n        return null;\r\n    } else if (o instanceof List) {\r\n        return (List<Object>) o;\r\n    } else {\r\n        return null;\r\n    }\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.LocalSession.getBrushTool",
+	"Comment": "get the brush tool assigned to the item. if there is no tool assignedor the tool is not assigned, the slot will be replaced with thebrush tool.",
+	"Method": "BrushTool getBrushTool(ItemType item){\r\n    Tool tool = getTool(item);\r\n    if (!(tool instanceof BrushTool)) {\r\n        tool = new BrushTool(\"worldedit.brush.sphere\");\r\n        setTool(item, tool);\r\n    }\r\n    return (BrushTool) tool;\r\n}"
+}, {
+	"Path": "org.xbill.DNS.ExtLookup.getErrorString",
+	"Comment": "returns an error string describing the result code of this lookup.",
+	"Method": "String getErrorString(){\r\n    checkDone();\r\n    if (error != null)\r\n        return error;\r\n    switch(result) {\r\n        case SUCCESSFUL:\r\n            return \"successful\";\r\n        case UNRECOVERABLE:\r\n            return \"unrecoverable error\";\r\n        case TRY_AGAIN:\r\n            return \"try again\";\r\n        case HOST_NOT_FOUND:\r\n            return \"host not found\";\r\n        case TYPE_NOT_FOUND:\r\n            return \"type not found\";\r\n    }\r\n    throw new IllegalStateException(\"unknown result\");\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.EditSession.setBlocks",
+	"Comment": "set blocks that are in a set of positions and return the number of timesthat the block set calls returned true.",
+	"Method": "int setBlocks(Set<BlockVector3> vset,Pattern pattern,int setBlocks,Region region,BlockStateHolder block,int setBlocks,Region region,Pattern pattern){\r\n    checkNotNull(region);\r\n    checkNotNull(pattern);\r\n    BlockReplace replace = new BlockReplace(this, pattern);\r\n    RegionVisitor visitor = new RegionVisitor(region, replace);\r\n    Operations.completeLegacy(visitor);\r\n    return visitor.getAffected();\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.util.formatting.ColorCodeBuilder.getAdditive",
+	"Comment": "get the additional color codes needed to set the given style when the currentstyle is the other given one.",
+	"Method": "String getAdditive(StyleSet resetTo,StyleSet resetFrom){\r\n    if (!resetFrom.hasFormatting() && resetTo.hasFormatting()) {\r\n        StringBuilder builder = new StringBuilder();\r\n        builder.append(getFormattingCode(resetTo));\r\n        if (resetFrom.getColor() != resetTo.getColor()) {\r\n            builder.append(resetTo.getColor());\r\n        }\r\n        return builder.toString();\r\n    } else if (!resetFrom.hasEqualFormatting(resetTo) || (resetFrom.getColor() != null && resetTo.getColor() == null)) {\r\n        return String.valueOf(Style.RESET) + getCode(resetTo);\r\n    } else {\r\n        if (resetFrom.getColor() != resetTo.getColor()) {\r\n            return String.valueOf(resetTo.getColor());\r\n        }\r\n    }\r\n    return \"\";\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.math.BlockVector2.abs",
+	"Comment": "returns a vector with the absolute values of the components ofthis vector.",
+	"Method": "BlockVector2 abs(){\r\n    return BlockVector2.at(Math.abs(x), Math.abs(z));\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.math.interpolation.KochanekBartelsInterpolation.linearCombination",
+	"Comment": "returns the linear combination of the given coefficients with the nodes adjacent to baseindex.",
+	"Method": "Vector3 linearCombination(int baseIndex,double f1,double f2,double f3,double f4){\r\n    final Vector3 r1 = retrieve(baseIndex - 1).multiply(f1);\r\n    final Vector3 r2 = retrieve(baseIndex).multiply(f2);\r\n    final Vector3 r3 = retrieve(baseIndex + 1).multiply(f3);\r\n    final Vector3 r4 = retrieve(baseIndex + 2).multiply(f4);\r\n    return r1.add(r2).add(r3).add(r4);\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.util.Enums.findByValue",
+	"Comment": "search the given enum for a value that is equal to the one of thegiven values, searching in an ascending manner.",
+	"Method": "T findByValue(Class<T> enumType,String values){\r\n    checkNotNull(enumType);\r\n    checkNotNull(values);\r\n    for (String val : values) {\r\n        try {\r\n            return Enum.valueOf(enumType, val);\r\n        } catch (IllegalArgumentException ignored) {\r\n        }\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "com.xabber.android.data.extension.cs.ChatStateManager.isSupported",
+	"Comment": "whether sending chat notification for specified chat is supported.",
+	"Method": "boolean isSupported(AbstractChat chat,boolean outgoingMessage){\r\n    if (chat instanceof RoomChat)\r\n        return false;\r\n    Jid to = chat.getTo();\r\n    BareJid bareAddress = to.asBareJid();\r\n    Resourcepart resource = to.getResourceOrNull();\r\n    Map<Resourcepart, Boolean> map = supports.get(chat.getAccount().toString(), bareAddress.toString());\r\n    if (map != null) {\r\n        if (resource != null && !resource.equals(Resourcepart.EMPTY)) {\r\n            Boolean value = map.get(resource);\r\n            if (value != null)\r\n                return value;\r\n        } else {\r\n            if (outgoingMessage)\r\n                return true;\r\n            for (Boolean value : map.values()) if (value != null && value)\r\n                return true;\r\n        }\r\n    }\r\n    return outgoingMessage;\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.extension.platform.PlatformManager.findMostPreferred",
+	"Comment": "find the most preferred platform for a given capability from the list ofplatforms. this does not use the map of preferred platforms.",
+	"Method": "Platform findMostPreferred(Capability capability){\r\n    Platform preferred = null;\r\n    Preference highest = null;\r\n    for (Platform platform : platforms) {\r\n        Preference preference = platform.getCapabilities().get(capability);\r\n        if (preference != null && (highest == null || preference.isPreferredOver(highest))) {\r\n            preferred = platform;\r\n            highest = preference;\r\n        }\r\n    }\r\n    return preferred;\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.world.block.BlockCategory.contains",
+	"Comment": "checks whether the blockstateholder is contained withinthis category.",
+	"Method": "boolean contains(BlockStateHolder blockStateHolder){\r\n    return this.getAll().contains(blockStateHolder.getBlockType());\r\n}"
+}, {
+	"Path": "com.xabber.android.data.extension.cs.ChatStateManager.updateChatState",
+	"Comment": "update chat state information and send message if necessary.",
+	"Method": "void updateChatState(AccountJid account,UserJid user,ChatState chatState){\r\n    if (!SettingsManager.chatsStateNotification() || sent.get(account.toString(), user.toString()) == chatState) {\r\n        return;\r\n    }\r\n    AbstractChat chat = MessageManager.getInstance().getChat(account, user);\r\n    if (chat == null || !isSupported(chat, false)) {\r\n        return;\r\n    }\r\n    sent.put(chat.getAccount().toString(), chat.getUser().toString(), chatState);\r\n    Message message = new Message();\r\n    message.setType(chat.getType());\r\n    message.setTo(chat.getTo());\r\n    message.addExtension(new ChatStateExtension(chatState));\r\n    try {\r\n        StanzaSender.sendStanza(account, message);\r\n    } catch (NetworkException e) {\r\n    }\r\n}"
+}, {
+	"Path": "com.xabber.android.data.account.AccountItem.setSyncable",
+	"Comment": "sets whether roster contacts can be synchronized with system contactlist.",
+	"Method": "void setSyncable(boolean syncable){\r\n    this.syncable = syncable;\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.EditSession.flushSession",
+	"Comment": "communicate to the editsession that all block changes are complete,and that it should apply them to the world.",
+	"Method": "void flushSession(){\r\n    Operations.completeBlindly(commit());\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.scripting.CraftScriptContext.remember",
+	"Comment": "get an edit session. every subsequent call returns a new edit session.usually you only need to use one edit session.",
+	"Method": "EditSession remember(){\r\n    EditSession editSession = controller.getEditSessionFactory().getEditSession(player.getWorld(), session.getBlockChangeLimit(), session.getBlockBag(player), player);\r\n    editSession.enableStandardMode();\r\n    editSessions.add(editSession);\r\n    return editSession;\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.EditSession.removeAbove",
+	"Comment": "remove a cuboid above the given position with a given apothem and a given height.",
+	"Method": "int removeAbove(BlockVector3 position,int apothem,int height){\r\n    checkNotNull(position);\r\n    checkArgument(apothem >= 1, \"apothem >= 1\");\r\n    checkArgument(height >= 1, \"height >= 1\");\r\n    Region region = new CuboidRegion(getWorld(), position.add(-apothem + 1, 0, -apothem + 1), position.add(apothem - 1, height - 1, apothem - 1));\r\n    Pattern pattern = new BlockPattern(BlockTypes.AIR.getDefaultState());\r\n    return setBlocks(region, pattern);\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.extent.inventory.BlockBagExtent.popMissing",
+	"Comment": "gets the list of missing blocks and clears the list for the nextoperation.",
+	"Method": "Map<BlockType, Integer> popMissing(){\r\n    Map<BlockType, Integer> missingBlocks = this.missingBlocks;\r\n    this.missingBlocks = new HashMap();\r\n    return missingBlocks;\r\n}"
+}, {
+	"Path": "github.ankushsachdeva.emojicon.EmojiconsPopup.setOnEmojiconBackspaceClickedListener",
+	"Comment": "set the listener for the event when backspace on emojicon popup is clicked",
+	"Method": "void setOnEmojiconBackspaceClickedListener(OnEmojiconBackspaceClickedListener listener){\r\n    this.onEmojiconBackspaceClickedListener = listener;\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.WorldEdit.checkMaxBrushRadius",
+	"Comment": "checks to see if the specified brush radius is within bounds.",
+	"Method": "void checkMaxBrushRadius(double radius){\r\n    if (getConfiguration().maxBrushRadius > 0 && radius > getConfiguration().maxBrushRadius) {\r\n        throw new MaxBrushRadiusException();\r\n    }\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.function.generator.FloraGenerator.getDesertPattern",
+	"Comment": "get a pattern for plants to place inside a desert environment.",
+	"Method": "Pattern getDesertPattern(){\r\n    RandomPattern pattern = new RandomPattern();\r\n    pattern.add(new BlockPattern(BlockTypes.DEAD_BUSH.getDefaultState()), 30);\r\n    pattern.add(new BlockPattern(BlockTypes.CACTUS.getDefaultState()), 20);\r\n    pattern.add(new BlockPattern(BlockTypes.AIR.getDefaultState()), 300);\r\n    return pattern;\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.extension.platform.PlatformManager.queryCapability",
+	"Comment": "get the preferred platform for handling a certain capability. returnsnull if none is available.",
+	"Method": "Platform queryCapability(Capability capability){\r\n    Platform platform = preferences.get(checkNotNull(capability));\r\n    if (platform != null) {\r\n        return platform;\r\n    } else {\r\n        if (preferences.isEmpty()) {\r\n            return platforms.get(0);\r\n        }\r\n        throw new NoCapablePlatformException(\"No platform was found supporting \" + capability.name());\r\n    }\r\n}"
+}, {
+	"Path": "github.ankushsachdeva.emojicon.EmojiconsPopup.setOnSoftKeyboardOpenCloseListener",
+	"Comment": "set the listener for the event of keyboard opening or closing.",
+	"Method": "void setOnSoftKeyboardOpenCloseListener(OnSoftKeyboardOpenCloseListener listener){\r\n    this.onSoftKeyboardOpenCloseListener = listener;\r\n}"
+}, {
+	"Path": "com.xabber.android.data.time.FastDateFormat.getTimeInstance",
+	"Comment": "gets a time formatter instance using the specified style, timezone and locale.",
+	"Method": "FastDateFormat getTimeInstance(int style,FastDateFormat getTimeInstance,int style,Locale locale,FastDateFormat getTimeInstance,int style,TimeZone timeZone,FastDateFormat getTimeInstance,int style,TimeZone timeZone,Locale locale){\r\n    return cache.getTimeInstance(style, timeZone, locale);\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.EditSession.replaceBlocks",
+	"Comment": "replaces all the blocks matching a given mask, within a given region, to a blockreturned by a given pattern.",
+	"Method": "int replaceBlocks(Region region,Set<BlockStateHolder> filter,BlockStateHolder replacement,int replaceBlocks,Region region,Set<BlockStateHolder> filter,Pattern pattern,int replaceBlocks,Region region,Mask mask,Pattern pattern){\r\n    checkNotNull(region);\r\n    checkNotNull(mask);\r\n    checkNotNull(pattern);\r\n    BlockReplace replace = new BlockReplace(this, pattern);\r\n    RegionMaskingFilter filter = new RegionMaskingFilter(mask, replace);\r\n    RegionVisitor visitor = new RegionVisitor(region, filter);\r\n    Operations.completeLegacy(visitor);\r\n    return visitor.getAffected();\r\n}"
+}, {
+	"Path": "org.xbill.DNS.ExtLookup.setResolver",
+	"Comment": "sets the resolver to use when performing this lookup.this overrides thedefault value.",
+	"Method": "void setResolver(Resolver resolver){\r\n    this.resolver = resolver;\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.world.block.BlockState.setState",
+	"Comment": "internal method used for creating the initial blockstate.sets a value. do not use this.",
+	"Method": "BlockState setState(Property<?> property,Object value){\r\n    this.values.put(property, value);\r\n    return this;\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.math.Vector2.toVector3",
+	"Comment": "creates a 3d vector by adding the specified y component to this vector.",
+	"Method": "Vector3 toVector3(Vector3 toVector3,double y){\r\n    return Vector3.at(x, y, z);\r\n}"
+}, {
+	"Path": "com.sk89q.minecraft.util.commands.CommandsManager.getInjector",
+	"Comment": "get the injector used to create new instances. this can benull, in which case only classes will be registered statically.",
+	"Method": "Injector getInjector(){\r\n    return injector;\r\n}"
+}, {
+	"Path": "com.sk89q.worldedit.math.BlockVector2.normalize",
+	"Comment": "get the normalized vector, which is the vector divided by itslength, as a new vector.",
+	"Method": "BlockVector2 normalize(){\r\n    double len = length();\r\n    double x = this.x / len;\r\n    double z = this.z / len;\r\n    return BlockVector2.at(x, z);\r\n}"
+}, {
+	"Path": "com.xabber.android.data.database.RealmManager.getNewRealm",
+	"Comment": "creates new realm instance for use from any thread. better to avoid this method.realm should be closed after use.",
+	"Method": "Realm getNewRealm(){\r\n    return Realm.getInstance(realmConfiguration);\r\n}"
+}, {
+	"Path": "com.xabber.android.ui.adapter.contactlist.GroupConfiguration.setNotEmpty",
+	"Comment": "set that there is at least one contact to be displayed in expanded mode.",
+	"Method": "void setNotEmpty(){\r\n    empty = false;\r\n}"
+}]

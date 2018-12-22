@@ -1,0 +1,257 @@
+[{
+	"Path": "io.protostuff.CodedInput.readRawVarint32",
+	"Comment": "read a raw varint from the stream. if larger than 32 bits, discard the upper bits.",
+	"Method": "int readRawVarint32(int readRawVarint32,InputStream input,int readRawVarint32,InputStream input,int firstByte,int readRawVarint32,DataInput input,byte firstByte){\r\n    checkArgNotNull(errors, \"errors\");\r\n    StringBuilder sb = new StringBuilder();\r\n    for (ParseError error : errors) {\r\n        if (sb.length() > 0)\r\n            sb.append(\"---\\n\");\r\n        sb.append(printParseError(error));\r\n    }\r\n    return sb.toString();\r\n}"
+}, {
+	"Path": "com.pi4j.temperature.TemperatureConversion.convertFromKelvin",
+	"Comment": "convert a temperature value from the kelvin temperature scale to another.",
+	"Method": "double convertFromKelvin(TemperatureScale to,double temperature){\r\n    for (SerialDataEventListener lsnr : listener) {\r\n        listeners.remove(lsnr);\r\n    }\r\n}"
+}, {
+	"Path": "com.pokegoapi.google.common.geometry.S1Interval.getLength",
+	"Comment": "return the length of the interval. the length of an empty interval is\tnegative.",
+	"Method": "double getLength(){\r\n    if (!listeners.contains(listener)) {\r\n        listeners.addElement(listener);\r\n    }\r\n}"
+}, {
+	"Path": "com.pi4j.component.light.impl.GpioLightComponent.off",
+	"Comment": "set the current gpio digital output pin statebased for light off",
+	"Method": "void off(){\r\n    return !(isOpen());\r\n}"
+}, {
+	"Path": "com.pi4j.wiringpi.GpioInterrupt.addListener",
+	"Comment": "java consumer code can all this method to register itself as a listener for pin statechanges.",
+	"Method": "void addListener(GpioInterruptListener listener){\r\n    return Sequence(LBRK, FirstOf(Sequence(RBRK, ZeroOrMore(Dim()), ArrayInitializer()), Sequence(Expression(), RBRK, ZeroOrMore(DimExpr()), ZeroOrMore(Dim()))));\r\n}"
+}, {
+	"Path": "com.pokegoapi.util.AsyncHelper.toBlocking",
+	"Comment": "convert an observable to the actual result, recovering the actual exception and throwing that",
+	"Method": "T toBlocking(Observable<T> observable){\r\n    return context.getSubContext(this);\r\n}"
+}, {
+	"Path": "com.pi4j.gpio.extension.mcp.MCP4725GpioProvider.getMinSupportedValue",
+	"Comment": "get the minimum supported analog value for the adc implementation.",
+	"Method": "double getMinSupportedValue(){\r\n    final ThreadFactory defaultThreadFactory = Executors.privilegedThreadFactory();\r\n    return new ThreadFactory() {\r\n        final AtomicLong count = (nameFormat != null) ? new AtomicLong(0) : null;\r\n        @Override\r\n        public Thread newThread(Runnable runnable) {\r\n            Thread thread = defaultThreadFactory.newThread(runnable);\r\n            if (nameFormat != null) {\r\n                thread.setName(String.format(nameFormat, count.getAndIncrement()));\r\n            }\r\n            return thread;\r\n        }\r\n    };\r\n}"
+}, {
+	"Path": "com.pi4j.gpio.extension.mcp.MCP4725GpioProvider.getMinSupportedValue",
+	"Comment": "get the minimum supported analog value for the adc implementation.",
+	"Method": "double getMinSupportedValue(){\r\n    Thread thread = defaultThreadFactory.newThread(runnable);\r\n    if (nameFormat != null) {\r\n        thread.setName(String.format(nameFormat, count.getAndIncrement()));\r\n    }\r\n    return thread;\r\n}"
+}, {
+	"Path": "com.pokegoapi.google.common.geometry.S2Cap.angle",
+	"Comment": "return the cap opening angle in radians, or a negative number for empty\tcaps.",
+	"Method": "S1Angle angle(){\r\n    checkArgNotNull(classInternalName, \"classInternalName\");\r\n    checkArgNotNull(type, \"type\");\r\n    return type.isAssignableFrom(getClassForInternalName(classInternalName));\r\n}"
+}, {
+	"Path": "com.pokegoapi.api.gym.Battle.toClientTime",
+	"Comment": "converts the server time to the client time based on servertimeoffset",
+	"Method": "long toClientTime(long serverTime){\r\n    int sLen = str != null ? str.length() : 0;\r\n    if (sLen == 0) {\r\n        return new byte[0];\r\n    }\r\n    int sepCnt = 0;\r\n    for (int i = 0; i < sLen; i++) {\r\n        if (IA[str.charAt(i)] < 0) {\r\n            sepCnt++;\r\n        }\r\n    }\r\n    if ((sLen - sepCnt) % 4 != 0) {\r\n        return null;\r\n    }\r\n    int pad = 0;\r\n    for (int i = sLen; i > 1 && IA[str.charAt(--i)] <= 0; ) {\r\n        if (str.charAt(i) == fillChar) {\r\n            pad++;\r\n        }\r\n    }\r\n    int len = ((sLen - sepCnt) * 6 >> 3) - pad;\r\n    byte[] dArr = new byte[len];\r\n    for (int s = 0, d = 0; d < len; ) {\r\n        int i = 0;\r\n        for (int j = 0; j < 4; j++) {\r\n            int c = IA[str.charAt(s++)];\r\n            if (c >= 0) {\r\n                i |= c << (18 - j * 6);\r\n            } else {\r\n                j--;\r\n            }\r\n        }\r\n        dArr[d++] = (byte) (i >> 16);\r\n        if (d < len) {\r\n            dArr[d++] = (byte) (i >> 8);\r\n            if (d < len) {\r\n                dArr[d++] = (byte) i;\r\n            }\r\n        }\r\n    }\r\n    return dArr;\r\n}"
+}, {
+	"Path": "com.pokegoapi.util.PokeNames.getPokedexFromName",
+	"Comment": "returns the pokemon index from the pokemon name list in english.",
+	"Method": "int getPokedexFromName(String pokeName,Locale locale,int getPokedexFromName,String pokeName){\r\n    checkArgNotNull(inputBuffer, \"inputBuffer\");\r\n    checkArgument(startIndex <= endIndex);\r\n    Position pos = inputBuffer.getPosition(startIndex);\r\n    StringBuilder sb = new StringBuilder(String.format(format, errorMessage, pos.line, pos.column));\r\n    sb.append('\\n');\r\n    String line = inputBuffer.extractLine(pos.line);\r\n    sb.append(line);\r\n    sb.append('\\n');\r\n    int charCount = Math.max(Math.min(endIndex - startIndex, StringUtils.length(line) - pos.column + 2), 1);\r\n    for (int i = 0; i < pos.column - 1; i++) sb.append(' ');\r\n    for (int i = 0; i < charCount; i++) sb.append('^');\r\n    sb.append(\"\\n\");\r\n    return sb.toString();\r\n}"
+}, {
+	"Path": "io.protostuff.CodedOutput.refreshBuffer",
+	"Comment": "internal helper that writes the current buffer to the output. the buffer position is reset to its initial valuewhen this returns.",
+	"Method": "void refreshBuffer(){\r\n    return getCharBuffer(StandardCharsets.US_ASCII).toString();\r\n}"
+}, {
+	"Path": "com.pokegoapi.google.common.geometry.S2Cell.fromFacePosLevel",
+	"Comment": "this is a static method in order to provide named parameters.",
+	"Method": "S2Cell fromFacePosLevel(int face,byte pos,int level){\r\n    checkArgNotNull(other, \"other\");\r\n    return other.end == start;\r\n}"
+}, {
+	"Path": "com.pokegoapi.google.common.geometry.S2RegionCoverer.getCovering",
+	"Comment": "computes a list of cell ids that covers the given region and satisfies the\tvarious restrictions specified above.",
+	"Method": "void getCovering(S2Region region,ArrayList<S2CellId> covering,S2CellUnion getCovering,S2Region region,void getCovering,S2Region region,S2CellUnion covering){\r\n    return FirstOf(Annotation(), Sequence(FirstOf(\"public\", \"protected\", \"private\", \"static\", \"abstract\", \"final\", \"native\", \"synchronized\", \"transient\", \"volatile\", \"strictfp\"), TestNot(LetterOrDigit()), Spacing()));\r\n}"
+}, {
+	"Path": "com.pi4j.temperature.TemperatureConversion.convertToCelsius",
+	"Comment": "convert a temperature value from another temperature scale into the celsius temperature scale.",
+	"Method": "double convertToCelsius(TemperatureScale from,double temperature){\r\n    if (matcher instanceof MemoMismatchesMatcher) {\r\n        MemoMismatchesMatcher memoMismatchesMatcher = (MemoMismatchesMatcher) matcher;\r\n        return unwrap(memoMismatchesMatcher.inner);\r\n    }\r\n    return matcher;\r\n}"
+}, {
+	"Path": "com.pokegoapi.examples.GoogleUserInteractionExample.main",
+	"Comment": "example on how to login with google by asking a token from the user",
+	"Method": "void main(String[] args){\r\n    MD5Digester digester = new MD5Digester(classNode.name);\r\n    group.getInstructions().accept(digester);\r\n    for (FieldNode field : group.getFields()) digester.visitField(field);\r\n    byte[] hash = digester.getMD5Hash();\r\n    byte[] hash96 = new byte[12];\r\n    System.arraycopy(hash, 0, hash96, 0, 12);\r\n    String name = group.getRoot().isActionRoot() ? \"Action$\" : \"VarInit$\";\r\n    name += CUSTOM_BASE64.encodeToString(hash96, false);\r\n    group.setName(name);\r\n}"
+}, {
+	"Path": "com.pokegoapi.api.pokemon.Evolutions.canEvolve",
+	"Comment": "returns if this pokemon can be evolved any more than it already is",
+	"Method": "boolean canEvolve(PokemonId pokemon){\r\n    check();\r\n    context.getValueStack().push(down, value);\r\n    return true;\r\n}"
+}, {
+	"Path": "com.pi4j.component.potentiometer.microchip.impl.MicrochipPotentiometerDeviceController.getDeviceStatus",
+	"Comment": "returns the status of the device according eeprom and wiperlocks.",
+	"Method": "DeviceControllerDeviceStatus getDeviceStatus(){\r\n    check();\r\n    return context.getMatchStartIndex();\r\n}"
+}, {
+	"Path": "com.pokegoapi.google.common.geometry.S2CellId.fromFaceIJSame",
+	"Comment": "public helper function that calls fromfaceij if sameface is true, or\tfromfaceijwrap if sameface is false.",
+	"Method": "S2CellId fromFaceIJSame(int face,int i,int j,boolean sameFace){\r\n    checkArgNotNull(other, \"other\");\r\n    if (!subtractive && !other.subtractive) {\r\n        return addToChars(other.chars);\r\n    }\r\n    if (subtractive && other.subtractive) {\r\n        return retainAllChars(other.chars);\r\n    }\r\n    return subtractive ? removeFromChars(other.chars) : other.removeFromChars(chars);\r\n}"
+}, {
+	"Path": "com.pokegoapi.google.common.geometry.R1Interval.approxEquals",
+	"Comment": "return true if length of the symmetric difference between the two intervals\tis at most the given tolerance.",
+	"Method": "boolean approxEquals(R1Interval y,boolean approxEquals,R1Interval y,double maxError){\r\n    return indexOf(chars, c) == -1 ? subtractive : !subtractive;\r\n}"
+}, {
+	"Path": "com.pokegoapi.google.common.geometry.S2LatLngRect.equals",
+	"Comment": "return true if two rectangles contains the same set of points.",
+	"Method": "boolean equals(Object that){\r\n    if (file != null) {\r\n        file.close();\r\n        file = null;\r\n    }\r\n}"
+}, {
+	"Path": "com.pokegoapi.google.common.geometry.S2RegionCoverer.getInitialCandidates",
+	"Comment": "computes a set of initial candidates that cover the given region.",
+	"Method": "void getInitialCandidates(){\r\n    checkArgNotNull(predicate, \"predicate\");\r\n    if (parents != null && !parents.isEmpty()) {\r\n        for (Node<V> child : parents) {\r\n            Node<V> found = findNode(child, predicate);\r\n            if (found != null)\r\n                return found;\r\n        }\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "com.pokegoapi.google.common.geometry.S2LatLng.getDistance",
+	"Comment": "returns the surface distance to the given point assuming a constant radius.",
+	"Method": "S1Angle getDistance(S2LatLng o,double getDistance,S2LatLng o,double radius){\r\n    return getBus().writeAndReadBytesDirect(this, writeSize, writeOffset, writeData, readSize, readOffset, readData);\r\n}"
+}, {
+	"Path": "com.pokegoapi.google.common.geometry.S2LatLng.add",
+	"Comment": "adds the given point to this point.\tnote that there is no guarantee that the new point will be valid.",
+	"Method": "S2LatLng add(S2LatLng o){\r\n    if (reference == null) {\r\n        throw new NullPointerException(format(errorMessageTemplate, errorMessageArgs));\r\n    }\r\n    return reference;\r\n}"
+}, {
+	"Path": "io.protostuff.CodedInput.popLimit",
+	"Comment": "discards the current limit, returning to the previous limit.",
+	"Method": "void popLimit(int oldLimit){\r\n    return context;\r\n}"
+}, {
+	"Path": "com.pokegoapi.google.common.geometry.S2LatLngRect.intersectsLatEdge",
+	"Comment": "return true if the edge ab intersects the given edge of constant latitude.",
+	"Method": "boolean intersectsLatEdge(S2Point a,S2Point b,double lat,S1Interval lng){\r\n    checkArgNotNull(collection, \"collection\");\r\n    if (node != null && !collection.contains(node)) {\r\n        collection.add(node);\r\n        for (T child : node.getChildren()) {\r\n            collectAllNodes(child, collection);\r\n        }\r\n    }\r\n    return collection;\r\n}"
+}, {
+	"Path": "com.pi4j.gpio.extension.base.AdcGpioProviderBase.getPercentValue",
+	"Comment": "get the current value in a percentage of the available range instead of a raw value.",
+	"Method": "float getPercentValue(Pin pin,float getPercentValue,GpioPinAnalogInput pin){\r\n    return listeners.containsKey(fileDescriptor);\r\n}"
+}, {
+	"Path": "io.protostuff.CodedOutput.getTagAndRawLittleEndian32Bytes",
+	"Comment": "returns a byte array encoded with the tag and little endian 32",
+	"Method": "byte[] getTagAndRawLittleEndian32Bytes(int tag,int value){\r\n    return new SpiDeviceImpl(channel, speed, mode);\r\n}"
+}, {
+	"Path": "com.pokegoapi.google.common.geometry.S2CellId.next",
+	"Comment": "return the next cell at the same level along the hilbert curve. works\tcorrectly when advancing from one face to the next, but doesaround from the last face to the first or vice versa.",
+	"Method": "S2CellId next(){\r\n    check();\r\n    context.getValueStack().pop(down);\r\n    return true;\r\n}"
+}, {
+	"Path": "com.pokegoapi.main.ServerResponse.has",
+	"Comment": "checks if this response contains the given platform request type",
+	"Method": "boolean has(RequestType type,boolean has,PlatformRequestType type){\r\n    if (listeners.containsKey(fileDescriptor)) {\r\n        listeners.remove(fileDescriptor);\r\n        disableSerialDataReceiveCallback(fileDescriptor);\r\n    }\r\n}"
+}, {
+	"Path": "com.pi4j.component.relay.impl.GpioRelayComponent.getState",
+	"Comment": "return the current relay state based on thegpio digital output pin state.",
+	"Method": "RelayState getState(){\r\n    return charset.decode(getByteBuffer());\r\n}"
+}, {
+	"Path": "com.pokegoapi.google.common.geometry.S2EdgeIndex.incrementQueryCount",
+	"Comment": "tell the index that we just received a new request for candidates. useful\tto compute when to switch to quad tree.",
+	"Method": "void incrementQueryCount(){\r\n    return element.matcher == matcher || (parent != null && parent.contains(matcher));\r\n}"
+}, {
+	"Path": "com.pi4j.wiringpi.GpioInterrupt.hasListener",
+	"Comment": "returns true if the listener is already registered for event callbacks.",
+	"Method": "boolean hasListener(GpioInterruptListener listener){\r\n    checkArgNotNull(string, \"string\");\r\n    return fromCharArray(string.toCharArray());\r\n}"
+}, {
+	"Path": "io.protostuff.runtime.DefaultIdStrategy.registerPojo",
+	"Comment": "registers a pojo. returns true if registration is successful or if the same exact schema was previouslyregistered.",
+	"Method": "boolean registerPojo(Class<T> typeClass,Schema<T> schema,boolean registerPojo,Class<T> typeClass){\r\n    return StringUtils.isEmpty(chars) ? Characters.ALL : new Characters(true, chars.toCharArray());\r\n}"
+}, {
+	"Path": "com.pi4j.temperature.TemperatureConversion.convertFromRankine",
+	"Comment": "convert a temperature value from the rankine temperature scale to another.",
+	"Method": "double convertFromRankine(TemperatureScale to,double temperature){\r\n    checkArgNotNull(other, \"other\");\r\n    return end > other.start && other.end > start;\r\n}"
+}, {
+	"Path": "com.pi4j.component.switches.impl.GpioSwitchComponent.getState",
+	"Comment": "return the current switch state based on thegpio digital output pin state.",
+	"Method": "SwitchState getState(){\r\n    checkArgNotNull(other, \"other\");\r\n    return other.end == start || end == other.start;\r\n}"
+}, {
+	"Path": "com.pokegoapi.google.common.geometry.S2LatLng.sub",
+	"Comment": "subtracts the given point from this point.\tnote that there is no guarantee that the new point will be valid.",
+	"Method": "S2LatLng sub(S2LatLng o){\r\n    if (get() == null)\r\n        return set(new StringBuilder().append(c));\r\n    get().append(c);\r\n    return true;\r\n}"
+}, {
+	"Path": "com.pokegoapi.api.pokemon.Pokemon.revive",
+	"Comment": "revive a pokemon, using various fallbacks for revive items",
+	"Method": "UseItemReviveResponse.Result revive(){\r\n    if (!listeners.containsKey(fileDescriptor)) {\r\n        listeners.put(fileDescriptor, listener);\r\n        enableSerialDataReceiveCallback(fileDescriptor);\r\n    }\r\n}"
+}, {
+	"Path": "com.pi4j.gpio.extension.base.DacGpioProviderBase.setPercentValue",
+	"Comment": "set the current value in a percentage of the available range instead of a raw value.",
+	"Method": "void setPercentValue(Pin pin,Number percent,void setPercentValue,GpioPinAnalogOutput pin,Number percent){\r\n    checkArgNotNull(that, \"that\");\r\n    return element.level <= that.element.level && (this == that || (that.parent != null && isPrefixOf(that.parent)));\r\n}"
+}, {
+	"Path": "io.protostuff.CodedOutput.writeRawLittleEndian64",
+	"Comment": "writes the encoded little endian 64 and returns the bytes written",
+	"Method": "int writeRawLittleEndian64(long value,byte[] buffer,int offset,void writeRawLittleEndian64,long value){\r\n    check();\r\n    return context.getValueStack().peek(down);\r\n}"
+}, {
+	"Path": "com.pokegoapi.api.pokemon.Pokemon.isInjured",
+	"Comment": "check if pokemon its injured but not fainted. need potions to heal",
+	"Method": "boolean isInjured(){\r\n    checkArgNotNull(node, \"node\");\r\n    checkArgNotNull(inputBuffer, \"inputBuffer\");\r\n    if (node.hasError()) {\r\n        StringBuilder sb = new StringBuilder();\r\n        for (int i = node.getStartIndex(); i < node.getEndIndex(); i++) {\r\n            char c = inputBuffer.charAt(i);\r\n            switch(c) {\r\n                case Chars.DEL_ERROR:\r\n                    i++;\r\n                    break;\r\n                case Chars.INS_ERROR:\r\n                case Chars.EOI:\r\n                    break;\r\n                case Chars.RESYNC_START:\r\n                    i++;\r\n                    while (inputBuffer.charAt(i) != Chars.RESYNC_END) i++;\r\n                    break;\r\n                case Chars.RESYNC_END:\r\n                case Chars.RESYNC_EOI:\r\n                case Chars.RESYNC:\r\n                    throw new IllegalStateException();\r\n                default:\r\n                    sb.append(c);\r\n            }\r\n        }\r\n        return sb.toString();\r\n    }\r\n    return inputBuffer.extract(node.getStartIndex(), node.getEndIndex());\r\n}"
+}, {
+	"Path": "com.pokegoapi.google.common.geometry.S2EdgeIndex.lenientCrossing",
+	"Comment": "returns true if ab possibly crosses cd, by clipping tiny angles to zero.",
+	"Method": "boolean lenientCrossing(S2Point a,S2Point b,S2Point c,S2Point d){\r\n    checkArgNotNull(predicate, \"predicate\");\r\n    checkArgNotNull(collection, \"collection\");\r\n    if (parents != null && !parents.isEmpty()) {\r\n        for (Node<V> child : parents) {\r\n            if (predicate.apply(child)) {\r\n                collection.add(child);\r\n            }\r\n            collectNodes(child, predicate, collection);\r\n        }\r\n    }\r\n    return collection;\r\n}"
+}, {
+	"Path": "io.protostuff.CodedInput.readTag",
+	"Comment": "attempt to read a field tag, returning zero if we have reached eof. protocol message parsers use this to readtags, since a protocol message may legally end wherever a tag occurs, and zero is not a valid tag number.",
+	"Method": "int readTag(){\r\n    return null;\r\n}"
+}, {
+	"Path": "com.pokegoapi.google.common.geometry.S1Interval.getCenter",
+	"Comment": "return the midpoint of the interval. for full and empty intervals, the\tresult is arbitrary.",
+	"Method": "double getCenter(){\r\n    if (value < 0) {\r\n        return '-' + humanize(-value);\r\n    } else if (value > 1000000000000000000L) {\r\n        return Double.toString((value + 500000000000000L) / 1000000000000000L * 1000000000000000L / 1000000000000000000.0) + 'E';\r\n    } else if (value > 100000000000000000L) {\r\n        return Double.toString((value + 50000000000000L) / 100000000000000L * 100000000000000L / 1000000000000000.0) + 'P';\r\n    } else if (value > 10000000000000000L) {\r\n        return Double.toString((value + 5000000000000L) / 10000000000000L * 10000000000000L / 1000000000000000.0) + 'P';\r\n    } else if (value > 1000000000000000L) {\r\n        return Double.toString((value + 500000000000L) / 1000000000000L * 1000000000000L / 1000000000000000.0) + 'P';\r\n    } else if (value > 100000000000000L) {\r\n        return Double.toString((value + 50000000000L) / 100000000000L * 100000000000L / 1000000000000.0) + 'T';\r\n    } else if (value > 10000000000000L) {\r\n        return Double.toString((value + 5000000000L) / 10000000000L * 10000000000L / 1000000000000.0) + 'T';\r\n    } else if (value > 1000000000000L) {\r\n        return Double.toString((value + 500000000) / 1000000000 * 1000000000 / 1000000000000.0) + 'T';\r\n    } else if (value > 100000000000L) {\r\n        return Double.toString((value + 50000000) / 100000000 * 100000000 / 1000000000.0) + 'G';\r\n    } else if (value > 10000000000L) {\r\n        return Double.toString((value + 5000000) / 10000000 * 10000000 / 1000000000.0) + 'G';\r\n    } else if (value > 1000000000) {\r\n        return Double.toString((value + 500000) / 1000000 * 1000000 / 1000000000.0) + 'G';\r\n    } else if (value > 100000000) {\r\n        return Double.toString((value + 50000) / 100000 * 100000 / 1000000.0) + 'M';\r\n    } else if (value > 10000000) {\r\n        return Double.toString((value + 5000) / 10000 * 10000 / 1000000.0) + 'M';\r\n    } else if (value > 1000000) {\r\n        return Double.toString((value + 500) / 1000 * 1000 / 1000000.0) + 'M';\r\n    } else if (value > 100000) {\r\n        return Double.toString((value + 50) / 100 * 100 / 1000.0) + 'K';\r\n    } else if (value > 10000) {\r\n        return Double.toString((value + 5) / 10 * 10 / 1000.0) + 'K';\r\n    } else if (value > 1000) {\r\n        return Double.toString(value / 1000.0) + 'K';\r\n    } else {\r\n        return Long.toString(value) + ' ';\r\n    }\r\n}"
+}, {
+	"Path": "io.protostuff.ProtobufOutput.getTagAndRawLittleEndian32Bytes",
+	"Comment": "returns a byte array encoded with the tag and little endian 32",
+	"Method": "byte[] getTagAndRawLittleEndian32Bytes(int tag,int value){\r\n    outer: for (Constructor constructor : type.getConstructors()) {\r\n        Class<?>[] paramTypes = constructor.getParameterTypes();\r\n        if (paramTypes.length != args.length)\r\n            continue;\r\n        for (int i = 0; i < args.length; i++) {\r\n            Object arg = args[i];\r\n            if (arg != null && !paramTypes[i].isAssignableFrom(arg.getClass()) && !isBoxedType(paramTypes[i], arg.getClass()))\r\n                continue outer;\r\n            if (arg == null && paramTypes[i].isPrimitive())\r\n                continue outer;\r\n        }\r\n        return constructor;\r\n    }\r\n    throw new GrammarException(\"No constructor found for %s and the given %s arguments\", type, args.length);\r\n}"
+}, {
+	"Path": "io.protostuff.compiler.STCodeGenerator.setFormatter",
+	"Comment": "returns true if there was no previous formatter with the same name.",
+	"Method": "boolean setFormatter(String name,Formatter f){\r\n    int j = Arrays.binarySearch(newlines, index);\r\n    return j >= 0 ? j : -(j + 1);\r\n}"
+}, {
+	"Path": "com.pokegoapi.util.path.Path.calculateIntermediate",
+	"Comment": "calculates the desired intermediate point for this path, based on the current time",
+	"Method": "Point calculateIntermediate(PokemonGo api){\r\n    for (InstructionGraphNode node : group.getNodes()) {\r\n        if (node != group.getRoot()) {\r\n            AbstractInsnNode insn = node.getInstruction();\r\n            method.instructions.remove(insn);\r\n            group.getInstructions().add(insn);\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "com.pokegoapi.util.PokeNames.getDisplayName",
+	"Comment": "returns the name for a pokedex id including known translations.",
+	"Method": "String getDisplayName(int pokedex,Locale locale){\r\n    final int fd = SharedSecrets.getJavaIOFileDescriptorAccess().get(getFD());\r\n    if (fd < 1)\r\n        throw new IOException(\"failed to get POSIX file descriptor!\");\r\n    return fd;\r\n}"
+}, {
+	"Path": "com.pi4j.gpio.extension.mcp.MCP4725GpioProvider.setValue",
+	"Comment": "set the analog output value to an output pin on the dac immediately.",
+	"Method": "void setValue(Pin pin,double value){\r\n    if (level++ > 0) {\r\n        if (stack == null)\r\n            stack = new LinkedList<T>();\r\n        stack.add(get());\r\n    }\r\n    return set(initialValueFactory.create());\r\n}"
+}, {
+	"Path": "com.pokegoapi.google.common.geometry.S2EdgeUtil.getClosestPoint",
+	"Comment": "returns the point on edge ab closest to x. x, a and b must be of unit\tlength. throws illegalargumentexception if this is not the case.",
+	"Method": "S2Point getClosestPoint(S2Point x,S2Point a,S2Point b){\r\n    checkArgNotNull(predicate, \"predicate\");\r\n    if (parents != null && !parents.isEmpty()) {\r\n        int parentsSize = parents.size();\r\n        for (int i = parentsSize - 1; i >= 0; i--) {\r\n            Node<V> found = findLastNode(parents.get(i), predicate);\r\n            if (found != null)\r\n                return found;\r\n        }\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "com.pi4j.component.button.impl.GpioButtonComponent.getState",
+	"Comment": "return the current switch state based on thegpio digital output pin state.",
+	"Method": "ButtonState getState(){\r\n    if (nodeFilter.apply(node)) {\r\n        String line = formatter.format(node);\r\n        if (line != null) {\r\n            sb.append(indent).append(line).append(\"\\n\");\r\n            indent += \"  \";\r\n        }\r\n    }\r\n    if (subTreeFilter.apply(node)) {\r\n        for (T sub : node.getChildren()) {\r\n            printTree(sub, formatter, indent, sb, nodeFilter, subTreeFilter);\r\n        }\r\n    }\r\n    return sb;\r\n}"
+}, {
+	"Path": "io.protostuff.runtime.DefaultIdStrategy.registerDelegate",
+	"Comment": "registers a delegate. returns true if registration is successful.",
+	"Method": "boolean registerDelegate(Delegate<T> delegate){\r\n    checkArgNotNull(that, \"that\");\r\n    if (element.level > that.element.level)\r\n        return parent.commonPrefix(that);\r\n    if (element.level < that.element.level)\r\n        return commonPrefix(that.parent);\r\n    if (this == that)\r\n        return this;\r\n    return (parent != null && that.parent != null) ? parent.commonPrefix(that.parent) : null;\r\n}"
+}, {
+	"Path": "com.pokegoapi.main.CommonRequests.getDownloadItemTemplatesRequest",
+	"Comment": "constant for repetitive usage of downloaditemtemplatesmessage request",
+	"Method": "DownloadItemTemplatesMessage getDownloadItemTemplatesRequest(){\r\n    check();\r\n    return context.getValueStack().pop(down);\r\n}"
+}, {
+	"Path": "io.protostuff.CodedOutput.getTagAndRawLittleEndian64Bytes",
+	"Comment": "returns a byte array encoded with the tag and little endian 64",
+	"Method": "byte[] getTagAndRawLittleEndian64Bytes(int tag,long value){\r\n    return isshutdown;\r\n}"
+}, {
+	"Path": "picocli.AutoComplete.main",
+	"Comment": "generates a bash completion script for the specified command class.",
+	"Method": "void main(String args){\r\n    List<Pin> results = new ArrayList();\r\n    for (Pin p : pins.values()) {\r\n        EnumSet<PinMode> supported_modes = p.getSupportedPinModes();\r\n        for (PinMode m : mode) {\r\n            if (supported_modes.contains(m)) {\r\n                results.add(p);\r\n                continue;\r\n            }\r\n        }\r\n    }\r\n    return results.toArray(new Pin[0]);\r\n}"
+}, {
+	"Path": "com.pokegoapi.api.pokemon.PokemonDetails.getCandiesToEvolve",
+	"Comment": "return the amount of candies necessary to evolve this pokemon",
+	"Method": "int getCandiesToEvolve(){\r\n    return getCharBuffer(charset).toString();\r\n}"
+}, {
+	"Path": "com.pokegoapi.api.inventory.EggIncubator.getKmLeftToWalk",
+	"Comment": "get the distance left to walk before this incubated egg will hatch.",
+	"Method": "double getKmLeftToWalk(){\r\n    checkArgNotNull(other, \"other\");\r\n    if (!subtractive && !other.subtractive) {\r\n        return removeFromChars(other.chars);\r\n    }\r\n    if (subtractive && other.subtractive) {\r\n        return new Characters(false, other.removeFromChars(chars).chars);\r\n    }\r\n    return subtractive ? addToChars(other.chars) : retainAllChars(other.chars);\r\n}"
+}, {
+	"Path": "io.protostuff.UnsignedNumberUtil.unsignedIntToString",
+	"Comment": "returns a string representation of x, where x is treated as unsigned.",
+	"Method": "String unsignedIntToString(int x,String unsignedIntToString,int x,int radix){\r\n    return hasChildren(node) ? node.getChildren().get(node.getChildren().size() - 1) : null;\r\n}"
+}, {
+	"Path": "com.pokegoapi.google.common.geometry.S2EdgeIndex.getEdgesInChildrenCells",
+	"Comment": "appends to candidatecrossings the edges that are fully contained in an s2\tcovering of edge. the covering of edge used is initially cover, but is\trefined to eliminate quickly subcells that contain many edges but do not\tintersect with edge.",
+	"Method": "void getEdgesInChildrenCells(S2Point a,S2Point b,List<S2CellId> cover,Set<Integer> candidateCrossings){\r\n    return hasChildren(node) ? node.getChildren().get(0) : null;\r\n}"
+}, {
+	"Path": "com.pokegoapi.api.inventory.PokeBank.size",
+	"Comment": "gets the amount of pokemon in the pokebank, including the egg count",
+	"Method": "int size(){\r\n    this.log = log;\r\n    return this;\r\n}"
+}, {
+	"Path": "io.protostuff.CodedInput.newInstance",
+	"Comment": "create a new codedinput wrapping the given byte array slice.",
+	"Method": "CodedInput newInstance(InputStream input,CodedInput newInstance,byte[] buf,CodedInput newInstance,byte[] buf,int off,int len){\r\n    if (get() != null)\r\n        get().setLength(0);\r\n    return this;\r\n}"
+}, {
+	"Path": "com.pokegoapi.google.common.geometry.S2Polyline.projectToEdge",
+	"Comment": "given a point p and the index of the start point of an edge of this polyline,\treturns the point on that edge that is closest to p.",
+	"Method": "S2Point projectToEdge(S2Point point,int index){\r\n    return set(get() == null ? String.valueOf(c) : get() + c);\r\n}"
+}, {
+	"Path": "com.pokegoapi.google.common.geometry.S2LatLngRect.union",
+	"Comment": "return the smallest rectangle containing the union of this rectangle and\tthe given rectangle.",
+	"Method": "S2LatLngRect union(S2LatLngRect other){\r\n    append(c);\r\n    return this;\r\n}"
+}, {
+	"Path": "com.pokegoapi.google.common.geometry.S2LatLngRect.fromPoint",
+	"Comment": "convenience method to construct a rectangle containing a single point.",
+	"Method": "S2LatLngRect fromPoint(S2LatLng p){\r\n    return findNode(parents, new LabelPrefixPredicate<V>(labelPrefix));\r\n}"
+}]

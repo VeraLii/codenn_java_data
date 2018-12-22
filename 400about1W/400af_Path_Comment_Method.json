@@ -1,0 +1,1277 @@
+[{
+	"Path": "marytts.language.de.preprocess.ExpansionPattern.reSplitAtChars",
+	"Comment": "a regular expression matching the characters at which a token should be split into parts before any preprocessing patterns\tare applied.",
+	"Method": "Pattern reSplitAtChars(){\r\n    GL33C.glQueryCounter(id, target);\r\n}"
+}, {
+	"Path": "marytts.modules.phonemiser.AllophoneSet.getPhoneFeature",
+	"Comment": "for the allophone with name ph, return the value of the named feature.",
+	"Method": "String getPhoneFeature(String ph,String featureName){\r\n    GL32C.glProvokingVertex(mode);\r\n}"
+}, {
+	"Path": "marytts.language.de.phonemiser.PhonemiseDenglish.processFlection",
+	"Comment": "try to process the input word, as it stands, or by cutting off prefixes or inflectional suffixes.",
+	"Method": "String processFlection(Word word,Result currentResult,boolean allowOtherLanguage){\r\n    long __result = naiCreatePropertyStore();\r\n    return AIPropertyStore.createSafe(__result);\r\n}"
+}, {
+	"Path": "marytts.features.FeatureDefinition.getFeatureIndexArray",
+	"Comment": "translate between an array of feature names and an array of feature indexes.",
+	"Method": "int[] getFeatureIndexArray(String[] featureName){\r\n    long __functionAddress = Functions.WriteBitcodeToFD;\r\n    if (CHECKS) {\r\n        check(M);\r\n    }\r\n    return invokePI(__functionAddress, M, FD, ShouldClose, Unbuffered);\r\n}"
+}, {
+	"Path": "marytts.unitselection.data.UnitDatabase.getFilename",
+	"Comment": "for debugging, return the basename of the original audio file from which the unit is coming.",
+	"Method": "String getFilename(Unit unit){\r\n    return nLLVMConstIntOfArbitraryPrecision(IntTy, Words.remaining(), memAddress(Words));\r\n}"
+}, {
+	"Path": "marytts.language.it.preprocess.ExpansionPattern.reSplitAtChars",
+	"Comment": "a regular expression matching the characters at which a token should be split into parts before any preprocessing patterns\tare applied.",
+	"Method": "Pattern reSplitAtChars(){\r\n    long __functionAddress = Functions.RunPassManager;\r\n    if (CHECKS) {\r\n        check(PM);\r\n        check(M);\r\n    }\r\n    return invokePPI(__functionAddress, PM, M) != 0;\r\n}"
+}, {
+	"Path": "marytts.tools.upgrade.Mary4To5VoiceConverter.convertPdfBinaryFile",
+	"Comment": "converts format from pdf mary format 4 to mary 5, the converted file will have the same input name",
+	"Method": "void convertPdfBinaryFile(File pdfInFile){\r\n    return nclang_Cursor_isAnonymous(C.address()) != 0;\r\n}"
+}, {
+	"Path": "org.lwjgl.ovr.OVRUtil.ovr_ReleaseHapticsClip",
+	"Comment": "releases memory allocated for ovrhapticsclip. must be called to avoid memory leak.",
+	"Method": "void ovr_ReleaseHapticsClip(OVRHapticsClip hapticsClip){\r\n    return nXCreateColormap(display, w, visual.address(), alloc);\r\n}"
+}, {
+	"Path": "marytts.unitselection.analysis.VoiceDataDumper.dumpData",
+	"Comment": "get file names from voice config file. dump relevant data from audio timeline, unit file, etc. to praat textgrid and wav\tfile.",
+	"Method": "void dumpData(String voiceName){\r\n    long __functionAddress = Functions.QueryRendererInfo;\r\n    if (CHECKS) {\r\n        check(rend, 1);\r\n        check(nrend, 1);\r\n    }\r\n    return callPPI(__functionAddress, display_mask, memAddress(rend), nrend);\r\n}"
+}, {
+	"Path": "marytts.modules.KlattDurationModeller.getNextSyllable",
+	"Comment": "find the syllable following this syllable within the same phrase.",
+	"Method": "Element getNextSyllable(Element syllable){\r\n    GL42C.glDrawArraysInstancedBaseInstance(mode, first, count, primcount, baseinstance);\r\n}"
+}, {
+	"Path": "marytts.tools.voiceimport.traintrees.F0ContourPolynomialDistanceMeasure.distance",
+	"Comment": "compute the distance between the f0 contours corresponding to the given feature vectors. from the feature vectors, only\ttheir unit index number is used.",
+	"Method": "float distance(FeatureVector fv1,FeatureVector fv2){\r\n    GL41C.glActiveShaderProgram(pipeline, program);\r\n}"
+}, {
+	"Path": "marytts.util.data.BaseDoubleDataSource.available",
+	"Comment": "the number of doubles that can currently be read from this double data source without blocking. this number can change over\ttime.",
+	"Method": "int available(){\r\n    GL41C.glProgramUniform1ui(program, location, x);\r\n}"
+}, {
+	"Path": "marytts.modules.acoustic.Model.getTargets",
+	"Comment": "for a list of phone elements, return a list of targets, where each target is constructed from the\tcorresponding element.",
+	"Method": "List<Target> getTargets(List<Element> elements){\r\n    if (CHECKS) {\r\n        checkSafe(event, 1);\r\n    }\r\n    return nclEnqueueSVMMemFill(command_queue, memAddress(svm_ptr), memAddress(pattern), pattern.remaining(), svm_ptr.remaining(), remainingSafe(event_wait_list), memAddressSafe(event_wait_list), memAddressSafe(event));\r\n}"
+}, {
+	"Path": "marytts.tools.voiceimport.vocalizations.MLSAFeatureFileWriter.writeHeaderTo",
+	"Comment": "write the header of this feature file to the given dataoutput",
+	"Method": "void writeHeaderTo(DataOutput out){\r\n    MemoryStack stack = stackGet();\r\n    int stackPointer = stack.getPointer();\r\n    IntBuffer outCount = stack.callocInt(1);\r\n    try {\r\n        long __result = nobjc_copyClassList(memAddress(outCount));\r\n        return memPointerBufferSafe(__result, outCount.get(0));\r\n    } finally {\r\n        stack.setPointer(stackPointer);\r\n    }\r\n}"
+}, {
+	"Path": "marytts.modules.phonemiser.AllophoneSet.getAllophoneSetById",
+	"Comment": "get a previously loaded allophone set by its identifier. the method will make no attempt to load the allophone set if it is\tnot yet available.",
+	"Method": "AllophoneSet getAllophoneSetById(String identifier){\r\n    return address + Integer.toUnsignedLong(position) * sizeof();\r\n}"
+}, {
+	"Path": "org.lwjgl.openvr.VRRenderModels.VRRenderModels_FreeRenderModel",
+	"Comment": "frees a previously returned render model it is safe to call this on a null ptr.",
+	"Method": "void VRRenderModels_FreeRenderModel(RenderModel pRenderModel){\r\n    return GL40C.glGetSubroutineIndex(program, shadertype, name);\r\n}"
+}, {
+	"Path": "marytts.modules.Synthesis.containsPhoneDescendants",
+	"Comment": "check if the list of elements contains any tokens that have phone descendants",
+	"Method": "boolean containsPhoneDescendants(List<Element> tokensAndBoundaries){\r\n    GL20C.glVertexAttrib3f(index, v0, v1, v2);\r\n}"
+}, {
+	"Path": "marytts.tools.redstart.AdminWindow.getRecFolderPath",
+	"Comment": "returns file path for folder containing the speaker recordings",
+	"Method": "File getRecFolderPath(){\r\n    GL41C.glProgramUniform3ui(program, location, x, y, z);\r\n}"
+}, {
+	"Path": "org.lwjgl.openvr.VROverlay.VROverlay_SetOverlayTexelAspect",
+	"Comment": "sets the aspect ratio of the texels in the overlay. 1.0 means the texels are square. 2.0 means the texels are twice as wide as they are tall.defaults to 1.0.",
+	"Method": "int VROverlay_SetOverlayTexelAspect(long ulOverlayHandle,float fTexelAspect){\r\n    return nclSetKernelArgSVMPointer(kernel, arg_index, memAddress(arg_value));\r\n}"
+}, {
+	"Path": "org.lwjgl.vulkan.VkPhysicalDevice.getInstance",
+	"Comment": "returns the vulkan instance from which this physical device was enumerated.",
+	"Method": "VkInstance getInstance(){\r\n    nclang_getTokenSpelling(TU, token.address(), __result.address());\r\n    return __result;\r\n}"
+}, {
+	"Path": "marytts.util.math.Histogram.entries",
+	"Comment": "get number of entries in the histogram. this should correspond to the number of times the fill method has been used.",
+	"Method": "int entries(){\r\n    MemoryStack stack = stackGet();\r\n    int stackPointer = stack.getPointer();\r\n    try {\r\n        stack.nUTF8(Name, true);\r\n        long NameEncoded = stack.getPointerAddress();\r\n        return nLLVMAppendBasicBlock(Fn, NameEncoded);\r\n    } finally {\r\n        stack.setPointer(stackPointer);\r\n    }\r\n}"
+}, {
+	"Path": "marytts.util.math.Histogram.overflow",
+	"Comment": "get the height of the overflow bin. any value passed to the fill method which falls above the range of the histogram will\tbe counted in the overflow bin.",
+	"Method": "double overflow(){\r\n    GL42C.glDrawTransformFeedbackInstanced(mode, id, primcount);\r\n}"
+}, {
+	"Path": "marytts.language.de.preprocess.ExpansionPattern.getSplitAtChars",
+	"Comment": "a string containing the characters at which a token should be split into parts before any preprocessing patterns are\tapplied.",
+	"Method": "String getSplitAtChars(){\r\n    GL20C.glVertexAttrib2f(index, v0, v1);\r\n}"
+}, {
+	"Path": "marytts.features.FeatureVector.isShortFeature",
+	"Comment": "test whether the feature with the given index number is a short feature.",
+	"Method": "boolean isShortFeature(int index){\r\n    GL11C.glPointSize(size);\r\n}"
+}, {
+	"Path": "marytts.signalproc.analysis.distance.RmsLsfDistortionComputer.isInitialOrFinalSilence",
+	"Comment": "return true if the time given corresponds to an initial or final silence symbol in labels, false otherwise.",
+	"Method": "boolean isInitialOrFinalSilence(double time,Labels labels,String silenceSymbol){\r\n    return PointerBuffer.allocateDirect(capacity);\r\n}"
+}, {
+	"Path": "marytts.util.math.MathUtils.adjustRange",
+	"Comment": "adjusts range so that the minimum value equals minval and maximum equals maxval",
+	"Method": "void adjustRange(double[] x,double minVal,double maxVal){\r\n    nnk_layout_row_template_push_static(ctx.address(), width);\r\n}"
+}, {
+	"Path": "org.lwjgl.util.par.ParShapes.par_shapes_create_parametric_sphere",
+	"Comment": "creates a sphere with texture coordinates and small triangles near the poles.",
+	"Method": "ParShapesMesh par_shapes_create_parametric_sphere(int slices,int stacks){\r\n    long __functionAddress = Functions.GetWindowLongPtr;\r\n    if (CHECKS) {\r\n        check(hWnd);\r\n    }\r\n    return nGetWindowLongPtr(__functionAddress, hWnd, nIndex);\r\n}"
+}, {
+	"Path": "marytts.signalproc.process.VocalTractScalingSimpleProcessor.SetVScales",
+	"Comment": "if they are fixed for the whole signal, it is sufficient to specify them only once in the constructor below",
+	"Method": "void SetVScales(double[] vscalesIn){\r\n    try {\r\n        Path extractedFile = extractFile(libName, libURL);\r\n        try {\r\n            FileChannel fc = FileChannel.open(extractedFile);\r\n            if (fc.tryLock(0L, Long.MAX_VALUE, true) == null) {\r\n                if (Configuration.DEBUG_LOADER.get(false)) {\r\n                    apiLog(\"\\tFile is locked by another process, waiting...\");\r\n                }\r\n                fc.lock(0L, Long.MAX_VALUE, true);\r\n            }\r\n            return fc;\r\n        } catch (Exception e) {\r\n            throw new RuntimeException(\"Failed to lock the extracted file.\", e);\r\n        }\r\n    } catch (Exception e) {\r\n        throw new RuntimeException(\"\\tFailed to extract \" + name + \" library\", e);\r\n    }\r\n}"
+}, {
+	"Path": "marytts.signalproc.effects.EffectsApplier.isEffectAvailable",
+	"Comment": "in this case, check if any audio effect is null before actually applying it",
+	"Method": "boolean isEffectAvailable(String effectName){\r\n    return nGetTouchInputInfo(hTouchInput, pInputs.remaining(), pInputs.address(), cbSize) != 0;\r\n}"
+}, {
+	"Path": "org.lwjgl.openvr.VRChaperone.VRChaperone_SetSceneColor",
+	"Comment": "optionally give the chaperone system a hit about the color and brightness in the scene.",
+	"Method": "void VRChaperone_SetSceneColor(HmdColor color){\r\n    nbgfx_encoder_submit_indirect(_encoder, (short) _id, _handle, _indirectHandle, (short) _start, (short) _num, _depth, _preserveState);\r\n}"
+}, {
+	"Path": "marytts.unitselection.select.JoinCostFeatures.readJoinCostWeightsFile",
+	"Comment": "read the join cost weight specifications from the given file. the weights will be normalized such that they sum to one.",
+	"Method": "Object[] readJoinCostWeightsFile(String fileName){\r\n    return nnk_window_is_hovered(ctx.address()) != 0;\r\n}"
+}, {
+	"Path": "marytts.signalproc.process.PitchFrameProvider.getShiftPeriods",
+	"Comment": "the number of periods by which the analysis window is shifted.",
+	"Method": "int getShiftPeriods(){\r\n    long __functionAddress = GL.getCapabilitiesGLXClient().glXCreateAssociatedContextAttribsAMD;\r\n    if (CHECKS) {\r\n        check(__functionAddress);\r\n        check(share_context);\r\n        checkNT(attribList);\r\n    }\r\n    return callPPP(__functionAddress, id, share_context, attribList);\r\n}"
+}, {
+	"Path": "org.lwjgl.demo.openal.EFXTest.silentTests",
+	"Comment": "runs a series of api calls similar to the tutorials in the effects extension guide of theopenal sdk. nothing is played in this method.",
+	"Method": "void silentTests(){\r\n    long __result = nsel_getName(sel);\r\n    return memUTF8Safe(__result);\r\n}"
+}, {
+	"Path": "marytts.modules.TargetFeatureLister.createTargetsWithPauses",
+	"Comment": "create the list of targets from the segments to be synthesized prepend and append pauses if necessary",
+	"Method": "List<Target> createTargetsWithPauses(List<Element> segmentsAndBoundaries,String silenceSymbol){\r\n    return nbgfx_create_frame_buffer_from_nwh(_nwh, (short) _width, (short) _height, _format, _depthFormat);\r\n}"
+}, {
+	"Path": "marytts.tools.voiceimport.PhoneLabelFeatureAligner.deleteProblemsYesNo",
+	"Comment": "let the user select if he wants to run the the automatic correction of pauses.",
+	"Method": "void deleteProblemsYesNo(Map<String, String> someProblems,String basename){\r\n    GL32C.glProvokingVertex(mode);\r\n}"
+}, {
+	"Path": "marytts.modules.ProsodyGeneric.copyAccentsToSyllables",
+	"Comment": "go through all tokens in a document, and copy any accents to the first accented syllable.",
+	"Method": "void copyAccentsToSyllables(Document doc){\r\n    long __functionAddress = Functions.DIBuilderCreateDebugLocation;\r\n    if (CHECKS) {\r\n        check(Ctx);\r\n        check(Scope);\r\n        check(InlinedAt);\r\n    }\r\n    return invokePPPP(__functionAddress, Ctx, Line, Column, Scope, InlinedAt);\r\n}"
+}, {
+	"Path": "marytts.language.te.JTokeniser.splitOffDots",
+	"Comment": "for telugu, treat all dots as standalone tokens that trigger end of sentence.",
+	"Method": "void splitOffDots(MaryData d){\r\n    if (CHECKS) {\r\n        check(bus_addresses, mem_objects.remaining());\r\n        checkSafe(event, 1);\r\n    }\r\n    return nclEnqueueMakeBuffersResidentAMD(command_queue, mem_objects.remaining(), memAddress(mem_objects), blocking_make_resident ? 1 : 0, bus_addresses.address(), remainingSafe(event_wait_list), memAddressSafe(event_wait_list), memAddressSafe(event));\r\n}"
+}, {
+	"Path": "org.lwjgl.util.opus.OpusProjection.OPUS_PROJECTION_GET_DEMIXING_MATRIX_SIZE",
+	"Comment": "gets the size in bytes of the demixing matrix from the encoder.",
+	"Method": "CTLRequest OPUS_PROJECTION_GET_DEMIXING_MATRIX_SIZE(IntBuffer value){\r\n    long __functionAddress = ALC.getICD().alcCaptureStop;\r\n    if (CHECKS) {\r\n        check(__functionAddress);\r\n        check(device);\r\n    }\r\n    invokePV(__functionAddress, device);\r\n}"
+}, {
+	"Path": "marytts.util.io.LEDataInputStream.readFloat",
+	"Comment": "read one float. like datainputstream.readfloat except little endian.",
+	"Method": "float readFloat(float[] readFloat,int len){\r\n    long __functionAddress = Functions.class_createInstance;\r\n    if (CHECKS) {\r\n        check(cls);\r\n    }\r\n    return invokePPP(__functionAddress, cls, extraBytes);\r\n}"
+}, {
+	"Path": "marytts.util.data.Datagram.write",
+	"Comment": "write this datagram to a random access file or data output stream. must only be called if data is not null.",
+	"Method": "void write(DataOutput raf){\r\n    MemoryStack stack = stackGet();\r\n    int stackPointer = stack.getPointer();\r\n    try {\r\n        stack.nUTF8(name, true);\r\n        long nameEncoded = stack.getPointerAddress();\r\n        return nobject_setInstanceVariable(obj, nameEncoded, memAddress(value));\r\n    } finally {\r\n        stack.setPointer(stackPointer);\r\n    }\r\n}"
+}, {
+	"Path": "marytts.util.math.MathUtils.determinant",
+	"Comment": "note that if the matrix contains large values and of a large size, one may get overflow",
+	"Method": "double determinant(double[] diagonal,double determinant,double[][] matrix){\r\n    nclang_remap_getFilenames(Remapping, index, memAddressSafe(original), memAddressSafe(transformed));\r\n}"
+}, {
+	"Path": "marytts.server.Request.abort",
+	"Comment": "inform this request that any further processing does not make sense.",
+	"Method": "void abort(){\r\n    long __functionAddress = Functions.PollEvents;\r\n    EventLoop.OnScreen.check();\r\n    invokeV(__functionAddress);\r\n}"
+}, {
+	"Path": "marytts.modules.acoustic.HMMModel.setPredictDurAndF0",
+	"Comment": "this variable is set to true whenever the same hmmmodel is used to predict both duration and f0. by default the variable is\tfalse, so that means that two different hmmmodels are used for predicting duration and f0, in this case there is no state\tdurations information to predict f0.",
+	"Method": "void setPredictDurAndF0(boolean bval){\r\n    return GLFWScrollCallback.createSafe(nglfwSetScrollCallback(window, memAddressSafe(cbfun)));\r\n}"
+}, {
+	"Path": "marytts.util.data.BufferedDoubleDataSource.hasMoreData",
+	"Comment": "whether or not any more data can be read from this data source.",
+	"Method": "boolean hasMoreData(){\r\n    GL43C.glVertexBindingDivisor(bindingindex, divisor);\r\n}"
+}, {
+	"Path": "marytts.features.FeatureProcessorManager.registerAcousticModels",
+	"Comment": "create any additional feature processors for acoustic models.",
+	"Method": "void registerAcousticModels(Voice voice){\r\n    switch(type) {\r\n        case GL_BYTE:\r\n        case GL_UNSIGNED_BYTE:\r\n            return 1;\r\n        case GL_SHORT:\r\n        case GL_UNSIGNED_SHORT:\r\n        case GL_2_BYTES:\r\n        case GL_HALF_FLOAT:\r\n            return 2;\r\n        case GL_3_BYTES:\r\n            return 3;\r\n        case GL_INT:\r\n        case GL_UNSIGNED_INT:\r\n        case GL_FLOAT:\r\n        case GL_4_BYTES:\r\n        case GL_FIXED:\r\n            return 4;\r\n        case GL_DOUBLE:\r\n        case GL_INT64_NV:\r\n        case GL_UNSIGNED_INT64_NV:\r\n            return 8;\r\n        default:\r\n            throw new IllegalArgumentException(apiUnknownToken(\"Unsupported OpenGL type\", type));\r\n    }\r\n}"
+}, {
+	"Path": "org.lwjgl.openvr.VROverlay.VROverlay_GetOverlayErrorNameFromEnum",
+	"Comment": "returns a string that corresponds with the specified overlay error. the string will be the name of the error enum value for all valid error codes.",
+	"Method": "String VROverlay_GetOverlayErrorNameFromEnum(int error){\r\n    GL20C.glBlendEquationSeparate(modeRGB, modeAlpha);\r\n}"
+}, {
+	"Path": "marytts.htsengine.HMMData.getFeatureSet",
+	"Comment": "return the set of featuretypes that are available in this hmmdata object",
+	"Method": "Set<FeatureType> getFeatureSet(){\r\n    long __functionAddress = Functions.copy;\r\n    long __result = invokePP(__functionAddress, _data, _data.length << 3);\r\n    return BGFXMemory.createSafe(__result);\r\n}"
+}, {
+	"Path": "marytts.util.math.MathUtils.mean",
+	"Comment": "compute the mean of all elements in the array. this function can deal with nans",
+	"Method": "double mean(double[] data,double mean,double[] data,int startIndex,int endIndex,double mean,double[] data,int[] inds,float mean,float[] data,int startIndex,int endIndex,float mean,float[] data,float mean,float[] data,int[] inds,double mean,double[] data,int opt,double[] mean,double[][] x,double[] mean,double[][] x,boolean isAlongRows,double[] mean,double[][] x,boolean isAlongRows,int[] indicesOfX){\r\n    GL41C.glVertexAttribL2d(index, x, y);\r\n}"
+}, {
+	"Path": "marytts.modules.JPhonemiser.setUnpronounceablePosRegex",
+	"Comment": "compile a regex pattern used to determine whether tokens are processed as unprounounceable or not, based on whether their\tpos attribute matches the pattern.",
+	"Method": "void setUnpronounceablePosRegex(){\r\n    long __functionAddress = Functions.SetSuccessor;\r\n    if (CHECKS) {\r\n        check(Term);\r\n        check(block);\r\n    }\r\n    invokePPV(__functionAddress, Term, i, block);\r\n}"
+}, {
+	"Path": "marytts.util.string.ByteStringTranslator.contains",
+	"Comment": "verify if the given string can be translated into a byte by this translator.",
+	"Method": "boolean contains(String s,boolean contains,byte b){\r\n    return GL40C.glGetSubroutineIndex(program, shadertype, name);\r\n}"
+}, {
+	"Path": "marytts.util.io.General.unQuantize",
+	"Comment": "unquantize an array of 16bits signed shorts over a float range",
+	"Method": "float unQuantize(short s,float fMin,float fRange,float[] unQuantize,short[] s,float fMin,float fRange){\r\n    GL41C.glVertexAttribL3d(index, x, y, z);\r\n}"
+}, {
+	"Path": "marytts.signalproc.analysis.PitchFrameAnalyser.analyseNextFrame",
+	"Comment": "the public method to call in order to trigger the analysis of the next frame.",
+	"Method": "FrameAnalysisResult analyseNextFrame(){\r\n    if (CHECKS) {\r\n        check(ctx);\r\n    }\r\n    MemoryStack stack = stackGet();\r\n    int stackPointer = stack.getPointer();\r\n    try {\r\n        stack.nASCII(name, true);\r\n        long nameEncoded = stack.getPointerAddress();\r\n        stack.nASCII(filename, true);\r\n        long filenameEncoded = stack.getPointerAddress();\r\n        return nnvgCreateFont(ctx, nameEncoded, filenameEncoded);\r\n    } finally {\r\n        stack.setPointer(stackPointer);\r\n    }\r\n}"
+}, {
+	"Path": "org.lwjgl.openvr.VRApplications.VRApplications_AddApplicationManifest",
+	"Comment": "adds an application manifest to the list to load when building the list of installed applications.temporary manifests are not automatically loaded.",
+	"Method": "int VRApplications_AddApplicationManifest(ByteBuffer pchApplicationManifestFullPath,boolean bTemporary,int VRApplications_AddApplicationManifest,CharSequence pchApplicationManifestFullPath,boolean bTemporary){\r\n    if (CHECKS) {\r\n        check(ColumnCountPtr, 1);\r\n    }\r\n    return nSQLNumResultCols(StatementHandle, memAddress(ColumnCountPtr));\r\n}"
+}, {
+	"Path": "marytts.util.io.General.readLittleEndianFloat",
+	"Comment": "reads the next float from the given datainputstream, where the data is in little endian.",
+	"Method": "float readLittleEndianFloat(DataInputStream dataStream){\r\n    nlto_codegen_set_assembler_args(cg, memAddress(args), args.remaining());\r\n}"
+}, {
+	"Path": "marytts.htsengine.HTSVocoder.main1",
+	"Comment": "stand alone testing reading parameters from files in sptk format",
+	"Method": "void main1(String[] args){\r\n    GL41C.glDepthRangef(zNear, zFar);\r\n}"
+}, {
+	"Path": "org.lwjgl.openvr.VRRenderModels.VRRenderModels_FreeTexture",
+	"Comment": "frees a previously returned texture. it is safe to call this on a null ptr.",
+	"Method": "void VRRenderModels_FreeTexture(RenderModelTextureMap pTexture){\r\n    return nclang_codeCompleteGetContexts(Results.address());\r\n}"
+}, {
+	"Path": "marytts.util.math.MathUtils.interpolate",
+	"Comment": "linear interpolation of values in xvals at indices xinds to give values at indices xinds2",
+	"Method": "float[] interpolate(float[] x,int newLength,double[] interpolate,double[] x,int newLength,ComplexNumber[] interpolate,ComplexNumber[] x,int newLength,double[] interpolate,int[] xInds,double[] xVals,int[] xInds2){\r\n    long __functionAddress = Functions.getDiagnostic;\r\n    if (CHECKS) {\r\n        check(Unit);\r\n    }\r\n    return invokePP(__functionAddress, Unit, Index);\r\n}"
+}, {
+	"Path": "marytts.signalproc.window.DynamicTwoHalvesWindow.applyInlineRightHalf",
+	"Comment": "apply the right half of a window of the specified type to the data. the right half will be as long as the given len.",
+	"Method": "void applyInlineRightHalf(double[] data,int off,int len){\r\n    GL41C.glVertexAttribL1d(index, x);\r\n}"
+}, {
+	"Path": "marytts.util.math.FFT.correlateWithZeroPadding",
+	"Comment": "compute the correlation of two signals, by multipying them in the frequency domain. this method applies zero padding where\tnecessary to ensure that the result is not polluted because of assumed periodicity. the two signals need not be of equal\tlength.",
+	"Method": "double[] correlateWithZeroPadding(double[] signal1,double[] signal2){\r\n    long __functionAddress = GL.getCapabilitiesGLXClient().glXGetCurrentReadDrawable;\r\n    if (CHECKS) {\r\n        check(__functionAddress);\r\n    }\r\n    return callP(__functionAddress);\r\n}"
+}, {
+	"Path": "org.lwjgl.openvr.VROverlay.VROverlay_SetOverlayAlpha",
+	"Comment": "sets the alpha of the overlay quad. use 1.0 for 100 percent opacity to 0.0 for 0 percent opacity.",
+	"Method": "int VROverlay_SetOverlayAlpha(long ulOverlayHandle,float fAlpha){\r\n    return GL11C.glGetString(name);\r\n}"
+}, {
+	"Path": "marytts.tools.analysis.TranscriptionAligner.setDistance",
+	"Comment": "this sets the distance by using the phone set of the aligner object. phone set must already be specified.",
+	"Method": "void setDistance(){\r\n    GL41C.glProgramUniform4i(program, location, x, y, z, w);\r\n}"
+}, {
+	"Path": "org.lwjgl.demo.openal.EFXTest.efxUtilTest",
+	"Comment": "checks openal for every efx 1.0 effect and filter and prints the result to the console.",
+	"Method": "void efxUtilTest(){\r\n    GL41C.glProgramUniform4d(program, location, x, y, z, w);\r\n}"
+}, {
+	"Path": "marytts.modules.ProsodyGeneric.applyRules",
+	"Comment": "verify whether this node has a parent preventing the application of intonation rules.",
+	"Method": "boolean applyRules(Node n){\r\n    GL41C.glProgramUniform4f(program, location, x, y, z, w);\r\n}"
+}, {
+	"Path": "marytts.tools.redstart.AdminWindow.jButton_PlayActionPerformed",
+	"Comment": "plays the latest recorded version of the currently selected prompt",
+	"Method": "void jButton_PlayActionPerformed(java.awt.event.ActionEvent evt){\r\n    nbgfx_init_ctor(_init.address());\r\n}"
+}, {
+	"Path": "marytts.util.data.audio.AudioDoubleDataSource.hasMoreData",
+	"Comment": "whether or not any more data can be read from this data source.",
+	"Method": "boolean hasMoreData(){\r\n    long __functionAddress = Functions.codegen_set_should_internalize;\r\n    if (CHECKS) {\r\n        check(cg);\r\n    }\r\n    invokePV(__functionAddress, cg, ShouldInternalize);\r\n}"
+}, {
+	"Path": "marytts.util.data.text.PraatTextGrid.getXmin",
+	"Comment": "getter for textgrid start time. queries all tiers and sets start time to earliest time found",
+	"Method": "double getXmin(){\r\n    long __functionAddress = Functions.getCompletionNumAnnotations;\r\n    if (CHECKS) {\r\n        check(completion_string);\r\n    }\r\n    return invokePI(__functionAddress, completion_string);\r\n}"
+}, {
+	"Path": "marytts.unitselection.data.HnmDatagram.write",
+	"Comment": "write this datagram to a random access file or data output stream.",
+	"Method": "void write(DataOutput out){\r\n    MemoryStack stack = stackGet();\r\n    int stackPointer = stack.getPointer();\r\n    try {\r\n        stack.nUTF16Safe(lpszDeviceName, true);\r\n        long lpszDeviceNameEncoded = lpszDeviceName == null ? NULL : stack.getPointerAddress();\r\n        return nChangeDisplaySettingsEx(lpszDeviceNameEncoded, memAddressSafe(lpDevMode), hwnd, dwflags, lParam);\r\n    } finally {\r\n        stack.setPointer(stackPointer);\r\n    }\r\n}"
+}, {
+	"Path": "marytts.util.data.audio.AudioDestination.convertToAudioInputStream",
+	"Comment": "convert the audio data into an audioinputstream of the proper audioformat. this method assumes that the audio data starts\twith a valid audio file header, so the audio format is read from the data.",
+	"Method": "AudioInputStream convertToAudioInputStream(AudioFormat audioFormat,AudioInputStream convertToAudioInputStream){\r\n    GL41C.glVertexAttribL1d(index, x);\r\n}"
+}, {
+	"Path": "marytts.signalproc.adaptation.gmm.jointgmm.JointGMMParallelTrainer.mainQuickTest",
+	"Comment": "then, any hmm output is to be transformed with the voice conversion function to make it closer to original recordings",
+	"Method": "void mainQuickTest(String[] args){\r\n    GL42C.glDrawArraysInstancedBaseInstance(mode, first, count, primcount, baseinstance);\r\n}"
+}, {
+	"Path": "marytts.htsengine.HTSEngineTest.loadF0contour",
+	"Comment": "load logf0, in hts format, create a voiced array and set this values in pdf2par this contour should be aligned with the\tdurations, so the total duration in frames should be the same as in the lf0 file",
+	"Method": "void loadF0contour(String lf0File,int totalDurationFrames,HTSParameterGeneration pdf2par){\r\n    GL20C.glVertexAttrib1f(index, v0);\r\n}"
+}, {
+	"Path": "org.lwjgl.openvr.VRTrackedCamera.VRTrackedCamera_GetVideoStreamTextureGL",
+	"Comment": "access a shared gl texture for the specified tracked camera stream.",
+	"Method": "int VRTrackedCamera_GetVideoStreamTextureGL(long hTrackedCamera,int eFrameType,IntBuffer pglTextureId,CameraVideoStreamFrameHeader pFrameHeader,int nFrameHeaderSize,int VRTrackedCamera_GetVideoStreamTextureGL,long hTrackedCamera,int eFrameType,IntBuffer pglTextureId,CameraVideoStreamFrameHeader pFrameHeader){\r\n    GL41C.glProgramUniform3f(program, location, x, y, z);\r\n}"
+}, {
+	"Path": "marytts.util.data.NoiseDoubleDataSource.available",
+	"Comment": "the number of doubles that can currently be read from this double data source without blocking. this number can change over\ttime.",
+	"Method": "int available(){\r\n    GL41C.glProgramUniform3i(program, location, x, y, z);\r\n}"
+}, {
+	"Path": "marytts.htsengine.HMMData.setF0Std",
+	"Comment": "these variables have default values but can be modified with setting in audio effects component.",
+	"Method": "void setF0Std(double dval){\r\n    GL41C.glProgramUniform3d(program, location, x, y, z);\r\n}"
+}, {
+	"Path": "marytts.tools.emospeak.AsynchronousThreadedMaryClient.scheduleRequest",
+	"Comment": "schedule the latest request. any previous, unprocessed requests are deleted.",
+	"Method": "void scheduleRequest(String prosodyxmlString,MaryClient.Voice voice,int requestNumber){\r\n    try (MemoryStack stack = stackPush()) {\r\n        return getFunctionAddress(stack.ASCII(functionName));\r\n    }\r\n}"
+}, {
+	"Path": "marytts.tools.redstart.AdminWindow.playSynthesis",
+	"Comment": "updates session status icon and calls method to play a synthesized file",
+	"Method": "void playSynthesis(){\r\n    return nclang_isInvalidDeclaration(cursor.address()) != 0;\r\n}"
+}, {
+	"Path": "marytts.unitselection.analysis.ProsodyAnalyzer.getRealizedPhones",
+	"Comment": "get the list of phones that have a predicted duration greater than zero",
+	"Method": "List<Phone> getRealizedPhones(){\r\n    return GL32C.glGetInteger64(pname);\r\n}"
+}, {
+	"Path": "marytts.util.data.BlockwiseDoubleDataSource.getBlockSize",
+	"Comment": "provide the size of the next block. this implementation returns the fixed blocksize given in the constructor. subclasses\tmay want to override this method.",
+	"Method": "int getBlockSize(){\r\n    long __functionAddress = Functions.class_isMetaClass;\r\n    return invokePZ(__functionAddress, cls);\r\n}"
+}, {
+	"Path": "marytts.signalproc.filter.RecursiveFilter.apply",
+	"Comment": "apply this filter to the given input signal. the input signal is filtered piece by piece, as it is read from the data\tsource returned by this method. this is the recommended way to filter longer signals.",
+	"Method": "DoubleDataSource apply(DoubleDataSource signal,double[] apply,double[] signal){\r\n    long __functionAddress = Functions.GetWindowMonitor;\r\n    if (CHECKS) {\r\n        check(window);\r\n    }\r\n    return invokePP(__functionAddress, window);\r\n}"
+}, {
+	"Path": "marytts.util.dom.DomUtils.trimAllTextNodes",
+	"Comment": "go through all text nodes below this node, and replace their text with a trimmed version of their text. this changes the\tdom document.",
+	"Method": "void trimAllTextNodes(Node root){\r\n    GL13C.glActiveTexture(texture);\r\n}"
+}, {
+	"Path": "marytts.unitselection.concat.BaseUnitConcatenator.generateAudioStream",
+	"Comment": "generate audio to match the target pitchmarks as closely as possible.",
+	"Method": "AudioInputStream generateAudioStream(List<SelectedUnit> units){\r\n    MemoryStack stack = stackGet();\r\n    int stackPointer = stack.getPointer();\r\n    try {\r\n        stack.nUTF8(Filename, true);\r\n        long FilenameEncoded = stack.getPointerAddress();\r\n        return nLLVMLoadLibraryPermanently(FilenameEncoded) != 0;\r\n    } finally {\r\n        stack.setPointer(stackPointer);\r\n    }\r\n}"
+}, {
+	"Path": "marytts.unitselection.analysis.ProsodyAnalyzer.getDurationFactors",
+	"Comment": "get duration factors representing ratio of predicted and realized halfphone unit durations. units with zero predicted or\trealized duration receive a factor of 0.",
+	"Method": "List<Double> getDurationFactors(){\r\n    GL41C.glProgramUniform2i(program, location, x, y);\r\n}"
+}, {
+	"Path": "marytts.modules.acoustic.HMMModel.applyFromTo",
+	"Comment": "predict f0 for the list of elements and apply to another list of elements. if the same hmmmodel is used to predict duration\tand f0 then there must be a utterance model created in a previous call to this module, that will be used to predict f0. if\tthere is no previously created utterance model then one is created.",
+	"Method": "void applyFromTo(List<Element> predictFromElements,List<Element> applyToElements){\r\n    GL41C.glProgramUniform2f(program, location, x, y);\r\n}"
+}, {
+	"Path": "marytts.signalproc.adaptation.BaselineTrainer.getIndexedMapping",
+	"Comment": "note that the returned map contains smallest number of items in source and target training sets",
+	"Method": "int[] getIndexedMapping(BaselineAdaptationSet sourceTrainingSet,BaselineAdaptationSet targetTrainingSet){\r\n    if (CHECKS) {\r\n        check(dst_origin, 3);\r\n        check(region, 3);\r\n        checkSafe(event, 1);\r\n    }\r\n    return nclEnqueueCopyBufferToImage(command_queue, src_buffer, dst_image, src_offset, memAddress(dst_origin), memAddress(region), remainingSafe(event_wait_list), memAddressSafe(event_wait_list), memAddressSafe(event));\r\n}"
+}, {
+	"Path": "marytts.signalproc.display.Spectrogram.setDependentWindowLocation",
+	"Comment": "determine the next free location for a dependent and put the window there.",
+	"Method": "void setDependentWindowLocation(JFrame jf){\r\n    long __functionAddress = Functions.GetWindowAttrib;\r\n    if (CHECKS) {\r\n        check(window);\r\n    }\r\n    return invokePI(__functionAddress, window, attrib);\r\n}"
+}, {
+	"Path": "marytts.tools.emospeak.EmoSpeak.initComponents",
+	"Comment": "this method is called from within the constructor to initialize the form.",
+	"Method": "void initComponents(){\r\n    GL41C.glProgramUniform2d(program, location, x, y);\r\n}"
+}, {
+	"Path": "marytts.tools.redstart.PromptSet.getPromptData",
+	"Comment": "fills an array of prompts with basename and prompt text data from a list of prompt text files, where each file contains a\tsingle prompt sentence.",
+	"Method": "Prompt[] getPromptData(){\r\n    long __functionAddress = Functions.ConstPointerNull;\r\n    if (CHECKS) {\r\n        check(Ty);\r\n    }\r\n    return invokePP(__functionAddress, Ty);\r\n}"
+}, {
+	"Path": "org.lwjgl.openvr.VRInput.VRInput_GetSkeletalSummaryData",
+	"Comment": "reads summary information about the current pose of the skeleton associated with the given action.",
+	"Method": "int VRInput_GetSkeletalSummaryData(long action,VRSkeletalSummaryData pSkeletalSummaryData){\r\n    if (CHECKS) {\r\n        check(ctx);\r\n    }\r\n    return nnvglImageHandle(ctx, image);\r\n}"
+}, {
+	"Path": "marytts.features.FeatureRegistry.getTargetFeatureComputer",
+	"Comment": "obtain a targetfeaturecomputer that knows how to compute features for a target using the given set of feature processor\tnames. these names must be known to the given feature processor manager.",
+	"Method": "TargetFeatureComputer getTargetFeatureComputer(FeatureProcessorManager mgr,String features,TargetFeatureComputer getTargetFeatureComputer,Locale locale,String features,TargetFeatureComputer getTargetFeatureComputer,Voice voice,String features){\r\n    GL41C.glProgramUniform1i(program, location, x);\r\n}"
+}, {
+	"Path": "org.lwjgl.stb.STBTruetype.stbtt_GetCodepointHMetrics",
+	"Comment": "returns horizontal metrics for the specified codepoint.the returned values are expressed in unscaled coordinates.",
+	"Method": "void stbtt_GetCodepointHMetrics(STBTTFontinfo info,int codepoint,IntBuffer advanceWidth,IntBuffer leftSideBearing,void stbtt_GetCodepointHMetrics,STBTTFontinfo info,int codepoint,int[] advanceWidth,int[] leftSideBearing){\r\n    GL41C.glProgramUniform1d(program, location, x);\r\n}"
+}, {
+	"Path": "marytts.signalproc.sinusoidal.hntm.synthesis.HarmonicPartLinearPhaseInterpolatorSynthesizer.reset",
+	"Comment": "reset synthesis variables to start synthesis from the beginning",
+	"Method": "void reset(){\r\n    GL41C.glProgramUniform1f(program, location, x);\r\n}"
+}, {
+	"Path": "marytts.util.io.BasenameList.subList",
+	"Comment": "returns an autonomous sublist between fromindex, inclusive, and toindex, exclusive.",
+	"Method": "BasenameList subList(int fromIndex,int toIndex){\r\n    GL11C.glDepthMask(flag);\r\n}"
+}, {
+	"Path": "marytts.util.data.BufferedDoubleDataSource.compact",
+	"Comment": "compact the buffer, so that the data in the buffer starts at the beginning of the underlying array.",
+	"Method": "void compact(){\r\n    if (CHECKS) {\r\n        checkSafe(event, 1);\r\n    }\r\n    return nclEnqueueSVMMap(command_queue, blocking_map ? 1 : 0, map_flags, memAddress(svm_ptr), svm_ptr.remaining(), remainingSafe(event_wait_list), memAddressSafe(event_wait_list), memAddressSafe(event));\r\n}"
+}, {
+	"Path": "marytts.signalproc.sinusoidal.hntm.synthesis.NoisePartPseudoHarmonicSynthesizer.synthesize",
+	"Comment": "pseudo harmonics based noise generation for pseudo periods",
+	"Method": "double[] synthesize(HntmSpeechSignal hnmSignal,HntmAnalyzerParams analysisParams,HntmSynthesizerParams synthesisParams,String referenceFile){\r\n    return GL41C.glIsProgramPipeline(pipeline);\r\n}"
+}, {
+	"Path": "marytts.features.FeatureDefinition.writeBinaryTo",
+	"Comment": "write this feature definition in binary format to the given output, dropping featurestodrop",
+	"Method": "void writeBinaryTo(DataOutput out,void writeBinaryTo,DataOutput out,List<Integer> featuresToDrop){\r\n    return GLFWWindowSizeCallback.createSafe(nglfwSetWindowSizeCallback(window, memAddressSafe(cbfun)));\r\n}"
+}, {
+	"Path": "org.lwjgl.stb.STBVorbis.stb_vorbis_get_file_offset",
+	"Comment": "returns the current seek point within the file, or offset from the beginning of the memory buffer. in pushdata mode it returns 0.",
+	"Method": "int stb_vorbis_get_file_offset(long f){\r\n    long __functionAddress = Functions.BulkOperations;\r\n    if (CHECKS) {\r\n        check(StatementHandle);\r\n    }\r\n    return callPS(__functionAddress, StatementHandle, Operation);\r\n}"
+}, {
+	"Path": "marytts.vocalizations.VocalizationUnitFileReader.getNextUnit",
+	"Comment": "return the unit following the given unit in the original database.",
+	"Method": "VocalizationUnit getNextUnit(VocalizationUnit u){\r\n    long __result = nclass_getWeakIvarLayout(cls);\r\n    return memASCIISafe(__result);\r\n}"
+}, {
+	"Path": "marytts.tools.voiceimport.PhoneUnitLabelComputer.getMidTimes",
+	"Comment": "get mid points for an utterance, given a list its phone labels and a list of corresponding end points.",
+	"Method": "List<Double> getMidTimes(List<String> labels,List<Double> endTimes){\r\n    if (CHECKS) {\r\n        check(outValue, 1);\r\n    }\r\n    MemoryStack stack = stackGet();\r\n    int stackPointer = stack.getPointer();\r\n    try {\r\n        stack.nUTF8(name, true);\r\n        long nameEncoded = stack.getPointerAddress();\r\n        return nobject_getInstanceVariable(obj, nameEncoded, memAddress(outValue));\r\n    } finally {\r\n        stack.setPointer(stackPointer);\r\n    }\r\n}"
+}, {
+	"Path": "marytts.modules.ExternalModule.to",
+	"Comment": "the stream on which data is written to the external process.",
+	"Method": "OutputStream to(){\r\n    long __functionAddress = GL.getCapabilitiesWGL().wglReleaseTexImageARB;\r\n    if (CHECKS) {\r\n        check(__functionAddress);\r\n        check(pbuffer);\r\n    }\r\n    return callPI(__functionAddress, pbuffer, buffer) != 0;\r\n}"
+}, {
+	"Path": "io.github.hidroh.materialistic.MenuTintDelegate.onActivityCreated",
+	"Comment": "callback that should be triggered after activity has been created",
+	"Method": "void onActivityCreated(Context context){\r\n    nnk_end(ctx.address());\r\n}"
+}, {
+	"Path": "org.lwjgl.openvr.VROverlay.VROverlay_IsActiveDashboardOverlay",
+	"Comment": "returns true if the dashboard is visible and the specified overlay is the active system overlay.",
+	"Method": "boolean VROverlay_IsActiveDashboardOverlay(long ulOverlayHandle){\r\n    long __functionAddress = Functions.GetPixelFormat;\r\n    if (CHECKS) {\r\n        check(hdc);\r\n    }\r\n    return nGetPixelFormat(__functionAddress, hdc);\r\n}"
+}, {
+	"Path": "org.lwjgl.openvr.VRInput.VRInput_GetSkeletalBoneData",
+	"Comment": "reads the state of the skeletal bone data associated with this action and copies it into the given buffer.",
+	"Method": "int VRInput_GetSkeletalBoneData(long action,int eTransformSpace,int eMotionRange,VRBoneTransform.Buffer pTransformArray){\r\n    MemoryStack stack = stackGet();\r\n    int stackPointer = stack.getPointer();\r\n    try {\r\n        stack.nUTF16Safe(lpDevice, true);\r\n        long lpDeviceEncoded = lpDevice == null ? NULL : stack.getPointerAddress();\r\n        return nEnumDisplayDevices(lpDeviceEncoded, iDevNum, lpDisplayDevice.address(), dwFlags) != 0;\r\n    } finally {\r\n        stack.setPointer(stackPointer);\r\n    }\r\n}"
+}, {
+	"Path": "marytts.util.string.PrintfFormat.sprintf",
+	"Comment": "format an array of objects. byte, short, integer, long, float, double, and character arguments are treated as wrappers for\tprimitive types.",
+	"Method": "String sprintf(Object[] o,String sprintf,String sprintf,int x,String sprintf,long x,String sprintf,double x,String sprintf,String x,String sprintf,Object x){\r\n    long __functionAddress = Functions.ClearDrawable;\r\n    if (CHECKS) {\r\n        check(ctx);\r\n    }\r\n    return callPI(__functionAddress, ctx);\r\n}"
+}, {
+	"Path": "marytts.fst.Trie.computeMinimization",
+	"Comment": "this computes the minimization of the trie, i.e. equivalent nodes are identified. this is necessary to store a compact\tversion of this trie as a minimal transducer. the trie itself is not represented more compactly.",
+	"Method": "void computeMinimization(){\r\n    long __functionAddress = Functions.RunFunctionPassManager;\r\n    if (CHECKS) {\r\n        check(FPM);\r\n        check(F);\r\n    }\r\n    return invokePPI(__functionAddress, FPM, F) != 0;\r\n}"
+}, {
+	"Path": "marytts.cart.impose.FeatureArrayIndexer.sortNode",
+	"Comment": "a local sort at a particular node along the deep sorting operation. this is a recursive function.",
+	"Method": "void sortNode(int currentFeatureIdx,MaryNode currentNode){\r\n    GL11C.glBindTexture(target, texture);\r\n}"
+}, {
+	"Path": "marytts.unitselection.select.viterbi.Viterbi.addPath",
+	"Comment": "add the new path to the state path if it is better than the current path. in this, state means the position of the\tcandidate associated with this path in the candidate queue for the corresponding segment item. in other words, this method\tuses newpath as the one path leading to the candidate newpath.candidate, if it has a better score than the previously best\tpath leading to that candidate.",
+	"Method": "void addPath(ViterbiPoint point,ViterbiPath newPath){\r\n    MemoryStack stack = stackGet();\r\n    int stackPointer = stack.getPointer();\r\n    try {\r\n        stack.nUTF8(name, true);\r\n        long nameEncoded = stack.getPointerAddress();\r\n        return nclass_getInstanceVariable(cls, nameEncoded);\r\n    } finally {\r\n        stack.setPointer(stackPointer);\r\n    }\r\n}"
+}, {
+	"Path": "marytts.signalproc.adaptation.codebook.WeightedCodebookLsfMapper.learnMappingLabelGroups",
+	"Comment": "this function is identical to learnmappinglabels since the mapping is performed accordingly in previous steps",
+	"Method": "void learnMappingLabelGroups(WeightedCodebookFile codebookFile,WeightedCodebookFeatureCollection fcol,BaselineAdaptationSet sourceTrainingSet,BaselineAdaptationSet targetTrainingSet,int[] map){\r\n    MemoryStack stack = stackGet();\r\n    int stackPointer = stack.getPointer();\r\n    try {\r\n        int TextEncodedLength = stack.nUTF8(Text, false);\r\n        long TextEncoded = stack.getPointerAddress();\r\n        return nLLVMConstRealOfStringAndSize(RealTy, TextEncoded, TextEncodedLength);\r\n    } finally {\r\n        stack.setPointer(stackPointer);\r\n    }\r\n}"
+}, {
+	"Path": "marytts.modules.ModuleRegistry.modulesRequiredForProcessing",
+	"Comment": "a method for determining the list of modules required to transform the given source data type into the requested target\tdata type. if the voice given is not null, any preferred modules it may have are taken into account.",
+	"Method": "LinkedList<MaryModule> modulesRequiredForProcessing(MaryDataType sourceType,MaryDataType targetType,Locale locale,LinkedList<MaryModule> modulesRequiredForProcessing,MaryDataType sourceType,MaryDataType targetType,Locale locale,Voice voice,LinkedList<MaryModule> modulesRequiredForProcessing,MaryDataType sourceType,MaryDataType targetType,Locale locale,Voice voice,LinkedList<MaryDataType> seenTypes){\r\n    GL20C.glUniform1f(location, v0);\r\n}"
+}, {
+	"Path": "marytts.signalproc.process.FrameOverlapAddSource.initialise",
+	"Comment": "to be called by constructor in order to set up this frame overlap add source.",
+	"Method": "void initialise(DoubleDataSource inputSource,int windowType,boolean applySynthesisWindow,int frameLength,int samplingRate,InlineDataProcessor processor){\r\n    GL20C.glUniform1i(location, v0);\r\n}"
+}, {
+	"Path": "marytts.config.MaryConfig.getProperty",
+	"Comment": "get the given property. if it is not defined, the defaultvalue is returned.",
+	"Method": "String getProperty(String property,String defaultValue){\r\n    return nclang_getCursorVisibility(cursor.address());\r\n}"
+}, {
+	"Path": "marytts.util.io.BasenameList.getDir",
+	"Comment": "an accessor for the original directory. returns null if the original directory is undefined.",
+	"Method": "String getDir(){\r\n    if (CHECKS) {\r\n        check(ctx);\r\n    }\r\n    nnvgGlobalCompositeBlendFunc(ctx, sfactor, dfactor);\r\n}"
+}, {
+	"Path": "marytts.language.it.preprocess.CompositeEP.process",
+	"Comment": "process this token. the compositeep works as a splitter of single tokens, iteratively expanding a token into its\tcomponents.",
+	"Method": "List process(List tokens,boolean process,Element t,List expanded){\r\n    nnk_layout_space_push(ctx.address(), rect.address());\r\n}"
+}, {
+	"Path": "marytts.unitselection.concat.FdpsolaUnitConcatenator.getVoicings",
+	"Comment": "get voicing for every datagram in a list of selectedunits, as an array of arrays of booleans. this queries the phonological\tvoicedness value for the target as defined in the allophoneset",
+	"Method": "boolean[][] getVoicings(List<SelectedUnit> units){\r\n    int capacity = source.remaining() >> POINTER_SHIFT;\r\n    return wrap(PointerBuffer.class, memAddress(source), capacity, source);\r\n}"
+}, {
+	"Path": "org.lwjgl.openvr.VROverlay.VROverlay_CreateOverlay",
+	"Comment": "creates a new named overlay. all overlays start hidden and with default settings.",
+	"Method": "int VROverlay_CreateOverlay(ByteBuffer pchOverlayKey,ByteBuffer pchOverlayName,LongBuffer pOverlayHandle,int VROverlay_CreateOverlay,CharSequence pchOverlayKey,CharSequence pchOverlayName,LongBuffer pOverlayHandle){\r\n    if (CHECKS) {\r\n        checkSafe(file, 1);\r\n        checkSafe(line, 1);\r\n        checkSafe(column, 1);\r\n        checkSafe(offset, 1);\r\n    }\r\n    nclang_getSpellingLocation(location.address(), memAddressSafe(file), memAddressSafe(line), memAddressSafe(column), memAddressSafe(offset));\r\n}"
+}, {
+	"Path": "marytts.modules.acoustic.Model.applyTo",
+	"Comment": "apply this model to a list of elements, predicting from those same elements",
+	"Method": "void applyTo(List<Element> elements){\r\n    long __functionAddress = Functions.GetCurrentContext;\r\n    return invokeP(__functionAddress);\r\n}"
+}, {
+	"Path": "marytts.tools.transcription.TranscriptionTableModel.testFST",
+	"Comment": "for all words in lexicon, verify if they can be looked up in fst file.",
+	"Method": "void testFST(String lexiconFilename,String fstFilename){\r\n    MemoryStack stack = stackGet();\r\n    int stackPointer = stack.getPointer();\r\n    try {\r\n        stack.nUTF8(Name, true);\r\n        long NameEncoded = stack.getPointerAddress();\r\n        return nLLVMStructCreateNamed(C, NameEncoded);\r\n    } finally {\r\n        stack.setPointer(stackPointer);\r\n    }\r\n}"
+}, {
+	"Path": "marytts.signalproc.sinusoidal.hntm.analysis.HntmAnalyzer.unwrapPhasesAlongHarmonics",
+	"Comment": "phase envelope estimation and unwrapping to ensure phase continuity in frequency domain",
+	"Method": "double[][] unwrapPhasesAlongHarmonics(HntmSpeechSignal hntmSignal){\r\n    long __functionAddress = Functions.DIBuilderCreateLexicalBlockFile;\r\n    if (CHECKS) {\r\n        check(Builder);\r\n        check(Scope);\r\n        check(File);\r\n    }\r\n    return invokePPPP(__functionAddress, Builder, Scope, File, Discriminator);\r\n}"
+}, {
+	"Path": "org.mockserver.model.HttpResponse.replaceHeader",
+	"Comment": "update header to return as a header object, if a header withthe same name already exists it will be modified",
+	"Method": "HttpResponse replaceHeader(Header header,HttpResponse replaceHeader,String name,String values){\r\n    MemoryStack stack = stackGet();\r\n    int stackPointer = stack.getPointer();\r\n    try {\r\n        IntBuffer values = stack.callocInt(1);\r\n        nglGetProgramStageiv(program, shadertype, pname, memAddress(values));\r\n        return values.get(0);\r\n    } finally {\r\n        stack.setPointer(stackPointer);\r\n    }\r\n}"
+}, {
+	"Path": "marytts.tools.redstart.AdminWindow.determineStatus",
+	"Comment": "determines recording status given how many recordings a prompt has, as well as clipping status",
+	"Method": "String determineStatus(Recording rec){\r\n    long __functionAddress = AL.getICD().alProcessUpdatesSOFT;\r\n    if (CHECKS) {\r\n        check(__functionAddress);\r\n    }\r\n    invokeV(__functionAddress);\r\n}"
+}, {
+	"Path": "marytts.signalproc.analysis.distance.DistanceComputer.getLsfInverseHarmonicDistanceSymmetric",
+	"Comment": "lsfweights should be provided outside of the function and their length should match the",
+	"Method": "double getLsfInverseHarmonicDistanceSymmetric(double[] lsfs1,double[] lsfs2,double alpha,double freqRange){\r\n    long __functionAddress = Functions.SetVirtualScreen;\r\n    if (CHECKS) {\r\n        check(ctx);\r\n    }\r\n    return callPI(__functionAddress, ctx, screen);\r\n}"
+}, {
+	"Path": "marytts.tools.redstart.Options.getPauseAfterSynth",
+	"Comment": "gets pause duration between synthesis playback and recording",
+	"Method": "int getPauseAfterSynth(){\r\n    long __functionAddress = Functions.Disconnect;\r\n    if (CHECKS) {\r\n        check(ConnectionHandle);\r\n    }\r\n    return callPS(__functionAddress, ConnectionHandle);\r\n}"
+}, {
+	"Path": "marytts.signalproc.filter.HighPassFilter.getTransitionBandWidth",
+	"Comment": "for a given sampling rate, return the width of the transition band for this filter, in hertz.",
+	"Method": "double getTransitionBandWidth(int samplingRate){\r\n    return nclang_Type_getNumObjCTypeArgs(T.address());\r\n}"
+}, {
+	"Path": "org.lwjgl.util.par.ParShapes.par_shapes_compute_normals",
+	"Comment": "computes smooth normals by averaging adjacent facet normals.",
+	"Method": "void par_shapes_compute_normals(ParShapesMesh mesh){\r\n    long funcptr = Callback.getNativeFunction(signature.charAt(signature.length() - 1));\r\n    long handle = dcbNewCallback(signature, funcptr, NewGlobalRef(instance));\r\n    if (handle == NULL) {\r\n        throw new IllegalStateException(\"Failed to create the DCCallback object\");\r\n    }\r\n    if (DEBUG_ALLOCATOR) {\r\n        MemoryManage.DebugAllocator.track(handle, 2 * POINTER_SIZE);\r\n    }\r\n    return handle;\r\n}"
+}, {
+	"Path": "org.lwjgl.ovr.OVR.ovr_GetControllerVibrationState",
+	"Comment": "gets the haptics engine playback state of a specific touch controller.",
+	"Method": "int ovr_GetControllerVibrationState(long session,int controllerType,OVRHapticsPlaybackState outState){\r\n    long __functionAddress = Functions.ModuleFlagEntriesGetMetadata;\r\n    if (CHECKS) {\r\n        check(Entries);\r\n    }\r\n    return invokePP(__functionAddress, Entries, Index);\r\n}"
+}, {
+	"Path": "marytts.features.FeatureDefinition.equals",
+	"Comment": "determine whether two feature definitions are equal, regarding both the actual feature definitions and the weights. the\tcomparison of weights will succeed if both have no weights or if both have exactly the same weights",
+	"Method": "boolean equals(Object obj){\r\n    GL30C.glVertexAttribI4ui(index, x, y, z, w);\r\n}"
+}, {
+	"Path": "org.lwjgl.openvr.VRSystem.VRSystem_ApplyTransform",
+	"Comment": "convenience utility to apply the specified transform to the specified pose. this properly transforms all pose components, including velocity andangular velocity.",
+	"Method": "void VRSystem_ApplyTransform(TrackedDevicePose pOutputPose,TrackedDevicePose pTrackedDevicePose,HmdMatrix34 pTransform){\r\n    GL41C.glVertexAttribL3d(index, x, y, z);\r\n}"
+}, {
+	"Path": "org.lwjgl.ovr.OVRUtil.ovr_ReleaseAudioChannelData",
+	"Comment": "releases memory allocated for ovraudiochanneldata. must be called to avoid memory leak.",
+	"Method": "void ovr_ReleaseAudioChannelData(OVRAudioChannelData audioChannel){\r\n    GL41C.glDepthRangeIndexed(index, zNear, zFar);\r\n}"
+}, {
+	"Path": "marytts.unitselection.select.viterbi.ViterbiPath.getCandidate",
+	"Comment": "get the candidate of this path. each path leads to exactly one candidate.",
+	"Method": "ViterbiCandidate getCandidate(){\r\n    long __functionAddress = AL.getICD().alSource3i64SOFT;\r\n    if (CHECKS) {\r\n        check(__functionAddress);\r\n    }\r\n    invokeJJJV(__functionAddress, source, param, value1, value2, value3);\r\n}"
+}, {
+	"Path": "marytts.signalproc.analysis.Signal2EnergyConverter.processNewData",
+	"Comment": "for each signal sample, compute the signal energy as the square of the signal sample.",
+	"Method": "void processNewData(int off,int len){\r\n    nclang_getCompletionBriefComment(completion_string, __result.address());\r\n    return __result;\r\n}"
+}, {
+	"Path": "marytts.unitselection.analysis.ProsodyAnalyzer.parseIntoPhones",
+	"Comment": "parse a list of selected units into the corresponding phone segments",
+	"Method": "List<Phone> parseIntoPhones(){\r\n    GL20C.glUniform4f(location, v0, v1, v2, v3);\r\n}"
+}, {
+	"Path": "org.lwjgl.openvr.VRTrackedCamera.VRTrackedCamera_AcquireVideoStreamingService",
+	"Comment": "acquiring streaming service permits video streaming for the caller. releasing hints the system that video services do not need to be maintained forthis client. if the camera has not already been activated, a one time spin up may incur some auto exposure as well as initial streaming frame delays.the camera should be considered a global resource accessible for shared consumption but not exclusive to any caller. the camera may go inactive due tolack of active consumers or headset idleness.",
+	"Method": "int VRTrackedCamera_AcquireVideoStreamingService(int nDeviceIndex,LongBuffer pHandle){\r\n    long __result = nnk_window_get_panel(ctx.address());\r\n    return NkPanel.createSafe(__result);\r\n}"
+}, {
+	"Path": "marytts.tools.voiceimport.F0PolynomialFeatureFileWriter.writeHeaderTo",
+	"Comment": "write the header of this feature file to the given dataoutput",
+	"Method": "void writeHeaderTo(DataOutput out){\r\n    long __functionAddress = Functions.isAttribute;\r\n    return invokeI(__functionAddress, kind) != 0;\r\n}"
+}, {
+	"Path": "marytts.signalproc.sinusoidal.SinusoidalTrack.correctTrack",
+	"Comment": "check turning on instants and if it is misplaced, correct its location",
+	"Method": "void correctTrack(){\r\n    GL20C.glUniform4i(location, v0, v1, v2, v3);\r\n}"
+}, {
+	"Path": "org.lwjgl.stb.STBImageWrite.stbi_write_bmp",
+	"Comment": "writes a bmp image file.the bmp format expands y to rgb in the file format and does not output alpha.",
+	"Method": "boolean stbi_write_bmp(ByteBuffer filename,int w,int h,int comp,ByteBuffer data,boolean stbi_write_bmp,CharSequence filename,int w,int h,int comp,ByteBuffer data){\r\n    GL41C.glVertexAttribL2d(index, x, y);\r\n}"
+}, {
+	"Path": "marytts.signalproc.window.Window.get",
+	"Comment": "convenience method for requesting a window of the requested type.",
+	"Method": "Window get(int windowType,int length,Window get,int windowType,int length,double prescale){\r\n    return GL30C.glGetFramebufferAttachmentParameteri(target, attachment, pname);\r\n}"
+}, {
+	"Path": "marytts.util.data.audio.AudioDoubleDataSource.getData",
+	"Comment": "try to get length doubles from this doubledatasource, and copy them into target, starting from targetpos. this is the core\tmethod getting the data. subclasses may want to override this method. if an exception occurs reading from the underlying\treader, or converting data to double, the method will print a stack trace to standard error, but otherwise will silently\tstop and behave as if all data was read.",
+	"Method": "int getData(double[] target,int targetPos,int length){\r\n    if (CHECKS) {\r\n        checkSafe(StringLengthPtr, 1);\r\n    }\r\n    return nSQLGetInfo(ConnectionHandle, InfoType, memAddressSafe(InfoValuePtr), (short) (remainingSafe(InfoValuePtr) << POINTER_SHIFT), memAddressSafe(StringLengthPtr));\r\n}"
+}, {
+	"Path": "org.lwjgl.openvr.VROverlay.VROverlay_GetOverlayTexelAspect",
+	"Comment": "gets the aspect ratio of the texels in the overlay. defaults to 1.0.",
+	"Method": "int VROverlay_GetOverlayTexelAspect(long ulOverlayHandle,FloatBuffer pfTexelAspect){\r\n    if (CHECKS) {\r\n        check(ctx);\r\n    }\r\n    nnvgScissor(ctx, x, y, w, h);\r\n}"
+}, {
+	"Path": "marytts.unitselection.data.UnitDatabase.getCandidates",
+	"Comment": "preselect a set of candidates that could be used to realise the given target.",
+	"Method": "List<ViterbiCandidate> getCandidates(Target target){\r\n    long __functionAddress = CL.getICD().clGetKernelWorkGroupInfo;\r\n    if (CHECKS) {\r\n        check(kernel);\r\n        check(device);\r\n        checkSafe(param_value_size_ret, 1);\r\n    }\r\n    return callPPPPPI(__functionAddress, kernel, device, param_name, Integer.toUnsignedLong(lengthSafe(param_value)) << 3, param_value, memAddressSafe(param_value_size_ret));\r\n}"
+}, {
+	"Path": "marytts.tools.redstart.Speech.play",
+	"Comment": "plays a sound file once via the indicated sourcedataline. the method blocks until the playing has completed.",
+	"Method": "void play(String soundFilePathString,SourceDataLine line,int outputMode,void play,File soundFile,SourceDataLine line,int outputMode){\r\n    GL40C.glDrawTransformFeedback(mode, id);\r\n}"
+}, {
+	"Path": "org.mockserver.client.MockServerClient.retrieveLogMessagesArray",
+	"Comment": "retrieve the logs associated to a specific requests, this shows all logs for expectation matching, verification, clearing, etc",
+	"Method": "String[] retrieveLogMessagesArray(HttpRequest httpRequest){\r\n    nclang_Type_getModifiedType(T.address(), __result.address());\r\n    return __result;\r\n}"
+}, {
+	"Path": "marytts.modules.TargetFeatureLister.listTargetFeatures",
+	"Comment": "for the given elements and using the given feature computer, create a string representation of the target features.",
+	"Method": "String listTargetFeatures(TargetFeatureComputer featureComputer,List<Element> segmentsAndBoundaries){\r\n    GL20C.glUniform3f(location, v0, v1, v2);\r\n}"
+}, {
+	"Path": "marytts.tools.redstart.Speech.getFileCount",
+	"Comment": "get the number of files in filepath containing basename in their file name.",
+	"Method": "int getFileCount(){\r\n    long __functionAddress = Functions.GetParam;\r\n    if (CHECKS) {\r\n        check(Fn);\r\n    }\r\n    return invokePP(__functionAddress, Fn, Index);\r\n}"
+}, {
+	"Path": "marytts.modules.acoustic.HMMModel.applyTo",
+	"Comment": "predict duration for the list of elements. if the same hmmmodel is used to predict duration and f0 then a utterance model\tis created and kept in a weakhashmap, so the next call to this module, for predicting f0, can use that utterance model.",
+	"Method": "void applyTo(List<Element> elements){\r\n    GL20C.glUniform3i(location, v0, v1, v2);\r\n}"
+}, {
+	"Path": "marytts.signalproc.filter.BandRejectFilter.getTransitionBandWidth",
+	"Comment": "for a given sampling rate, return the width of the transition band for this filter, in hertz.",
+	"Method": "double getTransitionBandWidth(int samplingRate){\r\n    if (CHECKS) {\r\n        checkSafe(StringLengthPtr, 1);\r\n        checkSafe(TypePtr, 1);\r\n        checkSafe(SubTypePtr, 1);\r\n        checkSafe(LengthPtr, 1);\r\n        checkSafe(PrecisionPtr, 1);\r\n        checkSafe(ScalePtr, 1);\r\n        checkSafe(NullablePtr, 1);\r\n    }\r\n    return nSQLGetDescRec(DescriptorHandle, RecNumber, memAddressSafe(Name), (short) (remainingSafe(Name) >> 1), memAddressSafe(StringLengthPtr), memAddressSafe(TypePtr), memAddressSafe(SubTypePtr), memAddressSafe(LengthPtr), memAddressSafe(PrecisionPtr), memAddressSafe(ScalePtr), memAddressSafe(NullablePtr));\r\n}"
+}, {
+	"Path": "org.lwjgl.openvr.VRApplications.VRApplications_GetApplicationPropertyString",
+	"Comment": "returns a value for an application property. the required buffer size to fit this value will be returned.",
+	"Method": "int VRApplications_GetApplicationPropertyString(ByteBuffer pchAppKey,int eProperty,ByteBuffer pchPropertyValueBuffer,IntBuffer peError,int VRApplications_GetApplicationPropertyString,CharSequence pchAppKey,int eProperty,ByteBuffer pchPropertyValueBuffer,IntBuffer peError,String VRApplications_GetApplicationPropertyString,CharSequence pchAppKey,int eProperty,int unPropertyValueBufferLen,IntBuffer peError,String VRApplications_GetApplicationPropertyString,CharSequence pchAppKey,int eProperty,IntBuffer peError){\r\n    if (CHECKS) {\r\n        check(OutputHandle, 1);\r\n    }\r\n    return nSQLAllocHandle(HandleType, InputHandle, memAddress(OutputHandle));\r\n}"
+}, {
+	"Path": "org.lwjgl.util.yoga.Yoga.YGConfigSetUseWebDefaults",
+	"Comment": "using the web defaults is the prefered configuration for new projects. usage of non web defaults should be considered as legacy.",
+	"Method": "void YGConfigSetUseWebDefaults(long config,boolean enabled){\r\n    if (CHECKS) {\r\n        check(state, 1);\r\n    }\r\n    MemoryStack stack = stackGet();\r\n    int stackPointer = stack.getPointer();\r\n    try {\r\n        stack.nUTF8(title, true);\r\n        long titleEncoded = stack.getPointerAddress();\r\n        return nnk_tree_state_push(ctx.address(), type, titleEncoded, state) != 0;\r\n    } finally {\r\n        stack.setPointer(stackPointer);\r\n    }\r\n}"
+}, {
+	"Path": "org.lwjgl.openvr.VROverlay.VROverlay_GetOverlayInputMethod",
+	"Comment": "returns the current input settings for the specified overlay.",
+	"Method": "int VROverlay_GetOverlayInputMethod(long ulOverlayHandle,IntBuffer peInputMethod){\r\n    GL20C.glUniform2f(location, v0, v1);\r\n}"
+}, {
+	"Path": "marytts.util.io.General.writeLittleEndianFloat",
+	"Comment": "writes a float to the given dataoutputstream, where the data is in little endian.",
+	"Method": "void writeLittleEndianFloat(DataOutputStream dataStream,float val){\r\n    GL20C.glUniform2i(location, v0, v1);\r\n}"
+}, {
+	"Path": "marytts.language.it.preprocess.ExpansionPattern.allowMultipleTokens",
+	"Comment": "whether patterns of this type can be composed of several tokens.",
+	"Method": "boolean allowMultipleTokens(){\r\n    MemoryStack stack = stackGet();\r\n    int stackPointer = stack.getPointer();\r\n    try {\r\n        stack.nUTF16Safe(moduleName, true);\r\n        long moduleNameEncoded = moduleName == null ? NULL : stack.getPointerAddress();\r\n        return nGetModuleHandle(moduleNameEncoded);\r\n    } finally {\r\n        stack.setPointer(stackPointer);\r\n    }\r\n}"
+}, {
+	"Path": "marytts.util.io.LEDataInputStream.readUnsignedShort",
+	"Comment": "read an unsigned short, 16 bits. like datainputstream.readunsignedshort except little endian. note, returns int even though\tit reads a short.",
+	"Method": "int readUnsignedShort(int[] readUnsignedShort,int len){\r\n    GL45C.glVertexArrayElementBuffer(vaobj, buffer);\r\n}"
+}, {
+	"Path": "org.lwjgl.openvr.VROverlay.VROverlay_SetOverlayTransformTrackedDeviceRelative",
+	"Comment": "sets the transform to relative to the transform of the specified tracked device.",
+	"Method": "int VROverlay_SetOverlayTransformTrackedDeviceRelative(long ulOverlayHandle,int unTrackedDevice,HmdMatrix34 pmatTrackedDeviceToOverlayTransform){\r\n    long __functionAddress = Functions.ReleasePBuffer;\r\n    if (CHECKS) {\r\n        check(pbuffer);\r\n    }\r\n    callPV(__functionAddress, pbuffer);\r\n}"
+}, {
+	"Path": "org.lwjgl.openvr.VRSystem.VRSystem_ShouldApplicationReduceRenderingWork",
+	"Comment": "returns true if steamvr is doing significant rendering work and the game should do what it can to reduce its own workload. one common way to do this isto reduce the size of the render target provided for each eye.",
+	"Method": "boolean VRSystem_ShouldApplicationReduceRenderingWork(){\r\n    return GLFWWindowMaximizeCallback.createSafe(nglfwSetWindowMaximizeCallback(window, memAddressSafe(cbfun)));\r\n}"
+}, {
+	"Path": "marytts.util.data.audio.MonoAudioInputStream.skip",
+	"Comment": "skips over and discards a specified number of bytes from this audio input stream.",
+	"Method": "long skip(long n){\r\n    if (CHECKS) {\r\n        check(Tokens, 1);\r\n        check(NumTokens, 1);\r\n    }\r\n    nclang_tokenize(TU, Range.address(), memAddress(Tokens), memAddress(NumTokens));\r\n}"
+}, {
+	"Path": "marytts.util.dom.DomUtils.getFirstChildElement",
+	"Comment": "get the first child of e which is an element, or null if there is no such element.",
+	"Method": "Element getFirstChildElement(Element e){\r\n    if (CHECKS) {\r\n        check(pointer, 1);\r\n    }\r\n    nglGetVertexAttribPointervARB(index, pname, memAddress(pointer));\r\n}"
+}, {
+	"Path": "marytts.unitselection.analysis.ProsodyAnalyzer.insertTargetF0Values",
+	"Comment": "assign predicted f0 values to the phones by parsing the xml document",
+	"Method": "void insertTargetF0Values(){\r\n    naiDecomposeMatrix(mat.address(), scaling.address(), rotation.address(), position.address());\r\n}"
+}, {
+	"Path": "org.lwjgl.util.opus.OpusCustom.opus_custom_mode_create",
+	"Comment": "creates a new mode struct. this will be passed to an encoder or decoder. the mode must not be destroyed until the encoders and decoders that use it aredestroyed as well.",
+	"Method": "long opus_custom_mode_create(int Fs,int frame_size,IntBuffer error){\r\n    GL30C.glUniform1ui(location, v0);\r\n}"
+}, {
+	"Path": "marytts.modules.CARTDurationModeller.enterPauseDuration",
+	"Comment": "this predicts and enters the pause duration for a pause segment.",
+	"Method": "float enterPauseDuration(Element boundary,Element previous,StringPredictionTree currentPauseTree,TargetFeatureComputer currentPauseFeatureComputer){\r\n    nbgfx_set_view_rect((short) _id, (short) _x, (short) _y, (short) _width, (short) _height);\r\n}"
+}, {
+	"Path": "marytts.unitselection.select.DiphoneFFRTargetCostFunction.computeTargetFeatures",
+	"Comment": "compute the features for a given target, and store them in the target.",
+	"Method": "void computeTargetFeatures(Target target){\r\n    if (CHECKS) {\r\n        check(env);\r\n    }\r\n    nmdb_env_close(env);\r\n}"
+}, {
+	"Path": "marytts.util.math.FFT.convolve",
+	"Comment": "compute the convolution of two signals, by multiplying them in the frequency domain. this is the core method, requiring two\tsignals of equal length, which must be a power of two, and not checking for pollution arising from the assumed periodicity\tof both signals.",
+	"Method": "double[] convolve(double[] signal1,double[] signal2,double deltaT,double[] convolve,double[] signal1,double[] signal2){\r\n    return GL45C.glGetnUniformf(program, location);\r\n}"
+}, {
+	"Path": "marytts.unitselection.concat.FdpsolaUnitConcatenator.getRightContexts",
+	"Comment": "convenience method to return the rightmost datagram from each element in a list of selectedunits",
+	"Method": "Datagram[] getRightContexts(List<SelectedUnit> units){\r\n    pointer = frames[--frameIndex];\r\n    return this;\r\n}"
+}, {
+	"Path": "org.lwjgl.openvr.VROverlay.VROverlay_GetPrimaryDashboardDevice",
+	"Comment": "returns the tracked device that has the laser pointer in the dashboard.",
+	"Method": "int VROverlay_GetPrimaryDashboardDevice(){\r\n    MemoryStack stack = stackGet();\r\n    int stackPointer = stack.getPointer();\r\n    try {\r\n        stack.nASCII(name, true);\r\n        long nameEncoded = stack.getPointerAddress();\r\n        return nglGetProgramResourceLocationIndex(program, programInterface, nameEncoded);\r\n    } finally {\r\n        stack.setPointer(stackPointer);\r\n    }\r\n}"
+}, {
+	"Path": "marytts.util.data.audio.MaryAudioUtils.timedRecord",
+	"Comment": "record a sound file with the recording being limited to a given amount of time",
+	"Method": "void timedRecord(String filename,long millis,AudioFormat audioFormat,void timedRecord,File targetFile,long millis,AudioFormat audioFormat){\r\n    nclang_getRangeEnd(range.address(), __result.address());\r\n    return __result;\r\n}"
+}, {
+	"Path": "marytts.util.data.MaryHeader.peekFileType",
+	"Comment": "for the given file, look inside and determine the file type.",
+	"Method": "int peekFileType(String fileName){\r\n    GL42C.glDrawTransformFeedbackStreamInstanced(mode, id, stream, primcount);\r\n}"
+}, {
+	"Path": "org.lwjgl.demo.glfw.GLFWUtil.glfwInvoke",
+	"Comment": "invokes the specified callbacks using the current window and framebuffer sizes of the specified glfw window.",
+	"Method": "void glfwInvoke(long window,GLFWWindowSizeCallbackI windowSizeCB,GLFWFramebufferSizeCallbackI framebufferSizeCB){\r\n    return GL40C.glGetUniformSubroutineui(shadertype, location);\r\n}"
+}, {
+	"Path": "org.lwjgl.system.rpmalloc.RPmalloc.rpmemalign",
+	"Comment": "allocates a memory block of at least the given size and alignment.",
+	"Method": "ByteBuffer rpmemalign(long alignment,long size){\r\n    long __functionAddress = Functions.DeleteBasicBlock;\r\n    if (CHECKS) {\r\n        check(BB);\r\n    }\r\n    invokePV(__functionAddress, BB);\r\n}"
+}, {
+	"Path": "marytts.signalproc.adaptation.AdaptationUtils.mapFrameGroupsFeatures",
+	"Comment": "each frame is mapped as a group of frames, i.e. with frames on the left and right context",
+	"Method": "IndexMap mapFrameGroupsFeatures(String sourceLabelFile,String targetLabelFile,String sourceFeatureFile,String targetFeatureFile,int numNeighbours,int vocalTractFeature,String[] labelsToExcludeFromTraining){\r\n    return nSQLSetDescField(DescriptorHandle, RecNumber, FieldIdentifier, memAddress(ValuePtr), ValuePtr.remaining());\r\n}"
+}, {
+	"Path": "marytts.tools.emospeak.EmoTransformer.setEmotionValues",
+	"Comment": "asynchronously set the latest emotion values. overwrites any previous, unprocessed data.",
+	"Method": "void setEmotionValues(int activation,int evaluation,int power,String text,Locale locale,int r){\r\n    long __functionAddress = GL.getCapabilitiesGLXClient().glXCreatePixmap;\r\n    if (CHECKS) {\r\n        check(__functionAddress);\r\n        check(display);\r\n        check(config);\r\n        checkNTSafe(attrib_list);\r\n    }\r\n    return callPPPPP(__functionAddress, display, config, pixmap, attrib_list);\r\n}"
+}, {
+	"Path": "marytts.unitselection.select.HalfPhoneUnitSelector.createTargets",
+	"Comment": "create the list of targets from the xml elements to synthesize.",
+	"Method": "List<Target> createTargets(List<Element> segmentsAndBoundaries){\r\n    long __functionAddress = Functions.GetVectorSize;\r\n    if (CHECKS) {\r\n        check(VectorTy);\r\n    }\r\n    return invokePI(__functionAddress, VectorTy);\r\n}"
+}, {
+	"Path": "org.mockserver.test.Assert.assertSameEntries",
+	"Comment": "asserts that the two lists contain the same entries regardless of order",
+	"Method": "void assertSameEntries(Collection<T> collectionOne,Collection<T> collectionTwo){\r\n    if (CHECKS) {\r\n        checkSafe(file, 1);\r\n        checkSafe(line, 1);\r\n        checkSafe(column, 1);\r\n        checkSafe(offset, 1);\r\n    }\r\n    nclang_getExpansionLocation(location.address(), memAddressSafe(file), memAddressSafe(line), memAddressSafe(column), memAddressSafe(offset));\r\n}"
+}, {
+	"Path": "marytts.tools.voiceimport.WaveTimelineMaker.compute",
+	"Comment": "reads and concatenates a list of waveforms into one single timeline file.",
+	"Method": "boolean compute(){\r\n    return GL45C.glGetVertexArrayIndexed64i(vaobj, index, pname);\r\n}"
+}, {
+	"Path": "marytts.util.io.FileUtils.close",
+	"Comment": "close a socket and closeables. use this in a finally clause. exists because sockets are only closeable in jdk 1.7.",
+	"Method": "void close(Socket socket,Closeable closeables,void close,PreparedStatement ps,ResultSet rs,void close,Closeable closeables){\r\n    MemoryStack stack = stackGet();\r\n    int stackPointer = stack.getPointer();\r\n    try {\r\n        stack.nUTF8(name, true);\r\n        long nameEncoded = stack.getPointerAddress();\r\n        return nclass_getClassVariable(cls, nameEncoded);\r\n    } finally {\r\n        stack.setPointer(stackPointer);\r\n    }\r\n}"
+}, {
+	"Path": "marytts.datatypes.MaryDataType.getInputTypeStrings",
+	"Comment": "provide the names of all registered data types that can be used as input.",
+	"Method": "Vector<String> getInputTypeStrings(){\r\n    long __functionAddress = Functions.GetCurrentContext;\r\n    return callP(__functionAddress);\r\n}"
+}, {
+	"Path": "marytts.unitselection.select.JoinCostFeatures.getNumberOfFeatures",
+	"Comment": "get the number of feature weights and weighting functions.",
+	"Method": "int getNumberOfFeatures(){\r\n    long __functionAddress = Functions.DestroyWindow;\r\n    invokePV(__functionAddress, window);\r\n}"
+}, {
+	"Path": "marytts.unitselection.select.PrecompiledJoinCostReader.init",
+	"Comment": "initialise this join cost function by reading the appropriate settings from the maryproperties using the given\tconfigprefix.",
+	"Method": "void init(String configPrefix){\r\n    GL40C.glUniform1d(location, x);\r\n}"
+}, {
+	"Path": "marytts.tools.dbselection.DBHandler.createDBConnection",
+	"Comment": "the createdbconnection method creates the database connection.",
+	"Method": "boolean createDBConnection(String host,String db,String user,String passwd){\r\n    MemoryStack stack = stackGet();\r\n    int stackPointer = stack.getPointer();\r\n    try {\r\n        LongBuffer param = stack.callocLong(1);\r\n        nglGetVertexArrayIndexed64iv(vaobj, index, pname, memAddress(param));\r\n        return param.get(0);\r\n    } finally {\r\n        stack.setPointer(stackPointer);\r\n    }\r\n}"
+}, {
+	"Path": "marytts.machinelearning.SoP.saveSelectedFeatures",
+	"Comment": "first line vowel coefficients plus factors, second line consonant coefficients plus factors",
+	"Method": "void saveSelectedFeatures(PrintWriter toSopFile){\r\n    GL40C.glUniform2d(location, x, y);\r\n}"
+}, {
+	"Path": "marytts.cart.io.WagonCARTReader.parseAndAdd",
+	"Comment": "creates a node from the given input line and add it to the cart.",
+	"Method": "void parseAndAdd(String line){\r\n    long __functionAddress = Functions.encoder_set_transform;\r\n    if (CHECKS) {\r\n        check(_encoder);\r\n    }\r\n    return invokePPI(__functionAddress, _encoder, _mtx, (short) (_mtx.length >> 4));\r\n}"
+}, {
+	"Path": "marytts.signalproc.analysis.distance.RmsLsfDistortionComputer.mainInterspeech2008",
+	"Comment": "put source and target wav and lab files into two folders and call this function",
+	"Method": "void mainInterspeech2008(){\r\n    long __functionAddress = Functions.IsEnabled;\r\n    if (CHECKS) {\r\n        check(ctx);\r\n        check(enable, 1);\r\n    }\r\n    return callPPI(__functionAddress, ctx, pname, enable);\r\n}"
+}, {
+	"Path": "marytts.tools.voiceimport.PhoneLabelFeatureAligner.compute",
+	"Comment": "align labels and features. for each .phonelab file in the phone label directory, verify whether the chain of units given is\tidentical to the chain of units in the corresponding unit feature file. for those files that are not perfectly aligned,\tgive the user the opportunity to correct alignment.",
+	"Method": "boolean compute(){\r\n    long __functionAddress = Functions.getDiagnosticNumRanges;\r\n    if (CHECKS) {\r\n        check(Diagnostic);\r\n    }\r\n    return invokePI(__functionAddress, Diagnostic);\r\n}"
+}, {
+	"Path": "marytts.tools.transcription.TranscriptionTableModel.loadTranscription",
+	"Comment": "load transcription from file, either replacing or adding to any existing data. if adding, only words not contained in the\texisting data will be added.",
+	"Method": "void loadTranscription(String fileName,boolean keepCurrentData,void loadTranscription,HashMap<String, Integer> wordList,void loadTranscription,ArrayList<String> wordList){\r\n    long __functionAddress = Functions.MoreResults;\r\n    if (CHECKS) {\r\n        check(StatementHandle);\r\n    }\r\n    return callPS(__functionAddress, StatementHandle);\r\n}"
+}, {
+	"Path": "marytts.signalproc.sinusoidal.pitch.BaseSinusoidalPitchTracker.postProcessTrack",
+	"Comment": "the function also checks for isolated voiced or unvoiced f0 values and tries to correct them",
+	"Method": "float[] postProcessTrack(float[] f0sIn,double[] QsIn){\r\n    long __functionAddress = Functions.GetGlobalPassRegistry;\r\n    return invokeP(__functionAddress);\r\n}"
+}, {
+	"Path": "marytts.signalproc.effects.VocalTractLinearScalerEffect.main",
+	"Comment": "command line interface to the vocal tract linear scaler effect.",
+	"Method": "void main(String[] args){\r\n    nclang_getEnumDeclIntegerType(C.address(), __result.address());\r\n    return __result;\r\n}"
+}, {
+	"Path": "marytts.signalproc.analysis.distance.ItakuraSaitoDistanceComputer.mainInterspeech2008",
+	"Comment": "put source and target wav and lab files into two folders and call this function",
+	"Method": "void mainInterspeech2008(){\r\n    GL41C.glDepthRangef(zNear, zFar);\r\n}"
+}, {
+	"Path": "org.lwjgl.util.tootle.Tootle.TootleMeasureOverdraw",
+	"Comment": "a utility function to measure the amount of overdraw that occurs over a set of views. overdraw is defined as the number of pixels rendered divided bythe number of pixels covered by an object, minus one.",
+	"Method": "int TootleMeasureOverdraw(ByteBuffer pVB,IntBuffer pnIB,int nVBStride,FloatBuffer pfViewpoint,int eFrontWinding,FloatBuffer pfAvgODOut,FloatBuffer pfMaxODOut,int eOverdrawOptimizer,int TootleMeasureOverdraw,FloatBuffer pVB,IntBuffer pnIB,int nVBStride,FloatBuffer pfViewpoint,int eFrontWinding,FloatBuffer pfAvgODOut,FloatBuffer pfMaxODOut,int eOverdrawOptimizer){\r\n    return GL20C.glGetVertexAttribi(index, pname);\r\n}"
+}, {
+	"Path": "marytts.modules.synthesis.PAConverter.sampaEn2sampaDe",
+	"Comment": "converts a single phonetic symbol in english sampa representation into its equivalent in german sampa representation.",
+	"Method": "String sampaEn2sampaDe(String En){\r\n    long __functionAddress = Functions.ConstIntGetZExtValue;\r\n    if (CHECKS) {\r\n        check(ConstantVal);\r\n    }\r\n    return invokePJ(__functionAddress, ConstantVal);\r\n}"
+}, {
+	"Path": "marytts.machinelearning.GmmDiscretizer.getPossibleValues",
+	"Comment": "returns all poosible discretizations values can be mapped to.",
+	"Method": "int[] getPossibleValues(){\r\n    return nclang_CXCursorSet_contains(cset, cursor.address()) != 0;\r\n}"
+}, {
+	"Path": "marytts.signalproc.process.FrameProvider.getFrameShiftTime",
+	"Comment": "the amount of time by which one frame is shifted against the next.",
+	"Method": "double getFrameShiftTime(){\r\n    long __result = nnk__next(ctx.address(), cmd.address());\r\n    return NkCommand.createSafe(__result);\r\n}"
+}, {
+	"Path": "marytts.util.MaryRuntimeUtils.canCreateOgg",
+	"Comment": "determine whether conversion to ogg vorbis format is possible.",
+	"Method": "boolean canCreateOgg(){\r\n    return nnk_layout_ratio_from_pixel(ctx.address(), pixel_width);\r\n}"
+}, {
+	"Path": "org.lwjgl.stb.STBTruetype.stbtt_GetCodepointBox",
+	"Comment": "gets the bounding box of the visible part of the glyph, in unscaled coordinates.",
+	"Method": "boolean stbtt_GetCodepointBox(STBTTFontinfo info,int codepoint,IntBuffer x0,IntBuffer y0,IntBuffer x1,IntBuffer y1,boolean stbtt_GetCodepointBox,STBTTFontinfo info,int codepoint,int[] x0,int[] y0,int[] x1,int[] y1){\r\n    MemoryStack stack = stackGet();\r\n    int stackPointer = stack.getPointer();\r\n    try {\r\n        LongBuffer params = stack.callocLong(1);\r\n        nglGetInteger64v(pname, memAddress(params));\r\n        return params.get(0);\r\n    } finally {\r\n        stack.setPointer(stackPointer);\r\n    }\r\n}"
+}, {
+	"Path": "marytts.tools.voiceimport.HnmTimelineMaker.compute",
+	"Comment": "performs hnm analysis and writes the results to a single timeline file",
+	"Method": "boolean compute(){\r\n    return GLFWFramebufferSizeCallback.createSafe(nglfwSetFramebufferSizeCallback(window, memAddressSafe(cbfun)));\r\n}"
+}, {
+	"Path": "marytts.util.data.text.XwavesLabelfileReader.parseLabels",
+	"Comment": "read lines from the label file and parse them. as each line is parsed, the label in that line and its end time are appended\tto the appropriate arrays, and the initial header lines are stored in a third vector.",
+	"Method": "void parseLabels(){\r\n    return ALC11.alcCaptureCloseDevice(device);\r\n}"
+}, {
+	"Path": "marytts.tools.voiceimport.PhoneLabelFeatureAligner.correctPausesYesNo",
+	"Comment": "let the user select if he wants to run the the automatic correction of pauses.",
+	"Method": "int correctPausesYesNo(int numProblems){\r\n    long __functionAddress = CL.getICD().clRetainEvent;\r\n    if (CHECKS) {\r\n        check(event);\r\n    }\r\n    return callPI(__functionAddress, event);\r\n}"
+}, {
+	"Path": "org.lwjgl.openvr.VRApplications.VRApplications_IsQuitUserPromptRequested",
+	"Comment": "returns true if the outgoing scene app has requested a save prompt before exiting.",
+	"Method": "boolean VRApplications_IsQuitUserPromptRequested(){\r\n    GL40C.glUniform4d(location, x, y, z, w);\r\n}"
+}, {
+	"Path": "marytts.util.math.FFTMixedRadix.ifft",
+	"Comment": "ifftsize can be greater than, equal to, or less than x.length.",
+	"Method": "ComplexArray ifft(ComplexArray x,int ifftSize,ComplexArray ifft,double[] real,double[] imag,ComplexArray ifft,double[] real,double[] imag,int ifftSize,ComplexArray ifft,ComplexArray x){\r\n    long __functionAddress = Functions.GetMaterialIntegerArray;\r\n    if (CHECKS) {\r\n        checkSafe(pMax, 1);\r\n        check(pOut, pMax[0]);\r\n        AIMaterial.validate(pMat.address());\r\n    }\r\n    MemoryStack stack = stackGet();\r\n    int stackPointer = stack.getPointer();\r\n    try {\r\n        stack.nASCII(pKey, true);\r\n        long pKeyEncoded = stack.getPointerAddress();\r\n        return invokePPPPI(__functionAddress, pMat.address(), pKeyEncoded, type, index, pOut, pMax);\r\n    } finally {\r\n        stack.setPointer(stackPointer);\r\n    }\r\n}"
+}, {
+	"Path": "org.lwjgl.openvr.VRNotifications.VRNotifications_RemoveNotification",
+	"Comment": "destroy a notification, hiding it first if it currently shown to the user.",
+	"Method": "int VRNotifications_RemoveNotification(int notificationId){\r\n    GL11C.glClear(mask);\r\n}"
+}, {
+	"Path": "marytts.tools.voiceimport.traintrees.F0ContourPolynomialDistanceMeasure.squaredDistance",
+	"Comment": "compute the distance between the f0 contours corresponding to the given feature vectors. from the feature vectors, only\ttheir unit index number is used.",
+	"Method": "float squaredDistance(FeatureVector fv1,FeatureVector fv2,float squaredDistance,FeatureVector fv,float[] polynomial){\r\n    long __functionAddress = Functions.CompilationDatabase_getAllCompileCommands;\r\n    if (CHECKS) {\r\n        check(database);\r\n    }\r\n    return invokePP(__functionAddress, database);\r\n}"
+}, {
+	"Path": "marytts.util.math.MathUtils.clipRange",
+	"Comment": "adjust values in x so that all values smaller than minval are set to minval, and all values greater than maxval are set to\tmaxval",
+	"Method": "boolean clipRange(double[] x,double minVal,double maxVal){\r\n    MemoryStack stack = stackGet();\r\n    int stackPointer = stack.getPointer();\r\n    try {\r\n        FloatBuffer params = stack.callocFloat(1);\r\n        nglGetnUniformfv(program, location, 1, memAddress(params));\r\n        return params.get(0);\r\n    } finally {\r\n        stack.setPointer(stackPointer);\r\n    }\r\n}"
+}, {
+	"Path": "org.lwjgl.openvr.VROverlay.VROverlay_SetOverlayDualAnalogTransform",
+	"Comment": "sets the analog input to dual analog coordinate scale for the specified overlay.",
+	"Method": "int VROverlay_SetOverlayDualAnalogTransform(long ulOverlay,int eWhich,HmdVector2 pvCenter,float fRadius){\r\n    nclang_CompileCommand_getDirectory(command, __result.address());\r\n    return __result;\r\n}"
+}, {
+	"Path": "marytts.modules.HalfPhoneTargetFeatureLister.overridableCreateTargetsWithPauses",
+	"Comment": "access the code from within the our own code so that a subclass can override it. use this rather than the public static\tmethod in local code.",
+	"Method": "List<Target> overridableCreateTargetsWithPauses(List<Element> segmentsAndBoundaries,String pauseSymbol){\r\n    MemoryStack stack = stackGet();\r\n    int stackPointer = stack.getPointer();\r\n    try {\r\n        IntBuffer params = stack.callocInt(1);\r\n        nglGetColorTableParameteriv(target, pname, memAddress(params));\r\n        return params.get(0);\r\n    } finally {\r\n        stack.setPointer(stackPointer);\r\n    }\r\n}"
+}, {
+	"Path": "marytts.unitselection.data.FeatureFileReader.getFeatureFileReader",
+	"Comment": "get a feature file reader representing the given feature file.",
+	"Method": "FeatureFileReader getFeatureFileReader(String fileName){\r\n    GL40C.glUniform3d(location, x, y, z);\r\n}"
+}, {
+	"Path": "marytts.features.TargetFeatureComputer.computeFeatureVector",
+	"Comment": "using the set of feature processors defined when creating the target feature computer, compute a feature vector for the\ttarget",
+	"Method": "FeatureVector computeFeatureVector(Target target){\r\n    if (CHECKS) {\r\n        check(handle);\r\n    }\r\n    return ndlclose(handle);\r\n}"
+}, {
+	"Path": "marytts.vocalizations.VocalizationUnitFileReader.getPreviousUnit",
+	"Comment": "return the unit preceding the given unit in the original database.",
+	"Method": "VocalizationUnit getPreviousUnit(VocalizationUnit u){\r\n    long __functionAddress = Functions.GetArrayLength;\r\n    if (CHECKS) {\r\n        check(ArrayTy);\r\n    }\r\n    return invokePI(__functionAddress, ArrayTy);\r\n}"
+}, {
+	"Path": "org.lwjgl.openvr.VRApplications.VRApplications_LaunchApplication",
+	"Comment": "launches the application. the existing scene application will exit and then the new application will start.this call is not valid for dashboard overlay applications.",
+	"Method": "int VRApplications_LaunchApplication(ByteBuffer pchAppKey,int VRApplications_LaunchApplication,CharSequence pchAppKey){\r\n    URL url = APIUtil.class.getClassLoader().getResource(\"org/lwjgl/system/APIUtil.class\");\r\n    if (url != null) {\r\n        String classURL = url.toString();\r\n        if (classURL.startsWith(\"jar:\")) {\r\n            try (InputStream stream = new URL(classURL.substring(0, classURL.lastIndexOf(\"!\") + 1) + '/' + JarFile.MANIFEST_NAME).openStream()) {\r\n                return Optional.ofNullable(new Manifest(stream).getMainAttributes().getValue(attributeName));\r\n            } catch (Exception e) {\r\n                e.printStackTrace(APIUtil.DEBUG_STREAM);\r\n            }\r\n        }\r\n    }\r\n    return Optional.empty();\r\n}"
+}, {
+	"Path": "marytts.util.math.FFT.convolve_FD",
+	"Comment": "compute the convolution of two signals, by multiplying them in the frequency domain. this is a specialised version of the\tcore method, requiring two signals of equal length, which must be a power of two, and not checking for pollution arising\tfrom the assumed periodicity of both signals. in this version, the first signal is provided in the time domain, while the\tsecond is already transformed into the frequency domain.",
+	"Method": "double[] convolve_FD(double[] signal1,double[] fft2,double deltaT,double[] convolve_FD,double[] signal1,double[] fft2){\r\n    MemoryStack stack = stackGet();\r\n    int stackPointer = stack.getPointer();\r\n    try {\r\n        IntBuffer params = stack.callocInt(1);\r\n        nglGetActiveAtomicCounterBufferiv(program, bufferIndex, pname, memAddress(params));\r\n        return params.get(0);\r\n    } finally {\r\n        stack.setPointer(stackPointer);\r\n    }\r\n}"
+}, {
+	"Path": "marytts.datatypes.MaryDataType.getInputTypes",
+	"Comment": "provide the list of all registered data types that can be used as input.",
+	"Method": "List<MaryDataType> getInputTypes(){\r\n    long __functionAddress = Functions.module_get_symbol_attribute;\r\n    if (CHECKS) {\r\n        check(mod);\r\n    }\r\n    return invokePI(__functionAddress, mod, index);\r\n}"
+}, {
+	"Path": "org.lwjgl.ovr.OVR.ovr_ResetBoundaryLookAndFeel",
+	"Comment": "resets the look and feel of the boundary system to its default state.",
+	"Method": "int ovr_ResetBoundaryLookAndFeel(long session){\r\n    MemoryStack stack = stackGet();\r\n    int stackPointer = stack.getPointer();\r\n    try {\r\n        stack.nUTF8(name, true);\r\n        long nameEncoded = stack.getPointerAddress();\r\n        stack.nUTF8(title, true);\r\n        long titleEncoded = stack.getPointerAddress();\r\n        return nnk_begin_titled(ctx.address(), nameEncoded, titleEncoded, bounds.address(), flags) != 0;\r\n    } finally {\r\n        stack.setPointer(stackPointer);\r\n    }\r\n}"
+}, {
+	"Path": "marytts.modules.PronunciationModel.process",
+	"Comment": "this computes a new pronunciation for the elements of some marydata, that is phonemised.",
+	"Method": "MaryData process(MaryData d){\r\n    return GL40C.glIsTransformFeedback(id);\r\n}"
+}, {
+	"Path": "marytts.tools.voiceimport.AcousticFeatureFileWriter.writeHeaderTo",
+	"Comment": "write the header of this feature file to the given dataoutput",
+	"Method": "void writeHeaderTo(DataOutput out){\r\n    if (CHECKS) {\r\n        check(ctx);\r\n    }\r\n    nnvgQuadTo(ctx, cx, cy, x, y);\r\n}"
+}, {
+	"Path": "marytts.signalproc.analysis.distance.DistanceComputer.getLsfWeights",
+	"Comment": "for efficiency purposes as this function is called many times during transformation",
+	"Method": "double[] getLsfWeights(double[] lsfs,double freqRange){\r\n    long __functionAddress = GL.getCapabilitiesGLXClient().glXChooseFBConfig;\r\n    if (CHECKS) {\r\n        check(__functionAddress);\r\n        check(display);\r\n        checkNTSafe(attrib_list);\r\n    }\r\n    MemoryStack stack = stackGet();\r\n    int stackPointer = stack.getPointer();\r\n    IntBuffer nelements = stack.callocInt(1);\r\n    try {\r\n        long __result = callPPPP(__functionAddress, display, screen, attrib_list, memAddress(nelements));\r\n        return memPointerBufferSafe(__result, nelements.get(0));\r\n    } finally {\r\n        stack.setPointer(stackPointer);\r\n    }\r\n}"
+}, {
+	"Path": "marytts.util.math.MathUtils.findAnd",
+	"Comment": "returns the indices that satisfy both comparator1, val1 and comparator2, val2",
+	"Method": "int[] findAnd(int[] x,int comparator1,int val1,int comparator2,int val2,int[] findAnd,double[] x,int comparator1,double val1,int comparator2,double val2){\r\n    long __functionAddress = AL.getICD().alIsEnabled;\r\n    return invokeZ(__functionAddress, target);\r\n}"
+}, {
+	"Path": "marytts.unitselection.select.UnitSelector.selectUnits",
+	"Comment": "select the units for the targets in the given list of tokens and boundaries. collect them in a list and return it.",
+	"Method": "List<SelectedUnit> selectUnits(List<Element> tokensAndBoundaries,marytts.modules.synthesis.Voice voice){\r\n    long __functionAddress = Functions.PointerType;\r\n    if (CHECKS) {\r\n        check(ElementType);\r\n    }\r\n    return invokePP(__functionAddress, ElementType, AddressSpace);\r\n}"
+}, {
+	"Path": "marytts.tools.voiceimport.DatabaseLayout.initInternalResources",
+	"Comment": "initialise any internal resources required given the content of the configuration file.",
+	"Method": "void initInternalResources(){\r\n    nmemFree(address);\r\n}"
+}, {
+	"Path": "marytts.unitselection.data.LPCDatagram.getCoeffs",
+	"Comment": "get the lpc coefficients, unquantized using the given lpc min and range values.",
+	"Method": "float[] getCoeffs(float lpcMin,float lpcRange){\r\n    if (CHECKS) {\r\n        check(StringLengthPtr, 1);\r\n    }\r\n    return nSQLGetConnectAttr(ConnectionHandle, Attribute, memAddressSafe(ValuePtr), remainingSafe(ValuePtr), memAddress(StringLengthPtr));\r\n}"
+}, {
+	"Path": "marytts.util.math.Histogram.underflow",
+	"Comment": "get the height of the underflow bin. any value passed to the fill method which falls below the range of the histogram will\tbe counted in the underflow bin.",
+	"Method": "double underflow(){\r\n    GL41C.glDepthRangeIndexed(index, zNear, zFar);\r\n}"
+}, {
+	"Path": "marytts.util.MaryCache.haveCache",
+	"Comment": "indicate whether there is a marycache currently available.",
+	"Method": "boolean haveCache(){\r\n    return nGetWindowPlacement(hWnd, lpwndpl.address()) != 0;\r\n}"
+}, {
+	"Path": "org.lwjgl.util.opus.OpusMultistream.opus_multistream_decode_float",
+	"Comment": "decode a multistream opus packet with floating point output.",
+	"Method": "int opus_multistream_decode_float(long st,ByteBuffer data,FloatBuffer pcm,int frame_size,int decode_fec){\r\n    GL40C.glDrawTransformFeedback(mode, id);\r\n}"
+}, {
+	"Path": "org.lwjgl.openvr.VRExtendedDisplay.VRExtendedDisplay_GetEyeOutputViewport",
+	"Comment": "gets the viewport in the frame buffer to draw the output of the distortion into.",
+	"Method": "void VRExtendedDisplay_GetEyeOutputViewport(int eEye,IntBuffer pnX,IntBuffer pnY,IntBuffer pnWidth,IntBuffer pnHeight){\r\n    MemoryStack stack = stackGet();\r\n    int stackPointer = stack.getPointer();\r\n    try {\r\n        stack.nUTF8(name, true);\r\n        long nameEncoded = stack.getPointerAddress();\r\n        return nclang_ModuleMapDescriptor_setFrameworkModuleName(descriptor, nameEncoded);\r\n    } finally {\r\n        stack.setPointer(stackPointer);\r\n    }\r\n}"
+}, {
+	"Path": "marytts.util.data.audio.StereoAudioInputStream.skip",
+	"Comment": "skips over and discards a specified number of bytes from this audio input stream.",
+	"Method": "long skip(long n){\r\n    long __functionAddress = Functions.GetConfig;\r\n    if (CHECKS) {\r\n        check(display);\r\n        check(value, 1);\r\n        XVisualInfo.validate(visual.address());\r\n    }\r\n    return callPPPI(__functionAddress, display, visual.address(), attribute, value);\r\n}"
+}, {
+	"Path": "io.github.hidroh.materialistic.WebFragment.isPdfRenderingSupported",
+	"Comment": "js would manipulate the app via reflection via the bridge object",
+	"Method": "boolean isPdfRenderingSupported(){\r\n    nbgfx_vertex_convert(_destDecl.address(), memAddress(_destData), _srcDecl.address(), memAddress(_srcData), _num);\r\n}"
+}, {
+	"Path": "org.lwjgl.openvr.VROverlay.VROverlay_SetOverlayTextureBounds",
+	"Comment": "sets the part of the texture to use for the overlay. uv min is the upper left corner and uv max is the lower right corner.",
+	"Method": "int VROverlay_SetOverlayTextureBounds(long ulOverlayHandle,VRTextureBounds pOverlayTextureBounds){\r\n    long __functionAddress = Functions.ModuleFlagEntriesGetFlagBehavior;\r\n    if (CHECKS) {\r\n        check(Entries);\r\n    }\r\n    return invokePI(__functionAddress, Entries, Index);\r\n}"
+}, {
+	"Path": "marytts.tools.voiceimport.SphinxLabelingPreparator.rewriteConfigFile",
+	"Comment": "rewrite the config file so that it matches the voice database",
+	"Method": "void rewriteConfigFile(){\r\n    MemoryStack stack = stackGet();\r\n    int stackPointer = stack.getPointer();\r\n    IntBuffer nelements = stack.callocInt(1);\r\n    try {\r\n        long __result = nglXGetFBConfigs(display, screen, memAddress(nelements));\r\n        return memPointerBufferSafe(__result, nelements.get(0));\r\n    } finally {\r\n        stack.setPointer(stackPointer);\r\n    }\r\n}"
+}, {
+	"Path": "marytts.server.Request.moveBoundariesIntoParagraphs",
+	"Comment": "move all the boundary elements outside of paragraphs into paragraphs.",
+	"Method": "void moveBoundariesIntoParagraphs(Document rawmaryxml){\r\n    long __functionAddress = Functions.DisposePassManager;\r\n    if (CHECKS) {\r\n        check(PM);\r\n    }\r\n    invokePV(__functionAddress, PM);\r\n}"
+}, {
+	"Path": "marytts.signalproc.process.PitchFrameProvider.hasMoreData",
+	"Comment": "whether or not this frameprovider can provide another frame.",
+	"Method": "boolean hasMoreData(){\r\n    return GL32C.glGetInteger64(pname);\r\n}"
+}, {
+	"Path": "marytts.language.it.preprocess.NumberEP.allowMultipleTokens",
+	"Comment": "simple numbers are expected to be entire tokens. they should not be joined together out of several tokens.",
+	"Method": "boolean allowMultipleTokens(){\r\n    if (capabilitiesWGL == null) {\r\n        capabilitiesWGL = createCapabilitiesWGLDummy();\r\n    }\r\n    return capabilitiesWGL;\r\n}"
+}, {
+	"Path": "org.mockserver.socket.tls.KeyAndCertificateFactory.buildAndSaveCertificates",
+	"Comment": "create a keystore with a server certificate for the given domain and subject alternative names.",
+	"Method": "KeyAndCertificateFactory buildAndSaveCertificates(){\r\n    MemoryStack stack = stackGet();\r\n    int stackPointer = stack.getPointer();\r\n    try {\r\n        PointerBuffer pointer = stack.callocPointer(1);\r\n        nglGetVertexAttribPointervARB(index, pname, memAddress(pointer));\r\n        return pointer.get(0);\r\n    } finally {\r\n        stack.setPointer(stackPointer);\r\n    }\r\n}"
+}, {
+	"Path": "org.mockserver.model.HttpRequest.containsHeader",
+	"Comment": "returns true if a header with the specified name has been added",
+	"Method": "boolean containsHeader(String name){\r\n    long __functionAddress = Functions.ViewFunctionCFG;\r\n    if (CHECKS) {\r\n        check(Fn);\r\n    }\r\n    invokePV(__functionAddress, Fn);\r\n}"
+}, {
+	"Path": "marytts.tools.redstart.RecSession.getPromptArray",
+	"Comment": "gets the array of prompts for the current recording session",
+	"Method": "Prompt[] getPromptArray(){\r\n    long __functionAddress = Functions.HasPersonalityFn;\r\n    if (CHECKS) {\r\n        check(Fn);\r\n    }\r\n    return invokePI(__functionAddress, Fn) != 0;\r\n}"
+}, {
+	"Path": "marytts.util.math.DTW.dpDistance",
+	"Comment": "the major method to compute the matching score between selected test signal and reference.",
+	"Method": "double dpDistance(){\r\n    nclang_Type_getTemplateArgumentAsType(T.address(), i, __result.address());\r\n    return __result;\r\n}"
+}, {
+	"Path": "marytts.util.math.MathUtils.absMax",
+	"Comment": "find the maximum of the absolute values of all elements in the given subarray, ignoring elements that are nan.",
+	"Method": "double absMax(double[] data,double absMax,double[] data,int off,int len){\r\n    long __functionAddress = Functions.WindowShouldClose;\r\n    if (CHECKS) {\r\n        check(window);\r\n    }\r\n    return invokePI(__functionAddress, window) != 0;\r\n}"
+}, {
+	"Path": "marytts.util.data.BaseDoubleDataSource.hasMoreData",
+	"Comment": "whether or not any more data can be read from this data source.",
+	"Method": "boolean hasMoreData(){\r\n    long __functionAddress = Functions.Execute;\r\n    if (CHECKS) {\r\n        check(StatementHandle);\r\n    }\r\n    return callPS(__functionAddress, StatementHandle);\r\n}"
+}, {
+	"Path": "marytts.util.dom.MaryDomUtils.tokenText",
+	"Comment": "convenience method returning the text string of a token element.",
+	"Method": "String tokenText(Element t){\r\n    long __functionAddress = AL.getICD().alIsSource;\r\n    return invokeZ(__functionAddress, sourceName);\r\n}"
+}, {
+	"Path": "org.lwjgl.stb.STBImageWrite.stbi_flip_vertically_on_write",
+	"Comment": "configures if the written image should flipped vertically.",
+	"Method": "void stbi_flip_vertically_on_write(boolean flip_boolean){\r\n    long __functionAddress = Functions.thinlto_codegen_disable_codegen;\r\n    if (CHECKS) {\r\n        check(cg);\r\n    }\r\n    invokePV(__functionAddress, cg, disable);\r\n}"
+}, {
+	"Path": "marytts.features.FeatureDefinition.readFeatureVector",
+	"Comment": "create a feature vector consistent with this feature definition by reading the data from the byte buffer.",
+	"Method": "FeatureVector readFeatureVector(int currentUnitIndex,DataInput input,FeatureVector readFeatureVector,int currentUnitIndex,ByteBuffer bb){\r\n    long __result = naiGetLegalString();\r\n    return memASCII(__result);\r\n}"
+}, {
+	"Path": "marytts.util.signal.SignalProcUtils.getExpF0s",
+	"Comment": "i.e. log f0 values are converted to values in hz with special handling of unvoiceds",
+	"Method": "double[] getExpF0s(double[] logF0s){\r\n    MemoryStack stack = stackGet();\r\n    int stackPointer = stack.getPointer();\r\n    try {\r\n        PointerBuffer pointer = stack.callocPointer(1);\r\n        nglGetVertexAttribPointerv(index, pname, memAddress(pointer));\r\n        return pointer.get(0);\r\n    } finally {\r\n        stack.setPointer(stackPointer);\r\n    }\r\n}"
+}, {
+	"Path": "marytts.modules.KlattDurationModeller.getStressedSyllable",
+	"Comment": "for a given token, find the stressed syllable. if no syllable has primary stress, return the first syllable with secondary\tstress. if none has secondary stress, return the first syllable in the token. if there is no syllable in the token or the\telement given in the argument is not a token element, return null.",
+	"Method": "Element getStressedSyllable(Element token){\r\n    MemoryStack stack = stackGet();\r\n    int stackPointer = stack.getPointer();\r\n    try {\r\n        int TextEncodedLength = stack.nUTF8(Text, false);\r\n        long TextEncoded = stack.getPointerAddress();\r\n        return nLLVMConstIntOfStringAndSize(IntTy, TextEncoded, TextEncodedLength, Radix);\r\n    } finally {\r\n        stack.setPointer(stackPointer);\r\n    }\r\n}"
+}, {
+	"Path": "marytts.client.MaryGUIClient.verifyDefaultVoices",
+	"Comment": "verify that the list of voices in cbdefaultvoices matches the language of the input format.",
+	"Method": "void verifyDefaultVoices(){\r\n    MemoryStack stack = stackGet();\r\n    int stackPointer = stack.getPointer();\r\n    IntBuffer outCount = stack.callocInt(1);\r\n    try {\r\n        long __result = nprotocol_copyMethodDescriptionList(p, isRequiredMethod, isInstanceMethod, memAddress(outCount));\r\n        return ObjCMethodDescription.createSafe(__result, outCount.get(0));\r\n    } finally {\r\n        stack.setPointer(stackPointer);\r\n    }\r\n}"
+}, {
+	"Path": "marytts.util.data.text.TextReaderDoubleDataSource.hasMoreData",
+	"Comment": "whether or not any more data can be read from this data source.",
+	"Method": "boolean hasMoreData(){\r\n    long __functionAddress = GL.getCapabilitiesWGL().wglCreateBufferRegionARB;\r\n    if (CHECKS) {\r\n        check(__functionAddress);\r\n        check(hdc);\r\n    }\r\n    return callPP(__functionAddress, hdc, layerPlane, type);\r\n}"
+}, {
+	"Path": "org.lwjgl.util.opus.Opus.opus_packet_unpad",
+	"Comment": "removes all padding from a given opus packet and rewrite the toc sequence to minimize space usage.",
+	"Method": "int opus_packet_unpad(ByteBuffer data,int len){\r\n    return limit - position;\r\n}"
+}, {
+	"Path": "marytts.util.dom.DomUtils.getHighestLevelAncestor",
+	"Comment": "if node has ancestors with name ancestorname, return the one closest to the root. if there is no\tancestor with that name, return null.",
+	"Method": "Node getHighestLevelAncestor(Node node,String ancestorName){\r\n    GL40C.glBlendEquationSeparatei(buf, modeRGB, modeAlpha);\r\n}"
+}, {
+	"Path": "marytts.tools.redstart.AdminWindow.setColumnWidths",
+	"Comment": "programmatically set the column widths of the prompt set table",
+	"Method": "void setColumnWidths(){\r\n    return ARBVertexShader.glGetVertexAttribiARB(index, pname);\r\n}"
+}, {
+	"Path": "marytts.features.FeatureVector.isByteFeature",
+	"Comment": "test whether the feature with the given index number is a byte feature.",
+	"Method": "boolean isByteFeature(int index){\r\n    nclang_Cursor_getObjCPropertySetterName(C.address(), __result.address());\r\n    return __result;\r\n}"
+}, {
+	"Path": "marytts.language.de.preprocess.ExpansionPattern.process",
+	"Comment": "try to match this pattern starting at token t. if successful, replace the matched tokens with the replaced\tform.",
+	"Method": "boolean process(Element t,List<Element> expanded){\r\n    if (CHECKS) {\r\n        check(TextLength2Ptr, 1);\r\n    }\r\n    MemoryStack stack = stackGet();\r\n    int stackPointer = stack.getPointer();\r\n    try {\r\n        int InStatementTextEncodedLength = stack.nUTF16(InStatementText, false);\r\n        long InStatementTextEncoded = stack.getPointerAddress();\r\n        return nSQLNativeSql(ConnectionHandle, InStatementTextEncoded, InStatementTextEncodedLength >> 1, memAddressSafe(OutStatementText), remainingSafe(OutStatementText) >> 1, memAddress(TextLength2Ptr));\r\n    } finally {\r\n        stack.setPointer(stackPointer);\r\n    }\r\n}"
+}, {
+	"Path": "marytts.features.FeatureRegistry.setFeatureProcessorManager",
+	"Comment": "set the given feature processor manager as the one to use for the given voice.",
+	"Method": "void setFeatureProcessorManager(Locale locale,FeatureProcessorManager mgr,void setFeatureProcessorManager,Voice voice,FeatureProcessorManager mgr){\r\n    GL43C.glVertexAttribIFormat(attribindex, size, type, relativeoffset);\r\n}"
+}, {
+	"Path": "marytts.unitselection.select.StatisticalModelCost.init",
+	"Comment": "initialise this scost function by reading the appropriate settings from the maryproperties using the given configprefix.",
+	"Method": "void init(String configPrefix){\r\n    return nclang_getCursorCompletionString(cursor.address());\r\n}"
+}, {
+	"Path": "marytts.unitselection.select.JoinCostFeatures.cost",
+	"Comment": "deliver the join cost between two units described by their index.",
+	"Method": "double cost(int u1,int u2,double cost,Target t1,Unit u1,Target t2,Unit u2,double cost,Target t1,Target t2){\r\n    if (CHECKS) {\r\n        check(src_origin, 3);\r\n        check(region, 3);\r\n        checkSafe(event, 1);\r\n    }\r\n    return nclEnqueueCopyImageToBuffer(command_queue, src_image, dst_buffer, memAddress(src_origin), memAddress(region), dst_offset, remainingSafe(event_wait_list), memAddressSafe(event_wait_list), memAddressSafe(event));\r\n}"
+}, {
+	"Path": "marytts.signalproc.process.LPCCrossSynthesis.processLPC",
+	"Comment": "replace residual with new residual from audio signal, adapting the gain in order to maintain overall volume.",
+	"Method": "void processLPC(LpCoeffs coeffs,double[] residual){\r\n    return nCallWindowProc(lpPrevWndFunc.address(), hWnd, Msg, wParam, lParam);\r\n}"
+}, {
+	"Path": "marytts.util.math.Regression.multipleLinearRegression",
+	"Comment": "multiplelinearregression providing index numbers for the columns in filename, index 0 correspond to column 1",
+	"Method": "double[] multipleLinearRegression(double[] data,int rows,int cols,boolean interceptTerm,double[] multipleLinearRegression,double[] datay,double[][] datax,boolean interceptTerm,double[] multipleLinearRegression,Vector<Double> vectory,Vector<Double> vectorx,int rows,int cols,boolean interceptTerm,double[] multipleLinearRegression,Vector<Double> data,int rows,int cols,boolean interceptTerm,void multipleLinearRegression,Matrix datay,Matrix dataX,boolean interceptTerm,void multipleLinearRegression,double[] datay,Matrix dataX,void multipleLinearRegression,Matrix datay,Matrix dataX,void multipleLinearRegression,String fileName,boolean interceptTerm,void multipleLinearRegression,String fileName,int indVariable,int[] c,String[] factors,boolean interceptTerm,int rowIni,int rowEnd){\r\n    long __result = nglfwGetVideoMode(monitor);\r\n    return GLFWVidMode.createSafe(__result);\r\n}"
+}, {
+	"Path": "marytts.datatypes.MaryDataType.getDataTypes",
+	"Comment": "provide a list of known data types, i.e. of data types used by any of the known modules, partially sorted in the order of\tprocessing.",
+	"Method": "List<MaryDataType> getDataTypes(){\r\n    long __functionAddress = Functions.GlobalSetMetadata;\r\n    if (CHECKS) {\r\n        check(Global);\r\n        check(MD);\r\n    }\r\n    invokePPV(__functionAddress, Global, Kind, MD);\r\n}"
+}, {
+	"Path": "org.lwjgl.system.rpmalloc.RPmalloc.rpcalloc",
+	"Comment": "allocates a memory block of at least the given size and zero initializes it.",
+	"Method": "ByteBuffer rpcalloc(long num,long size){\r\n    nnk_clear(ctx.address());\r\n}"
+}, {
+	"Path": "org.lwjgl.openvr.VRRenderModels.VRRenderModels_GetRenderModelThumbnailURL",
+	"Comment": "returns the url of the thumbnail image for this rendermodel.",
+	"Method": "int VRRenderModels_GetRenderModelThumbnailURL(ByteBuffer pchRenderModelName,ByteBuffer pchThumbnailURL,IntBuffer peError,int VRRenderModels_GetRenderModelThumbnailURL,CharSequence pchRenderModelName,ByteBuffer pchThumbnailURL,IntBuffer peError,String VRRenderModels_GetRenderModelThumbnailURL,CharSequence pchRenderModelName,int unThumbnailURLLen,IntBuffer peError){\r\n    GL30C.glVertexAttribI4i(index, x, y, z, w);\r\n}"
+}, {
+	"Path": "marytts.signalproc.adaptation.codebook.WeightedCodebookFile.writeEntry",
+	"Comment": "append a new codebook entry to a codebook file opened with write permission",
+	"Method": "void writeEntry(WeightedCodebookEntry w){\r\n    nclang_getCursorReferenceNameRange(C.address(), NameFlags, PieceIndex, __result.address());\r\n    return __result;\r\n}"
+}, {
+	"Path": "org.lwjgl.openvr.VROverlay.VROverlay_GetOverlayDualAnalogTransform",
+	"Comment": "gets the analog input to dual analog coordinate scale for the specified overlay.",
+	"Method": "int VROverlay_GetOverlayDualAnalogTransform(long ulOverlay,int eWhich,HmdVector2 pvCenter,FloatBuffer pfRadius){\r\n    GL41C.glProgramUniform2ui(program, location, x, y);\r\n}"
+}, {
+	"Path": "marytts.util.data.audio.AudioDoubleDataSource.available",
+	"Comment": "the number of doubles that can currently be read from this double data source without blocking. this number can change over\ttime.",
+	"Method": "int available(){\r\n    long __functionAddress = Functions.IndexAction_dispose;\r\n    if (CHECKS) {\r\n        check(action);\r\n    }\r\n    invokePV(__functionAddress, action);\r\n}"
+}, {
+	"Path": "marytts.util.math.MathUtils.sum",
+	"Comment": "build the sum of all elements in the array, ignoring elements that are nan.",
+	"Method": "double sum(double[] data,float sum,float[] data,int sum,int[] data){\r\n    if (CHECKS) {\r\n        check(ctx);\r\n    }\r\n    nnvgFontFaceId(ctx, font);\r\n}"
+}, {
+	"Path": "marytts.util.io.LEDataInputStream.read",
+	"Comment": "read bytes. watch out, read may return fewer bytes than requested.",
+	"Method": "int read(byte ba,int off,int len){\r\n    return nbgfx_create_frame_buffer_from_attachment((byte) _attachment.remaining(), _attachment.address(), _destroyTextures);\r\n}"
+}, {
+	"Path": "org.lwjgl.ovr.OVR.ovr_GetTrackerCount",
+	"Comment": "returns the number of attached trackers.the number of trackers may change at any time, so this function should be called before use as opposed to once on startup.",
+	"Method": "int ovr_GetTrackerCount(long session){\r\n    long __functionAddress = Functions.DIBuilderCreateImportedModuleFromAlias;\r\n    if (CHECKS) {\r\n        check(Builder);\r\n        check(Scope);\r\n        check(ImportedEntity);\r\n        check(File);\r\n    }\r\n    return invokePPPPP(__functionAddress, Builder, Scope, ImportedEntity, File, Line);\r\n}"
+}, {
+	"Path": "org.lwjgl.opengles.GLES.create",
+	"Comment": "loads the opengl es native library, using the specified library name.",
+	"Method": "void create(void create,String libName,void create,SharedLibrary GLES,void create,FunctionProvider functionProvider){\r\n    long __functionAddress = AL.getICD().alListener3f;\r\n    invokeV(__functionAddress, paramName, value1, value2, value3);\r\n}"
+}, {
+	"Path": "marytts.cart.io.WagonCARTReader.cleadReader",
+	"Comment": "in case of using the reader more than once for different root nodes.",
+	"Method": "void cleadReader(){\r\n    GL30C.glVertexAttribI3i(index, x, y, z);\r\n}"
+}, {
+	"Path": "org.mockserver.client.ForwardChainExpectation.forward",
+	"Comment": "override fields, headers, and cookies etc in request being forwarded withspecified fields, headers and cookies, etc in the specified requestwhen expectation is matched",
+	"Method": "void forward(HttpForward httpForward,void forward,HttpTemplate httpTemplate,void forward,HttpClassCallback httpClassCallback,void forward,ExpectationForwardCallback expectationForwardCallback,void forward,HttpOverrideForwardedRequest httpOverrideForwardedRequest){\r\n    GL20C.glUseProgram(program);\r\n}"
+}, {
+	"Path": "marytts.util.dom.DomUtils.getPreviousSiblingElement",
+	"Comment": "get the previous sibling of e which is an element, or null if there is no such element.",
+	"Method": "Element getPreviousSiblingElement(Element e){\r\n    GL40C.glPatchParameteri(pname, value);\r\n}"
+}, {
+	"Path": "marytts.modules.ProcessTimeoutDestroyer.resetTimeLimit",
+	"Comment": "reset the time limit to 0. only the thread who initiated the latest time limit can also take it back. if another thread\ttries to reset the time limit, it is ignored.",
+	"Method": "void resetTimeLimit(){\r\n    MemoryStack stack = stackGet();\r\n    int stackPointer = stack.getPointer();\r\n    try {\r\n        PointerBuffer pOut = stack.callocPointer(1);\r\n        naiCopyScene(pIn.address(), memAddress(pOut));\r\n        return AIScene.createSafe(pOut.get(0));\r\n    } finally {\r\n        stack.setPointer(stackPointer);\r\n    }\r\n}"
+}, {
+	"Path": "org.lwjgl.util.par.ParShapes.par_shapes_create_cube",
+	"Comment": "generates points for a cube that fits in the unit sphere. texture coordinates and normals are not generated.",
+	"Method": "ParShapesMesh par_shapes_create_cube(){\r\n    MemoryStack stack = stackGet();\r\n    int stackPointer = stack.getPointer();\r\n    try {\r\n        stack.nUTF8(title, true);\r\n        long titleEncoded = stack.getPointerAddress();\r\n        return nnk_tree_push_hashed(ctx.address(), type, titleEncoded, initial_state, memAddress(hash), hash.remaining(), seed) != 0;\r\n    } finally {\r\n        stack.setPointer(stackPointer);\r\n    }\r\n}"
+}, {
+	"Path": "marytts.tools.voiceimport.AbstractTimelineMaker.compute",
+	"Comment": "read and concatenate a list of data files into a single timeline file.",
+	"Method": "boolean compute(){\r\n    long __functionAddress = Functions.objc_getAssociatedObject;\r\n    if (CHECKS) {\r\n        check(object);\r\n        check(key);\r\n    }\r\n    return invokePPP(__functionAddress, object, key);\r\n}"
+}, {
+	"Path": "marytts.unitselection.select.DiphoneFFRTargetCostFunction.getFeature",
+	"Comment": "get the string representation of the feature value associated with the given unit",
+	"Method": "String getFeature(Unit unit,String featureName){\r\n    if (CHECKS) {\r\n        checkSafe(StrLen_or_Ind, 1);\r\n    }\r\n    return nSQLBindCol(StatementHandle, ColumnNumber, TargetType, memAddressSafe(TargetValuePtr), Integer.toUnsignedLong(remainingSafe(TargetValuePtr)) << 3, memAddressSafe(StrLen_or_Ind));\r\n}"
+}, {
+	"Path": "marytts.signalproc.analysis.FrameBasedAnalyser.analyseNextFrame",
+	"Comment": "the public method to call in order to trigger the analysis of the next frame.",
+	"Method": "FrameAnalysisResult<T> analyseNextFrame(){\r\n    long hdc = wglGetCurrentDC();\r\n    if (hdc != NULL) {\r\n        return createCapabilitiesWGL(hdc);\r\n    }\r\n    short classAtom = 0;\r\n    long hwnd = NULL;\r\n    long hglrc = NULL;\r\n    try (MemoryStack stack = stackPush()) {\r\n        WNDCLASSEX wc = WNDCLASSEX.callocStack(stack).cbSize(WNDCLASSEX.SIZEOF).style(CS_HREDRAW | CS_VREDRAW).hInstance(WindowsLibrary.HINSTANCE).lpszClassName(stack.UTF16(\"WGL\"));\r\n        memPutAddress(wc.address() + WNDCLASSEX.LPFNWNDPROC, User32.Functions.DefWindowProc);\r\n        classAtom = RegisterClassEx(wc);\r\n        if (classAtom == 0) {\r\n            throw new IllegalStateException(\"Failed to register WGL window class\");\r\n        }\r\n        hwnd = check(nCreateWindowEx(0, classAtom & 0xFFFF, NULL, WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN | WS_CLIPSIBLINGS, 0, 0, 1, 1, NULL, NULL, NULL, NULL));\r\n        hdc = check(GetDC(hwnd));\r\n        PIXELFORMATDESCRIPTOR pfd = // we don't care about anything else\r\n        PIXELFORMATDESCRIPTOR.callocStack(stack).nSize((short) PIXELFORMATDESCRIPTOR.SIZEOF).nVersion((short) 1).dwFlags(PFD_SUPPORT_OPENGL);\r\n        int pixelFormat = ChoosePixelFormat(hdc, pfd);\r\n        if (pixelFormat == 0) {\r\n            windowsThrowException(\"Failed to choose an OpenGL-compatible pixel format\");\r\n        }\r\n        if (DescribePixelFormat(hdc, pixelFormat, pfd) == 0) {\r\n            windowsThrowException(\"Failed to obtain pixel format information\");\r\n        }\r\n        if (!SetPixelFormat(hdc, pixelFormat, pfd)) {\r\n            windowsThrowException(\"Failed to set the pixel format\");\r\n        }\r\n        hglrc = check(wglCreateContext(hdc));\r\n        wglMakeCurrent(hdc, hglrc);\r\n        return createCapabilitiesWGL(hdc);\r\n    } finally {\r\n        if (hglrc != NULL) {\r\n            wglMakeCurrent(NULL, NULL);\r\n            wglDeleteContext(hglrc);\r\n        }\r\n        if (hwnd != NULL) {\r\n            DestroyWindow(hwnd);\r\n        }\r\n        if (classAtom != 0) {\r\n            nUnregisterClass(classAtom & 0xFFFF, WindowsLibrary.HINSTANCE);\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "marytts.signalproc.analysis.ReflectionCoefficients.lpc2lprefc",
+	"Comment": "converts from lpc coefficients to reflection coefficients.",
+	"Method": "double[] lpc2lprefc(double[] oneMinusA){\r\n    if (CHECKS) {\r\n        check(ctx);\r\n    }\r\n    nnvgMiterLimit(ctx, limit);\r\n}"
+}, {
+	"Path": "io.github.hidroh.materialistic.MenuTintDelegate.onOptionsMenuCreated",
+	"Comment": "callback that should be triggered after menu has been inflated",
+	"Method": "void onOptionsMenuCreated(Menu menu){\r\n    long __functionAddress = AL.getICD().alIsBuffer;\r\n    return invokeZ(__functionAddress, bufferName);\r\n}"
+}, {
+	"Path": "marytts.unitselection.select.JoinCostFeatures.getRightJCF",
+	"Comment": "gets the array of right join cost features for a particular unit index.",
+	"Method": "float[] getRightJCF(int u){\r\n    if (CHECKS) {\r\n        check(statusHandle);\r\n    }\r\n    return nb3GetDynamicsInfo(statusHandle, info.address());\r\n}"
+}, {
+	"Path": "org.lwjgl.openvr.VROverlay.VROverlay_MoveGamepadFocusToNeighbor",
+	"Comment": "changes the gamepad focus from one overlay to one of its neighbors.",
+	"Method": "int VROverlay_MoveGamepadFocusToNeighbor(int eDirection,long ulFrom){\r\n    GL30C.glVertexAttribI2i(index, x, y);\r\n}"
+}, {
+	"Path": "marytts.tools.voiceimport.HMMParameterExtractor.generateParameters",
+	"Comment": "stand alone testing using a targetfeatures list of files as input.",
+	"Method": "void generateParameters(String file,String contextFeaDir,String outputDir){\r\n    nJAWT_DrawingSurface_Unlock(__functionAddress, ds.address());\r\n}"
+}, {
+	"Path": "marytts.signalproc.adaptation.codebook.WeightedCodebookParallelTrainer.run",
+	"Comment": "call this function after initializing the trainer to perform training",
+	"Method": "void run(){\r\n    long __functionAddress = Functions.isInvalid;\r\n    return invokeI(__functionAddress, kind) != 0;\r\n}"
+}, {
+	"Path": "marytts.util.data.SequenceDoubleDataSource.available",
+	"Comment": "the number of doubles that can currently be read from this double data source without blocking. this number can change over\ttime.",
+	"Method": "int available(){\r\n    long __functionAddress = Functions.LinkModules2;\r\n    if (CHECKS) {\r\n        check(Dest);\r\n        check(Src);\r\n    }\r\n    return invokePPI(__functionAddress, Dest, Src) != 0;\r\n}"
+}, {
+	"Path": "marytts.util.data.text.SnackTextfileDoubleDataSource.getData",
+	"Comment": "try to get length doubles from this doubledatasource, and copy them into target, starting from targetpos. this is the core\tmethod getting the data. subclasses may want to override this method. if an exception occurs reading from the underlying\treader, or converting data to double, the method will print a stack trace to standard error, but otherwise will silently\tstop and behave as if all data was read.",
+	"Method": "int getData(double[] target,int targetPos,int length){\r\n    if (CHECKS) {\r\n        check(state, 1);\r\n    }\r\n    MemoryStack stack = stackGet();\r\n    int stackPointer = stack.getPointer();\r\n    try {\r\n        stack.nUTF8(title, true);\r\n        long titleEncoded = stack.getPointerAddress();\r\n        return nnk_tree_state_image_push(ctx.address(), type, image.address(), titleEncoded, state) != 0;\r\n    } finally {\r\n        stack.setPointer(stackPointer);\r\n    }\r\n}"
+}, {
+	"Path": "marytts.modules.synthesis.Voice.getVoice",
+	"Comment": "get the voice with the given name, or null if there is no voice with that name.",
+	"Method": "Voice getVoice(String name,Voice getVoice,Locale locale,Gender gender,Voice getVoice,Element voiceElement){\r\n    GL30C.glVertexAttribI1i(index, x);\r\n}"
+}, {
+	"Path": "marytts.modules.acoustic.Model.applyFromTo",
+	"Comment": "apply this model to a list of elements, predicting from a different list of elements",
+	"Method": "void applyFromTo(List<Element> predictFromElements,List<Element> applyToElements){\r\n    return nSQLSetCursorName(StatementHandle, memAddress(CursorName), (short) (CursorName.remaining() >> 1));\r\n}"
+}, {
+	"Path": "marytts.signalproc.adaptation.BaselineTransformer.checkParams",
+	"Comment": "baseline version does nothing, override in derived classes",
+	"Method": "boolean checkParams(){\r\n    long __result = nclang_getCString(string.address());\r\n    return memUTF8Safe(__result);\r\n}"
+}, {
+	"Path": "org.lwjgl.util.opus.OpusProjection.OPUS_PROJECTION_GET_DEMIXING_MATRIX",
+	"Comment": "copies the demixing matrix to the supplied pointer location.",
+	"Method": "CTLRequest OPUS_PROJECTION_GET_DEMIXING_MATRIX(ByteBuffer matrix){\r\n    if (CHECKS) {\r\n        check(ctx);\r\n    }\r\n    nnvgFillPaint(ctx, paint.address());\r\n}"
+}, {
+	"Path": "marytts.util.signal.SignalProcUtils.normalizeVocalTract",
+	"Comment": "this version does linear mapping between the whole source and target signals",
+	"Method": "double[] normalizeVocalTract(double[] srcSignal,double[] tgtSignal,Labels sourceLabels,Labels targetLabels,int windowType,double windowSizeInSeconds,double frameShiftInSeconds,int lpcOrder,int samplingRateInHz,float preCoef,double[] normalizeVocalTract,double[] s,float[] sAnalysisInSeconds,float[][] mappedTgtLpcs,int windowType,double windowSizeInSeconds,int lpcOrderSrc,int samplingRateInHz,float preCoef,double[] normalizeVocalTract,double[] x,float[] tAnalysisInSeconds,float[][] srcLpcs,float[][] mappedTgtLpcs,double windowSizeInSeconds,int samplingRateInHz,float preCoef,double[] normalizeVocalTract,double[] srcSignal,double[] tgtSignal,int windowType,double windowSizeInSeconds,double frameShiftInSeconds,int lpcOrder,int samplingRateInHz,float preCoef){\r\n    long __functionAddress = Functions.UpdateContext;\r\n    if (CHECKS) {\r\n        check(ctx);\r\n    }\r\n    return callPI(__functionAddress, ctx);\r\n}"
+}, {
+	"Path": "marytts.features.FeatureVector.getContinuousFeature",
+	"Comment": "an efficient way to access continuous features in this feature vector.",
+	"Method": "float getContinuousFeature(int index){\r\n    nclang_getCursorLocation(cursor.address(), __result.address());\r\n    return __result;\r\n}"
+}, {
+	"Path": "org.mockserver.client.MockServerClient.retrieveActiveExpectations",
+	"Comment": "retrieve the active expectations match the httprequest parameter, use null for the parameter to retrieve all expectations",
+	"Method": "Expectation[] retrieveActiveExpectations(HttpRequest httpRequest,String retrieveActiveExpectations,HttpRequest httpRequest,Format format){\r\n    MemoryStack stack = stackGet();\r\n    int stackPointer = stack.getPointer();\r\n    try {\r\n        IntBuffer params = stack.callocInt(1);\r\n        nglGetVertexAttribIivEXT(index, pname, memAddress(params));\r\n        return params.get(0);\r\n    } finally {\r\n        stack.setPointer(stackPointer);\r\n    }\r\n}"
+}, {
+	"Path": "marytts.modules.ModuleRegistry.getAllModules",
+	"Comment": "provide a list containing all marymodules instances. the order is not important.",
+	"Method": "List<MaryModule> getAllModules(){\r\n    GL30C.glVertexAttribI1ui(index, x);\r\n}"
+}, {
+	"Path": "marytts.util.MaryUtils.isLog4jConfigured",
+	"Comment": "returns true if it appears that log4j have been previously configured. this code checks to see if there are any appenders\tdefined for log4j which is the definitive way to tell if log4j is already initialized",
+	"Method": "boolean isLog4jConfigured(){\r\n    long __functionAddress = Functions.HideWindow;\r\n    if (CHECKS) {\r\n        check(window);\r\n    }\r\n    invokePV(__functionAddress, window);\r\n}"
+}, {
+	"Path": "marytts.language.it.preprocess.ExpansionPattern.doesFullExpansion",
+	"Comment": "inform whether this module performs a full expansion of the input, or whether other patterns should be applied after this",
+	"Method": "boolean doesFullExpansion(){\r\n    long __functionAddress = Functions.getCompletionChunkKind;\r\n    if (CHECKS) {\r\n        check(completion_string);\r\n    }\r\n    return invokePI(__functionAddress, completion_string, chunk_number);\r\n}"
+}, {
+	"Path": "marytts.signalproc.filter.FIRFilter.apply",
+	"Comment": "apply this filter to the given input signal. the input signal is filtered piece by piece, as it is read from the data\tsource returned by this method. this is the recommended way to filter longer signals.",
+	"Method": "DoubleDataSource apply(DoubleDataSource signal,double[] apply,double[] signal){\r\n    MemoryStack stack = stackGet();\r\n    int stackPointer = stack.getPointer();\r\n    try {\r\n        IntBuffer outCount = stack.callocInt(1);\r\n        stack.nUTF8(image, true);\r\n        long imageEncoded = stack.getPointerAddress();\r\n        long __result = nobjc_copyClassNamesForImage(imageEncoded, memAddress(outCount));\r\n        return memPointerBufferSafe(__result, outCount.get(0));\r\n    } finally {\r\n        stack.setPointer(stackPointer);\r\n    }\r\n}"
+}, {
+	"Path": "org.lwjgl.openvr.VRApplications.VRApplications_GetApplicationPropertyBool",
+	"Comment": "returns a bool value for an application property. returns false in all error cases.",
+	"Method": "boolean VRApplications_GetApplicationPropertyBool(ByteBuffer pchAppKey,int eProperty,IntBuffer peError,boolean VRApplications_GetApplicationPropertyBool,CharSequence pchAppKey,int eProperty,IntBuffer peError){\r\n    long __functionAddress = Functions.DIBuilderCreateMemberPointerType;\r\n    if (CHECKS) {\r\n        check(Builder);\r\n        check(PointeeType);\r\n        check(ClassType);\r\n    }\r\n    return invokePPPJP(__functionAddress, Builder, PointeeType, ClassType, SizeInBits, AlignInBits, Flags);\r\n}"
+}, {
+	"Path": "org.lwjgl.openvr.VRApplications.VRApplications_LaunchApplicationFromMimeType",
+	"Comment": "launches the application currently associated with this mime type and passes it the option args, typically the filename or object name of the itembeing launched.",
+	"Method": "int VRApplications_LaunchApplicationFromMimeType(ByteBuffer pchMimeType,ByteBuffer pchArgs,int VRApplications_LaunchApplicationFromMimeType,CharSequence pchMimeType,CharSequence pchArgs){\r\n    long __functionAddress = Functions.SetPos;\r\n    if (CHECKS) {\r\n        check(StatementHandle);\r\n    }\r\n    return callPJS(__functionAddress, StatementHandle, RowNumber, Operation, LockType);\r\n}"
+}, {
+	"Path": "marytts.unitselection.analysis.Phone.getDurationFactor",
+	"Comment": "get the factor needed to convert the realized duration of a unit to the target duration",
+	"Method": "double getDurationFactor(SelectedUnit unit,HalfPhoneTarget target){\r\n    MemoryStack stack = stackGet();\r\n    int stackPointer = stack.getPointer();\r\n    try {\r\n        IntBuffer params = stack.callocInt(1);\r\n        nglGetVertexAttribIiv(index, pname, memAddress(params));\r\n        return params.get(0);\r\n    } finally {\r\n        stack.setPointer(stackPointer);\r\n    }\r\n}"
+}, {
+	"Path": "marytts.modules.ExternalModule.externalIO",
+	"Comment": "the actual external input and output. write to the module and read from the module in the appropriate ways as determined by\tinput and output data types.",
+	"Method": "MaryData externalIO(MaryData d){\r\n    long __result = nnk__draw_begin(ctx.address(), buffer.address());\r\n    return NkDrawCommand.createSafe(__result);\r\n}"
+}, {
+	"Path": "marytts.modules.ProsodyGeneric.insertMajorBoundary",
+	"Comment": "insert a major boundary after token number i in tokens.\talso inserts a phrase tag at the appropriate position.",
+	"Method": "Element insertMajorBoundary(NodeList tokens,int i,Element firstToken,String tone,int breakindex){\r\n    long __functionAddress = ALC.getICD().alcGetContextsDevice;\r\n    if (CHECKS) {\r\n        check(context);\r\n    }\r\n    return invokePP(__functionAddress, context);\r\n}"
+}, {
+	"Path": "marytts.datatypes.MaryDataType.exampleText",
+	"Comment": "provide an example text for this data type, for the given locale, if one is available.",
+	"Method": "String exampleText(Locale locale){\r\n    long __result = nnk__begin(ctx.address());\r\n    return NkCommand.createSafe(__result);\r\n}"
+}, {
+	"Path": "marytts.signalproc.adaptation.prosody.PitchMappingFile.readF0StatisticsEntry",
+	"Comment": "read an f0statisticsentry entry from a pitchmappingfile file opened with read permission",
+	"Method": "PitchStatistics readF0StatisticsEntry(){\r\n    MemoryStack stack = stackGet();\r\n    int stackPointer = stack.getPointer();\r\n    try {\r\n        stack.nASCII(name, true);\r\n        long nameEncoded = stack.getPointerAddress();\r\n        return nglGetVkProcAddrNV(nameEncoded);\r\n    } finally {\r\n        stack.setPointer(stackPointer);\r\n    }\r\n}"
+}, {
+	"Path": "marytts.util.io.General.launchBatchProc",
+	"Comment": "a general process launcher for the various tasks but using an intermediate batch file",
+	"Method": "void launchBatchProc(String cmdLine,String task,String filedir){\r\n    GL14C.glBlendFuncSeparate(sfactorRGB, dfactorRGB, sfactorAlpha, dfactorAlpha);\r\n}"
+}, {
+	"Path": "marytts.util.dom.MaryDomUtils.createBoundary",
+	"Comment": "create a default boundary element belonging to document doc, but not yet attached. the boundary has a breakindex of 3 and\tan unknown tone.",
+	"Method": "Element createBoundary(Document doc){\r\n    return ARBVertexShader.glGetVertexAttribPointerARB(index, pname);\r\n}"
+}, {
+	"Path": "marytts.tools.dbselection.DBHandler.insertWordList",
+	"Comment": "creates a wordlist table, if already exists deletes it and creates a new to insert current wordlist.",
+	"Method": "void insertWordList(HashMap<String, Integer> wordList){\r\n    long __functionAddress = Functions.imp_implementationWithBlock;\r\n    if (CHECKS) {\r\n        check(block);\r\n    }\r\n    return invokePP(__functionAddress, block);\r\n}"
+}, {
+	"Path": "marytts.tools.voiceimport.vocalizations.VocalizationIntonationWriter.writeHeaderTo",
+	"Comment": "write the header of this feature file to the given dataoutput",
+	"Method": "void writeHeaderTo(DataOutput out){\r\n    if (CHECKS) {\r\n        checkSafe(file, 1);\r\n        checkSafe(line, 1);\r\n        checkSafe(column, 1);\r\n        checkSafe(offset, 1);\r\n    }\r\n    nclang_getFileLocation(location.address(), memAddressSafe(file), memAddressSafe(line), memAddressSafe(column), memAddressSafe(offset));\r\n}"
+}, {
+	"Path": "marytts.client.MarySocketClient.getDefaultAudioEffects",
+	"Comment": "request the available audio effects for a voice from the server",
+	"Method": "String getDefaultAudioEffects(){\r\n    long __functionAddress = Functions.MonitorFromWindow;\r\n    if (CHECKS) {\r\n        check(hWnd);\r\n    }\r\n    return callPP(__functionAddress, hWnd, dwFlags);\r\n}"
+}, {
+	"Path": "marytts.cart.impose.FeatureArrayIndexer.retrieve",
+	"Comment": "retrieve an array of unit features which complies with a specific target specification, according to an underlying tree,\tand given a stopping condition.",
+	"Method": "FeatureFileIndexingResult retrieve(FeatureVector v,FeatureFileIndexingResult retrieve,FeatureVector v,int condition,int parameter){\r\n    long __functionAddress = Functions.Int1TypeInContext;\r\n    if (CHECKS) {\r\n        check(C);\r\n    }\r\n    return invokePP(__functionAddress, C);\r\n}"
+}, {
+	"Path": "org.lwjgl.demo.openal.EFXUtil.testSupportGeneric",
+	"Comment": "generic test function to see if an efx object supports a specified kind of type. works foreffects and filters.",
+	"Method": "boolean testSupportGeneric(int objectType,int typeValue){\r\n    return GL40C.glGetSubroutineUniformLocation(program, shadertype, name);\r\n}"
+}, {
+	"Path": "org.mockserver.model.HttpResponse.response",
+	"Comment": "static builder to create a response with a 200 status code and the string response body.",
+	"Method": "HttpResponse response(HttpResponse response,String body){\r\n    long __functionAddress = AL.getICD().alSource3i;\r\n    if (CHECKS) {\r\n        check(__functionAddress);\r\n    }\r\n    invokeV(__functionAddress, source, paramName, value1, value2, value3);\r\n}"
+}, {
+	"Path": "marytts.cart.impose.FeatureArrayIndexer.deepFill",
+	"Comment": "fill a tree which specifies a feature hierarchy but no corresponding units.",
+	"Method": "void deepFill(MaryNode specTree){\r\n    nnk_input_scroll(ctx.address(), val.address());\r\n}"
+}, {
+	"Path": "org.lwjgl.openvr.VROverlay.VROverlay_GetOverlayMouseScale",
+	"Comment": "gets the mouse scaling factor that is used for mouse events. the actual texture may be a different size, but this is typically the size of theunderlying ui in pixels.",
+	"Method": "int VROverlay_GetOverlayMouseScale(long ulOverlayHandle,HmdVector2 pvecMouseScale){\r\n    return nclang_getCursorAvailability(cursor.address());\r\n}"
+}, {
+	"Path": "marytts.config.MaryConfig.getVoiceConfig",
+	"Comment": "get the voice config for the given voice name, or null if there is no such voice config.",
+	"Method": "VoiceConfig getVoiceConfig(String voiceName){\r\n    if (CHECKS) {\r\n        checkSafe(StrLen_or_IndPtr, 1);\r\n    }\r\n    return nSQLBindParameter(StatementHandle, ParameterNumber, InputOutputType, ValueType, ParameterType, ColumnSize, DecimalDigits, memAddressSafe(ParameterValuePtr), remainingSafe(ParameterValuePtr), memAddressSafe(StrLen_or_IndPtr));\r\n}"
+}, {
+	"Path": "marytts.unitselection.data.MCepDatagram.write",
+	"Comment": "write this datagram to a random access file or data output stream.",
+	"Method": "void write(DataOutput out){\r\n    long __functionAddress = CL.getICD().clCreateFromVA_APIMediaSurfaceINTEL;\r\n    if (CHECKS) {\r\n        check(__functionAddress);\r\n        check(context);\r\n        check(surface, 1);\r\n        checkSafe(errcode_ret, 1);\r\n    }\r\n    return callPJPPP(__functionAddress, context, flags, surface, plane, errcode_ret);\r\n}"
+}, {
+	"Path": "org.lwjgl.openvr.VRRenderModels.VRRenderModels_GetComponentName",
+	"Comment": "use this to get the names of available components. index does not correlate to a tracked device index, but is only used for iterating over allavailable components. if the index is out of range, this function will return 0. otherwise, it will return the size of the buffer required for thename.",
+	"Method": "int VRRenderModels_GetComponentName(ByteBuffer pchRenderModelName,int unComponentIndex,ByteBuffer pchComponentName,int VRRenderModels_GetComponentName,CharSequence pchRenderModelName,int unComponentIndex,ByteBuffer pchComponentName,String VRRenderModels_GetComponentName,CharSequence pchRenderModelName,int unComponentIndex,int unComponentNameLen){\r\n    nnk_layout_space_begin(ctx.address(), fmt, height, widget_count);\r\n}"
+}, {
+	"Path": "marytts.modules.JPhonemiser.setPunctuationPosRegex",
+	"Comment": "compile a regex pattern used to determine whether tokens are processed as punctuation or not, based on whether their\tpos attribute matches the pattern.",
+	"Method": "void setPunctuationPosRegex(){\r\n    GL41C.glValidateProgramPipeline(pipeline);\r\n}"
+}, {
+	"Path": "marytts.language.it.preprocess.ExpansionPattern.getSplitAtChars",
+	"Comment": "a string containing the characters at which a token should be split into parts before any preprocessing patterns are\tapplied.",
+	"Method": "String getSplitAtChars(){\r\n    nclang_getCursorResultType(C.address(), __result.address());\r\n    return __result;\r\n}"
+}, {
+	"Path": "marytts.util.string.StringUtils.find",
+	"Comment": "find indices of multiple occurrences of a character in a string",
+	"Method": "int[] find(String str,char ch,int stInd,int enInd,int[] find,String str,char ch,int stInd,int[] find,String str,char ch){\r\n    return nChoosePixelFormat(hdc, pixelFormatDescriptor.address());\r\n}"
+}, {
+	"Path": "org.lwjgl.util.opus.OpusMultistream.opus_multistream_encode_float",
+	"Comment": "encodes a multistream opus frame from floating point input.",
+	"Method": "int opus_multistream_encode_float(long st,FloatBuffer pcm,int frame_size,ByteBuffer data){\r\n    long __functionAddress = Functions.ConstNull;\r\n    if (CHECKS) {\r\n        check(Ty);\r\n    }\r\n    return invokePP(__functionAddress, Ty);\r\n}"
+}, {
+	"Path": "org.mockserver.model.HttpOverrideForwardedRequest.withHttpRequest",
+	"Comment": "all fields, headers, cookies, etc of the provided request will override",
+	"Method": "HttpOverrideForwardedRequest withHttpRequest(HttpRequest httpRequest){\r\n    nbgfx_encoder_touch(_encoder, (short) _id);\r\n}"
+}, {
+	"Path": "marytts.signalproc.effects.HMMF0ScaleEffect.process",
+	"Comment": "actual processing is done wthin the hmm synthesizer so do nothing here",
+	"Method": "DoubleDataSource process(DoubleDataSource input){\r\n    long __functionAddress = Functions.GetVirtualScreen;\r\n    if (CHECKS) {\r\n        check(ctx);\r\n        check(screen, 1);\r\n    }\r\n    return callPPI(__functionAddress, ctx, screen);\r\n}"
+}, {
+	"Path": "marytts.server.MaryProperties.moduleInitInfo",
+	"Comment": "names of the classes to use as modules, plus optional parameter info.",
+	"Method": "List<String> moduleInitInfo(){\r\n    long __functionAddress = Functions.GetContextRetainCount;\r\n    if (CHECKS) {\r\n        check(ctx);\r\n    }\r\n    return callPI(__functionAddress, ctx);\r\n}"
+}, {
+	"Path": "marytts.unitselection.select.FFRTargetCostFunction.getFeature",
+	"Comment": "get the string representation of the feature value associated with the given unit",
+	"Method": "String getFeature(Unit unit,String featureName){\r\n    MemoryStack stack = stackGet();\r\n    int stackPointer = stack.getPointer();\r\n    try {\r\n        IntBuffer params = stack.callocInt(1);\r\n        IntBuffer uniformIndices = stack.ints(uniformIndex);\r\n        nglGetActiveUniformsiv(program, 1, memAddress(uniformIndices), pname, memAddress(params));\r\n        return params.get(0);\r\n    } finally {\r\n        stack.setPointer(stackPointer);\r\n    }\r\n}"
+}, {
+	"Path": "marytts.client.MaryClient.getVoices",
+	"Comment": "provide a list of voices known to the server for the given locale. if the information is not yet available, query the\tserver for it. this is optional information which is not required for the normal operation of the client, but may help to\tavoid incompatibilities.",
+	"Method": "Vector<MaryClient.Voice> getVoices(Vector<MaryClient.Voice> getVoices,Locale locale){\r\n    long __functionAddress = Functions.HasMetadata;\r\n    if (CHECKS) {\r\n        check(Val);\r\n    }\r\n    return invokePI(__functionAddress, Val) != 0;\r\n}"
+}, {
+	"Path": "marytts.signalproc.adaptation.BaselineTrainer.checkParams",
+	"Comment": "this baseline version does nothing. please implement functionality in derived classes.",
+	"Method": "boolean checkParams(){\r\n    return nclang_Cursor_getTranslationUnit(cursor.address());\r\n}"
+}, {
+	"Path": "org.lwjgl.openvr.VRRenderModels.VRRenderModels_GetComponentCount",
+	"Comment": "returns the number of components of the specified render model.components are useful when client application wish to draw, label, or otherwise interact with components of tracked objects.",
+	"Method": "int VRRenderModels_GetComponentCount(ByteBuffer pchRenderModelName,int VRRenderModels_GetComponentCount,CharSequence pchRenderModelName){\r\n    long __functionAddress = Functions.ArrayType;\r\n    if (CHECKS) {\r\n        check(ElementType);\r\n    }\r\n    return invokePP(__functionAddress, ElementType, ElementCount);\r\n}"
+}, {
+	"Path": "marytts.util.math.Histogram.name",
+	"Comment": "get the name of the histogram. the name is an arbitrary label for the user, and is set by the constructor.",
+	"Method": "String name(){\r\n    MemoryStack stack = stackGet();\r\n    int stackPointer = stack.getPointer();\r\n    try {\r\n        IntBuffer params = stack.callocInt(1);\r\n        nglGetVertexAttribiv(index, pname, memAddress(params));\r\n        return params.get(0);\r\n    } finally {\r\n        stack.setPointer(stackPointer);\r\n    }\r\n}"
+}, {
+	"Path": "org.lwjgl.openvr.VROverlay.VROverlay_GetOverlayTransformTrackedDeviceComponent",
+	"Comment": "gets the transform information when the overlay is rendering on a component.",
+	"Method": "int VROverlay_GetOverlayTransformTrackedDeviceComponent(long ulOverlayHandle,IntBuffer punDeviceIndex,ByteBuffer pchComponentName){\r\n    long __functionAddress = Functions.isStatement;\r\n    return invokeI(__functionAddress, kind) != 0;\r\n}"
+}, {
+	"Path": "org.lwjgl.openvr.VROverlay.VROverlay_GetOverlayWidthInMeters",
+	"Comment": "returns the width of the overlay quad in meters. by default overlays are rendered on a quad that is 1 meter across.",
+	"Method": "int VROverlay_GetOverlayWidthInMeters(long ulOverlayHandle,FloatBuffer pfWidthInMeters){\r\n    GL33C.glQueryCounter(id, target);\r\n}"
+}, {
+	"Path": "marytts.util.dom.DomUtils.getLastChildElement",
+	"Comment": "get the last child of e which is an element, or null if there is no such element.",
+	"Method": "Element getLastChildElement(Element e){\r\n    GL30C.glBlitFramebuffer(srcX0, srcY0, srcX1, srcY1, dstX0, dstY0, dstX1, dstY1, mask, filter);\r\n}"
+}, {
+	"Path": "marytts.cart.DirectedGraph.interpret",
+	"Comment": "follow the directed graph down to the most specific leaf with data, starting from node n. this is recursively calling\titself.",
+	"Method": "Object interpret(Target t,Object interpret,FeatureVector fv,Object interpret,Node n,FeatureVector fv){\r\n    long __functionAddress = Functions.CopyDesc;\r\n    if (CHECKS) {\r\n        check(SourceDescHandle);\r\n        check(TargetDescHandle);\r\n    }\r\n    return callPPS(__functionAddress, SourceDescHandle, TargetDescHandle);\r\n}"
+}]

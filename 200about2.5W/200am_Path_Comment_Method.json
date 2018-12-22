@@ -1,0 +1,1781 @@
+[{
+	"Path": "com.google.cloud.bigtable.admin.v2.BaseBigtableTableAdminSettings.deleteSnapshotSettings",
+	"Comment": "returns the object with the settings used for calls to deletesnapshot.",
+	"Method": "UnaryCallSettings<DeleteSnapshotRequest, Empty> deleteSnapshotSettings(UnaryCallSettings.Builder<DeleteSnapshotRequest, Empty> deleteSnapshotSettings){\r\n    return ((BigtableTableAdminStubSettings) getStubSettings()).deleteSnapshotSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.ImageDiskConfiguration.getSourceImage",
+	"Comment": "returns the identity of the source image used to create the disk.",
+	"Method": "ImageId getSourceImage(){\r\n    return sourceImage;\r\n}"
+}, {
+	"Path": "com.google.cloud.asset.v1beta1.AssetServiceSettings.exportAssetsOperationSettings",
+	"Comment": "returns the object with the settings used for calls to exportassets.",
+	"Method": "OperationCallSettings<ExportAssetsRequest, ExportAssetsResponse, ExportAssetsRequest> exportAssetsOperationSettings(OperationCallSettings.Builder<ExportAssetsRequest, ExportAssetsResponse, ExportAssetsRequest> exportAssetsOperationSettings){\r\n    return ((AssetServiceStubSettings) getStubSettings()).exportAssetsOperationSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.datatransfer.v1.DataTransferServiceSettings.defaultGrpcTransportProviderBuilder",
+	"Comment": "returns a builder for the default channelprovider for this service.",
+	"Method": "InstantiatingGrpcChannelProvider.Builder defaultGrpcTransportProviderBuilder(){\r\n    return DataTransferServiceStubSettings.defaultGrpcTransportProviderBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.SnapshotDiskConfiguration.getSourceSnapshot",
+	"Comment": "returns the identity of the source snapshot used to create the disk.",
+	"Method": "SnapshotId getSourceSnapshot(){\r\n    return sourceSnapshot;\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.AutoscalerSettings.patchAutoscalerSettings",
+	"Comment": "returns the object with the settings used for calls to patchautoscaler.",
+	"Method": "UnaryCallSettings<PatchAutoscalerHttpRequest, Operation> patchAutoscalerSettings(UnaryCallSettings.Builder<PatchAutoscalerHttpRequest, Operation> patchAutoscalerSettings){\r\n    return ((AutoscalerStubSettings) getStubSettings()).patchAutoscalerSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.models.ModifyColumnFamiliesRequest.addFamily",
+	"Comment": "configures the name and gcrule of the new columnfamily to be created",
+	"Method": "ModifyColumnFamiliesRequest addFamily(String familyId,ModifyColumnFamiliesRequest addFamily,String familyId,GCRule gcRule){\r\n    Preconditions.checkNotNull(gcRule);\r\n    Modification.Builder modification = Modification.newBuilder().setId(familyId);\r\n    modification.getCreateBuilder().setGcRule(gcRule.toProto());\r\n    modFamilyRequest.addModifications(modification.build());\r\n    return this;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.QueryStage.getReadRatioAvg",
+	"Comment": "returns the time the average worker spent reading input data, divided by the longest time spentby any worker in any segment.",
+	"Method": "double getReadRatioAvg(){\r\n    return readRatioAvg;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.datatransfer.v1.stub.DataTransferServiceStubSettings.scheduleTransferRunsSettings",
+	"Comment": "returns the object with the settings used for calls to scheduletransferruns.",
+	"Method": "UnaryCallSettings<ScheduleTransferRunsRequest, ScheduleTransferRunsResponse> scheduleTransferRunsSettings(UnaryCallSettings.Builder<ScheduleTransferRunsRequest, ScheduleTransferRunsResponse> scheduleTransferRunsSettings){\r\n    return scheduleTransferRunsSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BaseBigtableTableAdminSettings.modifyColumnFamiliesSettings",
+	"Comment": "returns the object with the settings used for calls to modifycolumnfamilies.",
+	"Method": "UnaryCallSettings<ModifyColumnFamiliesRequest, Table> modifyColumnFamiliesSettings(UnaryCallSettings.Builder<ModifyColumnFamiliesRequest, Table> modifyColumnFamiliesSettings){\r\n    return ((BigtableTableAdminStubSettings) getStubSettings()).modifyColumnFamiliesSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BigtableInstanceAdminSettings.toBuilder",
+	"Comment": "returns a builder containing all the values of this settings class.",
+	"Method": "Builder toBuilder(){\r\n    return new Builder(this);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.models.UpdateInstanceRequest.toProto",
+	"Comment": "creates the request protobuf. this method is considered an internal implementation detail andnot meant to be used by applications.",
+	"Method": "PartialUpdateInstanceRequest toProto(ProjectName projectName){\r\n    Preconditions.checkState(!builder.getUpdateMask().getPathsList().isEmpty(), \"Update request is empty\");\r\n    InstanceName instanceName = InstanceName.of(projectName.getProject(), instanceId);\r\n    builder.getInstanceBuilder().setName(instanceName.toString());\r\n    return builder.build();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BaseBigtableInstanceAdminSettings.defaultCredentialsProviderBuilder",
+	"Comment": "returns a builder for the default credentials for this service.",
+	"Method": "GoogleCredentialsProvider.Builder defaultCredentialsProviderBuilder(){\r\n    return BigtableInstanceAdminStubSettings.defaultCredentialsProviderBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.Field.newBuilder",
+	"Comment": "returns a builder for a field object with given name and type.",
+	"Method": "Builder newBuilder(String name,LegacySQLTypeName type,Field subFields,Builder newBuilder,String name,LegacySQLTypeName type,FieldList subFields){\r\n    return new Builder().setName(name).setType(type, subFields);\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.SnapshotInfo.getSourceDisk",
+	"Comment": "returns the identity of the source disk used to create this snapshot.",
+	"Method": "DiskId getSourceDisk(){\r\n    return sourceDisk;\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.AcceleratorTypeSettings.defaultCredentialsProviderBuilder",
+	"Comment": "returns a builder for the default credentials for this service.",
+	"Method": "GoogleCredentialsProvider.Builder defaultCredentialsProviderBuilder(){\r\n    return AcceleratorTypeStubSettings.defaultCredentialsProviderBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.models.Filters.pass",
+	"Comment": "matches all cells, regardless of input. functionally equivalent to having no filter.",
+	"Method": "Filter pass(){\r\n    return PASS;\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.GlobalOperationId.of",
+	"Comment": "returns a global operation identity given project and operation names.",
+	"Method": "GlobalOperationId of(String operation,GlobalOperationId of,String project,String operation){\r\n    return new GlobalOperationId(project, operation);\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.SnapshotInfo.getCreationTimestamp",
+	"Comment": "returns the creation timestamp in milliseconds since epoch.",
+	"Method": "Long getCreationTimestamp(){\r\n    return creationTimestamp;\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.AutoscalerClient.create",
+	"Comment": "constructs an instance of autoscalerclient, using the given settings. the channels are createdbased on the settings passed in, or defaults for any settings that are not set.",
+	"Method": "AutoscalerClient create(AutoscalerClient create,AutoscalerSettings settings,AutoscalerClient create,AutoscalerStub stub){\r\n    return new AutoscalerClient(stub);\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.BackendBucketSettings.updateBackendBucketSettings",
+	"Comment": "returns the object with the settings used for calls to updatebackendbucket.",
+	"Method": "UnaryCallSettings<UpdateBackendBucketHttpRequest, Operation> updateBackendBucketSettings(UnaryCallSettings.Builder<UpdateBackendBucketHttpRequest, Operation> updateBackendBucketSettings){\r\n    return ((BackendBucketStubSettings) getStubSettings()).updateBackendBucketSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.Region.getZones",
+	"Comment": "returns a list of identities of zones available in this region.",
+	"Method": "List<ZoneId> getZones(){\r\n    return zones;\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.RegionId.of",
+	"Comment": "returns a new region identity given project and region names.",
+	"Method": "RegionId of(String project,String region,RegionId of,String region){\r\n    return RegionId.of(null, region);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.models.AppProfile.fromProto",
+	"Comment": "wraps a protobuf response.this method is considered an internal implementation detail and not meant to be used byapplications.",
+	"Method": "AppProfile fromProto(com.google.bigtable.admin.v2.AppProfile proto,SingleClusterRoutingPolicy fromProto,com.google.bigtable.admin.v2.AppProfile.SingleClusterRouting proto){\r\n    return new AppProfile(proto);\r\n}"
+}, {
+	"Path": "com.google.cloud.asset.v1beta1.AssetServiceSettings.defaultCredentialsProviderBuilder",
+	"Comment": "returns a builder for the default credentials for this service.",
+	"Method": "GoogleCredentialsProvider.Builder defaultCredentialsProviderBuilder(){\r\n    return AssetServiceStubSettings.defaultCredentialsProviderBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.stub.BigtableInstanceAdminStubSettings.updateAppProfileOperationSettings",
+	"Comment": "returns the object with the settings used for calls to updateappprofile.",
+	"Method": "OperationCallSettings<UpdateAppProfileRequest, AppProfile, UpdateAppProfileMetadata> updateAppProfileOperationSettings(OperationCallSettings.Builder<UpdateAppProfileRequest, AppProfile, UpdateAppProfileMetadata> updateAppProfileOperationSettings){\r\n    return updateAppProfileOperationSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.AddressInfo.getCreationTimestamp",
+	"Comment": "returns the creation timestamp in milliseconds since epoch.",
+	"Method": "Long getCreationTimestamp(){\r\n    return creationTimestamp;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.gaxx.reframing.ReframingResponseObserver.deliver",
+	"Comment": "tries to kick off the delivery loop, wrapping it in error handling.",
+	"Method": "void deliver(){\r\n    try {\r\n        deliverUnsafe();\r\n    } catch (Throwable t) {\r\n        innerController.cancel();\r\n        if (!finished) {\r\n            outerResponseObserver.onError(t);\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.models.BulkMutationBatcher.add",
+	"Comment": "queues the mutation to be batched and sent. please note that the order of mutations is notguaranteed.",
+	"Method": "ApiFuture<Void> add(RowMutation rowMutation){\r\n    Preconditions.checkState(!closed, \"BulkMutations has been closed\");\r\n    numOutstanding.incrementAndGet();\r\n    ApiFuture<Void> future = callable.futureCall(rowMutation);\r\n    ApiFutures.addCallback(future, new ApiFutureCallback<Void>() {\r\n        @Override\r\n        public void onFailure(Throwable throwable) {\r\n            onMutationComplete(false);\r\n        }\r\n        @Override\r\n        public void onSuccess(Void aVoid) {\r\n            onMutationComplete(true);\r\n        }\r\n    }, MoreExecutors.directExecutor());\r\n    return future;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.models.BulkMutationBatcher.add",
+	"Comment": "queues the mutation to be batched and sent. please note that the order of mutations is notguaranteed.",
+	"Method": "ApiFuture<Void> add(RowMutation rowMutation){\r\n    onMutationComplete(false);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.models.BulkMutationBatcher.add",
+	"Comment": "queues the mutation to be batched and sent. please note that the order of mutations is notguaranteed.",
+	"Method": "ApiFuture<Void> add(RowMutation rowMutation){\r\n    onMutationComplete(true);\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.AutoMlSettings.deployModelSettings",
+	"Comment": "returns the object with the settings used for calls to deploymodel.",
+	"Method": "UnaryCallSettings<DeployModelRequest, Operation> deployModelSettings(UnaryCallSettings.Builder<DeployModelRequest, Operation> deployModelSettings){\r\n    return ((AutoMlStubSettings) getStubSettings()).deployModelSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.AutoscalerSettings.insertAutoscalerSettings",
+	"Comment": "returns the object with the settings used for calls to insertautoscaler.",
+	"Method": "UnaryCallSettings<InsertAutoscalerHttpRequest, Operation> insertAutoscalerSettings(UnaryCallSettings.Builder<InsertAutoscalerHttpRequest, Operation> insertAutoscalerSettings){\r\n    return ((AutoscalerStubSettings) getStubSettings()).insertAutoscalerSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.storage.v1beta1.BaseBigQueryStorageSettings.finalizeStreamSettings",
+	"Comment": "returns the object with the settings used for calls to finalizestream.",
+	"Method": "UnaryCallSettings<FinalizeStreamRequest, Empty> finalizeStreamSettings(UnaryCallSettings.Builder<FinalizeStreamRequest, Empty> finalizeStreamSettings){\r\n    return ((BigQueryStorageStubSettings) getStubSettings()).finalizeStreamSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.WriteChannelConfiguration.newBuilder",
+	"Comment": "creates a builder for a bigquery load configuration given the destination table and format.",
+	"Method": "Builder newBuilder(TableId destinationTable,Builder newBuilder,TableId destinationTable,FormatOptions format){\r\n    return newBuilder(destinationTable).setFormatOptions(format);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.models.MutateRowsException.getFailedMutations",
+	"Comment": "retrieve all of the failed mutations. this list will contain failures for all of the mutationsthat have failed across all of the retry attempts so far.",
+	"Method": "List<FailedMutation> getFailedMutations(){\r\n    return failedMutations;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BigtableTableAdminSettings.toBuilder",
+	"Comment": "returns a builder containing all the values of this settings class.",
+	"Method": "Builder toBuilder(){\r\n    return new Builder(this);\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.AddressSettings.toBuilder",
+	"Comment": "returns a builder containing all the values of this settings class.",
+	"Method": "Builder toBuilder(){\r\n    return new Builder(this);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BaseBigtableInstanceAdminSettings.updateAppProfileSettings",
+	"Comment": "returns the object with the settings used for calls to updateappprofile.",
+	"Method": "UnaryCallSettings<UpdateAppProfileRequest, Operation> updateAppProfileSettings(UnaryCallSettings.Builder<UpdateAppProfileRequest, Operation> updateAppProfileSettings){\r\n    return ((BigtableInstanceAdminStubSettings) getStubSettings()).updateAppProfileSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.AutoMlSettings.listDatasetsSettings",
+	"Comment": "returns the object with the settings used for calls to listdatasets.",
+	"Method": "PagedCallSettings<ListDatasetsRequest, ListDatasetsResponse, ListDatasetsPagedResponse> listDatasetsSettings(PagedCallSettings.Builder<ListDatasetsRequest, ListDatasetsResponse, ListDatasetsPagedResponse> listDatasetsSettings){\r\n    return ((AutoMlStubSettings) getStubSettings()).listDatasetsSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.LegacySQLTypeName.valueOf",
+	"Comment": "get the legacysqltypename for the given string constant, and allow unrecognized values.",
+	"Method": "LegacySQLTypeName valueOf(String constant){\r\n    return type.valueOf(constant);\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.AcceleratorTypeSettings.defaultExecutorProviderBuilder",
+	"Comment": "returns a builder for the default executorprovider for this service.",
+	"Method": "InstantiatingExecutorProvider.Builder defaultExecutorProviderBuilder(){\r\n    return AcceleratorTypeStubSettings.defaultExecutorProviderBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.stub.AutoMlStubSettings.createModelSettings",
+	"Comment": "returns the object with the settings used for calls to createmodel.",
+	"Method": "UnaryCallSettings<CreateModelRequest, Operation> createModelSettings(UnaryCallSettings.Builder<CreateModelRequest, Operation> createModelSettings){\r\n    return createModelSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.StorageImageConfiguration.getSha1",
+	"Comment": "returns the sha1 checksum of the disk image before unpackaging.",
+	"Method": "String getSha1(){\r\n    return sha1;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.BaseBigtableDataSettings.readModifyWriteRowSettings",
+	"Comment": "returns the object with the settings used for calls to readmodifywriterow.",
+	"Method": "UnaryCallSettings<ReadModifyWriteRowRequest, ReadModifyWriteRowResponse> readModifyWriteRowSettings(UnaryCallSettings.Builder<ReadModifyWriteRowRequest, ReadModifyWriteRowResponse> readModifyWriteRowSettings){\r\n    return ((BigtableStubSettings) getStubSettings()).readModifyWriteRowSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.BigtableDataSettings.toBuilder",
+	"Comment": "returns a builder containing all the values of this settings class.",
+	"Method": "Builder toBuilder(){\r\n    return new Builder(this);\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.RegionForwardingRuleId.getRegion",
+	"Comment": "returns the name of the region this forwarding rule belongs to.",
+	"Method": "String getRegion(){\r\n    return region;\r\n}"
+}, {
+	"Path": "com.google.cloud.asset.v1beta1.stub.AssetServiceStubSettings.toBuilder",
+	"Comment": "returns a builder containing all the values of this settings class.",
+	"Method": "Builder toBuilder(){\r\n    return new Builder(this);\r\n}"
+}, {
+	"Path": "com.google.cloud.asset.v1beta1.AssetServiceSettings.toBuilder",
+	"Comment": "returns a builder containing all the values of this settings class.",
+	"Method": "Builder toBuilder(){\r\n    return new Builder(this);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.models.UpdateInstanceRequest.of",
+	"Comment": "builds a new request to update an existing instance with the specified id.",
+	"Method": "UpdateInstanceRequest of(String instanceId){\r\n    return new UpdateInstanceRequest(instanceId);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.QueryJobConfiguration.getTableDefinitions",
+	"Comment": "returns the external tables definitions. if querying external data sources outside of bigquery,this value describes the data format, location and other properties of the data sources. bydefining these properties, the data sources can be queried as if they were standard bigquerytables.",
+	"Method": "Map<String, ExternalTableDefinition> getTableDefinitions(){\r\n    return tableDefinitions;\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.InstanceInfo.getNetworkInterfaces",
+	"Comment": "returns a list of network interfaces. this specifies how this instance is configured tointeract with other network services, such as connecting to the internet.",
+	"Method": "List<NetworkInterface> getNetworkInterfaces(){\r\n    return networkInterfaces;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.stub.BigtableStubSettings.mutateRowsSettings",
+	"Comment": "returns the object with the settings used for calls to mutaterows.",
+	"Method": "ServerStreamingCallSettings<MutateRowsRequest, MutateRowsResponse> mutateRowsSettings(ServerStreamingCallSettings.Builder<MutateRowsRequest, MutateRowsResponse> mutateRowsSettings){\r\n    return mutateRowsSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.stub.BigtableInstanceAdminStubSettings.getInstanceSettings",
+	"Comment": "returns the object with the settings used for calls to getinstance.",
+	"Method": "UnaryCallSettings<GetInstanceRequest, Instance> getInstanceSettings(UnaryCallSettings.Builder<GetInstanceRequest, Instance> getInstanceSettings){\r\n    return getInstanceSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.BackendServiceSettings.aggregatedListBackendServicesSettings",
+	"Comment": "returns the object with the settings used for calls to aggregatedlistbackendservices.",
+	"Method": "PagedCallSettings<AggregatedListBackendServicesHttpRequest, BackendServiceAggregatedList, AggregatedListBackendServicesPagedResponse> aggregatedListBackendServicesSettings(PagedCallSettings.Builder<AggregatedListBackendServicesHttpRequest, BackendServiceAggregatedList, AggregatedListBackendServicesPagedResponse> aggregatedListBackendServicesSettings){\r\n    return ((BackendServiceStubSettings) getStubSettings()).aggregatedListBackendServicesSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.stub.EnhancedBigtableStubSettings.defaultCredentialsProviderBuilder",
+	"Comment": "returns a builder for the default credentials for this service.",
+	"Method": "GoogleCredentialsProvider.Builder defaultCredentialsProviderBuilder(){\r\n    return BigtableStubSettings.defaultCredentialsProviderBuilder().setJwtEnabledScopes(JWT_ENABLED_SCOPES);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.models.AppProfile.toProto",
+	"Comment": "creates the request protobuf. this method is considered an internal implementation detail andnot meant to be used by applications.",
+	"Method": "com.google.bigtable.admin.v2.AppProfile toProto(com.google.bigtable.admin.v2.AppProfile.SingleClusterRouting toProto,MultiClusterRoutingUseAny toProto){\r\n    return proto;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.stub.BigtableStubSettings.checkAndMutateRowSettings",
+	"Comment": "returns the object with the settings used for calls to checkandmutaterow.",
+	"Method": "UnaryCallSettings<CheckAndMutateRowRequest, CheckAndMutateRowResponse> checkAndMutateRowSettings(UnaryCallSettings.Builder<CheckAndMutateRowRequest, CheckAndMutateRowResponse> checkAndMutateRowSettings){\r\n    return checkAndMutateRowSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.datatransfer.v1.DataTransferServiceSettings.updateTransferConfigSettings",
+	"Comment": "returns the object with the settings used for calls to updatetransferconfig.",
+	"Method": "UnaryCallSettings<UpdateTransferConfigRequest, TransferConfig> updateTransferConfigSettings(UnaryCallSettings.Builder<UpdateTransferConfigRequest, TransferConfig> updateTransferConfigSettings){\r\n    return ((DataTransferServiceStubSettings) getStubSettings()).updateTransferConfigSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.DatasetInfo.getSelfLink",
+	"Comment": "returns an url that can be used to access the resource again. the returned url can be used forget or update requests.",
+	"Method": "String getSelfLink(){\r\n    return selfLink;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.datatransfer.v1.stub.DataTransferServiceStubSettings.listTransferConfigsSettings",
+	"Comment": "returns the object with the settings used for calls to listtransferconfigs.",
+	"Method": "PagedCallSettings<ListTransferConfigsRequest, ListTransferConfigsResponse, ListTransferConfigsPagedResponse> listTransferConfigsSettings(PagedCallSettings.Builder<ListTransferConfigsRequest, ListTransferConfigsResponse, ListTransferConfigsPagedResponse> listTransferConfigsSettings){\r\n    return listTransferConfigsSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BaseBigtableInstanceAdminSettings.getClusterSettings",
+	"Comment": "returns the object with the settings used for calls to getcluster.",
+	"Method": "UnaryCallSettings<GetClusterRequest, Cluster> getClusterSettings(UnaryCallSettings.Builder<GetClusterRequest, Cluster> getClusterSettings){\r\n    return ((BigtableInstanceAdminStubSettings) getStubSettings()).getClusterSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.storage.v1beta1.BaseBigQueryStorageSettings.toBuilder",
+	"Comment": "returns a builder containing all the values of this settings class.",
+	"Method": "Builder toBuilder(){\r\n    return new Builder(this);\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.MachineType.getCpus",
+	"Comment": "returns the number of virtual cpus that are available to the instance.",
+	"Method": "Integer getCpus(){\r\n    return cpus;\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.SubnetworkInfo.getCreationTimestamp",
+	"Comment": "returns the creation timestamp in milliseconds since epoch.",
+	"Method": "Long getCreationTimestamp(){\r\n    return creationTimestamp;\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.stub.PredictionServiceStubSettings.defaultGrpcTransportProviderBuilder",
+	"Comment": "returns a builder for the default channelprovider for this service.",
+	"Method": "InstantiatingGrpcChannelProvider.Builder defaultGrpcTransportProviderBuilder(){\r\n    return InstantiatingGrpcChannelProvider.newBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.BackendServiceSettings.listBackendServicesSettings",
+	"Comment": "returns the object with the settings used for calls to listbackendservices.",
+	"Method": "PagedCallSettings<ListBackendServicesHttpRequest, BackendServiceList, ListBackendServicesPagedResponse> listBackendServicesSettings(PagedCallSettings.Builder<ListBackendServicesHttpRequest, BackendServiceList, ListBackendServicesPagedResponse> listBackendServicesSettings){\r\n    return ((BackendServiceStubSettings) getStubSettings()).listBackendServicesSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.BackendBucketSettings.defaultCredentialsProviderBuilder",
+	"Comment": "returns a builder for the default credentials for this service.",
+	"Method": "GoogleCredentialsProvider.Builder defaultCredentialsProviderBuilder(){\r\n    return BackendBucketStubSettings.defaultCredentialsProviderBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.stub.AutoMlStubSettings.importDataSettings",
+	"Comment": "returns the object with the settings used for calls to importdata.",
+	"Method": "UnaryCallSettings<ImportDataRequest, Operation> importDataSettings(UnaryCallSettings.Builder<ImportDataRequest, Operation> importDataSettings){\r\n    return importDataSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.stub.BigtableTableAdminStubSettings.defaultGrpcTransportProviderBuilder",
+	"Comment": "returns a builder for the default channelprovider for this service.",
+	"Method": "InstantiatingGrpcChannelProvider.Builder defaultGrpcTransportProviderBuilder(){\r\n    return InstantiatingGrpcChannelProvider.newBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.stub.readrows.StateMachine.isRowInProgress",
+	"Comment": "checks if the state machine is in the middle of processing a row.",
+	"Method": "boolean isRowInProgress(){\r\n    return currentState != AWAITING_NEW_ROW;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.datatransfer.v1.stub.DataTransferServiceStubSettings.defaultGrpcTransportProviderBuilder",
+	"Comment": "returns a builder for the default channelprovider for this service.",
+	"Method": "InstantiatingGrpcChannelProvider.Builder defaultGrpcTransportProviderBuilder(){\r\n    return InstantiatingGrpcChannelProvider.newBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.stub.AutoMlStubSettings.listModelEvaluationsSettings",
+	"Comment": "returns the object with the settings used for calls to listmodelevaluations.",
+	"Method": "PagedCallSettings<ListModelEvaluationsRequest, ListModelEvaluationsResponse, ListModelEvaluationsPagedResponse> listModelEvaluationsSettings(PagedCallSettings.Builder<ListModelEvaluationsRequest, ListModelEvaluationsResponse, ListModelEvaluationsPagedResponse> listModelEvaluationsSettings){\r\n    return listModelEvaluationsSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.LicenseId.of",
+	"Comment": "returns a license identity given project and license names.",
+	"Method": "LicenseId of(String license,LicenseId of,String project,String license){\r\n    return new LicenseId(project, license);\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.AutoscalerSettings.defaultExecutorProviderBuilder",
+	"Comment": "returns a builder for the default executorprovider for this service.",
+	"Method": "InstantiatingExecutorProvider.Builder defaultExecutorProviderBuilder(){\r\n    return AutoscalerStubSettings.defaultExecutorProviderBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.Operation.delete",
+	"Comment": "deletes this operation. delete is only possible for operations that have completed theirexecution. any attempt to delete a running operation will fail.",
+	"Method": "boolean delete(){\r\n    return compute.deleteOperation(operationId);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.BaseBigtableDataClient.create",
+	"Comment": "constructs an instance of basebigtabledataclient, using the given settings. the channels arecreated based on the settings passed in, or defaults for any settings that are not set.",
+	"Method": "BaseBigtableDataClient create(BaseBigtableDataClient create,BaseBigtableDataSettings settings,BaseBigtableDataClient create,BigtableStub stub){\r\n    return new BaseBigtableDataClient(stub);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.ViewDefinition.of",
+	"Comment": "creates a bigquery view definition given the query used to generate the table.",
+	"Method": "ViewDefinition of(String query,ViewDefinition of,String query,List<UserDefinedFunction> functions,ViewDefinition of,String query,UserDefinedFunction functions){\r\n    return newBuilder(query, functions).build();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BaseBigtableInstanceAdminSettings.partialUpdateInstanceSettings",
+	"Comment": "returns the object with the settings used for calls to partialupdateinstance.",
+	"Method": "UnaryCallSettings<PartialUpdateInstanceRequest, Operation> partialUpdateInstanceSettings(UnaryCallSettings.Builder<PartialUpdateInstanceRequest, Operation> partialUpdateInstanceSettings){\r\n    return ((BigtableInstanceAdminStubSettings) getStubSettings()).partialUpdateInstanceSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.models.UpdateInstanceRequest.setProductionType",
+	"Comment": "upgrades the instance from a development instance to a production instance. this cannot beundone.",
+	"Method": "UpdateInstanceRequest setProductionType(){\r\n    builder.getInstanceBuilder().setType(Type.PRODUCTION);\r\n    updateFieldMask(Instance.TYPE_FIELD_NUMBER);\r\n    return this;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BaseBigtableTableAdminSettings.defaultExecutorProviderBuilder",
+	"Comment": "returns a builder for the default executorprovider for this service.",
+	"Method": "InstantiatingExecutorProvider.Builder defaultExecutorProviderBuilder(){\r\n    return BigtableTableAdminStubSettings.defaultExecutorProviderBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.MachineType.getMemoryMb",
+	"Comment": "returns the amount of physical memory available to the instance, defined in mb.",
+	"Method": "Integer getMemoryMb(){\r\n    return memoryMb;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.datatransfer.v1.stub.DataTransferServiceStubSettings.deleteTransferConfigSettings",
+	"Comment": "returns the object with the settings used for calls to deletetransferconfig.",
+	"Method": "UnaryCallSettings<DeleteTransferConfigRequest, Empty> deleteTransferConfigSettings(UnaryCallSettings.Builder<DeleteTransferConfigRequest, Empty> deleteTransferConfigSettings){\r\n    return deleteTransferConfigSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.BackendBucketSettings.listBackendBucketsSettings",
+	"Comment": "returns the object with the settings used for calls to listbackendbuckets.",
+	"Method": "PagedCallSettings<ListBackendBucketsHttpRequest, BackendBucketList, ListBackendBucketsPagedResponse> listBackendBucketsSettings(PagedCallSettings.Builder<ListBackendBucketsHttpRequest, BackendBucketList, ListBackendBucketsPagedResponse> listBackendBucketsSettings){\r\n    return ((BackendBucketStubSettings) getStubSettings()).listBackendBucketsSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.stub.EnhancedBigtableStubSettings.mutateRowSettings",
+	"Comment": "returns the object with the settings used for calls to mutaterow.",
+	"Method": "UnaryCallSettings<RowMutation, Void> mutateRowSettings(UnaryCallSettings.Builder<RowMutation, Void> mutateRowSettings){\r\n    return mutateRowSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.AutoscalerSettings.updateAutoscalerSettings",
+	"Comment": "returns the object with the settings used for calls to updateautoscaler.",
+	"Method": "UnaryCallSettings<UpdateAutoscalerHttpRequest, Operation> updateAutoscalerSettings(UnaryCallSettings.Builder<UpdateAutoscalerHttpRequest, Operation> updateAutoscalerSettings){\r\n    return ((AutoscalerStubSettings) getStubSettings()).updateAutoscalerSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.AutoMlSettings.defaultExecutorProviderBuilder",
+	"Comment": "returns a builder for the default executorprovider for this service.",
+	"Method": "InstantiatingExecutorProvider.Builder defaultExecutorProviderBuilder(){\r\n    return AutoMlStubSettings.defaultExecutorProviderBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.InsertAllRequest.ignoreUnknownValues",
+	"Comment": "returns whether to accept rows that contain values that do not match the schema. the unknownvalues are ignored. if not set, rows with unknown values are considered to be invalid.",
+	"Method": "Boolean ignoreUnknownValues(){\r\n    return ignoreUnknownValues;\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.BackendBucketSettings.patchBackendBucketSettings",
+	"Comment": "returns the object with the settings used for calls to patchbackendbucket.",
+	"Method": "UnaryCallSettings<PatchBackendBucketHttpRequest, Operation> patchBackendBucketSettings(UnaryCallSettings.Builder<PatchBackendBucketHttpRequest, Operation> patchBackendBucketSettings){\r\n    return ((BackendBucketStubSettings) getStubSettings()).patchBackendBucketSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.asset.v1beta1.AssetServiceSettings.batchGetAssetsHistorySettings",
+	"Comment": "returns the object with the settings used for calls to batchgetassetshistory.",
+	"Method": "UnaryCallSettings<BatchGetAssetsHistoryRequest, BatchGetAssetsHistoryResponse> batchGetAssetsHistorySettings(UnaryCallSettings.Builder<BatchGetAssetsHistoryRequest, BatchGetAssetsHistoryResponse> batchGetAssetsHistorySettings){\r\n    return ((AssetServiceStubSettings) getStubSettings()).batchGetAssetsHistorySettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.datatransfer.v1.DataTransferServiceSettings.deleteTransferRunSettings",
+	"Comment": "returns the object with the settings used for calls to deletetransferrun.",
+	"Method": "UnaryCallSettings<DeleteTransferRunRequest, Empty> deleteTransferRunSettings(UnaryCallSettings.Builder<DeleteTransferRunRequest, Empty> deleteTransferRunSettings){\r\n    return ((DataTransferServiceStubSettings) getStubSettings()).deleteTransferRunSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.asset.v1beta1.AssetServiceClient.create",
+	"Comment": "constructs an instance of assetserviceclient, using the given settings. the channels arecreated based on the settings passed in, or defaults for any settings that are not set.",
+	"Method": "AssetServiceClient create(AssetServiceClient create,AssetServiceSettings settings,AssetServiceClient create,AssetServiceStub stub){\r\n    return new AssetServiceClient(stub);\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.MachineType.getCreationTimestamp",
+	"Comment": "returns the creation timestamp in milliseconds since epoch.",
+	"Method": "Long getCreationTimestamp(){\r\n    return creationTimestamp;\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.DeprecationStatus.getReplacement",
+	"Comment": "returns the identity of the suggested replacement for a deprecated resource. the suggestedreplacement resource must be the same kind of resource as the deprecated resource.",
+	"Method": "T getReplacement(){\r\n    return replacement;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.models.ReadModifyWriteRow.append",
+	"Comment": "appends the value to the existing value of the cell. if the targeted cell is unset, it will betreated as containing the empty string.",
+	"Method": "ReadModifyWriteRow append(String familyName,String qualifier,String value,ReadModifyWriteRow append,String familyName,ByteString qualifier,ByteString value){\r\n    Validations.validateFamily(familyName);\r\n    Preconditions.checkNotNull(qualifier, \"Qualifier can't be null\");\r\n    Preconditions.checkNotNull(value, \"Value can't be null\");\r\n    Preconditions.checkArgument(!value.isEmpty(), \"Value can't be empty\");\r\n    ReadModifyWriteRule rule = ReadModifyWriteRule.newBuilder().setFamilyName(familyName).setColumnQualifier(qualifier).setAppendValue(value).build();\r\n    builder.addRules(rule);\r\n    return this;\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.AddressClient.create",
+	"Comment": "constructs an instance of addressclient, using the given settings. the channels are createdbased on the settings passed in, or defaults for any settings that are not set.",
+	"Method": "AddressClient create(AddressClient create,AddressSettings settings,AddressClient create,AddressStub stub){\r\n    return new AddressClient(stub);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.storage.v1beta1.stub.EnhancedBigQueryStorageStubSettings.createReadSessionSettings",
+	"Comment": "returns the object with the settings used for calls to createreadsession.",
+	"Method": "UnaryCallSettings<CreateReadSessionRequest, ReadSession> createReadSessionSettings(UnaryCallSettings.Builder<CreateReadSessionRequest, ReadSession> createReadSessionSettings){\r\n    return createReadSessionSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.storage.v1beta1.stub.EnhancedBigQueryStorageStubSettings.defaultExecutorProviderBuilder",
+	"Comment": "returns a builder for the default executorprovider for this service.",
+	"Method": "InstantiatingExecutorProvider.Builder defaultExecutorProviderBuilder(){\r\n    return BigQueryStorageStubSettings.defaultExecutorProviderBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.SubnetworkInfo.getNetwork",
+	"Comment": "returns the identity of the network to which this subnetwork belongs. only networks that are insubnet mode can have subnetworks.",
+	"Method": "NetworkId getNetwork(){\r\n    return network;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.QueryJobConfiguration.getTimePartitioning",
+	"Comment": "returns the time partitioning specification for the destination table.",
+	"Method": "TimePartitioning getTimePartitioning(){\r\n    return timePartitioning;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.stub.BigtableStubSettings.defaultExecutorProviderBuilder",
+	"Comment": "returns a builder for the default executorprovider for this service.",
+	"Method": "InstantiatingExecutorProvider.Builder defaultExecutorProviderBuilder(){\r\n    return InstantiatingExecutorProvider.newBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.Disk.resize",
+	"Comment": "resizes this disk to the requested size. the new size must be larger than the previous one.",
+	"Method": "Operation resize(long sizeGb,OperationOption options){\r\n    return compute.resize(getDiskId(), sizeGb, options);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BaseBigtableInstanceAdminSettings.createInstanceOperationSettings",
+	"Comment": "returns the object with the settings used for calls to createinstance.",
+	"Method": "OperationCallSettings<CreateInstanceRequest, Instance, CreateInstanceMetadata> createInstanceOperationSettings(OperationCallSettings.Builder<CreateInstanceRequest, Instance, CreateInstanceMetadata> createInstanceOperationSettings){\r\n    return ((BigtableInstanceAdminStubSettings) getStubSettings()).createInstanceOperationSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.AutoMlSettings.listModelsSettings",
+	"Comment": "returns the object with the settings used for calls to listmodels.",
+	"Method": "PagedCallSettings<ListModelsRequest, ListModelsResponse, ListModelsPagedResponse> listModelsSettings(PagedCallSettings.Builder<ListModelsRequest, ListModelsResponse, ListModelsPagedResponse> listModelsSettings){\r\n    return ((AutoMlStubSettings) getStubSettings()).listModelsSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.CsvOptions.getQuote",
+	"Comment": "returns the value that is used to quote data sections in a csv file.",
+	"Method": "String getQuote(){\r\n    return quote;\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.Region.getCreationTimestamp",
+	"Comment": "returns the creation timestamp in milliseconds since epoch.",
+	"Method": "Long getCreationTimestamp(){\r\n    return creationTimestamp;\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.BackendServiceSettings.deleteSignedUrlKeyBackendServiceSettings",
+	"Comment": "returns the object with the settings used for calls to deletesignedurlkeybackendservice.",
+	"Method": "UnaryCallSettings<DeleteSignedUrlKeyBackendServiceHttpRequest, Operation> deleteSignedUrlKeyBackendServiceSettings(UnaryCallSettings.Builder<DeleteSignedUrlKeyBackendServiceHttpRequest, Operation> deleteSignedUrlKeyBackendServiceSettings){\r\n    return ((BackendServiceStubSettings) getStubSettings()).deleteSignedUrlKeyBackendServiceSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.BackendServiceSettings.getBackendServiceSettings",
+	"Comment": "returns the object with the settings used for calls to getbackendservice.",
+	"Method": "UnaryCallSettings<GetBackendServiceHttpRequest, BackendService> getBackendServiceSettings(UnaryCallSettings.Builder<GetBackendServiceHttpRequest, BackendService> getBackendServiceSettings){\r\n    return ((BackendServiceStubSettings) getStubSettings()).getBackendServiceSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.asset.v1beta1.stub.AssetServiceStubSettings.defaultGrpcTransportProviderBuilder",
+	"Comment": "returns a builder for the default channelprovider for this service.",
+	"Method": "InstantiatingGrpcChannelProvider.Builder defaultGrpcTransportProviderBuilder(){\r\n    return InstantiatingGrpcChannelProvider.newBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.stub.BigtableStubSettings.toBuilder",
+	"Comment": "returns a builder containing all the values of this settings class.",
+	"Method": "Builder toBuilder(){\r\n    return new Builder(this);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.models.Cluster.fromProto",
+	"Comment": "wraps a protobuf response.this method is considered an internal implementation detail and not meant to be used byapplications.",
+	"Method": "Cluster fromProto(com.google.bigtable.admin.v2.Cluster proto){\r\n    return new Cluster(proto);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.models.PartialListClustersException.getClusters",
+	"Comment": "a partial list of clusters that were found in the available zones.",
+	"Method": "List<Cluster> getClusters(){\r\n    return clusters;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.models.CreateAppProfileRequest.toProto",
+	"Comment": "creates the request protobuf. this method is considered an internal implementation detail andnot meant to be used by applications.",
+	"Method": "com.google.bigtable.admin.v2.CreateAppProfileRequest toProto(ProjectName projectName){\r\n    InstanceName name = InstanceName.of(projectName.getProject(), instanceId);\r\n    return proto.setParent(name.toString()).build();\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.BackendServiceSettings.defaultExecutorProviderBuilder",
+	"Comment": "returns a builder for the default executorprovider for this service.",
+	"Method": "InstantiatingExecutorProvider.Builder defaultExecutorProviderBuilder(){\r\n    return BackendServiceStubSettings.defaultExecutorProviderBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BaseBigtableInstanceAdminSettings.createClusterSettings",
+	"Comment": "returns the object with the settings used for calls to createcluster.",
+	"Method": "UnaryCallSettings<CreateClusterRequest, Operation> createClusterSettings(UnaryCallSettings.Builder<CreateClusterRequest, Operation> createClusterSettings){\r\n    return ((BigtableInstanceAdminStubSettings) getStubSettings()).createClusterSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.LegacySQLTypeName.getStandardType",
+	"Comment": "provides the standard sql type name equivalent to this type name.",
+	"Method": "StandardSQLTypeName getStandardType(){\r\n    return equivalent;\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.stub.AutoMlStubSettings.getModelSettings",
+	"Comment": "returns the object with the settings used for calls to getmodel.",
+	"Method": "UnaryCallSettings<GetModelRequest, Model> getModelSettings(UnaryCallSettings.Builder<GetModelRequest, Model> getModelSettings){\r\n    return getModelSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.datatransfer.v1.stub.DataTransferServiceStubSettings.getTransferConfigSettings",
+	"Comment": "returns the object with the settings used for calls to gettransferconfig.",
+	"Method": "UnaryCallSettings<GetTransferConfigRequest, TransferConfig> getTransferConfigSettings(UnaryCallSettings.Builder<GetTransferConfigRequest, TransferConfig> getTransferConfigSettings){\r\n    return getTransferConfigSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.QueryStage.getWriteMsMax",
+	"Comment": "returns the time in milliseconds the slowest worker spent writing output.",
+	"Method": "long getWriteMsMax(){\r\n    return writeMsMax;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.BaseBigtableDataSettings.readRowsSettings",
+	"Comment": "returns the object with the settings used for calls to readrows.",
+	"Method": "ServerStreamingCallSettings<ReadRowsRequest, ReadRowsResponse> readRowsSettings(ServerStreamingCallSettings.Builder<ReadRowsRequest, ReadRowsResponse> readRowsSettings){\r\n    return ((BigtableStubSettings) getStubSettings()).readRowsSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.storage.v1beta1.BaseBigQueryStorageSettings.splitReadStreamSettings",
+	"Comment": "returns the object with the settings used for calls to splitreadstream.",
+	"Method": "UnaryCallSettings<SplitReadStreamRequest, SplitReadStreamResponse> splitReadStreamSettings(UnaryCallSettings.Builder<SplitReadStreamRequest, SplitReadStreamResponse> splitReadStreamSettings){\r\n    return ((BigQueryStorageStubSettings) getStubSettings()).splitReadStreamSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BaseBigtableTableAdminSettings.defaultCredentialsProviderBuilder",
+	"Comment": "returns a builder for the default credentials for this service.",
+	"Method": "GoogleCredentialsProvider.Builder defaultCredentialsProviderBuilder(){\r\n    return BigtableTableAdminStubSettings.defaultCredentialsProviderBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.QueryStage.getWaitRatioAvg",
+	"Comment": "returns the time the average worker spent waiting to be scheduled, divided by the longest timespent by any worker in any segment.",
+	"Method": "double getWaitRatioAvg(){\r\n    return waitRatioAvg;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.stub.BigtableTableAdminStubSettings.modifyColumnFamiliesSettings",
+	"Comment": "returns the object with the settings used for calls to modifycolumnfamilies.",
+	"Method": "UnaryCallSettings<ModifyColumnFamiliesRequest, Table> modifyColumnFamiliesSettings(UnaryCallSettings.Builder<ModifyColumnFamiliesRequest, Table> modifyColumnFamiliesSettings){\r\n    return modifyColumnFamiliesSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.QueryStage.getReadMsAvg",
+	"Comment": "returns the time in milliseconds the average worker spent reading input.",
+	"Method": "long getReadMsAvg(){\r\n    return readMsAvg;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BaseBigtableInstanceAdminSettings.listClustersSettings",
+	"Comment": "returns the object with the settings used for calls to listclusters.",
+	"Method": "UnaryCallSettings<ListClustersRequest, ListClustersResponse> listClustersSettings(UnaryCallSettings.Builder<ListClustersRequest, ListClustersResponse> listClustersSettings){\r\n    return ((BigtableInstanceAdminStubSettings) getStubSettings()).listClustersSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.AutoscalerSettings.defaultCredentialsProviderBuilder",
+	"Comment": "returns a builder for the default credentials for this service.",
+	"Method": "GoogleCredentialsProvider.Builder defaultCredentialsProviderBuilder(){\r\n    return AutoscalerStubSettings.defaultCredentialsProviderBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.ZoneOperationId.of",
+	"Comment": "returns a zone operation identity given project, zone and operation names.",
+	"Method": "ZoneOperationId of(ZoneId zoneId,String operation,ZoneOperationId of,String zone,String operation,ZoneOperationId of,String project,String zone,String operation){\r\n    return new ZoneOperationId(project, zone, operation);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.storage.v1beta1.BigQueryStorageSettings.toBuilder",
+	"Comment": "returns a builder containing all the values of this settings class.",
+	"Method": "Builder toBuilder(){\r\n    return new Builder(this);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.storage.v1beta1.BigQueryStorageSettings.createReadSessionSettings",
+	"Comment": "returns the object with the settings used for calls to createreadsession.",
+	"Method": "UnaryCallSettings<CreateReadSessionRequest, ReadSession> createReadSessionSettings(UnaryCallSettings.Builder<CreateReadSessionRequest, ReadSession> createReadSessionSettings){\r\n    return getTypedStubSettings().createReadSessionSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.stub.BigtableInstanceAdminStubSettings.getAppProfileSettings",
+	"Comment": "returns the object with the settings used for calls to getappprofile.",
+	"Method": "UnaryCallSettings<GetAppProfileRequest, AppProfile> getAppProfileSettings(UnaryCallSettings.Builder<GetAppProfileRequest, AppProfile> getAppProfileSettings){\r\n    return getAppProfileSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.AttachedDisk.getLicenses",
+	"Comment": "returns a list of publicly accessible licenses for the attached disk.",
+	"Method": "List<LicenseId> getLicenses(){\r\n    return licenses;\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.stub.AutoMlStubSettings.createModelOperationSettings",
+	"Comment": "returns the object with the settings used for calls to createmodel.",
+	"Method": "OperationCallSettings<CreateModelRequest, Model, OperationMetadata> createModelOperationSettings(OperationCallSettings.Builder<CreateModelRequest, Model, OperationMetadata> createModelOperationSettings){\r\n    return createModelOperationSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.BaseBigtableDataSettings.mutateRowSettings",
+	"Comment": "returns the object with the settings used for calls to mutaterow.",
+	"Method": "UnaryCallSettings<MutateRowRequest, MutateRowResponse> mutateRowSettings(UnaryCallSettings.Builder<MutateRowRequest, MutateRowResponse> mutateRowSettings){\r\n    return ((BigtableStubSettings) getStubSettings()).mutateRowSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.BackendBucketSettings.addSignedUrlKeyBackendBucketSettings",
+	"Comment": "returns the object with the settings used for calls to addsignedurlkeybackendbucket.",
+	"Method": "UnaryCallSettings<AddSignedUrlKeyBackendBucketHttpRequest, Operation> addSignedUrlKeyBackendBucketSettings(UnaryCallSettings.Builder<AddSignedUrlKeyBackendBucketHttpRequest, Operation> addSignedUrlKeyBackendBucketSettings){\r\n    return ((BackendBucketStubSettings) getStubSettings()).addSignedUrlKeyBackendBucketSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.DatasetInfo.getLocation",
+	"Comment": "returns the geographic location where the dataset should reside.",
+	"Method": "String getLocation(){\r\n    return location;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.stub.BigtableStubSettings.readRowsSettings",
+	"Comment": "returns the object with the settings used for calls to readrows.",
+	"Method": "ServerStreamingCallSettings<ReadRowsRequest, ReadRowsResponse> readRowsSettings(ServerStreamingCallSettings.Builder<ReadRowsRequest, ReadRowsResponse> readRowsSettings){\r\n    return readRowsSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.stub.AutoMlStubSettings.defaultGrpcTransportProviderBuilder",
+	"Comment": "returns a builder for the default channelprovider for this service.",
+	"Method": "InstantiatingGrpcChannelProvider.Builder defaultGrpcTransportProviderBuilder(){\r\n    return InstantiatingGrpcChannelProvider.newBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.AddressInfo.getAddress",
+	"Comment": "returns the static external ip address represented by this object.",
+	"Method": "String getAddress(){\r\n    return address;\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.AutoMlSettings.getModelEvaluationSettings",
+	"Comment": "returns the object with the settings used for calls to getmodelevaluation.",
+	"Method": "UnaryCallSettings<GetModelEvaluationRequest, ModelEvaluation> getModelEvaluationSettings(UnaryCallSettings.Builder<GetModelEvaluationRequest, ModelEvaluation> getModelEvaluationSettings){\r\n    return ((AutoMlStubSettings) getStubSettings()).getModelEvaluationSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.storage.v1beta1.BigQueryStorageSettings.defaultGrpcTransportProviderBuilder",
+	"Comment": "returns a builder for the default channelprovider for this service.",
+	"Method": "InstantiatingGrpcChannelProvider.Builder defaultGrpcTransportProviderBuilder(){\r\n    return EnhancedBigQueryStorageStubSettings.defaultGrpcTransportProviderBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.datatransfer.v1.DataTransferServiceSettings.listTransferLogsSettings",
+	"Comment": "returns the object with the settings used for calls to listtransferlogs.",
+	"Method": "PagedCallSettings<ListTransferLogsRequest, ListTransferLogsResponse, ListTransferLogsPagedResponse> listTransferLogsSettings(PagedCallSettings.Builder<ListTransferLogsRequest, ListTransferLogsResponse, ListTransferLogsPagedResponse> listTransferLogsSettings){\r\n    return ((DataTransferServiceStubSettings) getStubSettings()).listTransferLogsSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.BackendServiceClient.create",
+	"Comment": "constructs an instance of backendserviceclient, using the given settings. the channels arecreated based on the settings passed in, or defaults for any settings that are not set.",
+	"Method": "BackendServiceClient create(BackendServiceClient create,BackendServiceSettings settings,BackendServiceClient create,BackendServiceStub stub){\r\n    return new BackendServiceClient(stub);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.ExtractJobConfiguration.of",
+	"Comment": "returns a bigquery extract job configuration for the given source table, format and destinationuris.",
+	"Method": "ExtractJobConfiguration of(TableId sourceTable,String destinationUri,ExtractJobConfiguration of,TableId sourceTable,List<String> destinationUris,ExtractJobConfiguration of,TableId sourceTable,String destinationUri,String format,ExtractJobConfiguration of,TableId sourceTable,List<String> destinationUris,String format){\r\n    return newBuilder(sourceTable, destinationUris).setFormat(format).build();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.storage.v1beta1.stub.EnhancedBigQueryStorageStubSettings.splitReadStreamSettings",
+	"Comment": "returns the object with the settings used for calls to splitreadstream.",
+	"Method": "UnaryCallSettings<SplitReadStreamRequest, SplitReadStreamResponse> splitReadStreamSettings(UnaryCallSettings.Builder<SplitReadStreamRequest, SplitReadStreamResponse> splitReadStreamSettings){\r\n    return splitReadStreamSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BaseBigtableInstanceAdminSettings.updateAppProfileOperationSettings",
+	"Comment": "returns the object with the settings used for calls to updateappprofile.",
+	"Method": "OperationCallSettings<UpdateAppProfileRequest, AppProfile, UpdateAppProfileMetadata> updateAppProfileOperationSettings(OperationCallSettings.Builder<UpdateAppProfileRequest, AppProfile, UpdateAppProfileMetadata> updateAppProfileOperationSettings){\r\n    return ((BigtableInstanceAdminStubSettings) getStubSettings()).updateAppProfileOperationSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.AutoMlSettings.createDatasetSettings",
+	"Comment": "returns the object with the settings used for calls to createdataset.",
+	"Method": "UnaryCallSettings<CreateDatasetRequest, Dataset> createDatasetSettings(UnaryCallSettings.Builder<CreateDatasetRequest, Dataset> createDatasetSettings){\r\n    return ((AutoMlStubSettings) getStubSettings()).createDatasetSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.AutoMlSettings.createModelSettings",
+	"Comment": "returns the object with the settings used for calls to createmodel.",
+	"Method": "UnaryCallSettings<CreateModelRequest, Operation> createModelSettings(UnaryCallSettings.Builder<CreateModelRequest, Operation> createModelSettings){\r\n    return ((AutoMlStubSettings) getStubSettings()).createModelSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.models.CreateInstanceRequest.toProto",
+	"Comment": "creates the request protobuf. this method is considered an internal implementation detail andnot meant to be used by applications.",
+	"Method": "com.google.bigtable.admin.v2.CreateInstanceRequest toProto(ProjectName projectName){\r\n    builder.setParent(projectName.toString()).clearClusters();\r\n    for (CreateClusterRequest clusterRequest : clusterRequests) {\r\n        builder.putClusters(clusterRequest.getClusterId(), clusterRequest.toEmbeddedProto(projectName));\r\n    }\r\n    return builder.build();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BaseBigtableTableAdminSettings.toBuilder",
+	"Comment": "returns a builder containing all the values of this settings class.",
+	"Method": "Builder toBuilder(){\r\n    return new Builder(this);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.storage.v1beta1.stub.EnhancedBigQueryStorageStubSettings.toBuilder",
+	"Comment": "returns a builder containing all the values of this settings class.",
+	"Method": "Builder toBuilder(){\r\n    return new Builder(this);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.stub.mutaterows.MutateRowsBatchingDescriptor.getBatchPartitionKey",
+	"Comment": "return the target table name. this will be used to combine batcheable requests",
+	"Method": "PartitionKey getBatchPartitionKey(MutateRowsRequest request){\r\n    return new PartitionKey(request.getTableName());\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BaseBigtableInstanceAdminSettings.getInstanceSettings",
+	"Comment": "returns the object with the settings used for calls to getinstance.",
+	"Method": "UnaryCallSettings<GetInstanceRequest, Instance> getInstanceSettings(UnaryCallSettings.Builder<GetInstanceRequest, Instance> getInstanceSettings){\r\n    return ((BigtableInstanceAdminStubSettings) getStubSettings()).getInstanceSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.NetworkInterface.getNetworkIp",
+	"Comment": "an optional ipv4 internal network address assigned by the service to the instance for thisnetwork interface.",
+	"Method": "String getNetworkIp(){\r\n    return networkIp;\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.NetworkInterface.getAccessConfigurations",
+	"Comment": "returns a list of access configurations for the network interface.",
+	"Method": "List<AccessConfig> getAccessConfigurations(){\r\n    return accessConfigurations;\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.AutoMlSettings.deleteDatasetOperationSettings",
+	"Comment": "returns the object with the settings used for calls to deletedataset.",
+	"Method": "OperationCallSettings<DeleteDatasetRequest, Empty, OperationMetadata> deleteDatasetOperationSettings(OperationCallSettings.Builder<DeleteDatasetRequest, Empty, OperationMetadata> deleteDatasetOperationSettings){\r\n    return ((AutoMlStubSettings) getStubSettings()).deleteDatasetOperationSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.MachineType.getDescription",
+	"Comment": "returns an optional textual description of the machine type.",
+	"Method": "String getDescription(){\r\n    return description;\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.AddressSettings.insertAddressSettings",
+	"Comment": "returns the object with the settings used for calls to insertaddress.",
+	"Method": "UnaryCallSettings<InsertAddressHttpRequest, Operation> insertAddressSettings(UnaryCallSettings.Builder<InsertAddressHttpRequest, Operation> insertAddressSettings){\r\n    return ((AddressStubSettings) getStubSettings()).insertAddressSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.AutoMlSettings.deleteDatasetSettings",
+	"Comment": "returns the object with the settings used for calls to deletedataset.",
+	"Method": "UnaryCallSettings<DeleteDatasetRequest, Operation> deleteDatasetSettings(UnaryCallSettings.Builder<DeleteDatasetRequest, Operation> deleteDatasetSettings){\r\n    return ((AutoMlStubSettings) getStubSettings()).deleteDatasetSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.models.Query.toProto",
+	"Comment": "creates the request protobuf. this method is considered an internal implementation detail andnot meant to be used by applications.",
+	"Method": "ReadRowsRequest toProto(RequestContext requestContext){\r\n    TableName tableName = TableName.of(requestContext.getInstanceName().getProject(), requestContext.getInstanceName().getInstance(), tableId);\r\n    return builder.setTableName(tableName.toString()).setAppProfileId(requestContext.getAppProfileId()).build();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.CsvOptions.allowQuotedNewLines",
+	"Comment": "returns whether bigquery should allow quoted data sections that contain newline characters in acsv file.",
+	"Method": "Boolean allowQuotedNewLines(){\r\n    return allowQuotedNewLines;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.stub.BigtableTableAdminStubSettings.checkConsistencySettings",
+	"Comment": "returns the object with the settings used for calls to checkconsistency.",
+	"Method": "UnaryCallSettings<CheckConsistencyRequest, CheckConsistencyResponse> checkConsistencySettings(UnaryCallSettings.Builder<CheckConsistencyRequest, CheckConsistencyResponse> checkConsistencySettings){\r\n    return checkConsistencySettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.stub.BigtableInstanceAdminStubSettings.toBuilder",
+	"Comment": "returns a builder containing all the values of this settings class.",
+	"Method": "Builder toBuilder(){\r\n    return new Builder(this);\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.BackendServiceSettings.patchBackendServiceSettings",
+	"Comment": "returns the object with the settings used for calls to patchbackendservice.",
+	"Method": "UnaryCallSettings<PatchBackendServiceHttpRequest, Operation> patchBackendServiceSettings(UnaryCallSettings.Builder<PatchBackendServiceHttpRequest, Operation> patchBackendServiceSettings){\r\n    return ((BackendServiceStubSettings) getStubSettings()).patchBackendServiceSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.BaseBigtableDataSettings.sampleRowKeysSettings",
+	"Comment": "returns the object with the settings used for calls to samplerowkeys.",
+	"Method": "ServerStreamingCallSettings<SampleRowKeysRequest, SampleRowKeysResponse> sampleRowKeysSettings(ServerStreamingCallSettings.Builder<SampleRowKeysRequest, SampleRowKeysResponse> sampleRowKeysSettings){\r\n    return ((BigtableStubSettings) getStubSettings()).sampleRowKeysSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.stub.BigtableInstanceAdminStubSettings.updateClusterOperationSettings",
+	"Comment": "returns the object with the settings used for calls to updatecluster.",
+	"Method": "OperationCallSettings<Cluster, Cluster, UpdateClusterMetadata> updateClusterOperationSettings(OperationCallSettings.Builder<Cluster, Cluster, UpdateClusterMetadata> updateClusterOperationSettings){\r\n    return updateClusterOperationSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.models.CreateInstanceRequest.setDisplayName",
+	"Comment": "sets the friendly display name of the instance. if left unspecified, it will default to the id",
+	"Method": "CreateInstanceRequest setDisplayName(String displayName){\r\n    Preconditions.checkNotNull(displayName);\r\n    builder.getInstanceBuilder().setDisplayName(displayName);\r\n    return this;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.QueryStage.getWriteRatioMax",
+	"Comment": "returns the time the slowest worker spent writing output data, divided by the longest timespent by any worker in any segment.",
+	"Method": "double getWriteRatioMax(){\r\n    return writeRatioMax;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.datatransfer.v1.stub.DataTransferServiceStubSettings.updateTransferConfigSettings",
+	"Comment": "returns the object with the settings used for calls to updatetransferconfig.",
+	"Method": "UnaryCallSettings<UpdateTransferConfigRequest, TransferConfig> updateTransferConfigSettings(UnaryCallSettings.Builder<UpdateTransferConfigRequest, TransferConfig> updateTransferConfigSettings){\r\n    return updateTransferConfigSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.storage.v1beta1.stub.BigQueryStorageStubSettings.toBuilder",
+	"Comment": "returns a builder containing all the values of this settings class.",
+	"Method": "Builder toBuilder(){\r\n    return new Builder(this);\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.AutoMlSettings.importDataSettings",
+	"Comment": "returns the object with the settings used for calls to importdata.",
+	"Method": "UnaryCallSettings<ImportDataRequest, Operation> importDataSettings(UnaryCallSettings.Builder<ImportDataRequest, Operation> importDataSettings){\r\n    return ((AutoMlStubSettings) getStubSettings()).importDataSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.AddressSettings.defaultExecutorProviderBuilder",
+	"Comment": "returns a builder for the default executorprovider for this service.",
+	"Method": "InstantiatingExecutorProvider.Builder defaultExecutorProviderBuilder(){\r\n    return AddressStubSettings.defaultExecutorProviderBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.models.Instance.fromProto",
+	"Comment": "wraps the protobuf. this method is considered an internal implementation detail and not meantto be used by applications.",
+	"Method": "Instance fromProto(com.google.bigtable.admin.v2.Instance proto){\r\n    return new Instance(proto);\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.SubnetworkInfo.getGatewayAddress",
+	"Comment": "returns the gateway ipv4 address for this subnetwork, selected by the service.",
+	"Method": "String getGatewayAddress(){\r\n    return gatewayAddress;\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.stub.AutoMlStubSettings.deleteModelSettings",
+	"Comment": "returns the object with the settings used for calls to deletemodel.",
+	"Method": "UnaryCallSettings<DeleteModelRequest, Operation> deleteModelSettings(UnaryCallSettings.Builder<DeleteModelRequest, Operation> deleteModelSettings){\r\n    return deleteModelSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.stub.BigtableInstanceAdminStubSettings.deleteAppProfileSettings",
+	"Comment": "returns the object with the settings used for calls to deleteappprofile.",
+	"Method": "UnaryCallSettings<DeleteAppProfileRequest, Empty> deleteAppProfileSettings(UnaryCallSettings.Builder<DeleteAppProfileRequest, Empty> deleteAppProfileSettings){\r\n    return deleteAppProfileSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.storage.v1beta1.BaseBigQueryStorageSettings.defaultCredentialsProviderBuilder",
+	"Comment": "returns a builder for the default credentials for this service.",
+	"Method": "GoogleCredentialsProvider.Builder defaultCredentialsProviderBuilder(){\r\n    return BigQueryStorageStubSettings.defaultCredentialsProviderBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.QueryStage.getStartMs",
+	"Comment": "returns the stage start time represented as milliseconds since epoch.",
+	"Method": "long getStartMs(){\r\n    return startMs;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.QueryJobConfiguration.newBuilder",
+	"Comment": "creates a builder for a bigquery query job given the query to be run.",
+	"Method": "Builder newBuilder(String query){\r\n    return new Builder().setQuery(query);\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.NetworkInterface.getNetwork",
+	"Comment": "returns the identity of the network this interface applies to.",
+	"Method": "NetworkId getNetwork(){\r\n    return network;\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.ComputeException.translateAndThrow",
+	"Comment": "translate retryhelperexception to the computeexception that caused the error. this method willalways throw an exception.",
+	"Method": "BaseServiceException translateAndThrow(RetryHelperException ex,BaseServiceException translateAndThrow,ExecutionException ex){\r\n    BaseServiceException.translate(ex);\r\n    throw new ComputeException(UNKNOWN_CODE, ex.getMessage(), ex.getCause());\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.storage.v1beta1.BigQueryStorageSettings.defaultExecutorProviderBuilder",
+	"Comment": "returns a builder for the default executorprovider for this service.",
+	"Method": "InstantiatingExecutorProvider.Builder defaultExecutorProviderBuilder(){\r\n    return EnhancedBigQueryStorageStubSettings.defaultExecutorProviderBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.stub.BigtableInstanceAdminStubSettings.createClusterSettings",
+	"Comment": "returns the object with the settings used for calls to createcluster.",
+	"Method": "UnaryCallSettings<CreateClusterRequest, Operation> createClusterSettings(UnaryCallSettings.Builder<CreateClusterRequest, Operation> createClusterSettings){\r\n    return createClusterSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.testing.RemoteComputeHelper.baseResourceName",
+	"Comment": "returns a base name for testing resources generated using a random uuid. this base name can beprepended to resource names to prevent name clashes. this method always returns a 30 characterslong prefix. since compute engine resource names can be at most 63 characters long your suffixshould be no longer than 33 characters.",
+	"Method": "String baseResourceName(){\r\n    return \"test-\" + UUID.randomUUID().toString().replace(\"-\", \"\").substring(0, 24) + \"-\";\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.stub.BigtableInstanceAdminStubSettings.deleteClusterSettings",
+	"Comment": "returns the object with the settings used for calls to deletecluster.",
+	"Method": "UnaryCallSettings<DeleteClusterRequest, Empty> deleteClusterSettings(UnaryCallSettings.Builder<DeleteClusterRequest, Empty> deleteClusterSettings){\r\n    return deleteClusterSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.stub.EnhancedBigtableStubSettings.readRowsSettings",
+	"Comment": "returns the object with the settings used for calls to readrows.",
+	"Method": "ServerStreamingCallSettings<Query, Row> readRowsSettings(ServerStreamingCallSettings.Builder<Query, Row> readRowsSettings){\r\n    return readRowsSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.datatransfer.v1.stub.DataTransferServiceStubSettings.listDataSourcesSettings",
+	"Comment": "returns the object with the settings used for calls to listdatasources.",
+	"Method": "PagedCallSettings<ListDataSourcesRequest, ListDataSourcesResponse, ListDataSourcesPagedResponse> listDataSourcesSettings(PagedCallSettings.Builder<ListDataSourcesRequest, ListDataSourcesResponse, ListDataSourcesPagedResponse> listDataSourcesSettings){\r\n    return listDataSourcesSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.JobId.of",
+	"Comment": "creates a job identity with autogenerated id and no project specified.",
+	"Method": "JobId of(String project,String job,JobId of,String job,JobId of){\r\n    return newBuilder().setRandomJob().build();\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.PredictionServiceSettings.toBuilder",
+	"Comment": "returns a builder containing all the values of this settings class.",
+	"Method": "Builder toBuilder(){\r\n    return new Builder(this);\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.SubnetworkId.getRegionId",
+	"Comment": "returns the identity of the region this subnetwork belongs to.",
+	"Method": "RegionId getRegionId(){\r\n    return RegionId.of(getProject(), region);\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.AutoMlSettings.importDataOperationSettings",
+	"Comment": "returns the object with the settings used for calls to importdata.",
+	"Method": "OperationCallSettings<ImportDataRequest, Empty, OperationMetadata> importDataOperationSettings(OperationCallSettings.Builder<ImportDataRequest, Empty, OperationMetadata> importDataOperationSettings){\r\n    return ((AutoMlStubSettings) getStubSettings()).importDataOperationSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.BaseBigtableDataSettings.defaultCredentialsProviderBuilder",
+	"Comment": "returns a builder for the default credentials for this service.",
+	"Method": "GoogleCredentialsProvider.Builder defaultCredentialsProviderBuilder(){\r\n    return BigtableStubSettings.defaultCredentialsProviderBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.BackendBucketSettings.defaultHttpJsonTransportProviderBuilder",
+	"Comment": "returns a builder for the default channelprovider for this service.",
+	"Method": "InstantiatingHttpJsonChannelProvider.Builder defaultHttpJsonTransportProviderBuilder(){\r\n    return BackendBucketStubSettings.defaultHttpJsonTransportProviderBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.stub.BigtableTableAdminStubSettings.listSnapshotsSettings",
+	"Comment": "returns the object with the settings used for calls to listsnapshots.",
+	"Method": "PagedCallSettings<ListSnapshotsRequest, ListSnapshotsResponse, ListSnapshotsPagedResponse> listSnapshotsSettings(PagedCallSettings.Builder<ListSnapshotsRequest, ListSnapshotsResponse, ListSnapshotsPagedResponse> listSnapshotsSettings){\r\n    return listSnapshotsSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.BackendServiceSettings.addSignedUrlKeyBackendServiceSettings",
+	"Comment": "returns the object with the settings used for calls to addsignedurlkeybackendservice.",
+	"Method": "UnaryCallSettings<AddSignedUrlKeyBackendServiceHttpRequest, Operation> addSignedUrlKeyBackendServiceSettings(UnaryCallSettings.Builder<AddSignedUrlKeyBackendServiceHttpRequest, Operation> addSignedUrlKeyBackendServiceSettings){\r\n    return ((BackendServiceStubSettings) getStubSettings()).addSignedUrlKeyBackendServiceSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.AutoscalerSettings.listAutoscalersSettings",
+	"Comment": "returns the object with the settings used for calls to listautoscalers.",
+	"Method": "PagedCallSettings<ListAutoscalersHttpRequest, AutoscalerList, ListAutoscalersPagedResponse> listAutoscalersSettings(PagedCallSettings.Builder<ListAutoscalersHttpRequest, AutoscalerList, ListAutoscalersPagedResponse> listAutoscalersSettings){\r\n    return ((AutoscalerStubSettings) getStubSettings()).listAutoscalersSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.LoadJobConfiguration.newBuilder",
+	"Comment": "creates a builder for a bigquery load job configuration given the destination table, format andsource uri.",
+	"Method": "Builder newBuilder(TableId destinationTable,List<String> sourceUris,Builder newBuilder,TableId destinationTable,String sourceUri,Builder newBuilder,TableId destinationTable,List<String> sourceUris,FormatOptions format,Builder newBuilder,TableId destinationTable,String sourceUri,FormatOptions format){\r\n    return newBuilder(destinationTable, ImmutableList.of(sourceUri), format);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.QueryStage.getParallelInputs",
+	"Comment": "returns the number of parallel input segments to be processed.",
+	"Method": "long getParallelInputs(){\r\n    return parallelInputs;\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.Instance.attachDisk",
+	"Comment": "attaches a persistent disk to this instance given the device name, its configuration and thedevice index.",
+	"Method": "Operation attachDisk(PersistentDiskConfiguration configuration,OperationOption options,Operation attachDisk,String deviceName,PersistentDiskConfiguration configuration,OperationOption options,Operation attachDisk,String deviceName,PersistentDiskConfiguration configuration,int index,OperationOption options){\r\n    return compute.attachDisk(getInstanceId(), deviceName, configuration, index, options);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.stub.BigtableInstanceAdminStubSettings.listClustersSettings",
+	"Comment": "returns the object with the settings used for calls to listclusters.",
+	"Method": "UnaryCallSettings<ListClustersRequest, ListClustersResponse> listClustersSettings(UnaryCallSettings.Builder<ListClustersRequest, ListClustersResponse> listClustersSettings){\r\n    return listClustersSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.QueryParameterValue.getArrayValues",
+	"Comment": "returns the array values of this parameter. the returned list, if not null, is immutable.",
+	"Method": "List<QueryParameterValue> getArrayValues(){\r\n    return getArrayValuesInner();\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.AutoscalerSettings.deleteAutoscalerSettings",
+	"Comment": "returns the object with the settings used for calls to deleteautoscaler.",
+	"Method": "UnaryCallSettings<DeleteAutoscalerHttpRequest, Operation> deleteAutoscalerSettings(UnaryCallSettings.Builder<DeleteAutoscalerHttpRequest, Operation> deleteAutoscalerSettings){\r\n    return ((AutoscalerStubSettings) getStubSettings()).deleteAutoscalerSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BaseBigtableTableAdminSettings.defaultGrpcTransportProviderBuilder",
+	"Comment": "returns a builder for the default channelprovider for this service.",
+	"Method": "InstantiatingGrpcChannelProvider.Builder defaultGrpcTransportProviderBuilder(){\r\n    return BigtableTableAdminStubSettings.defaultGrpcTransportProviderBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.AddressSettings.getAddressSettings",
+	"Comment": "returns the object with the settings used for calls to getaddress.",
+	"Method": "UnaryCallSettings<GetAddressHttpRequest, Address> getAddressSettings(UnaryCallSettings.Builder<GetAddressHttpRequest, Address> getAddressSettings){\r\n    return ((AddressStubSettings) getStubSettings()).getAddressSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BaseBigtableTableAdminSettings.snapshotTableOperationSettings",
+	"Comment": "returns the object with the settings used for calls to snapshottable.",
+	"Method": "OperationCallSettings<SnapshotTableRequest, Snapshot, SnapshotTableMetadata> snapshotTableOperationSettings(OperationCallSettings.Builder<SnapshotTableRequest, Snapshot, SnapshotTableMetadata> snapshotTableOperationSettings){\r\n    return ((BigtableTableAdminStubSettings) getStubSettings()).snapshotTableOperationSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.PredictionServiceSettings.defaultExecutorProviderBuilder",
+	"Comment": "returns a builder for the default executorprovider for this service.",
+	"Method": "InstantiatingExecutorProvider.Builder defaultExecutorProviderBuilder(){\r\n    return PredictionServiceStubSettings.defaultExecutorProviderBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.CopyJobConfiguration.getWriteDisposition",
+	"Comment": "returns the action that should occur if the destination table already exists.",
+	"Method": "JobInfo.WriteDisposition getWriteDisposition(){\r\n    return writeDisposition;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BaseBigtableTableAdminSettings.createTableSettings",
+	"Comment": "returns the object with the settings used for calls to createtable.",
+	"Method": "UnaryCallSettings<CreateTableRequest, Table> createTableSettings(UnaryCallSettings.Builder<CreateTableRequest, Table> createTableSettings){\r\n    return ((BigtableTableAdminStubSettings) getStubSettings()).createTableSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.InsertAllRequest.skipInvalidRows",
+	"Comment": "returns whether to insert all valid rows of a request, even if invalid rows exist. if not setthe entire insert request will fail if it contains an invalid row.",
+	"Method": "Boolean skipInvalidRows(){\r\n    return skipInvalidRows;\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.DiskInfo.getLicenses",
+	"Comment": "returns all applicable publicly visible licenses for the disk.",
+	"Method": "List<LicenseId> getLicenses(){\r\n    return licenses;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BaseBigtableInstanceAdminSettings.listInstancesSettings",
+	"Comment": "returns the object with the settings used for calls to listinstances.",
+	"Method": "UnaryCallSettings<ListInstancesRequest, ListInstancesResponse> listInstancesSettings(UnaryCallSettings.Builder<ListInstancesRequest, ListInstancesResponse> listInstancesSettings){\r\n    return ((BigtableInstanceAdminStubSettings) getStubSettings()).listInstancesSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.storage.v1beta1.BaseBigQueryStorageSettings.defaultGrpcTransportProviderBuilder",
+	"Comment": "returns a builder for the default channelprovider for this service.",
+	"Method": "InstantiatingGrpcChannelProvider.Builder defaultGrpcTransportProviderBuilder(){\r\n    return BigQueryStorageStubSettings.defaultGrpcTransportProviderBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BigtableInstanceAdminClient.create",
+	"Comment": "constructs an instance of bigtableinstanceadminclient with the given projectname and stub.",
+	"Method": "BigtableInstanceAdminClient create(ProjectName projectName,BigtableInstanceAdminClient create,BigtableInstanceAdminSettings settings,BigtableInstanceAdminClient create,ProjectName projectName,BigtableInstanceAdminStub stub){\r\n    return new BigtableInstanceAdminClient(projectName, stub);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.stub.BigtableInstanceAdminStubSettings.deleteInstanceSettings",
+	"Comment": "returns the object with the settings used for calls to deleteinstance.",
+	"Method": "UnaryCallSettings<DeleteInstanceRequest, Empty> deleteInstanceSettings(UnaryCallSettings.Builder<DeleteInstanceRequest, Empty> deleteInstanceSettings){\r\n    return deleteInstanceSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.RegionOperationId.getRegionId",
+	"Comment": "returns the identity of the region this operation belongs to.",
+	"Method": "RegionId getRegionId(){\r\n    return RegionId.of(getProject(), region);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.JobStatistics.getCreationTime",
+	"Comment": "returns the creation time of the job in milliseconds since epoch.",
+	"Method": "Long getCreationTime(){\r\n    return creationTime;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.storage.v1beta1.BaseBigQueryStorageSettings.defaultExecutorProviderBuilder",
+	"Comment": "returns a builder for the default executorprovider for this service.",
+	"Method": "InstantiatingExecutorProvider.Builder defaultExecutorProviderBuilder(){\r\n    return BigQueryStorageStubSettings.defaultExecutorProviderBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.BaseBigtableDataSettings.checkAndMutateRowSettings",
+	"Comment": "returns the object with the settings used for calls to checkandmutaterow.",
+	"Method": "UnaryCallSettings<CheckAndMutateRowRequest, CheckAndMutateRowResponse> checkAndMutateRowSettings(UnaryCallSettings.Builder<CheckAndMutateRowRequest, CheckAndMutateRowResponse> checkAndMutateRowSettings){\r\n    return ((BigtableStubSettings) getStubSettings()).checkAndMutateRowSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.QueryJobConfiguration.getPositionalParameters",
+	"Comment": "returns the positional query parameters to use for the query.",
+	"Method": "List<QueryParameterValue> getPositionalParameters(){\r\n    return positionalParameters;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.stub.BigtableTableAdminStubSettings.dropRowRangeSettings",
+	"Comment": "returns the object with the settings used for calls to droprowrange.",
+	"Method": "UnaryCallSettings<DropRowRangeRequest, Empty> dropRowRangeSettings(UnaryCallSettings.Builder<DropRowRangeRequest, Empty> dropRowRangeSettings){\r\n    return dropRowRangeSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.RegionForwardingRuleId.getRegionId",
+	"Comment": "returns the identity of the region this forwarding rule belongs to.",
+	"Method": "RegionId getRegionId(){\r\n    return RegionId.of(getProject(), region);\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.AutoscalerSettings.defaultHttpJsonTransportProviderBuilder",
+	"Comment": "returns a builder for the default channelprovider for this service.",
+	"Method": "InstantiatingHttpJsonChannelProvider.Builder defaultHttpJsonTransportProviderBuilder(){\r\n    return AutoscalerStubSettings.defaultHttpJsonTransportProviderBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.datatransfer.v1.stub.DataTransferServiceStubSettings.defaultExecutorProviderBuilder",
+	"Comment": "returns a builder for the default executorprovider for this service.",
+	"Method": "InstantiatingExecutorProvider.Builder defaultExecutorProviderBuilder(){\r\n    return InstantiatingExecutorProvider.newBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.Tags.getValues",
+	"Comment": "returns a list of tags to apply to an instance. tags are used to identify valid sources ortargets for network firewalls. each tag within the list must comply with rfc1035.",
+	"Method": "List<String> getValues(){\r\n    return values;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.stub.BigtableTableAdminStubSettings.deleteTableSettings",
+	"Comment": "returns the object with the settings used for calls to deletetable.",
+	"Method": "UnaryCallSettings<DeleteTableRequest, Empty> deleteTableSettings(UnaryCallSettings.Builder<DeleteTableRequest, Empty> deleteTableSettings){\r\n    return deleteTableSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.asset.v1beta1.stub.AssetServiceStubSettings.defaultCredentialsProviderBuilder",
+	"Comment": "returns a builder for the default credentials for this service.",
+	"Method": "GoogleCredentialsProvider.Builder defaultCredentialsProviderBuilder(){\r\n    return GoogleCredentialsProvider.newBuilder().setScopesToApply(DEFAULT_SERVICE_SCOPES);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.datatransfer.v1.stub.DataTransferServiceStubSettings.listTransferRunsSettings",
+	"Comment": "returns the object with the settings used for calls to listtransferruns.",
+	"Method": "PagedCallSettings<ListTransferRunsRequest, ListTransferRunsResponse, ListTransferRunsPagedResponse> listTransferRunsSettings(PagedCallSettings.Builder<ListTransferRunsRequest, ListTransferRunsResponse, ListTransferRunsPagedResponse> listTransferRunsSettings){\r\n    return listTransferRunsSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.stub.AutoMlStubSettings.deleteDatasetOperationSettings",
+	"Comment": "returns the object with the settings used for calls to deletedataset.",
+	"Method": "OperationCallSettings<DeleteDatasetRequest, Empty, OperationMetadata> deleteDatasetOperationSettings(OperationCallSettings.Builder<DeleteDatasetRequest, Empty, OperationMetadata> deleteDatasetOperationSettings){\r\n    return deleteDatasetOperationSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.stub.AutoMlStubSettings.deployModelSettings",
+	"Comment": "returns the object with the settings used for calls to deploymodel.",
+	"Method": "UnaryCallSettings<DeployModelRequest, Operation> deployModelSettings(UnaryCallSettings.Builder<DeployModelRequest, Operation> deployModelSettings){\r\n    return deployModelSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BaseBigtableInstanceAdminSettings.getIamPolicySettings",
+	"Comment": "returns the object with the settings used for calls to getiampolicy.",
+	"Method": "UnaryCallSettings<GetIamPolicyRequest, Policy> getIamPolicySettings(UnaryCallSettings.Builder<GetIamPolicyRequest, Policy> getIamPolicySettings){\r\n    return ((BigtableInstanceAdminStubSettings) getStubSettings()).getIamPolicySettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BaseBigtableInstanceAdminSettings.setIamPolicySettings",
+	"Comment": "returns the object with the settings used for calls to setiampolicy.",
+	"Method": "UnaryCallSettings<SetIamPolicyRequest, Policy> setIamPolicySettings(UnaryCallSettings.Builder<SetIamPolicyRequest, Policy> setIamPolicySettings){\r\n    return ((BigtableInstanceAdminStubSettings) getStubSettings()).setIamPolicySettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.stub.BigtableInstanceAdminStubSettings.defaultExecutorProviderBuilder",
+	"Comment": "returns a builder for the default executorprovider for this service.",
+	"Method": "InstantiatingExecutorProvider.Builder defaultExecutorProviderBuilder(){\r\n    return InstantiatingExecutorProvider.newBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.RegionOperationId.of",
+	"Comment": "returns a region operation identity given project, region and operation names.",
+	"Method": "RegionOperationId of(RegionId regionId,String operation,RegionOperationId of,String region,String operation,RegionOperationId of,String project,String region,String operation){\r\n    return new RegionOperationId(project, region, operation);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.datatransfer.v1.DataTransferServiceSettings.scheduleTransferRunsSettings",
+	"Comment": "returns the object with the settings used for calls to scheduletransferruns.",
+	"Method": "UnaryCallSettings<ScheduleTransferRunsRequest, ScheduleTransferRunsResponse> scheduleTransferRunsSettings(UnaryCallSettings.Builder<ScheduleTransferRunsRequest, ScheduleTransferRunsResponse> scheduleTransferRunsSettings){\r\n    return ((DataTransferServiceStubSettings) getStubSettings()).scheduleTransferRunsSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.storage.v1beta1.BaseBigQueryStorageClient.create",
+	"Comment": "constructs an instance of basebigquerystorageclient, using the given settings. the channels arecreated based on the settings passed in, or defaults for any settings that are not set.",
+	"Method": "BaseBigQueryStorageClient create(BaseBigQueryStorageClient create,BaseBigQueryStorageSettings settings,BaseBigQueryStorageClient create,BigQueryStorageStub stub){\r\n    return new BaseBigQueryStorageClient(stub);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BaseBigtableTableAdminSettings.createTableFromSnapshotSettings",
+	"Comment": "returns the object with the settings used for calls to createtablefromsnapshot.",
+	"Method": "UnaryCallSettings<CreateTableFromSnapshotRequest, Operation> createTableFromSnapshotSettings(UnaryCallSettings.Builder<CreateTableFromSnapshotRequest, Operation> createTableFromSnapshotSettings){\r\n    return ((BigtableTableAdminStubSettings) getStubSettings()).createTableFromSnapshotSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BaseBigtableTableAdminSettings.snapshotTableSettings",
+	"Comment": "returns the object with the settings used for calls to snapshottable.",
+	"Method": "UnaryCallSettings<SnapshotTableRequest, Operation> snapshotTableSettings(UnaryCallSettings.Builder<SnapshotTableRequest, Operation> snapshotTableSettings){\r\n    return ((BigtableTableAdminStubSettings) getStubSettings()).snapshotTableSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.BaseBigtableDataSettings.toBuilder",
+	"Comment": "returns a builder containing all the values of this settings class.",
+	"Method": "Builder toBuilder(){\r\n    return new Builder(this);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.stub.EnhancedBigtableStubSettings.checkAndMutateRowSettings",
+	"Comment": "returns the object with the settings used for calls to checkandmutaterow.",
+	"Method": "UnaryCallSettings<ConditionalRowMutation, Boolean> checkAndMutateRowSettings(UnaryCallSettings.Builder<ConditionalRowMutation, Boolean> checkAndMutateRowSettings){\r\n    return checkAndMutateRowSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.models.CreateClusterRequest.toProto",
+	"Comment": "creates the request protobuf. this method is considered an internal implementation detail andnot meant to be used by applications.",
+	"Method": "com.google.bigtable.admin.v2.CreateClusterRequest toProto(ProjectName projectName){\r\n    proto.setParent(InstanceName.of(projectName.getProject(), instanceId).toString());\r\n    proto.getClusterBuilder().setLocation(LocationName.of(projectName.getProject(), zone).toString());\r\n    return proto.build();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.stub.EnhancedBigtableStubSettings.readModifyWriteRowSettings",
+	"Comment": "returns the object with the settings used for calls to readmodifywriterow.",
+	"Method": "UnaryCallSettings<ReadModifyWriteRow, Row> readModifyWriteRowSettings(UnaryCallSettings.Builder<ReadModifyWriteRow, Row> readModifyWriteRowSettings){\r\n    return readModifyWriteRowSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.Operation.getInsertTime",
+	"Comment": "returns the time that this operation was requested. in milliseconds since epoch.",
+	"Method": "Long getInsertTime(){\r\n    return insertTime;\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.BackendBucketClient.create",
+	"Comment": "constructs an instance of backendbucketclient, using the given settings. the channels arecreated based on the settings passed in, or defaults for any settings that are not set.",
+	"Method": "BackendBucketClient create(BackendBucketClient create,BackendBucketSettings settings,BackendBucketClient create,BackendBucketStub stub){\r\n    return new BackendBucketClient(stub);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.QueryJobConfiguration.getClustering",
+	"Comment": "returns the clustering specification for the destination table.",
+	"Method": "Clustering getClustering(){\r\n    return clustering;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.stub.EnhancedBigtableStubSettings.sampleRowKeysSettings",
+	"Comment": "returns the object with the settings used for calls to samplerowkeys.",
+	"Method": "UnaryCallSettings<String, List<KeyOffset>> sampleRowKeysSettings(UnaryCallSettings.Builder<String, List<KeyOffset>> sampleRowKeysSettings){\r\n    return sampleRowKeysSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BaseBigtableTableAdminSettings.listTablesSettings",
+	"Comment": "returns the object with the settings used for calls to listtables.",
+	"Method": "PagedCallSettings<ListTablesRequest, ListTablesResponse, ListTablesPagedResponse> listTablesSettings(PagedCallSettings.Builder<ListTablesRequest, ListTablesResponse, ListTablesPagedResponse> listTablesSettings){\r\n    return ((BigtableTableAdminStubSettings) getStubSettings()).listTablesSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.datatransfer.v1.DataTransferServiceSettings.getTransferRunSettings",
+	"Comment": "returns the object with the settings used for calls to gettransferrun.",
+	"Method": "UnaryCallSettings<GetTransferRunRequest, TransferRun> getTransferRunSettings(UnaryCallSettings.Builder<GetTransferRunRequest, TransferRun> getTransferRunSettings){\r\n    return ((DataTransferServiceStubSettings) getStubSettings()).getTransferRunSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.AddressSettings.defaultCredentialsProviderBuilder",
+	"Comment": "returns a builder for the default credentials for this service.",
+	"Method": "GoogleCredentialsProvider.Builder defaultCredentialsProviderBuilder(){\r\n    return AddressStubSettings.defaultCredentialsProviderBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.BackendServiceSettings.setSecurityPolicyBackendServiceSettings",
+	"Comment": "returns the object with the settings used for calls to setsecuritypolicybackendservice.",
+	"Method": "UnaryCallSettings<SetSecurityPolicyBackendServiceHttpRequest, Operation> setSecurityPolicyBackendServiceSettings(UnaryCallSettings.Builder<SetSecurityPolicyBackendServiceHttpRequest, Operation> setSecurityPolicyBackendServiceSettings){\r\n    return ((BackendServiceStubSettings) getStubSettings()).setSecurityPolicyBackendServiceSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.StorageImageConfiguration.getContainerType",
+	"Comment": "returns the format used to encode and transmit the block device. this is just a container andtransmission format, not a runtime format.",
+	"Method": "ContainerType getContainerType(){\r\n    return containerType;\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.DiskTypeId.of",
+	"Comment": "returns a disk type identity given project disk, zone and disk type names.",
+	"Method": "DiskTypeId of(ZoneId zoneId,String type,DiskTypeId of,String zone,String type,DiskTypeId of,String project,String zone,String type){\r\n    return of(ZoneId.of(project, zone), type);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.models.AppProfile.getDescription",
+	"Comment": "gets long form description of the use case for this appprofile.",
+	"Method": "String getDescription(){\r\n    return proto.getDescription();\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.stub.AutoMlStubSettings.undeployModelSettings",
+	"Comment": "returns the object with the settings used for calls to undeploymodel.",
+	"Method": "UnaryCallSettings<UndeployModelRequest, Operation> undeployModelSettings(UnaryCallSettings.Builder<UndeployModelRequest, Operation> undeployModelSettings){\r\n    return undeployModelSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.datatransfer.v1.DataTransferServiceSettings.deleteTransferConfigSettings",
+	"Comment": "returns the object with the settings used for calls to deletetransferconfig.",
+	"Method": "UnaryCallSettings<DeleteTransferConfigRequest, Empty> deleteTransferConfigSettings(UnaryCallSettings.Builder<DeleteTransferConfigRequest, Empty> deleteTransferConfigSettings){\r\n    return ((DataTransferServiceStubSettings) getStubSettings()).deleteTransferConfigSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.BackendBucketSettings.deleteBackendBucketSettings",
+	"Comment": "returns the object with the settings used for calls to deletebackendbucket.",
+	"Method": "UnaryCallSettings<DeleteBackendBucketHttpRequest, Operation> deleteBackendBucketSettings(UnaryCallSettings.Builder<DeleteBackendBucketHttpRequest, Operation> deleteBackendBucketSettings){\r\n    return ((BackendBucketStubSettings) getStubSettings()).deleteBackendBucketSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.stub.AutoMlStubSettings.getDatasetSettings",
+	"Comment": "returns the object with the settings used for calls to getdataset.",
+	"Method": "UnaryCallSettings<GetDatasetRequest, Dataset> getDatasetSettings(UnaryCallSettings.Builder<GetDatasetRequest, Dataset> getDatasetSettings){\r\n    return getDatasetSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BaseBigtableInstanceAdminSettings.createAppProfileSettings",
+	"Comment": "returns the object with the settings used for calls to createappprofile.",
+	"Method": "UnaryCallSettings<CreateAppProfileRequest, AppProfile> createAppProfileSettings(UnaryCallSettings.Builder<CreateAppProfileRequest, AppProfile> createAppProfileSettings){\r\n    return ((BigtableInstanceAdminStubSettings) getStubSettings()).createAppProfileSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.BigQueryException.translateAndThrow",
+	"Comment": "translate retryhelperexception to the bigqueryexception that caused the error. this method willalways throw an exception.",
+	"Method": "BaseServiceException translateAndThrow(RetryHelperException ex,BaseServiceException translateAndThrow,ExecutionException ex){\r\n    BaseServiceException.translate(ex);\r\n    throw new BigQueryException(UNKNOWN_CODE, ex.getMessage(), ex.getCause());\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.TableInfo.getLastModifiedTime",
+	"Comment": "returns the time when this table was last modified, in milliseconds since the epoch.",
+	"Method": "Long getLastModifiedTime(){\r\n    return lastModifiedTime;\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.AutoMlSettings.defaultCredentialsProviderBuilder",
+	"Comment": "returns a builder for the default credentials for this service.",
+	"Method": "GoogleCredentialsProvider.Builder defaultCredentialsProviderBuilder(){\r\n    return AutoMlStubSettings.defaultCredentialsProviderBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.MachineTypeId.getZoneId",
+	"Comment": "returns the identity of the zone this machine type belongs to.",
+	"Method": "ZoneId getZoneId(){\r\n    return ZoneId.of(getProject(), zone);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.stub.BigtableTableAdminStubSettings.defaultExecutorProviderBuilder",
+	"Comment": "returns a builder for the default executorprovider for this service.",
+	"Method": "InstantiatingExecutorProvider.Builder defaultExecutorProviderBuilder(){\r\n    return InstantiatingExecutorProvider.newBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.InstanceInfo.getCreationTimestamp",
+	"Comment": "returns the creation timestamp in milliseconds since epoch.",
+	"Method": "Long getCreationTimestamp(){\r\n    return creationTimestamp;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.TableInfo.getCreationTime",
+	"Comment": "returns the time when this table was created, in milliseconds since the epoch.",
+	"Method": "Long getCreationTime(){\r\n    return creationTime;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.BaseBigtableDataSettings.defaultExecutorProviderBuilder",
+	"Comment": "returns a builder for the default executorprovider for this service.",
+	"Method": "InstantiatingExecutorProvider.Builder defaultExecutorProviderBuilder(){\r\n    return BigtableStubSettings.defaultExecutorProviderBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BaseBigtableTableAdminSettings.deleteTableSettings",
+	"Comment": "returns the object with the settings used for calls to deletetable.",
+	"Method": "UnaryCallSettings<DeleteTableRequest, Empty> deleteTableSettings(UnaryCallSettings.Builder<DeleteTableRequest, Empty> deleteTableSettings){\r\n    return ((BigtableTableAdminStubSettings) getStubSettings()).deleteTableSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.QueryStage.getShuffleOutputBytesSpilled",
+	"Comment": "returns the total number of bytes writtedn to shuffle and spilled to disk.",
+	"Method": "long getShuffleOutputBytesSpilled(){\r\n    return shuffleOutputBytesSpilled;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BaseBigtableInstanceAdminSettings.createInstanceSettings",
+	"Comment": "returns the object with the settings used for calls to createinstance.",
+	"Method": "UnaryCallSettings<CreateInstanceRequest, Operation> createInstanceSettings(UnaryCallSettings.Builder<CreateInstanceRequest, Operation> createInstanceSettings){\r\n    return ((BigtableInstanceAdminStubSettings) getStubSettings()).createInstanceSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BaseBigtableTableAdminSettings.listSnapshotsSettings",
+	"Comment": "returns the object with the settings used for calls to listsnapshots.",
+	"Method": "PagedCallSettings<ListSnapshotsRequest, ListSnapshotsResponse, ListSnapshotsPagedResponse> listSnapshotsSettings(PagedCallSettings.Builder<ListSnapshotsRequest, ListSnapshotsResponse, ListSnapshotsPagedResponse> listSnapshotsSettings){\r\n    return ((BigtableTableAdminStubSettings) getStubSettings()).listSnapshotsSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.stub.AutoMlStubSettings.importDataOperationSettings",
+	"Comment": "returns the object with the settings used for calls to importdata.",
+	"Method": "OperationCallSettings<ImportDataRequest, Empty, OperationMetadata> importDataOperationSettings(OperationCallSettings.Builder<ImportDataRequest, Empty, OperationMetadata> importDataOperationSettings){\r\n    return importDataOperationSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.Operation.getProgress",
+	"Comment": "returns an optional progress indicator that ranges from 0 to 100. there is no requirement thatthis be linear or support any granularity of operations. this should not be used to guess whenthe operation will be complete. this number should monotonically increase as the operationprogresses.",
+	"Method": "Integer getProgress(){\r\n    return progress;\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.PredictionServiceSettings.defaultGrpcTransportProviderBuilder",
+	"Comment": "returns a builder for the default channelprovider for this service.",
+	"Method": "InstantiatingGrpcChannelProvider.Builder defaultGrpcTransportProviderBuilder(){\r\n    return PredictionServiceStubSettings.defaultGrpcTransportProviderBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.StandardTableDefinition.of",
+	"Comment": "creates a bigquery standard table definition given its schema.",
+	"Method": "StandardTableDefinition of(Schema schema){\r\n    return newBuilder().setSchema(schema).build();\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.DiskImageConfiguration.getSourceDisk",
+	"Comment": "returns the identity of the source disk used to create this image.",
+	"Method": "DiskId getSourceDisk(){\r\n    return sourceDisk;\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.ServiceAccount.getScopes",
+	"Comment": "returns the list of scopes to be made available for this service account.",
+	"Method": "List<String> getScopes(){\r\n    return scopes;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BaseBigtableInstanceAdminSettings.createClusterOperationSettings",
+	"Comment": "returns the object with the settings used for calls to createcluster.",
+	"Method": "OperationCallSettings<CreateClusterRequest, Cluster, CreateClusterMetadata> createClusterOperationSettings(OperationCallSettings.Builder<CreateClusterRequest, Cluster, CreateClusterMetadata> createClusterOperationSettings){\r\n    return ((BigtableInstanceAdminStubSettings) getStubSettings()).createClusterOperationSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.datatransfer.v1.DataTransferServiceSettings.checkValidCredsSettings",
+	"Comment": "returns the object with the settings used for calls to checkvalidcreds.",
+	"Method": "UnaryCallSettings<CheckValidCredsRequest, CheckValidCredsResponse> checkValidCredsSettings(UnaryCallSettings.Builder<CheckValidCredsRequest, CheckValidCredsResponse> checkValidCredsSettings){\r\n    return ((DataTransferServiceStubSettings) getStubSettings()).checkValidCredsSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.storage.v1beta1.stub.BigQueryStorageStubSettings.createReadSessionSettings",
+	"Comment": "returns the object with the settings used for calls to createreadsession.",
+	"Method": "UnaryCallSettings<CreateReadSessionRequest, ReadSession> createReadSessionSettings(UnaryCallSettings.Builder<CreateReadSessionRequest, ReadSession> createReadSessionSettings){\r\n    return createReadSessionSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.stub.BigtableInstanceAdminStubSettings.listInstancesSettings",
+	"Comment": "returns the object with the settings used for calls to listinstances.",
+	"Method": "UnaryCallSettings<ListInstancesRequest, ListInstancesResponse> listInstancesSettings(UnaryCallSettings.Builder<ListInstancesRequest, ListInstancesResponse> listInstancesSettings){\r\n    return listInstancesSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.stub.BigtableInstanceAdminStubSettings.defaultGrpcTransportProviderBuilder",
+	"Comment": "returns a builder for the default channelprovider for this service.",
+	"Method": "InstantiatingGrpcChannelProvider.Builder defaultGrpcTransportProviderBuilder(){\r\n    return InstantiatingGrpcChannelProvider.newBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.NetworkInfo.getCreationTimestamp",
+	"Comment": "returns the creation timestamp in milliseconds since epoch.",
+	"Method": "Long getCreationTimestamp(){\r\n    return creationTimestamp;\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.PredictionServiceClient.create",
+	"Comment": "constructs an instance of predictionserviceclient, using the given settings. the channels arecreated based on the settings passed in, or defaults for any settings that are not set.",
+	"Method": "PredictionServiceClient create(PredictionServiceClient create,PredictionServiceSettings settings,PredictionServiceClient create,PredictionServiceStub stub){\r\n    return new PredictionServiceClient(stub);\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.Operation.getStatusMessage",
+	"Comment": "returns an optional textual description of the current status of the operation.",
+	"Method": "String getStatusMessage(){\r\n    return statusMessage;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.JobInfo.getStatus",
+	"Comment": "returns the status of this job. examine this value when polling an asynchronous job to see ifthe job is complete.",
+	"Method": "JobStatus getStatus(){\r\n    return status;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.datatransfer.v1.DataTransferServiceSettings.createTransferConfigSettings",
+	"Comment": "returns the object with the settings used for calls to createtransferconfig.",
+	"Method": "UnaryCallSettings<CreateTransferConfigRequest, TransferConfig> createTransferConfigSettings(UnaryCallSettings.Builder<CreateTransferConfigRequest, TransferConfig> createTransferConfigSettings){\r\n    return ((DataTransferServiceStubSettings) getStubSettings()).createTransferConfigSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.QueryStage.getWriteMsAvg",
+	"Comment": "returns the time in milliseconds the average worker spent writing output.",
+	"Method": "long getWriteMsAvg(){\r\n    return writeMsAvg;\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.AddressSettings.aggregatedListAddressesSettings",
+	"Comment": "returns the object with the settings used for calls to aggregatedlistaddresses.",
+	"Method": "PagedCallSettings<AggregatedListAddressesHttpRequest, AddressAggregatedList, AggregatedListAddressesPagedResponse> aggregatedListAddressesSettings(PagedCallSettings.Builder<AggregatedListAddressesHttpRequest, AddressAggregatedList, AggregatedListAddressesPagedResponse> aggregatedListAddressesSettings){\r\n    return ((AddressStubSettings) getStubSettings()).aggregatedListAddressesSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.stub.BigtableTableAdminStubSettings.createTableSettings",
+	"Comment": "returns the object with the settings used for calls to createtable.",
+	"Method": "UnaryCallSettings<CreateTableRequest, Table> createTableSettings(UnaryCallSettings.Builder<CreateTableRequest, Table> createTableSettings){\r\n    return createTableSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.BackendServiceSettings.deleteBackendServiceSettings",
+	"Comment": "returns the object with the settings used for calls to deletebackendservice.",
+	"Method": "UnaryCallSettings<DeleteBackendServiceHttpRequest, Operation> deleteBackendServiceSettings(UnaryCallSettings.Builder<DeleteBackendServiceHttpRequest, Operation> deleteBackendServiceSettings){\r\n    return ((BackendServiceStubSettings) getStubSettings()).deleteBackendServiceSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.Instance.addAccessConfig",
+	"Comment": "adds an access configuration to the provided network interface for this instance.",
+	"Method": "Operation addAccessConfig(String networkInterface,AccessConfig accessConfig,OperationOption options){\r\n    return compute.addAccessConfig(getInstanceId(), networkInterface, accessConfig, options);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.stub.mutaterows.MutateRowsAttemptCallable.getOriginalIndex",
+	"Comment": "remap the entry index in the current attempt back to its original index in the first request.",
+	"Method": "int getOriginalIndex(int index){\r\n    return (originalIndexes != null) ? originalIndexes.get(index) : index;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BaseBigtableInstanceAdminSettings.updateClusterOperationSettings",
+	"Comment": "returns the object with the settings used for calls to updatecluster.",
+	"Method": "OperationCallSettings<Cluster, Cluster, UpdateClusterMetadata> updateClusterOperationSettings(OperationCallSettings.Builder<Cluster, Cluster, UpdateClusterMetadata> updateClusterOperationSettings){\r\n    return ((BigtableInstanceAdminStubSettings) getStubSettings()).updateClusterOperationSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.datatransfer.v1.DataTransferServiceSettings.listDataSourcesSettings",
+	"Comment": "returns the object with the settings used for calls to listdatasources.",
+	"Method": "PagedCallSettings<ListDataSourcesRequest, ListDataSourcesResponse, ListDataSourcesPagedResponse> listDataSourcesSettings(PagedCallSettings.Builder<ListDataSourcesRequest, ListDataSourcesResponse, ListDataSourcesPagedResponse> listDataSourcesSettings){\r\n    return ((DataTransferServiceStubSettings) getStubSettings()).listDataSourcesSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.stub.AutoMlStubSettings.defaultExecutorProviderBuilder",
+	"Comment": "returns a builder for the default executorprovider for this service.",
+	"Method": "InstantiatingExecutorProvider.Builder defaultExecutorProviderBuilder(){\r\n    return InstantiatingExecutorProvider.newBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.JobStatus.getError",
+	"Comment": "returns the final error result of the job. if present, indicates that the job has completed andwas unsuccessful.",
+	"Method": "BigQueryError getError(){\r\n    return error;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.stub.BigtableTableAdminStubSettings.snapshotTableSettings",
+	"Comment": "returns the object with the settings used for calls to snapshottable.",
+	"Method": "UnaryCallSettings<SnapshotTableRequest, Operation> snapshotTableSettings(UnaryCallSettings.Builder<SnapshotTableRequest, Operation> snapshotTableSettings){\r\n    return snapshotTableSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.BackendBucketSettings.deleteSignedUrlKeyBackendBucketSettings",
+	"Comment": "returns the object with the settings used for calls to deletesignedurlkeybackendbucket.",
+	"Method": "UnaryCallSettings<DeleteSignedUrlKeyBackendBucketHttpRequest, Operation> deleteSignedUrlKeyBackendBucketSettings(UnaryCallSettings.Builder<DeleteSignedUrlKeyBackendBucketHttpRequest, Operation> deleteSignedUrlKeyBackendBucketSettings){\r\n    return ((BackendBucketStubSettings) getStubSettings()).deleteSignedUrlKeyBackendBucketSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.BackendServiceSettings.updateBackendServiceSettings",
+	"Comment": "returns the object with the settings used for calls to updatebackendservice.",
+	"Method": "UnaryCallSettings<UpdateBackendServiceHttpRequest, Operation> updateBackendServiceSettings(UnaryCallSettings.Builder<UpdateBackendServiceHttpRequest, Operation> updateBackendServiceSettings){\r\n    return ((BackendServiceStubSettings) getStubSettings()).updateBackendServiceSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.stub.BigtableInstanceAdminStubSettings.partialUpdateInstanceOperationSettings",
+	"Comment": "returns the object with the settings used for calls to partialupdateinstance.",
+	"Method": "OperationCallSettings<PartialUpdateInstanceRequest, Instance, UpdateInstanceMetadata> partialUpdateInstanceOperationSettings(OperationCallSettings.Builder<PartialUpdateInstanceRequest, Instance, UpdateInstanceMetadata> partialUpdateInstanceOperationSettings){\r\n    return partialUpdateInstanceOperationSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.AutoMlSettings.createModelOperationSettings",
+	"Comment": "returns the object with the settings used for calls to createmodel.",
+	"Method": "OperationCallSettings<CreateModelRequest, Model, OperationMetadata> createModelOperationSettings(OperationCallSettings.Builder<CreateModelRequest, Model, OperationMetadata> createModelOperationSettings){\r\n    return ((AutoMlStubSettings) getStubSettings()).createModelOperationSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.datatransfer.v1.DataTransferServiceSettings.toBuilder",
+	"Comment": "returns a builder containing all the values of this settings class.",
+	"Method": "Builder toBuilder(){\r\n    return new Builder(this);\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.MachineType.getMaximumPersistentDisksSizeGb",
+	"Comment": "returns the maximum total persistent disks size allowed, defined in gb.",
+	"Method": "Long getMaximumPersistentDisksSizeGb(){\r\n    return maximumPersistentDisksSizeGb;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.BigtableDataSettings.readModifyWriteRowSettings",
+	"Comment": "returns the object with the settings used for calls to readmodifywriterow.",
+	"Method": "UnaryCallSettings<ReadModifyWriteRow, Row> readModifyWriteRowSettings(UnaryCallSettings.Builder<ReadModifyWriteRow, Row> readModifyWriteRowSettings){\r\n    return getTypedStubSettings().readModifyWriteRowSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.models.Mutation.createUnsafe",
+	"Comment": "creates new instance of mutation object which allows setcell operation to use server sidetimestamp. this is dangerous because mutations will no longer be idempotent, which might causemultiple duplicate values to be stored in bigtable. this option should only be used foradvanced usecases with extreme care.",
+	"Method": "Mutation createUnsafe(){\r\n    return new Mutation(true);\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.MachineTypeId.of",
+	"Comment": "returns a machine type identity given project, zone and type names.",
+	"Method": "MachineTypeId of(String zone,String type,MachineTypeId of,String project,String zone,String type){\r\n    return new MachineTypeId(project, zone, type);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.BaseBigtableDataSettings.mutateRowsSettings",
+	"Comment": "returns the object with the settings used for calls to mutaterows.",
+	"Method": "ServerStreamingCallSettings<MutateRowsRequest, MutateRowsResponse> mutateRowsSettings(ServerStreamingCallSettings.Builder<MutateRowsRequest, MutateRowsResponse> mutateRowsSettings){\r\n    return ((BigtableStubSettings) getStubSettings()).mutateRowsSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.stub.AutoMlStubSettings.exportDataOperationSettings",
+	"Comment": "returns the object with the settings used for calls to exportdata.",
+	"Method": "OperationCallSettings<ExportDataRequest, Empty, OperationMetadata> exportDataOperationSettings(OperationCallSettings.Builder<ExportDataRequest, Empty, OperationMetadata> exportDataOperationSettings){\r\n    return exportDataOperationSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.asset.v1beta1.AssetServiceSettings.exportAssetsSettings",
+	"Comment": "returns the object with the settings used for calls to exportassets.",
+	"Method": "UnaryCallSettings<ExportAssetsRequest, Operation> exportAssetsSettings(UnaryCallSettings.Builder<ExportAssetsRequest, Operation> exportAssetsSettings){\r\n    return ((AssetServiceStubSettings) getStubSettings()).exportAssetsSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BigtableTableAdminClient.create",
+	"Comment": "constructs an instance of bigtabletableadminclient with the given instancename and stub.",
+	"Method": "BigtableTableAdminClient create(InstanceName instanceName,BigtableTableAdminClient create,BigtableTableAdminSettings settings,BigtableTableAdminClient create,InstanceName instanceName,EnhancedBigtableTableAdminStub stub){\r\n    return new BigtableTableAdminClient(instanceName, stub);\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.DiskInfo.getAttachedInstances",
+	"Comment": "returns all the identities of the instances this disk is attached to.",
+	"Method": "List<InstanceId> getAttachedInstances(){\r\n    return attachedInstances;\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.Operation.getTargetLink",
+	"Comment": "returns the url of the resource that the operation is modifying.",
+	"Method": "String getTargetLink(){\r\n    return targetLink;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.stub.BigtableInstanceAdminStubSettings.listAppProfilesSettings",
+	"Comment": "returns the object with the settings used for calls to listappprofiles.",
+	"Method": "PagedCallSettings<ListAppProfilesRequest, ListAppProfilesResponse, ListAppProfilesPagedResponse> listAppProfilesSettings(PagedCallSettings.Builder<ListAppProfilesRequest, ListAppProfilesResponse, ListAppProfilesPagedResponse> listAppProfilesSettings){\r\n    return listAppProfilesSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BaseBigtableTableAdminSettings.getTableSettings",
+	"Comment": "returns the object with the settings used for calls to gettable.",
+	"Method": "UnaryCallSettings<GetTableRequest, Table> getTableSettings(UnaryCallSettings.Builder<GetTableRequest, Table> getTableSettings){\r\n    return ((BigtableTableAdminStubSettings) getStubSettings()).getTableSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.LoadJobConfiguration.builder",
+	"Comment": "creates a builder for a bigquery load job configuration given the destination table and sourceuri.",
+	"Method": "Builder builder(TableId destinationTable,String sourceUri){\r\n    return newBuilder(destinationTable, ImmutableList.of(sourceUri));\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BaseBigtableInstanceAdminSettings.deleteAppProfileSettings",
+	"Comment": "returns the object with the settings used for calls to deleteappprofile.",
+	"Method": "UnaryCallSettings<DeleteAppProfileRequest, Empty> deleteAppProfileSettings(UnaryCallSettings.Builder<DeleteAppProfileRequest, Empty> deleteAppProfileSettings){\r\n    return ((BigtableInstanceAdminStubSettings) getStubSettings()).deleteAppProfileSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.BaseBigtableDataSettings.defaultGrpcTransportProviderBuilder",
+	"Comment": "returns a builder for the default channelprovider for this service.",
+	"Method": "InstantiatingGrpcChannelProvider.Builder defaultGrpcTransportProviderBuilder(){\r\n    return BigtableStubSettings.defaultGrpcTransportProviderBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.storage.v1beta1.stub.BigQueryStorageStubSettings.finalizeStreamSettings",
+	"Comment": "returns the object with the settings used for calls to finalizestream.",
+	"Method": "UnaryCallSettings<FinalizeStreamRequest, Empty> finalizeStreamSettings(UnaryCallSettings.Builder<FinalizeStreamRequest, Empty> finalizeStreamSettings){\r\n    return finalizeStreamSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.CopyJobConfiguration.of",
+	"Comment": "returns a bigquery copy job configuration for the given destination and source tables.",
+	"Method": "CopyJobConfiguration of(TableId destinationTable,TableId sourceTable,CopyJobConfiguration of,TableId destinationTable,List<TableId> sourceTables){\r\n    return newBuilder(destinationTable, sourceTables).build();\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.BackendBucketSettings.defaultExecutorProviderBuilder",
+	"Comment": "returns a builder for the default executorprovider for this service.",
+	"Method": "InstantiatingExecutorProvider.Builder defaultExecutorProviderBuilder(){\r\n    return BackendBucketStubSettings.defaultExecutorProviderBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.stub.EnhancedBigtableStubSettings.toBuilder",
+	"Comment": "returns a builder containing all the values of this settings class.",
+	"Method": "Builder toBuilder(){\r\n    return new Builder(this);\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.AcceleratorTypeSettings.getAcceleratorTypeSettings",
+	"Comment": "returns the object with the settings used for calls to getacceleratortype.",
+	"Method": "UnaryCallSettings<GetAcceleratorTypeHttpRequest, AcceleratorType> getAcceleratorTypeSettings(UnaryCallSettings.Builder<GetAcceleratorTypeHttpRequest, AcceleratorType> getAcceleratorTypeSettings){\r\n    return ((AcceleratorTypeStubSettings) getStubSettings()).getAcceleratorTypeSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.QueryStage.getWaitMsMax",
+	"Comment": "returns the time in milliseconds the slowest worker spent waiting to be scheduled.",
+	"Method": "long getWaitMsMax(){\r\n    return waitMsMax;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.stub.BigtableTableAdminStubSettings.snapshotTableOperationSettings",
+	"Comment": "returns the object with the settings used for calls to snapshottable.",
+	"Method": "OperationCallSettings<SnapshotTableRequest, Snapshot, SnapshotTableMetadata> snapshotTableOperationSettings(OperationCallSettings.Builder<SnapshotTableRequest, Snapshot, SnapshotTableMetadata> snapshotTableOperationSettings){\r\n    return snapshotTableOperationSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.models.UpdateAppProfileRequest.toProto",
+	"Comment": "creates the request protobuf. this method is considered an internal implementation detail andnot meant to be used by applications.",
+	"Method": "com.google.bigtable.admin.v2.UpdateAppProfileRequest toProto(ProjectName projectName){\r\n    AppProfileName name = AppProfileName.of(projectName.getProject(), instanceId, appProfileId);\r\n    proto.getAppProfileBuilder().setName(name.toString());\r\n    return proto.build();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.stub.BigtableStubSettings.defaultGrpcTransportProviderBuilder",
+	"Comment": "returns a builder for the default channelprovider for this service.",
+	"Method": "InstantiatingGrpcChannelProvider.Builder defaultGrpcTransportProviderBuilder(){\r\n    return InstantiatingGrpcChannelProvider.newBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.stub.PredictionServiceStubSettings.predictSettings",
+	"Comment": "returns the object with the settings used for calls to predict.",
+	"Method": "UnaryCallSettings<PredictRequest, PredictResponse> predictSettings(UnaryCallSettings.Builder<PredictRequest, PredictResponse> predictSettings){\r\n    return predictSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BaseBigtableInstanceAdminSettings.deleteInstanceSettings",
+	"Comment": "returns the object with the settings used for calls to deleteinstance.",
+	"Method": "UnaryCallSettings<DeleteInstanceRequest, Empty> deleteInstanceSettings(UnaryCallSettings.Builder<DeleteInstanceRequest, Empty> deleteInstanceSettings){\r\n    return ((BigtableInstanceAdminStubSettings) getStubSettings()).deleteInstanceSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.QueryStage.getWaitRatioMax",
+	"Comment": "returns the time the slowest worker spent waiting to be scheduled, divided by the longest timespent by any worker in any segment.",
+	"Method": "double getWaitRatioMax(){\r\n    return waitRatioMax;\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.stub.PredictionServiceStubSettings.defaultCredentialsProviderBuilder",
+	"Comment": "returns a builder for the default credentials for this service.",
+	"Method": "GoogleCredentialsProvider.Builder defaultCredentialsProviderBuilder(){\r\n    return GoogleCredentialsProvider.newBuilder().setScopesToApply(DEFAULT_SERVICE_SCOPES);\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.AcceleratorTypeSettings.defaultHttpJsonTransportProviderBuilder",
+	"Comment": "returns a builder for the default channelprovider for this service.",
+	"Method": "InstantiatingHttpJsonChannelProvider.Builder defaultHttpJsonTransportProviderBuilder(){\r\n    return AcceleratorTypeStubSettings.defaultHttpJsonTransportProviderBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BaseBigtableInstanceAdminSettings.toBuilder",
+	"Comment": "returns a builder containing all the values of this settings class.",
+	"Method": "Builder toBuilder(){\r\n    return new Builder(this);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.datatransfer.v1.DataTransferServiceSettings.getDataSourceSettings",
+	"Comment": "returns the object with the settings used for calls to getdatasource.",
+	"Method": "UnaryCallSettings<GetDataSourceRequest, DataSource> getDataSourceSettings(UnaryCallSettings.Builder<GetDataSourceRequest, DataSource> getDataSourceSettings){\r\n    return ((DataTransferServiceStubSettings) getStubSettings()).getDataSourceSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.PredictionServiceSettings.predictSettings",
+	"Comment": "returns the object with the settings used for calls to predict.",
+	"Method": "UnaryCallSettings<PredictRequest, PredictResponse> predictSettings(UnaryCallSettings.Builder<PredictRequest, PredictResponse> predictSettings){\r\n    return ((PredictionServiceStubSettings) getStubSettings()).predictSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.BackendServiceSettings.toBuilder",
+	"Comment": "returns a builder containing all the values of this settings class.",
+	"Method": "Builder toBuilder(){\r\n    return new Builder(this);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.ExtractJobConfiguration.newBuilder",
+	"Comment": "creates a builder for a bigquery extract job configuration given source table and destinationuris.",
+	"Method": "Builder newBuilder(TableId sourceTable,String destinationUri,Builder newBuilder,TableId sourceTable,List<String> destinationUris){\r\n    return new Builder().setSourceTable(sourceTable).setDestinationUris(destinationUris);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.datatransfer.v1.stub.DataTransferServiceStubSettings.toBuilder",
+	"Comment": "returns a builder containing all the values of this settings class.",
+	"Method": "Builder toBuilder(){\r\n    return new Builder(this);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.stub.readrows.StateMachine.consumeRow",
+	"Comment": "returns the last completed row and transitions to awaiting a new row.",
+	"Method": "RowT consumeRow(){\r\n    Preconditions.checkState(currentState == AWAITING_ROW_CONSUME, \"No row to consume\");\r\n    RowT row = completeRow;\r\n    reset();\r\n    return row;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.storage.v1beta1.BigQueryStorageSettings.finalizeStreamSettings",
+	"Comment": "returns the object with the settings used for calls to finalizestream.",
+	"Method": "UnaryCallSettings<FinalizeStreamRequest, Empty> finalizeStreamSettings(UnaryCallSettings.Builder<FinalizeStreamRequest, Empty> finalizeStreamSettings){\r\n    return getTypedStubSettings().finalizeStreamSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.QueryStage.getReadRatioMax",
+	"Comment": "returns the time the slowest worker spent reading input data, divided by the longest time spentby any worker in any segment.",
+	"Method": "double getReadRatioMax(){\r\n    return readRatioMax;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.stub.BigtableInstanceAdminStubSettings.getIamPolicySettings",
+	"Comment": "returns the object with the settings used for calls to getiampolicy.",
+	"Method": "UnaryCallSettings<GetIamPolicyRequest, Policy> getIamPolicySettings(UnaryCallSettings.Builder<GetIamPolicyRequest, Policy> getIamPolicySettings){\r\n    return getIamPolicySettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.models.CreateInstanceRequest.addCluster",
+	"Comment": "adds a cluster to the instance request.all new instances must have at least one cluster. development instances must have exactlyone cluster.",
+	"Method": "CreateInstanceRequest addCluster(String clusterId,String zone,int serveNodes,StorageType storageType){\r\n    CreateClusterRequest clusterRequest = CreateClusterRequest.of(\"ignored-instance-id\", clusterId).setZone(zone).setServeNodes(serveNodes).setStorageType(storageType);\r\n    clusterRequests.add(clusterRequest);\r\n    return this;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.stub.BigtableInstanceAdminStubSettings.setIamPolicySettings",
+	"Comment": "returns the object with the settings used for calls to setiampolicy.",
+	"Method": "UnaryCallSettings<SetIamPolicyRequest, Policy> setIamPolicySettings(UnaryCallSettings.Builder<SetIamPolicyRequest, Policy> setIamPolicySettings){\r\n    return setIamPolicySettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.Instance.deleteAccessConfig",
+	"Comment": "deletes an access configuration from the provided network interface for this instance.",
+	"Method": "Operation deleteAccessConfig(String networkInterface,String accessConfig,OperationOption options){\r\n    return compute.deleteAccessConfig(getInstanceId(), networkInterface, accessConfig, options);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.stub.BigtableInstanceAdminStubSettings.testIamPermissionsSettings",
+	"Comment": "returns the object with the settings used for calls to testiampermissions.",
+	"Method": "UnaryCallSettings<TestIamPermissionsRequest, TestIamPermissionsResponse> testIamPermissionsSettings(UnaryCallSettings.Builder<TestIamPermissionsRequest, TestIamPermissionsResponse> testIamPermissionsSettings){\r\n    return testIamPermissionsSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.AcceleratorTypeSettings.toBuilder",
+	"Comment": "returns a builder containing all the values of this settings class.",
+	"Method": "Builder toBuilder(){\r\n    return new Builder(this);\r\n}"
+}, {
+	"Path": "com.google.cloud.asset.v1beta1.AssetServiceSettings.defaultExecutorProviderBuilder",
+	"Comment": "returns a builder for the default executorprovider for this service.",
+	"Method": "InstantiatingExecutorProvider.Builder defaultExecutorProviderBuilder(){\r\n    return AssetServiceStubSettings.defaultExecutorProviderBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.TableInfo.getExpirationTime",
+	"Comment": "returns the time when this table expires, in milliseconds since the epoch. if not present, thetable will persist indefinitely. expired tables will be deleted and their storage reclaimed.",
+	"Method": "Long getExpirationTime(){\r\n    return Data.isNull(expirationTime) ? null : expirationTime;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.datatransfer.v1.DataTransferServiceSettings.defaultExecutorProviderBuilder",
+	"Comment": "returns a builder for the default executorprovider for this service.",
+	"Method": "InstantiatingExecutorProvider.Builder defaultExecutorProviderBuilder(){\r\n    return DataTransferServiceStubSettings.defaultExecutorProviderBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.stub.BigtableTableAdminStubSettings.listTablesSettings",
+	"Comment": "returns the object with the settings used for calls to listtables.",
+	"Method": "PagedCallSettings<ListTablesRequest, ListTablesResponse, ListTablesPagedResponse> listTablesSettings(PagedCallSettings.Builder<ListTablesRequest, ListTablesResponse, ListTablesPagedResponse> listTablesSettings){\r\n    return listTablesSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.datatransfer.v1.DataTransferServiceSettings.defaultCredentialsProviderBuilder",
+	"Comment": "returns a builder for the default credentials for this service.",
+	"Method": "GoogleCredentialsProvider.Builder defaultCredentialsProviderBuilder(){\r\n    return DataTransferServiceStubSettings.defaultCredentialsProviderBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.QueryJobConfiguration.getWriteDisposition",
+	"Comment": "returns the action that should occur if the destination table already exists.",
+	"Method": "WriteDisposition getWriteDisposition(){\r\n    return writeDisposition;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.stub.BigtableTableAdminStubSettings.defaultCredentialsProviderBuilder",
+	"Comment": "returns a builder for the default credentials for this service.",
+	"Method": "GoogleCredentialsProvider.Builder defaultCredentialsProviderBuilder(){\r\n    return GoogleCredentialsProvider.newBuilder().setScopesToApply(DEFAULT_SERVICE_SCOPES);\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.DiskType.getCreationTimestamp",
+	"Comment": "returns the creation timestamp in milliseconds since epoch.",
+	"Method": "Long getCreationTimestamp(){\r\n    return creationTimestamp;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BaseBigtableInstanceAdminSettings.getAppProfileSettings",
+	"Comment": "returns the object with the settings used for calls to getappprofile.",
+	"Method": "UnaryCallSettings<GetAppProfileRequest, AppProfile> getAppProfileSettings(UnaryCallSettings.Builder<GetAppProfileRequest, AppProfile> getAppProfileSettings){\r\n    return ((BigtableInstanceAdminStubSettings) getStubSettings()).getAppProfileSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.datatransfer.v1.stub.DataTransferServiceStubSettings.getTransferRunSettings",
+	"Comment": "returns the object with the settings used for calls to gettransferrun.",
+	"Method": "UnaryCallSettings<GetTransferRunRequest, TransferRun> getTransferRunSettings(UnaryCallSettings.Builder<GetTransferRunRequest, TransferRun> getTransferRunSettings){\r\n    return getTransferRunSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.AddressSettings.defaultHttpJsonTransportProviderBuilder",
+	"Comment": "returns a builder for the default channelprovider for this service.",
+	"Method": "InstantiatingHttpJsonChannelProvider.Builder defaultHttpJsonTransportProviderBuilder(){\r\n    return AddressStubSettings.defaultHttpJsonTransportProviderBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.CsvOptions.getSkipLeadingRows",
+	"Comment": "returns the number of rows at the top of a csv file that bigquery will skip when reading thedata.",
+	"Method": "Long getSkipLeadingRows(){\r\n    return skipLeadingRows;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.models.PartialListInstancesException.getInstances",
+	"Comment": "a partial list of instances that were found in the available zones.",
+	"Method": "List<Instance> getInstances(){\r\n    return instances;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.models.CreateClusterRequest.setZone",
+	"Comment": "sets the zone where the new cluster will be located. must be different from the existingcluster.",
+	"Method": "CreateClusterRequest setZone(String zone){\r\n    this.zone = zone;\r\n    return this;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.LoadJobConfiguration.of",
+	"Comment": "returns a bigquery load job configuration for the given destination table, format and sourceuri.",
+	"Method": "LoadJobConfiguration of(TableId destinationTable,List<String> sourceUris,LoadJobConfiguration of,TableId destinationTable,String sourceUri,LoadJobConfiguration of,TableId destinationTable,List<String> sourceUris,FormatOptions format,LoadJobConfiguration of,TableId destinationTable,String sourceUri,FormatOptions format){\r\n    return of(destinationTable, ImmutableList.of(sourceUri), format);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.CopyJobConfiguration.newBuilder",
+	"Comment": "creates a builder for a bigquery copy job configuration given destination and source tables.",
+	"Method": "Builder newBuilder(TableId destinationTable,TableId sourceTable,Builder newBuilder,TableId destinationTable,List<TableId> sourceTables){\r\n    return new Builder().setDestinationTable(destinationTable).setSourceTables(sourceTables);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.storage.v1beta1.BaseBigQueryStorageSettings.batchCreateReadSessionStreamsSettings",
+	"Comment": "returns the object with the settings used for calls to batchcreatereadsessionstreams.",
+	"Method": "UnaryCallSettings<BatchCreateReadSessionStreamsRequest, BatchCreateReadSessionStreamsResponse> batchCreateReadSessionStreamsSettings(UnaryCallSettings.Builder<BatchCreateReadSessionStreamsRequest, BatchCreateReadSessionStreamsResponse> batchCreateReadSessionStreamsSettings){\r\n    return ((BigQueryStorageStubSettings) getStubSettings()).batchCreateReadSessionStreamsSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.models.CreateClusterRequest.setServeNodes",
+	"Comment": "sets the number of nodes allocated to this cluster. more nodes enable higher throughput andmore consistent performance.",
+	"Method": "CreateClusterRequest setServeNodes(int numNodes){\r\n    proto.getClusterBuilder().setServeNodes(numNodes);\r\n    return this;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.QueryStage.getEndMs",
+	"Comment": "returns the stage end time represented as milliseconds since epoch.",
+	"Method": "long getEndMs(){\r\n    return endMs;\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.AutoMlSettings.getDatasetSettings",
+	"Comment": "returns the object with the settings used for calls to getdataset.",
+	"Method": "UnaryCallSettings<GetDatasetRequest, Dataset> getDatasetSettings(UnaryCallSettings.Builder<GetDatasetRequest, Dataset> getDatasetSettings){\r\n    return ((AutoMlStubSettings) getStubSettings()).getDatasetSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.storage.v1beta1.stub.EnhancedBigQueryStorageStubSettings.defaultGrpcTransportProviderBuilder",
+	"Comment": "returns a builder for the default channelprovider for this service.",
+	"Method": "InstantiatingGrpcChannelProvider.Builder defaultGrpcTransportProviderBuilder(){\r\n    return BigQueryStorageStubSettings.defaultGrpcTransportProviderBuilder().setChannelsPerCpu(2.0).setMaxInboundMessageSize(MAX_INBOUND_MESSAGE_SIZE);\r\n}"
+}, {
+	"Path": "com.google.cloud.asset.v1beta1.stub.AssetServiceStubSettings.batchGetAssetsHistorySettings",
+	"Comment": "returns the object with the settings used for calls to batchgetassetshistory.",
+	"Method": "UnaryCallSettings<BatchGetAssetsHistoryRequest, BatchGetAssetsHistoryResponse> batchGetAssetsHistorySettings(UnaryCallSettings.Builder<BatchGetAssetsHistoryRequest, BatchGetAssetsHistoryResponse> batchGetAssetsHistorySettings){\r\n    return batchGetAssetsHistorySettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.asset.v1beta1.stub.AssetServiceStubSettings.defaultExecutorProviderBuilder",
+	"Comment": "returns a builder for the default executorprovider for this service.",
+	"Method": "InstantiatingExecutorProvider.Builder defaultExecutorProviderBuilder(){\r\n    return InstantiatingExecutorProvider.newBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.AutoMlSettings.exportDataSettings",
+	"Comment": "returns the object with the settings used for calls to exportdata.",
+	"Method": "UnaryCallSettings<ExportDataRequest, Operation> exportDataSettings(UnaryCallSettings.Builder<ExportDataRequest, Operation> exportDataSettings){\r\n    return ((AutoMlStubSettings) getStubSettings()).exportDataSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.stub.PredictionServiceStubSettings.defaultExecutorProviderBuilder",
+	"Comment": "returns a builder for the default executorprovider for this service.",
+	"Method": "InstantiatingExecutorProvider.Builder defaultExecutorProviderBuilder(){\r\n    return InstantiatingExecutorProvider.newBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.models.Filters.block",
+	"Comment": "does not match any cells, regardless of input. useful for temporarily disabling just part of afilter.",
+	"Method": "Filter block(){\r\n    return BLOCK;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.datatransfer.v1.DataTransferServiceSettings.listTransferRunsSettings",
+	"Comment": "returns the object with the settings used for calls to listtransferruns.",
+	"Method": "PagedCallSettings<ListTransferRunsRequest, ListTransferRunsResponse, ListTransferRunsPagedResponse> listTransferRunsSettings(PagedCallSettings.Builder<ListTransferRunsRequest, ListTransferRunsResponse, ListTransferRunsPagedResponse> listTransferRunsSettings){\r\n    return ((DataTransferServiceStubSettings) getStubSettings()).listTransferRunsSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.AutoMlSettings.getModelSettings",
+	"Comment": "returns the object with the settings used for calls to getmodel.",
+	"Method": "UnaryCallSettings<GetModelRequest, Model> getModelSettings(UnaryCallSettings.Builder<GetModelRequest, Model> getModelSettings){\r\n    return ((AutoMlStubSettings) getStubSettings()).getModelSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.stub.BigtableStubSettings.sampleRowKeysSettings",
+	"Comment": "returns the object with the settings used for calls to samplerowkeys.",
+	"Method": "ServerStreamingCallSettings<SampleRowKeysRequest, SampleRowKeysResponse> sampleRowKeysSettings(ServerStreamingCallSettings.Builder<SampleRowKeysRequest, SampleRowKeysResponse> sampleRowKeysSettings){\r\n    return sampleRowKeysSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.stub.BigtableStubSettings.defaultCredentialsProviderBuilder",
+	"Comment": "returns a builder for the default credentials for this service.",
+	"Method": "GoogleCredentialsProvider.Builder defaultCredentialsProviderBuilder(){\r\n    return GoogleCredentialsProvider.newBuilder().setScopesToApply(DEFAULT_SERVICE_SCOPES);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.DatastoreBackupOptions.getProjectionFields",
+	"Comment": "returns the value of which entity properties to load into bigquery from a cloud datastorebackup.",
+	"Method": "List<String> getProjectionFields(){\r\n    return projectionFields;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BaseBigtableInstanceAdminSettings.testIamPermissionsSettings",
+	"Comment": "returns the object with the settings used for calls to testiampermissions.",
+	"Method": "UnaryCallSettings<TestIamPermissionsRequest, TestIamPermissionsResponse> testIamPermissionsSettings(UnaryCallSettings.Builder<TestIamPermissionsRequest, TestIamPermissionsResponse> testIamPermissionsSettings){\r\n    return ((BigtableInstanceAdminStubSettings) getStubSettings()).testIamPermissionsSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.storage.v1beta1.BigQueryStorageSettings.defaultCredentialsProviderBuilder",
+	"Comment": "returns a builder for the default credentials for this service.",
+	"Method": "GoogleCredentialsProvider.Builder defaultCredentialsProviderBuilder(){\r\n    return EnhancedBigQueryStorageStubSettings.defaultCredentialsProviderBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.datatransfer.v1.DataTransferServiceClient.create",
+	"Comment": "constructs an instance of datatransferserviceclient, using the given settings. the channels arecreated based on the settings passed in, or defaults for any settings that are not set.",
+	"Method": "DataTransferServiceClient create(DataTransferServiceClient create,DataTransferServiceSettings settings,DataTransferServiceClient create,DataTransferServiceStub stub){\r\n    return new DataTransferServiceClient(stub);\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.AutoscalerSettings.toBuilder",
+	"Comment": "returns a builder containing all the values of this settings class.",
+	"Method": "Builder toBuilder(){\r\n    return new Builder(this);\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.AutoMlClient.create",
+	"Comment": "constructs an instance of automlclient, using the given settings. the channels are createdbased on the settings passed in, or defaults for any settings that are not set.",
+	"Method": "AutoMlClient create(AutoMlClient create,AutoMlSettings settings,AutoMlClient create,AutoMlStub stub){\r\n    return new AutoMlClient(stub);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.storage.v1beta1.BigQueryStorageSettings.splitReadStreamSettings",
+	"Comment": "returns the object with the settings used for calls to splitreadstream.",
+	"Method": "UnaryCallSettings<SplitReadStreamRequest, SplitReadStreamResponse> splitReadStreamSettings(UnaryCallSettings.Builder<SplitReadStreamRequest, SplitReadStreamResponse> splitReadStreamSettings){\r\n    return getTypedStubSettings().splitReadStreamSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.stub.BigtableInstanceAdminStubSettings.updateClusterSettings",
+	"Comment": "returns the object with the settings used for calls to updatecluster.",
+	"Method": "UnaryCallSettings<Cluster, Operation> updateClusterSettings(UnaryCallSettings.Builder<Cluster, Operation> updateClusterSettings){\r\n    return updateClusterSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.storage.v1beta1.BigQueryStorageSettings.batchCreateReadSessionStreamsSettings",
+	"Comment": "returns the object with the settings used for calls to batchcreatereadsessionstreams.",
+	"Method": "UnaryCallSettings<BatchCreateReadSessionStreamsRequest, BatchCreateReadSessionStreamsResponse> batchCreateReadSessionStreamsSettings(UnaryCallSettings.Builder<BatchCreateReadSessionStreamsRequest, BatchCreateReadSessionStreamsResponse> batchCreateReadSessionStreamsSettings){\r\n    return getTypedStubSettings().batchCreateReadSessionStreamsSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.AutoMlSettings.exportDataOperationSettings",
+	"Comment": "returns the object with the settings used for calls to exportdata.",
+	"Method": "OperationCallSettings<ExportDataRequest, Empty, OperationMetadata> exportDataOperationSettings(OperationCallSettings.Builder<ExportDataRequest, Empty, OperationMetadata> exportDataOperationSettings){\r\n    return ((AutoMlStubSettings) getStubSettings()).exportDataOperationSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.AutoMlSettings.toBuilder",
+	"Comment": "returns a builder containing all the values of this settings class.",
+	"Method": "Builder toBuilder(){\r\n    return new Builder(this);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BaseBigtableTableAdminClient.create",
+	"Comment": "constructs an instance of basebigtabletableadminclient, using the given settings. the channelsare created based on the settings passed in, or defaults for any settings that are not set.",
+	"Method": "BaseBigtableTableAdminClient create(BaseBigtableTableAdminClient create,BaseBigtableTableAdminSettings settings,BaseBigtableTableAdminClient create,BigtableTableAdminStub stub){\r\n    return new BaseBigtableTableAdminClient(stub);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.models.Query.getBound",
+	"Comment": "get the minimal range that encloses all of the row keys and ranges in this query.",
+	"Method": "ByteStringRange getBound(){\r\n    return RowSetUtil.getBound(builder.getRows());\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.TableInfo.getSelfLink",
+	"Comment": "returns an url that can be used to access the resource again. the returned url can be used forget or update requests.",
+	"Method": "String getSelfLink(){\r\n    return selfLink;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.storage.v1beta1.BigQueryStorageSettings.readRowsSettings",
+	"Comment": "returns the object with the settings used for calls to readrows.",
+	"Method": "ServerStreamingCallSettings<ReadRowsRequest, ReadRowsResponse> readRowsSettings(ServerStreamingCallSettings.Builder<ReadRowsRequest, ReadRowsResponse> readRowsSettings){\r\n    return getTypedStubSettings().readRowsSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.storage.v1beta1.stub.BigQueryStorageStubSettings.splitReadStreamSettings",
+	"Comment": "returns the object with the settings used for calls to splitreadstream.",
+	"Method": "UnaryCallSettings<SplitReadStreamRequest, SplitReadStreamResponse> splitReadStreamSettings(UnaryCallSettings.Builder<SplitReadStreamRequest, SplitReadStreamResponse> splitReadStreamSettings){\r\n    return splitReadStreamSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.stub.BigtableStubSettings.readModifyWriteRowSettings",
+	"Comment": "returns the object with the settings used for calls to readmodifywriterow.",
+	"Method": "UnaryCallSettings<ReadModifyWriteRowRequest, ReadModifyWriteRowResponse> readModifyWriteRowSettings(UnaryCallSettings.Builder<ReadModifyWriteRowRequest, ReadModifyWriteRowResponse> readModifyWriteRowSettings){\r\n    return readModifyWriteRowSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BaseBigtableTableAdminSettings.createTableFromSnapshotOperationSettings",
+	"Comment": "returns the object with the settings used for calls to createtablefromsnapshot.",
+	"Method": "OperationCallSettings<CreateTableFromSnapshotRequest, Table, CreateTableFromSnapshotMetadata> createTableFromSnapshotOperationSettings(OperationCallSettings.Builder<CreateTableFromSnapshotRequest, Table, CreateTableFromSnapshotMetadata> createTableFromSnapshotOperationSettings){\r\n    return ((BigtableTableAdminStubSettings) getStubSettings()).createTableFromSnapshotOperationSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.asset.v1beta1.AssetServiceSettings.defaultGrpcTransportProviderBuilder",
+	"Comment": "returns a builder for the default channelprovider for this service.",
+	"Method": "InstantiatingGrpcChannelProvider.Builder defaultGrpcTransportProviderBuilder(){\r\n    return AssetServiceStubSettings.defaultGrpcTransportProviderBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.storage.v1beta1.BaseBigQueryStorageSettings.createReadSessionSettings",
+	"Comment": "returns the object with the settings used for calls to createreadsession.",
+	"Method": "UnaryCallSettings<CreateReadSessionRequest, ReadSession> createReadSessionSettings(UnaryCallSettings.Builder<CreateReadSessionRequest, ReadSession> createReadSessionSettings){\r\n    return ((BigQueryStorageStubSettings) getStubSettings()).createReadSessionSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.models.Filters.fromProto",
+	"Comment": "wraps protobuf representation of a filter.for advanced use only.",
+	"Method": "Filter fromProto(RowFilter rowFilter){\r\n    return new SimpleFilter(rowFilter);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.stub.BigtableTableAdminStubSettings.toBuilder",
+	"Comment": "returns a builder containing all the values of this settings class.",
+	"Method": "Builder toBuilder(){\r\n    return new Builder(this);\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.BackendServiceSettings.insertBackendServiceSettings",
+	"Comment": "returns the object with the settings used for calls to insertbackendservice.",
+	"Method": "UnaryCallSettings<InsertBackendServiceHttpRequest, Operation> insertBackendServiceSettings(UnaryCallSettings.Builder<InsertBackendServiceHttpRequest, Operation> insertBackendServiceSettings){\r\n    return ((BackendServiceStubSettings) getStubSettings()).insertBackendServiceSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BaseBigtableTableAdminSettings.generateConsistencyTokenSettings",
+	"Comment": "returns the object with the settings used for calls to generateconsistencytoken.",
+	"Method": "UnaryCallSettings<GenerateConsistencyTokenRequest, GenerateConsistencyTokenResponse> generateConsistencyTokenSettings(UnaryCallSettings.Builder<GenerateConsistencyTokenRequest, GenerateConsistencyTokenResponse> generateConsistencyTokenSettings){\r\n    return ((BigtableTableAdminStubSettings) getStubSettings()).generateConsistencyTokenSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.storage.v1beta1.stub.BigQueryStorageStubSettings.defaultExecutorProviderBuilder",
+	"Comment": "returns a builder for the default executorprovider for this service.",
+	"Method": "InstantiatingExecutorProvider.Builder defaultExecutorProviderBuilder(){\r\n    return InstantiatingExecutorProvider.newBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.datatransfer.v1.DataTransferServiceSettings.getTransferConfigSettings",
+	"Comment": "returns the object with the settings used for calls to gettransferconfig.",
+	"Method": "UnaryCallSettings<GetTransferConfigRequest, TransferConfig> getTransferConfigSettings(UnaryCallSettings.Builder<GetTransferConfigRequest, TransferConfig> getTransferConfigSettings){\r\n    return ((DataTransferServiceStubSettings) getStubSettings()).getTransferConfigSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BaseBigtableInstanceAdminSettings.updateClusterSettings",
+	"Comment": "returns the object with the settings used for calls to updatecluster.",
+	"Method": "UnaryCallSettings<Cluster, Operation> updateClusterSettings(UnaryCallSettings.Builder<Cluster, Operation> updateClusterSettings){\r\n    return ((BigtableInstanceAdminStubSettings) getStubSettings()).updateClusterSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.QueryStage.getWaitMsAvg",
+	"Comment": "returns the time in milliseconds the average worker spent waiting to be scheduled.",
+	"Method": "long getWaitMsAvg(){\r\n    return waitMsAvg;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.BigtableDataSettings.readRowsSettings",
+	"Comment": "returns the object with the settings used for calls to readrows.",
+	"Method": "ServerStreamingCallSettings<Query, Row> readRowsSettings(ServerStreamingCallSettings.Builder<Query, Row> readRowsSettings){\r\n    return getTypedStubSettings().readRowsSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.models.CreateInstanceRequest.of",
+	"Comment": "builds a new request to create a new instance with the specified id.",
+	"Method": "CreateInstanceRequest of(String instanceId){\r\n    return new CreateInstanceRequest(instanceId);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.storage.v1beta1.stub.EnhancedBigQueryStorageStubSettings.defaultCredentialsProviderBuilder",
+	"Comment": "returns a builder for the default credentials for this service.",
+	"Method": "GoogleCredentialsProvider.Builder defaultCredentialsProviderBuilder(){\r\n    return BigQueryStorageStubSettings.defaultCredentialsProviderBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BaseBigtableInstanceAdminSettings.defaultExecutorProviderBuilder",
+	"Comment": "returns a builder for the default executorprovider for this service.",
+	"Method": "InstantiatingExecutorProvider.Builder defaultExecutorProviderBuilder(){\r\n    return BigtableInstanceAdminStubSettings.defaultExecutorProviderBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.stub.BigtableInstanceAdminStubSettings.defaultCredentialsProviderBuilder",
+	"Comment": "returns a builder for the default credentials for this service.",
+	"Method": "GoogleCredentialsProvider.Builder defaultCredentialsProviderBuilder(){\r\n    return GoogleCredentialsProvider.newBuilder().setScopesToApply(DEFAULT_SERVICE_SCOPES);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.BigtableDataClient.create",
+	"Comment": "constructs an instance of bigtabledataclient, using the given settings. the channels arecreated based on the settings passed in, or defaults for any settings that are not set.",
+	"Method": "BigtableDataClient create(InstanceName instanceName,BigtableDataClient create,BigtableDataSettings settings){\r\n    EnhancedBigtableStub stub = EnhancedBigtableStub.create(settings.getTypedStubSettings());\r\n    return new BigtableDataClient(stub);\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.BackendBucketSettings.insertBackendBucketSettings",
+	"Comment": "returns the object with the settings used for calls to insertbackendbucket.",
+	"Method": "UnaryCallSettings<InsertBackendBucketHttpRequest, Operation> insertBackendBucketSettings(UnaryCallSettings.Builder<InsertBackendBucketHttpRequest, Operation> insertBackendBucketSettings){\r\n    return ((BackendBucketStubSettings) getStubSettings()).insertBackendBucketSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.storage.v1beta1.stub.EnhancedBigQueryStorageStubSettings.batchCreateReadSessionStreamsSettings",
+	"Comment": "returns the object with the settings used for calls to batchcreatereadsessionstreams.",
+	"Method": "UnaryCallSettings<BatchCreateReadSessionStreamsRequest, BatchCreateReadSessionStreamsResponse> batchCreateReadSessionStreamsSettings(UnaryCallSettings.Builder<BatchCreateReadSessionStreamsRequest, BatchCreateReadSessionStreamsResponse> batchCreateReadSessionStreamsSettings){\r\n    return batchCreateReadSessionStreamsSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.BackendServiceSettings.defaultHttpJsonTransportProviderBuilder",
+	"Comment": "returns a builder for the default channelprovider for this service.",
+	"Method": "InstantiatingHttpJsonChannelProvider.Builder defaultHttpJsonTransportProviderBuilder(){\r\n    return BackendServiceStubSettings.defaultHttpJsonTransportProviderBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.storage.v1beta1.stub.BigQueryStorageStubSettings.batchCreateReadSessionStreamsSettings",
+	"Comment": "returns the object with the settings used for calls to batchcreatereadsessionstreams.",
+	"Method": "UnaryCallSettings<BatchCreateReadSessionStreamsRequest, BatchCreateReadSessionStreamsResponse> batchCreateReadSessionStreamsSettings(UnaryCallSettings.Builder<BatchCreateReadSessionStreamsRequest, BatchCreateReadSessionStreamsResponse> batchCreateReadSessionStreamsSettings){\r\n    return batchCreateReadSessionStreamsSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.stub.BigtableTableAdminStubSettings.getTableSettings",
+	"Comment": "returns the object with the settings used for calls to gettable.",
+	"Method": "UnaryCallSettings<GetTableRequest, Table> getTableSettings(UnaryCallSettings.Builder<GetTableRequest, Table> getTableSettings){\r\n    return getTableSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.stub.PredictionServiceStubSettings.toBuilder",
+	"Comment": "returns a builder containing all the values of this settings class.",
+	"Method": "Builder toBuilder(){\r\n    return new Builder(this);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.models.CreateAppProfileRequest.setDescription",
+	"Comment": "sets the optional long form description of the use case for the appprofile.",
+	"Method": "CreateAppProfileRequest setDescription(String description){\r\n    proto.getAppProfileBuilder().setDescription(description);\r\n    return this;\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.AutoMlSettings.defaultGrpcTransportProviderBuilder",
+	"Comment": "returns a builder for the default channelprovider for this service.",
+	"Method": "InstantiatingGrpcChannelProvider.Builder defaultGrpcTransportProviderBuilder(){\r\n    return AutoMlStubSettings.defaultGrpcTransportProviderBuilder();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.stub.EnhancedBigtableStub.createMutateRowsBaseCallable",
+	"Comment": "internal helper to create the base mutaterows callable chain. the chain is responsible forretrying individual entry in case of error.",
+	"Method": "UnaryCallable<MutateRowsRequest, Void> createMutateRowsBaseCallable(){\r\n    RetryAlgorithm<Void> retryAlgorithm = new RetryAlgorithm(new ApiResultRetryAlgorithm<Void>(), new ExponentialRetryAlgorithm(settings.bulkMutateRowsSettings().getRetrySettings(), clientContext.getClock()));\r\n    RetryingExecutor<Void> retryingExecutor = new ScheduledRetryingExecutor(retryAlgorithm, clientContext.getExecutor());\r\n    return new MutateRowsRetryingCallable(clientContext.getDefaultCallContext(), stub.mutateRowsCallable(), retryingExecutor, settings.bulkMutateRowsSettings().getRetryableCodes());\r\n}"
+}, {
+	"Path": "com.google.cloud.asset.v1beta1.stub.AssetServiceStubSettings.exportAssetsOperationSettings",
+	"Comment": "returns the object with the settings used for calls to exportassets.",
+	"Method": "OperationCallSettings<ExportAssetsRequest, ExportAssetsResponse, ExportAssetsRequest> exportAssetsOperationSettings(OperationCallSettings.Builder<ExportAssetsRequest, ExportAssetsResponse, ExportAssetsRequest> exportAssetsOperationSettings){\r\n    return exportAssetsOperationSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.JobInfo.getStatistics",
+	"Comment": "returns information about the job, including starting time and ending time of the job.",
+	"Method": "S getStatistics(){\r\n    return (S) statistics;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.storage.v1beta1.BaseBigQueryStorageSettings.readRowsSettings",
+	"Comment": "returns the object with the settings used for calls to readrows.",
+	"Method": "ServerStreamingCallSettings<ReadRowsRequest, ReadRowsResponse> readRowsSettings(ServerStreamingCallSettings.Builder<ReadRowsRequest, ReadRowsResponse> readRowsSettings){\r\n    return ((BigQueryStorageStubSettings) getStubSettings()).readRowsSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.AddressSettings.listAddressesSettings",
+	"Comment": "returns the object with the settings used for calls to listaddresses.",
+	"Method": "PagedCallSettings<ListAddressesHttpRequest, AddressList, ListAddressesPagedResponse> listAddressesSettings(PagedCallSettings.Builder<ListAddressesHttpRequest, AddressList, ListAddressesPagedResponse> listAddressesSettings){\r\n    return ((AddressStubSettings) getStubSettings()).listAddressesSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.AutoMlSettings.listModelEvaluationsSettings",
+	"Comment": "returns the object with the settings used for calls to listmodelevaluations.",
+	"Method": "PagedCallSettings<ListModelEvaluationsRequest, ListModelEvaluationsResponse, ListModelEvaluationsPagedResponse> listModelEvaluationsSettings(PagedCallSettings.Builder<ListModelEvaluationsRequest, ListModelEvaluationsResponse, ListModelEvaluationsPagedResponse> listModelEvaluationsSettings){\r\n    return ((AutoMlStubSettings) getStubSettings()).listModelEvaluationsSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.AcceleratorTypeClient.create",
+	"Comment": "constructs an instance of acceleratortypeclient, using the given settings. the channels arecreated based on the settings passed in, or defaults for any settings that are not set.",
+	"Method": "AcceleratorTypeClient create(AcceleratorTypeClient create,AcceleratorTypeSettings settings,AcceleratorTypeClient create,AcceleratorTypeStub stub){\r\n    return new AcceleratorTypeClient(stub);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.stub.BigtableInstanceAdminStubSettings.createClusterOperationSettings",
+	"Comment": "returns the object with the settings used for calls to createcluster.",
+	"Method": "OperationCallSettings<CreateClusterRequest, Cluster, CreateClusterMetadata> createClusterOperationSettings(OperationCallSettings.Builder<CreateClusterRequest, Cluster, CreateClusterMetadata> createClusterOperationSettings){\r\n    return createClusterOperationSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BaseBigtableTableAdminSettings.dropRowRangeSettings",
+	"Comment": "returns the object with the settings used for calls to droprowrange.",
+	"Method": "UnaryCallSettings<DropRowRangeRequest, Empty> dropRowRangeSettings(UnaryCallSettings.Builder<DropRowRangeRequest, Empty> dropRowRangeSettings){\r\n    return ((BigtableTableAdminStubSettings) getStubSettings()).dropRowRangeSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.ImageInfo.getCreationTimestamp",
+	"Comment": "returns the creation timestamp in milliseconds since epoch.",
+	"Method": "Builder getCreationTimestamp(Long creationTimestamp,BuilderImpl getCreationTimestamp,Long creationTimestamp,Long getCreationTimestamp){\r\n    return creationTimestamp;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.stub.BigtableTableAdminStubSettings.createTableFromSnapshotSettings",
+	"Comment": "returns the object with the settings used for calls to createtablefromsnapshot.",
+	"Method": "UnaryCallSettings<CreateTableFromSnapshotRequest, Operation> createTableFromSnapshotSettings(UnaryCallSettings.Builder<CreateTableFromSnapshotRequest, Operation> createTableFromSnapshotSettings){\r\n    return createTableFromSnapshotSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.datatransfer.v1.stub.DataTransferServiceStubSettings.listTransferLogsSettings",
+	"Comment": "returns the object with the settings used for calls to listtransferlogs.",
+	"Method": "PagedCallSettings<ListTransferLogsRequest, ListTransferLogsResponse, ListTransferLogsPagedResponse> listTransferLogsSettings(PagedCallSettings.Builder<ListTransferLogsRequest, ListTransferLogsResponse, ListTransferLogsPagedResponse> listTransferLogsSettings){\r\n    return listTransferLogsSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.AutoscalerSettings.getAutoscalerSettings",
+	"Comment": "returns the object with the settings used for calls to getautoscaler.",
+	"Method": "UnaryCallSettings<GetAutoscalerHttpRequest, Autoscaler> getAutoscalerSettings(UnaryCallSettings.Builder<GetAutoscalerHttpRequest, Autoscaler> getAutoscalerSettings){\r\n    return ((AutoscalerStubSettings) getStubSettings()).getAutoscalerSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.models.BulkMutation.add",
+	"Comment": "add mutation for a particular row. the changes in the mutation will be applied atomic. howeverthere is no guarantees about the relative ordering between mutations affecting different rows.",
+	"Method": "BulkMutation add(String rowKey,Mutation mutation,BulkMutation add,ByteString rowKey,Mutation mutation){\r\n    Preconditions.checkNotNull(rowKey);\r\n    Preconditions.checkNotNull(mutation);\r\n    builder.addEntries(MutateRowsRequest.Entry.newBuilder().setRowKey(rowKey).addAllMutations(mutation.getMutations()).build());\r\n    return this;\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.stub.AutoMlStubSettings.createDatasetSettings",
+	"Comment": "returns the object with the settings used for calls to createdataset.",
+	"Method": "UnaryCallSettings<CreateDatasetRequest, Dataset> createDatasetSettings(UnaryCallSettings.Builder<CreateDatasetRequest, Dataset> createDatasetSettings){\r\n    return createDatasetSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BaseBigtableInstanceAdminSettings.listAppProfilesSettings",
+	"Comment": "returns the object with the settings used for calls to listappprofiles.",
+	"Method": "PagedCallSettings<ListAppProfilesRequest, ListAppProfilesResponse, ListAppProfilesPagedResponse> listAppProfilesSettings(PagedCallSettings.Builder<ListAppProfilesRequest, ListAppProfilesResponse, ListAppProfilesPagedResponse> listAppProfilesSettings){\r\n    return ((BigtableInstanceAdminStubSettings) getStubSettings()).listAppProfilesSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.DatasetInfo.getCreationTime",
+	"Comment": "returns the time when this dataset was created, in milliseconds since the epoch.",
+	"Method": "Long getCreationTime(){\r\n    return creationTime;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.QueryJobConfiguration.getDefaultDataset",
+	"Comment": "returns the default dataset. this dataset is used for all unqualified table names used in thequery.",
+	"Method": "DatasetId getDefaultDataset(){\r\n    return defaultDataset;\r\n}"
+}, {
+	"Path": "com.google.cloud.automl.v1beta1.stub.AutoMlStubSettings.deleteDatasetSettings",
+	"Comment": "returns the object with the settings used for calls to deletedataset.",
+	"Method": "UnaryCallSettings<DeleteDatasetRequest, Operation> deleteDatasetSettings(UnaryCallSettings.Builder<DeleteDatasetRequest, Operation> deleteDatasetSettings){\r\n    return deleteDatasetSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.TableResult.getSchema",
+	"Comment": "returns the schema of the results. null if the schema is not supplied.",
+	"Method": "Schema getSchema(){\r\n    return schema;\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.v1.BackendBucketSettings.getBackendBucketSettings",
+	"Comment": "returns the object with the settings used for calls to getbackendbucket.",
+	"Method": "UnaryCallSettings<GetBackendBucketHttpRequest, BackendBucket> getBackendBucketSettings(UnaryCallSettings.Builder<GetBackendBucketHttpRequest, BackendBucket> getBackendBucketSettings){\r\n    return ((BackendBucketStubSettings) getStubSettings()).getBackendBucketSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.datatransfer.v1.stub.DataTransferServiceStubSettings.getDataSourceSettings",
+	"Comment": "returns the object with the settings used for calls to getdatasource.",
+	"Method": "UnaryCallSettings<GetDataSourceRequest, DataSource> getDataSourceSettings(UnaryCallSettings.Builder<GetDataSourceRequest, DataSource> getDataSourceSettings){\r\n    return getDataSourceSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.datatransfer.v1.stub.DataTransferServiceStubSettings.deleteTransferRunSettings",
+	"Comment": "returns the object with the settings used for calls to deletetransferrun.",
+	"Method": "UnaryCallSettings<DeleteTransferRunRequest, Empty> deleteTransferRunSettings(UnaryCallSettings.Builder<DeleteTransferRunRequest, Empty> deleteTransferRunSettings){\r\n    return deleteTransferRunSettings;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.data.v2.BigtableDataSettings.sampleRowKeysSettings",
+	"Comment": "returns the object with the settings used for calls to samplerowkeys.",
+	"Method": "UnaryCallSettings<String, List<KeyOffset>> sampleRowKeysSettings(UnaryCallSettings.Builder<String, List<KeyOffset>> sampleRowKeysSettings){\r\n    return getTypedStubSettings().sampleRowKeysSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.compute.deprecated.DiskInfo.getCreationTimestamp",
+	"Comment": "returns the creation timestamp in milliseconds since epoch.",
+	"Method": "Long getCreationTimestamp(){\r\n    return creationTimestamp;\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.BaseBigtableTableAdminSettings.getSnapshotSettings",
+	"Comment": "returns the object with the settings used for calls to getsnapshot.",
+	"Method": "UnaryCallSettings<GetSnapshotRequest, Snapshot> getSnapshotSettings(UnaryCallSettings.Builder<GetSnapshotRequest, Snapshot> getSnapshotSettings){\r\n    return ((BigtableTableAdminStubSettings) getStubSettings()).getSnapshotSettings();\r\n}"
+}, {
+	"Path": "com.google.cloud.bigquery.StandardTableDefinition.newBuilder",
+	"Comment": "returns a builder for a bigquery standard table definition.",
+	"Method": "Builder newBuilder(){\r\n    return new AutoValue_StandardTableDefinition.Builder().setType(Type.TABLE);\r\n}"
+}, {
+	"Path": "com.google.cloud.bigtable.admin.v2.stub.BigtableTableAdminStubSettings.deleteSnapshotSettings",
+	"Comment": "returns the object with the settings used for calls to deletesnapshot.",
+	"Method": "UnaryCallSettings<DeleteSnapshotRequest, Empty> deleteSnapshotSettings(UnaryCallSettings.Builder<DeleteSnapshotRequest, Empty> deleteSnapshotSettings){\r\n    return deleteSnapshotSettings;\r\n}"
+}]

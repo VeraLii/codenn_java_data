@@ -1,0 +1,1525 @@
+[{
+	"Path": "aria.apache.commons.net.ftp.FTP.mkd",
+	"Comment": "a convenience method to send the ftp mkd command to the server,receive the reply, and return the reply code.",
+	"Method": "int mkd(String pathname){\r\n    return sendCommand(FTPCmd.MKD, pathname);\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTP.quit",
+	"Comment": "a convenience method to send the ftp quit command to the server,receive the reply, and return the reply code.",
+	"Method": "int quit(){\r\n    return sendCommand(FTPCmd.QUIT);\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTP.stat",
+	"Comment": "a convenience method to send the ftp stat command to the server,receive the reply, and return the reply code.",
+	"Method": "int stat(int stat,String pathname){\r\n    return sendCommand(FTPCmd.STAT, pathname);\r\n}"
+}, {
+	"Path": "carbon.widget.RecyclerView.setCornerRadius",
+	"Comment": "sets the corner radius. if corner radius is equal to 0, rounded corners are turned off.",
+	"Method": "void setCornerRadius(float cornerRadius){\r\n    setCorners(new Corners(cornerRadius, false));\r\n}"
+}, {
+	"Path": "com.sun.btrace.BTraceUtils.totalStartedThreadCount",
+	"Comment": "returns the total number of threads created and also startedsince the java virtual machine started.",
+	"Method": "long totalStartedThreadCount(long totalStartedThreadCount){\r\n    return Sys.VM.totalStartedThreadCount();\r\n}"
+}, {
+	"Path": "org.connectbot.service.TerminalBridge.outputLine",
+	"Comment": "convenience method for writing text into the underlying terminal buffer.\tshould never be called once the session is established.",
+	"Method": "void outputLine(String output){\r\n    if (transport != null && transport.isSessionOpen()) {\r\n        Log.e(TAG, \"Session established, cannot use outputLine!\", new IOException(\"outputLine call traceback\"));\r\n    }\r\n    synchronized (localOutput) {\r\n        for (String line : output.split(\"\\n\", -1)) {\r\n            if (line.length() > 0 && line.charAt(line.length() - 1) == '\\r') {\r\n                line = line.substring(0, line.length() - 1);\r\n            }\r\n            final String s = line + \"\\r\\n\";\r\n            localOutput.add(s);\r\n            ((vt320) buffer).putString(s);\r\n            final char[] charArray = s.toCharArray();\r\n            propagateConsoleText(charArray, charArray.length);\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPFile.getUser",
+	"Comment": "returns the name of the user owning the file.sometimes this will bea string representation of the user number.",
+	"Method": "String getUser(){\r\n    return _user;\r\n}"
+}, {
+	"Path": "io.crate.common.Hex.encodeHex",
+	"Comment": "converts an array of bytes into an array of characters representing the hexadecimal values of each byte in order.the returned array will be double the length of the passed array, as it takes two characters to represent anygiven byte.",
+	"Method": "char[] encodeHex(byte[] data,char[] encodeHex,byte[] data,boolean toLowerCase,char[] encodeHex,byte[] data,char[] toDigits){\r\n    int l = data.length;\r\n    char[] out = new char[l << 1];\r\n    for (int i = 0, j = 0; i < l; i++) {\r\n        out[j++] = toDigits[(0xF0 & data[i]) >>> 4];\r\n        out[j++] = toDigits[0x0F & data[i]];\r\n    }\r\n    return out;\r\n}"
+}, {
+	"Path": "io.crate.metadata.Routing.containsShards",
+	"Comment": "returns true if the routing contains shards for any table of the given node",
+	"Method": "boolean containsShards(String nodeId,boolean containsShards){\r\n    for (Map<String, IntIndexedContainer> indices : locations.values()) {\r\n        for (IntIndexedContainer shards : indices.values()) {\r\n            if (!shards.isEmpty()) {\r\n                return true;\r\n            }\r\n        }\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPFile.getHardLinkCount",
+	"Comment": "return the number of hard links to this file.this is not to beconfused with symbolic links.",
+	"Method": "int getHardLinkCount(){\r\n    return _hardLinkCount;\r\n}"
+}, {
+	"Path": "io.crate.analyze.user.Privilege.hashCode",
+	"Comment": "builds a hash code.grantor is left out by intend, this is just an information variable.",
+	"Method": "int hashCode(){\r\n    return Objects.hash(state, ident);\r\n}"
+}, {
+	"Path": "com.sun.btrace.BTraceUtils.getAndSet",
+	"Comment": "atomically sets to the given value and returns the old value.",
+	"Method": "int getAndSet(AtomicInteger ai,int newValue,long getAndSet,AtomicLong al,long newValue,int getAndSet,AtomicInteger ai,int newValue,long getAndSet,AtomicLong al,long newValue){\r\n    return Atomic.getAndSet(al, newValue);\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTP.cwd",
+	"Comment": "a convenience method to send the ftp cwd command to the server,receive the reply, and return the reply code.",
+	"Method": "int cwd(String directory){\r\n    return sendCommand(FTPCmd.CWD, directory);\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPClient.reinitialize",
+	"Comment": "reinitialize the ftp session.not all ftp servers support thiscommand, which issues the ftp rein command.",
+	"Method": "boolean reinitialize(){\r\n    rein();\r\n    if (FTPReply.isPositiveCompletion(_replyCode) || (FTPReply.isPositivePreliminary(_replyCode) && FTPReply.isPositiveCompletion(getReply()))) {\r\n        __initDefaults();\r\n        return true;\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "com.sun.btrace.agent.TraceOutputWriter.rollingFileWriter",
+	"Comment": "time based rolling file writer. defaults to 100 allowed output chunks.",
+	"Method": "TraceOutputWriter rollingFileWriter(File output,SharedSettings settings){\r\n    TraceOutputWriter instance = null;\r\n    try {\r\n        instance = new TimeBasedRollingFileWriter(output, settings);\r\n    } catch (IOException e) {\r\n    }\r\n    return instance;\r\n}"
+}, {
+	"Path": "carbon.drawable.ripple.LayerDrawable.setLayerInset",
+	"Comment": "specifies the insets in pixels for the drawable at the specified index.",
+	"Method": "void setLayerInset(int index,int l,int t,int r,int b){\r\n    setLayerInsetInternal(index, l, t, r, b, UNDEFINED_INSET, UNDEFINED_INSET);\r\n}"
+}, {
+	"Path": "carbon.widget.LinearLayout.setCornerRadius",
+	"Comment": "sets the corner radius. if corner radius is equal to 0, rounded corners are turned off.",
+	"Method": "void setCornerRadius(float cornerRadius){\r\n    setCorners(new Corners(cornerRadius, false));\r\n}"
+}, {
+	"Path": "io.crate.expression.symbol.FuncArg.isValueSymbol",
+	"Comment": "returns true if this symbol holds a value that may be castpreferably before other symbols, ie. literal and parametersymbols.",
+	"Method": "boolean isValueSymbol(){\r\n    return false;\r\n}"
+}, {
+	"Path": "com.sun.btrace.BTraceUtils.isPrimitive",
+	"Comment": "returns whether the given class represent primitive type or not.",
+	"Method": "boolean isPrimitive(Class clazz,boolean isPrimitive,Class clazz){\r\n    return Reflective.isPrimitive(clazz);\r\n}"
+}, {
+	"Path": "com.sun.btrace.util.IntervalTest.testInvertIntersectingIntervals",
+	"Comment": "test of invert method, of class interval.checking intersecting intervals negation",
+	"Method": "void testInvertIntersectingIntervals(){\r\n    System.out.println(\"Negate Intersecting Intervals\");\r\n    Collection<Interval> intervals = Arrays.asList(new Interval(1, 6), new Interval(6, 10), new Interval(8, 12));\r\n    List<Interval> expResult = Arrays.asList(Interval.lt(1), Interval.gt(12));\r\n    List<Interval> result = Interval.invert(intervals);\r\n    assertEquals(expResult, result);\r\n}"
+}, {
+	"Path": "carbon.drawable.ripple.RippleDrawableICS.updateStateFromTypedArray",
+	"Comment": "initializes the constant state from the values in the typed array.",
+	"Method": "void updateStateFromTypedArray(TypedArray a){\r\n    final RippleState state = mState;\r\n    state.mChangingConfigurations |= TypedArrayCompat.getChangingConfigurations(a);\r\n    state.mTouchThemeAttrs = TypedArrayCompat.extractThemeAttrs(a);\r\n    final ColorStateList color = a.getColorStateList(R.styleable.RippleDrawable_android_color);\r\n    if (color != null) {\r\n        mState.mColor = color;\r\n    }\r\n    mState.mMaxRadius = a.getDimensionPixelSize(R.styleable.RippleDrawable_android_radius, mState.mMaxRadius);\r\n    verifyRequiredAttributes(a);\r\n}"
+}, {
+	"Path": "carbon.drawable.ripple.RippleDrawableICS.onHotspotBoundsChanged",
+	"Comment": "notifies all the animating ripples that the hotspot bounds have changed.",
+	"Method": "void onHotspotBoundsChanged(){\r\n    final int count = mExitingRipplesCount;\r\n    final RippleForeground[] ripples = mExitingRipples;\r\n    for (int i = 0; i < count; i++) {\r\n        ripples[i].onHotspotBoundsChanged();\r\n    }\r\n    if (mRipple != null) {\r\n        mRipple.onHotspotBoundsChanged();\r\n    }\r\n    if (mBackground != null) {\r\n        mBackground.onHotspotBoundsChanged();\r\n    }\r\n}"
+}, {
+	"Path": "io.crate.expression.scalar.cast.CastFunctionResolver.functionInfo",
+	"Comment": "resolve the needed conversion function info based on the wanted return data type",
+	"Method": "FunctionInfo functionInfo(DataType dataType,DataType returnType,boolean tryCast){\r\n    String functionName = FUNCTION_MAP.get(returnType);\r\n    if (functionName == null) {\r\n        throw new IllegalArgumentException(String.format(Locale.ENGLISH, \"No cast function found for return type %s\", returnType.getName()));\r\n    }\r\n    functionName = tryCast ? TRY_CAST_PREFIX + functionName : functionName;\r\n    return new FunctionInfo(new FunctionIdent(functionName, ImmutableList.of(dataType)), returnType);\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.parser.MVSFTPEntryParser.parseSimpleEntry",
+	"Comment": "assigns the name to the first word of the entry. only to be used from asafe context, for example from a memberlist, where the regex for somereason fails. then just assign the name field of ftpfile.",
+	"Method": "boolean parseSimpleEntry(FTPFile file,String entry){\r\n    if (entry != null && entry.trim().length() > 0) {\r\n        file.setRawListing(entry);\r\n        String name = entry.split(\" \")[0];\r\n        file.setName(name);\r\n        file.setType(FTPFile.FILE_TYPE);\r\n        return true;\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "carbon.widget.FlowLayout.getCornerRadius",
+	"Comment": "gets the corner radius. if corner radius is equal to 0, rounded corners are turned off.",
+	"Method": "float getCornerRadius(){\r\n    return corners.getTopStart();\r\n}"
+}, {
+	"Path": "io.crate.execution.engine.collect.stats.JobsLogService.isEnabled",
+	"Comment": "indicates if statistics are gathered.this result will change if the cluster settings is updated.",
+	"Method": "boolean isEnabled(){\r\n    return isEnabled;\r\n}"
+}, {
+	"Path": "de.schildbach.wallet.integration.android.BitcoinIntegration.transactionHashToResult",
+	"Comment": "put transaction hash into result intent. meant for usage by bitcoin wallet applications.",
+	"Method": "void transactionHashToResult(Intent result,String txHash){\r\n    result.putExtra(INTENT_EXTRA_TRANSACTION_HASH, txHash);\r\n}"
+}, {
+	"Path": "com.sun.btrace.aggregation.Aggregation.getValueForKey",
+	"Comment": "returns a value for the given key if the key has a value associated with it. returns zero if the key is notvalid for this aggregation.",
+	"Method": "Long getValueForKey(AggregationKey key){\r\n    AggregationValue aggregationValue = values.get(key);\r\n    if (aggregationValue != null) {\r\n        return aggregationValue.getValue();\r\n    } else {\r\n        return 0L;\r\n    }\r\n}"
+}, {
+	"Path": "carbon.widget.Toolbar.setCornerRadius",
+	"Comment": "sets the corner radius. if corner radius is equal to 0, rounded corners are turned off.",
+	"Method": "void setCornerRadius(float cornerRadius){\r\n    setCorners(new Corners(cornerRadius, false));\r\n}"
+}, {
+	"Path": "org.connectbot.util.TerminalTextViewOverlay.mouseEventToJavaModifiers",
+	"Comment": "takes an android mouse event and produces a java inputevent modifiers int which can be\tpassed to vt320.",
+	"Method": "int mouseEventToJavaModifiers(MotionEvent mouseEvent){\r\n    if (MotionEventCompat.getSource(mouseEvent) != InputDevice.SOURCE_MOUSE)\r\n        return 0;\r\n    int mods = 0;\r\n    int buttonState = mouseEvent.getButtonState();\r\n    if ((buttonState & MotionEvent.BUTTON_PRIMARY) != 0)\r\n        mods |= 16;\r\n    if ((buttonState & MotionEvent.BUTTON_SECONDARY) != 0)\r\n        mods |= 8;\r\n    if ((buttonState & MotionEvent.BUTTON_TERTIARY) != 0)\r\n        mods |= 4;\r\n    int meta = mouseEvent.getMetaState();\r\n    if ((meta & KeyEvent.META_META_ON) != 0)\r\n        mods |= 2;\r\n    if ((meta & KeyEvent.META_SHIFT_ON) != 0)\r\n        mods |= 1;\r\n    if ((meta & KeyEvent.META_CTRL_ON) != 0)\r\n        mods |= 4;\r\n    return mods;\r\n}"
+}, {
+	"Path": "carbon.drawable.ripple.RippleComponent.cancel",
+	"Comment": "cancels all animations. software animation values are left in thecurrent state, while hardware animation values jump to the end state.",
+	"Method": "void cancel(){\r\n    cancelSoftwareAnimations();\r\n}"
+}, {
+	"Path": "carbon.widget.Button.getCornerRadius",
+	"Comment": "gets the corner radius. if corner radius is equal to 0, rounded corners are turned off.",
+	"Method": "float getCornerRadius(){\r\n    return corners.getTopStart();\r\n}"
+}, {
+	"Path": "org.connectbot.util.TerminalTextViewOverlay.onBufferChanged",
+	"Comment": "if there is a new line in the buffer, add an empty line\tin this textview, so that selection seems to move up with the\trest of the buffer.",
+	"Method": "void onBufferChanged(){\r\n    VDUBuffer vb = terminalView.bridge.getVDUBuffer();\r\n    int numRows = vb.getBufferSize();\r\n    int numNewRows = numRows - oldBufferHeight;\r\n    if (numNewRows <= 0) {\r\n        return;\r\n    }\r\n    StringBuilder newLines = new StringBuilder(numNewRows);\r\n    for (int i = 0; i < numNewRows; i++) {\r\n        newLines.append('\\n');\r\n    }\r\n    oldScrollY = (vb.getWindowBase() + numNewRows) * getLineHeight();\r\n    oldBufferHeight = numRows;\r\n    append(newLines);\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.SocketClient.getCommandSupport",
+	"Comment": "subclasses can override this if they need to provide their owninstance field for backwards compatibilty.",
+	"Method": "ProtocolCommandSupport getCommandSupport(){\r\n    return __commandSupport;\r\n}"
+}, {
+	"Path": "org.connectbot.ConsoleActivity.setDisplayedTerminal",
+	"Comment": "displays the child in the viewpager at the requestedindex and updates the prompts.",
+	"Method": "void setDisplayedTerminal(int requestedIndex){\r\n    pager.setCurrentItem(requestedIndex);\r\n    setTitle(adapter.getPageTitle(requestedIndex));\r\n    onTerminalChanged();\r\n}"
+}, {
+	"Path": "io.crate.analyze.user.Privilege.equals",
+	"Comment": "equality validation.grantor is left out by intend, this is just an information variable.",
+	"Method": "boolean equals(Object o){\r\n    if (this == o)\r\n        return true;\r\n    if (o == null || getClass() != o.getClass())\r\n        return false;\r\n    Privilege privilege = (Privilege) o;\r\n    return state == privilege.state && Objects.equals(ident, privilege.ident);\r\n}"
+}, {
+	"Path": "io.crate.metadata.ColumnIdentTest.assertExceptionIsThrownOnValidation",
+	"Comment": "function that tests if validation is throwing an illegalargumentexception withgiven expected message.",
+	"Method": "void assertExceptionIsThrownOnValidation(String columnName,String expectedMessage){\r\n    boolean expecedExceptionIsThrown = false;\r\n    try {\r\n        ColumnIdent.validateColumnName(columnName);\r\n    } catch (InvalidColumnNameException e) {\r\n        if (expectedMessage == null || e.getMessage().contains(expectedMessage)) {\r\n            expecedExceptionIsThrown = true;\r\n        }\r\n    }\r\n    assertTrue(expecedExceptionIsThrown);\r\n}"
+}, {
+	"Path": "com.arialyy.aria.util.WeakHandler.sendEmptyMessageDelayed",
+	"Comment": "sends a message containing only the what value, to be deliveredafter the specified amount of time elapses.",
+	"Method": "boolean sendEmptyMessageDelayed(int what,long delayMillis){\r\n    return mExec.sendEmptyMessageDelayed(what, delayMillis);\r\n}"
+}, {
+	"Path": "io.crate.lucene.CommonQueryBuilderTest.testRegexQueryFast",
+	"Comment": "make sure we still sport the fast lucene regularexpression engine when not using pcre features.",
+	"Method": "void testRegexQueryFast(){\r\n    Query query = convert(\"name ~ '[a-z]'\");\r\n    assertThat(query, instanceOf(ConstantScoreQuery.class));\r\n    ConstantScoreQuery scoreQuery = (ConstantScoreQuery) query;\r\n    assertThat(scoreQuery.getQuery(), instanceOf(RegexpQuery.class));\r\n}"
+}, {
+	"Path": "com.twosigma.beakerx.table.format.TableDisplayStringFormat.getImageFormat",
+	"Comment": "get a formatter that will show derived source as an image with specified width",
+	"Method": "TableDisplayStringFormat getImageFormat(TableDisplayStringFormat getImageFormat,int width){\r\n    return new ImageStringFormat(width);\r\n}"
+}, {
+	"Path": "com.sun.btrace.aggregation.Aggregation.getData",
+	"Comment": "returns details of the aggregation in a tabular format which can be serialized across the wire and formatted fordisplay. the data is represented as a list of rows. the last element in each row represents the aggregated value,the elements before this in the row contain the elements of the aggregating key.",
+	"Method": "List<Object[]> getData(){\r\n    List<Entry<AggregationKey, AggregationValue>> sortedContents = sort();\r\n    List<Object[]> result = new ArrayList(sortedContents.size());\r\n    for (Entry<AggregationKey, AggregationValue> item : sortedContents) {\r\n        Object[] keyElements = item.getKey().getElements();\r\n        int rowSize = keyElements.length + 1;\r\n        Object[] row = new Object[rowSize];\r\n        System.arraycopy(keyElements, 0, row, 0, keyElements.length);\r\n        row[rowSize - 1] = item.getValue().getData();\r\n        result.add(row);\r\n    }\r\n    return result;\r\n}"
+}, {
+	"Path": "com.sun.btrace.BTraceUtils.isBootClassPathSupported",
+	"Comment": "tests if the java virtual machine supports the boot class pathmechanism used by the bootstrap class loader to search for classfiles.",
+	"Method": "boolean isBootClassPathSupported(boolean isBootClassPathSupported){\r\n    return Sys.VM.isBootClassPathSupported();\r\n}"
+}, {
+	"Path": "io.crate.analyze.TablePropertiesAnalyzer.analyzeResetProperties",
+	"Comment": "processes the property names which should be reset and updates the settings or mappings with the relateddefault value.",
+	"Method": "void analyzeResetProperties(TableParameter tableParameter,TableParameterInfo tableParameterInfo,List<String> properties){\r\n    Map<String, Setting> settingMap = tableParameterInfo.supportedSettings();\r\n    Map<String, Setting> mappingsMap = tableParameterInfo.supportedMappings();\r\n    for (String name : properties) {\r\n        Setting setting = settingMap.get(name);\r\n        boolean isMappingEntry = false;\r\n        if (setting == null) {\r\n            setting = mappingsMap.get(name);\r\n            isMappingEntry = true;\r\n        }\r\n        if (setting == null) {\r\n            throw new IllegalArgumentException(String.format(Locale.ENGLISH, INVALID_MESSAGE, name));\r\n        }\r\n        Object value = setting.getDefault(Settings.EMPTY);\r\n        if (isMappingEntry) {\r\n            tableParameter.mappings().put(setting.getKey(), value);\r\n        } else {\r\n            if (value instanceof Settings) {\r\n                tableParameter.settingsBuilder().put((Settings) value);\r\n            } else {\r\n                tableParameter.settingsBuilder().put(setting.getKey(), value.toString());\r\n            }\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPFile.getLink",
+	"Comment": "if the ftpfile is a symbolic link, this method returns the name of thefile being pointed to by the symbolic link.otherwise it returns null.",
+	"Method": "String getLink(){\r\n    return _link;\r\n}"
+}, {
+	"Path": "carbon.widget.TextView.getCornerRadius",
+	"Comment": "gets the corner radius. if corner radius is equal to 0, rounded corners are turned off.",
+	"Method": "float getCornerRadius(){\r\n    return corners.getTopStart();\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPClient.changeToParentDirectory",
+	"Comment": "change to the parent directory of the current working directory.",
+	"Method": "boolean changeToParentDirectory(){\r\n    return FTPReply.isPositiveCompletion(cdup());\r\n}"
+}, {
+	"Path": "carbon.internal.WeakHashSet.getReferenceObject",
+	"Comment": "a convenience method to return the object held by theweak reference or null if it does not exist.",
+	"Method": "Object getReferenceObject(WeakReference ref){\r\n    return (ref == null) ? null : ref.get();\r\n}"
+}, {
+	"Path": "carbon.widget.DrawerLayout.setCornerRadius",
+	"Comment": "sets the corner radius. if corner radius is equal to 0, rounded corners are turned off.",
+	"Method": "void setCornerRadius(float cornerRadius){\r\n    setCorners(new Corners(cornerRadius, false));\r\n}"
+}, {
+	"Path": "io.crate.action.sql.SessionContext.systemSessionContext",
+	"Comment": "creates a new sessioncontext suitable to use as system sessioncontext",
+	"Method": "SessionContext systemSessionContext(){\r\n    return new SessionContext(0, Option.NONE, User.CRATE_USER, s -> {\r\n    }, e -> {\r\n    });\r\n}"
+}, {
+	"Path": "io.crate.metadata.ColumnIdent.validateUnderscorePatternInColumnName",
+	"Comment": "checks if a column name contains a underscore pattern and throws an exception if it does.",
+	"Method": "void validateUnderscorePatternInColumnName(String columnName){\r\n    if (UNDERSCORE_PATTERN.matcher(columnName).matches()) {\r\n        throw new InvalidColumnNameException(columnName, \"conflicts with system column pattern\");\r\n    }\r\n}"
+}, {
+	"Path": "de.schildbach.wallet.integration.android.BitcoinIntegration.paymentToResult",
+	"Comment": "put bip70 payment message into result intent. meant for usage by bitcoin wallet applications.",
+	"Method": "void paymentToResult(Intent result,byte[] payment){\r\n    result.putExtra(INTENT_EXTRA_PAYMENT, payment);\r\n}"
+}, {
+	"Path": "com.sun.btrace.runtime.ClassFilter.isSubTypeOf",
+	"Comment": "return whether given class typea is subtype of any of thegiven type names.",
+	"Method": "boolean isSubTypeOf(Class clazz,String typeName,boolean isSubTypeOf,String typeA,ClassLoader loader,String types){\r\n    if (typeA == null || typeA.equals(Constants.OBJECT_INTERNAL)) {\r\n        return false;\r\n    }\r\n    if (types.length == 0) {\r\n        return false;\r\n    }\r\n    boolean internal = types[0].contains(\"/\");\r\n    loader = (loader != null ? loader : ClassLoader.getSystemClassLoader());\r\n    if (internal) {\r\n        typeA = typeA.replace('.', '/');\r\n    } else {\r\n        typeA = typeA.replace('/', '.');\r\n    }\r\n    Set<String> typeSet = new HashSet(Arrays.asList(types));\r\n    if (typeSet.contains(typeA)) {\r\n        return true;\r\n    }\r\n    ClassInfo ci = ClassCache.getInstance().get(loader, typeA);\r\n    Collection<ClassInfo> sTypesInfo = ci.getSupertypes(false);\r\n    if (sTypesInfo != null) {\r\n        Collection<String> sTypes = new ArrayList(sTypesInfo.size());\r\n        for (ClassInfo sCi : sTypesInfo) {\r\n            sTypes.add(internal ? sCi.getClassName() : sCi.getJavaClassName());\r\n        }\r\n        sTypes.retainAll(typeSet);\r\n        return !sTypes.isEmpty();\r\n    } else {\r\n        return false;\r\n    }\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.util.SubnetUtils.matchAddress",
+	"Comment": "convenience method to extract the components of a dotted decimal address andpack into an integer using a regex match",
+	"Method": "int matchAddress(Matcher matcher){\r\n    int addr = 0;\r\n    for (int i = 1; i <= 4; ++i) {\r\n        int n = (rangeCheck(Integer.parseInt(matcher.group(i)), 0, 255));\r\n        addr |= ((n & 0xff) << 8 * (4 - i));\r\n    }\r\n    return addr;\r\n}"
+}, {
+	"Path": "com.sun.btrace.BTraceUtils.str",
+	"Comment": "returns a string object representing the specifiedlong.the argument is converted to signed decimalrepresentation and returned as a string.",
+	"Method": "String str(Object obj,String str,boolean b,String str,char c,String str,int i,String str,long l,String str,float f,String str,double d,String str,boolean b,String str,char c,String str,int i,String str,long l,String str,Object obj,String str,float f,String str,double d){\r\n    return Strings.str(d);\r\n}"
+}, {
+	"Path": "com.sun.btrace.util.IntervalTest.testInvertIntersectingIntervalsAll",
+	"Comment": "test of invert method, of class interval.checking intersecting intervals negation",
+	"Method": "void testInvertIntersectingIntervalsAll(){\r\n    System.out.println(\"Negate Intersecting Intervals All\");\r\n    Collection<Interval> intervals = Arrays.asList(Interval.ge(1), Interval.lt(5));\r\n    List<Interval> expResult = Arrays.asList(Interval.none());\r\n    List<Interval> result = Interval.invert(intervals);\r\n    assertEquals(expResult, result);\r\n}"
+}, {
+	"Path": "carbon.drawable.ripple.LollipopDrawablesCompat.createFromResourceStream",
+	"Comment": "create a drawable from an inputstream, using the given resources andvalue to determine density information.",
+	"Method": "Drawable createFromResourceStream(Resources res,TypedValue value,InputStream is,String srcName,Drawable createFromResourceStream,Resources res,TypedValue value,InputStream is,String srcName,BitmapFactory.Options opts){\r\n    return Drawable.createFromResourceStream(res, value, is, srcName, opts);\r\n}"
+}, {
+	"Path": "com.twosigma.beakerx.groovy.autocomplete.GroovyImportDeclarationCompletion.exitImportStatement",
+	"Comment": "this is used to autocomplete import statements and to add to our type definitions every imported package and class",
+	"Method": "void exitImportStatement(ImportStatementContext ctx){\r\n    if (isAutocompleteOfImportStatement(ctx)) {\r\n        if (text.charAt(cursor - 1) == '.') {\r\n            importPackageNameAfterDot(ctx);\r\n        } else {\r\n            importPackageName(ctx);\r\n        }\r\n    } else {\r\n        String st = ctx.getText();\r\n        st = removeImportWord(st);\r\n        if (GroovyCompletionTypes.debug)\r\n            logger.info(\"adding import for {}\", st);\r\n        if (isWildcard(st)) {\r\n            importWithWildcard(st);\r\n        } else {\r\n            createImportAutocompleteCandidate(classUtils, registry, st);\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "carbon.drawable.ripple.LayerDrawable.setOpacity",
+	"Comment": "sets the opacity of this drawable directly instead of collecting thestates from the layers.",
+	"Method": "void setOpacity(int opacity){\r\n    mLayerState.mOpacityOverride = opacity;\r\n}"
+}, {
+	"Path": "carbon.widget.ConstraintLayout.setCornerRadius",
+	"Comment": "sets the corner radius. if corner radius is equal to 0, rounded corners are turned off.",
+	"Method": "void setCornerRadius(float cornerRadius){\r\n    setCorners(new Corners(cornerRadius, false));\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPSClient.sendCommand",
+	"Comment": "would like to remove this method, but that will break any existing clients that are using ccc",
+	"Method": "int sendCommand(String command,String args){\r\n    int repCode = super.sendCommand(command, args);\r\n    if (CMD_CCC.equals(command)) {\r\n        if (FTPReply.COMMAND_OK == repCode) {\r\n            _socket_.close();\r\n            _socket_ = plainSocket;\r\n            _controlInput_ = new BufferedReader(new InputStreamReader(_socket_.getInputStream(), getControlEncoding()));\r\n            _controlOutput_ = new BufferedWriter(new OutputStreamWriter(_socket_.getOutputStream(), getControlEncoding()));\r\n        } else {\r\n            throw new SSLException(getReplyString());\r\n        }\r\n    }\r\n    return repCode;\r\n}"
+}, {
+	"Path": "io.crate.integrationtests.SysNodeResiliencyIntegrationTest.testTimingOutNode",
+	"Comment": "test that basic information from cluster state is used if a sys noderequest is timing out",
+	"Method": "void testTimingOutNode(){\r\n    String[] nodeNames = internalCluster().getNodeNames();\r\n    String n1 = nodeNames[0];\r\n    String n2 = nodeNames[1];\r\n    NetworkDisruption partition = new NetworkDisruption(new NetworkDisruption.TwoPartitions(n1, n2), new NetworkDisruption.NetworkUnresponsive());\r\n    setDisruptionScheme(partition);\r\n    partition.startDisrupting();\r\n    try {\r\n        execute(\"select version, hostname, id, name from sys.nodes where name = ?\", new Object[] { n2 }, createSessionOnNode(n1));\r\n        assertThat(response.rowCount(), is(1L));\r\n        assertThat(response.rows()[0][0], is(nullValue()));\r\n        assertThat(response.rows()[0][1], is(nullValue()));\r\n        assertThat(response.rows()[0][2], is(notNullValue()));\r\n        assertThat(response.rows()[0][3], is(n2));\r\n    } finally {\r\n        partition.stopDisrupting();\r\n        internalCluster().clearDisruptionScheme(true);\r\n        waitNoPendingTasksOnAll();\r\n    }\r\n}"
+}, {
+	"Path": "com.sun.btrace.BTraceUtils.timeMillis",
+	"Comment": "returns the current time in milliseconds.note thatwhile the unit of time of the return value is a millisecond,the granularity of the value depends on the underlyingoperating system and may be larger.for example, manyoperating systems measure time in units of tens ofmilliseconds.",
+	"Method": "long timeMillis(){\r\n    return Time.millis();\r\n}"
+}, {
+	"Path": "com.arialyy.aria.util.WeakHandler.sendEmptyMessageAtTime",
+	"Comment": "sends a message containing only the what value, to be deliveredat a specific time.",
+	"Method": "boolean sendEmptyMessageAtTime(int what,long uptimeMillis){\r\n    return mExec.sendEmptyMessageAtTime(what, uptimeMillis);\r\n}"
+}, {
+	"Path": "org.drools.beliefs.bayes.BayesInstance.passMessage",
+	"Comment": "passes a message from node1 to node2.node1 projects its trgpotentials into the separator.node2 then absorbs those trgpotentials from the separator.",
+	"Method": "void passMessage(JunctionTreeClique sourceClique,JunctionTreeSeparator sep,JunctionTreeClique targetClique){\r\n    double[] sepPots = separatorStates[sep.getId()].getPotentials();\r\n    double[] oldSepPots = Arrays.copyOf(sepPots, sepPots.length);\r\n    BayesVariable[] sepVars = sep.getValues().toArray(new BayesVariable[sep.getValues().size()]);\r\n    if (passMessageListener != null) {\r\n        passMessageListener.beforeProjectAndAbsorb(sourceClique, sep, targetClique, oldSepPots);\r\n    }\r\n    project(sepVars, cliqueStates[sourceClique.getId()], separatorStates[sep.getId()]);\r\n    if (passMessageListener != null) {\r\n        passMessageListener.afterProject(sourceClique, sep, targetClique, oldSepPots);\r\n    }\r\n    absorb(sepVars, cliqueStates[targetClique.getId()], separatorStates[sep.getId()], oldSepPots);\r\n    if (passMessageListener != null) {\r\n        passMessageListener.afterAbsorb(sourceClique, sep, targetClique, oldSepPots);\r\n    }\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPSClient.setEnabledCipherSuites",
+	"Comment": "controls which particular cipher suites are enabled for use on thisconnection. called before server negotiation.",
+	"Method": "void setEnabledCipherSuites(String[] cipherSuites){\r\n    suites = new String[cipherSuites.length];\r\n    System.arraycopy(cipherSuites, 0, suites, 0, cipherSuites.length);\r\n}"
+}, {
+	"Path": "com.sun.btrace.BTraceUtils.init",
+	"Comment": "returns the amount of memory in bytes that the java virtualmachine initially requests from the operating system formemory management.",
+	"Method": "long init(MemoryUsage mu,long init,MemoryUsage mu){\r\n    return Sys.Memory.init(mu);\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPFile.setLink",
+	"Comment": "if the ftpfile is a symbolic link, use this method to set the name of thefile being pointed to by the symbolic link.",
+	"Method": "void setLink(String link){\r\n    _link = link;\r\n}"
+}, {
+	"Path": "carbon.CarbonResources.createFromResourceStream",
+	"Comment": "create a drawable from an inputstream, using the given resources andvalue to determine density information.",
+	"Method": "Drawable createFromResourceStream(TypedValue value,InputStream is,String srcName,Drawable createFromResourceStream,TypedValue value,InputStream is,String srcName,BitmapFactory.Options opts){\r\n    return Drawable.createFromResourceStream(this, value, is, srcName, opts);\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTP.cdup",
+	"Comment": "a convenience method to send the ftp cdup command to the server,receive the reply, and return the reply code.",
+	"Method": "int cdup(){\r\n    return sendCommand(FTPCmd.CDUP);\r\n}"
+}, {
+	"Path": "carbon.beta.AppBarLayout.getCornerRadius",
+	"Comment": "gets the corner radius. if corner radius is equal to 0, rounded corners are turned off.",
+	"Method": "float getCornerRadius(){\r\n    return corners.getTopStart();\r\n}"
+}, {
+	"Path": "carbon.beta.CollapsingToolbarLayout.getCornerRadius",
+	"Comment": "gets the corner radius. if corner radius is equal to 0, rounded corners are turned off.",
+	"Method": "float getCornerRadius(){\r\n    return corners.getTopStart();\r\n}"
+}, {
+	"Path": "com.sun.btrace.BTraceUtils.decrementAndGet",
+	"Comment": "atomically decrements by one the current value of given atomicinteger.",
+	"Method": "int decrementAndGet(AtomicInteger ai,long decrementAndGet,AtomicLong al,int decrementAndGet,AtomicInteger ai,long decrementAndGet,AtomicLong al){\r\n    return Atomic.decrementAndGet(al);\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPFile.setHardLinkCount",
+	"Comment": "set the number of hard links to this file.this is not to beconfused with symbolic links.",
+	"Method": "void setHardLinkCount(int links){\r\n    _hardLinkCount = links;\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPClient.getPassiveLocalIPAddress",
+	"Comment": "set the local ip address in passive mode.useful when there are multiple network cards.",
+	"Method": "InetAddress getPassiveLocalIPAddress(){\r\n    return this.__passiveLocalHost;\r\n}"
+}, {
+	"Path": "carbon.drawable.ripple.LayerDrawable.addLayer",
+	"Comment": "add a new layer to this drawable. the new layer is identified by an id.",
+	"Method": "int addLayer(ChildDrawable layer,ChildDrawable addLayer,Drawable dr,int[] themeAttrs,int id,int left,int top,int right,int bottom,int addLayer,Drawable dr){\r\n    final ChildDrawable layer = createLayer(dr);\r\n    final int index = addLayer(layer);\r\n    ensurePadding();\r\n    refreshChildPadding(index, layer);\r\n    return index;\r\n}"
+}, {
+	"Path": "carbon.internal.PercentLayoutHelper.adjustChildren",
+	"Comment": "iterates over children and changes their width and height to one calculated from percentagevalues.",
+	"Method": "void adjustChildren(int widthMeasureSpec,int heightMeasureSpec){\r\n    if (Log.isLoggable(TAG, Log.DEBUG)) {\r\n        Log.d(TAG, \"adjustChildren: \" + mHost + \" widthMeasureSpec: \" + View.MeasureSpec.toString(widthMeasureSpec) + \" heightMeasureSpec: \" + View.MeasureSpec.toString(heightMeasureSpec));\r\n    }\r\n    int widthHint = View.MeasureSpec.getSize(widthMeasureSpec);\r\n    int heightHint = View.MeasureSpec.getSize(heightMeasureSpec);\r\n    for (int i = 0, N = mHost.getChildCount(); i < N; i++) {\r\n        View view = mHost.getChildAt(i);\r\n        ViewGroup.LayoutParams params = view.getLayoutParams();\r\n        if (Log.isLoggable(TAG, Log.DEBUG)) {\r\n            Log.d(TAG, \"should adjust \" + view + \" \" + params);\r\n        }\r\n        if (params instanceof PercentLayoutParams) {\r\n            PercentLayoutInfo info = ((PercentLayoutParams) params).getPercentLayoutInfo();\r\n            if (Log.isLoggable(TAG, Log.DEBUG)) {\r\n                Log.d(TAG, \"using \" + info);\r\n            }\r\n            if (info != null) {\r\n                if (params instanceof ViewGroup.MarginLayoutParams) {\r\n                    info.fillMarginLayoutParams((ViewGroup.MarginLayoutParams) params, widthHint, heightHint);\r\n                } else {\r\n                    info.fillLayoutParams(params, widthHint, heightHint);\r\n                }\r\n            }\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "com.arialyy.aria.util.WeakHandler.sendMessage",
+	"Comment": "pushes a message onto the end of the message queue after all pending messagesbefore the current time. it will be received in callback,in the thread attached to this handler.",
+	"Method": "boolean sendMessage(Message msg){\r\n    return mExec.sendMessage(msg);\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPSClient.setEnabledProtocols",
+	"Comment": "controls which particular protocol versions are enabled for use on thisconnection. i perform setting before a server negotiation.",
+	"Method": "void setEnabledProtocols(String[] protocolVersions){\r\n    protocols = new String[protocolVersions.length];\r\n    System.arraycopy(protocolVersions, 0, protocols, 0, protocolVersions.length);\r\n}"
+}, {
+	"Path": "org.connectbot.service.PromptHelper.requestStringPrompt",
+	"Comment": "request a string response from parent. this is a blocking call until user\tinterface returns a value.",
+	"Method": "String requestStringPrompt(String instructions,String hint){\r\n    String value = null;\r\n    try {\r\n        value = (String) requestPrompt(instructions, hint, String.class);\r\n    } catch (Exception e) {\r\n    }\r\n    return value;\r\n}"
+}, {
+	"Path": "com.sun.btrace.BTraceUtils.newAggregationKey",
+	"Comment": "creates a composite grouping aggregation key with the provided values. the values must be string or number types.",
+	"Method": "AggregationKey newAggregationKey(Object element1,AggregationKey newAggregationKey,Object element1,Object element2,AggregationKey newAggregationKey,Object element1,Object element2,Object element3,AggregationKey newAggregationKey,Object element1,Object element2,Object element3,Object element4,AggregationKey newAggregationKey,Object element1,AggregationKey newAggregationKey,Object element1,Object element2,AggregationKey newAggregationKey,Object element1,Object element2,Object element3,AggregationKey newAggregationKey,Object element1,Object element2,Object element3,Object element4){\r\n    return Aggregations.newAggregationKey(element1, element2, element3, element4);\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPClientConfig.getDateFormatSymbols",
+	"Comment": "returns a dateformatsymbols object configured with short month namesas in the supplied string",
+	"Method": "DateFormatSymbols getDateFormatSymbols(String shortmonths){\r\n    String[] months = splitShortMonthString(shortmonths);\r\n    DateFormatSymbols dfs = new DateFormatSymbols(Locale.US);\r\n    dfs.setShortMonths(months);\r\n    return dfs;\r\n}"
+}, {
+	"Path": "org.connectbot.HostListActivity.disconnectAll",
+	"Comment": "disconnects all active connections and closes the activity if appropriate.",
+	"Method": "void disconnectAll(){\r\n    if (bound == null) {\r\n        waitingForDisconnectAll = true;\r\n        return;\r\n    }\r\n    new androidx.appcompat.app.AlertDialog.Builder(HostListActivity.this, R.style.AlertDialogTheme).setMessage(getString(R.string.disconnect_all_message)).setPositiveButton(R.string.disconnect_all_pos, new DialogInterface.OnClickListener() {\r\n        @Override\r\n        public void onClick(DialogInterface dialog, int which) {\r\n            bound.disconnectAll(true, false);\r\n            waitingForDisconnectAll = false;\r\n            setIntent(new Intent());\r\n            if (closeOnDisconnectAll) {\r\n                finish();\r\n            }\r\n        }\r\n    }).setNegativeButton(R.string.disconnect_all_neg, new DialogInterface.OnClickListener() {\r\n        @Override\r\n        public void onClick(DialogInterface dialog, int which) {\r\n            waitingForDisconnectAll = false;\r\n            setIntent(new Intent());\r\n        }\r\n    }).create().show();\r\n}"
+}, {
+	"Path": "org.connectbot.HostListActivity.disconnectAll",
+	"Comment": "disconnects all active connections and closes the activity if appropriate.",
+	"Method": "void disconnectAll(){\r\n    bound.disconnectAll(true, false);\r\n    waitingForDisconnectAll = false;\r\n    setIntent(new Intent());\r\n    if (closeOnDisconnectAll) {\r\n        finish();\r\n    }\r\n}"
+}, {
+	"Path": "org.connectbot.HostListActivity.disconnectAll",
+	"Comment": "disconnects all active connections and closes the activity if appropriate.",
+	"Method": "void disconnectAll(){\r\n    waitingForDisconnectAll = false;\r\n    setIntent(new Intent());\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTP.rein",
+	"Comment": "a convenience method to send the ftp rein command to the server,receive the reply, and return the reply code.",
+	"Method": "int rein(){\r\n    return sendCommand(FTPCmd.REIN);\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPClient.setActiveExternalIPAddress",
+	"Comment": "set the external ip address in active mode.useful when there are multiple network cards.",
+	"Method": "void setActiveExternalIPAddress(String ipAddress){\r\n    this.__activeExternalHost = InetAddress.getByName(ipAddress);\r\n}"
+}, {
+	"Path": "io.crate.expression.symbol.Symbols.containsColumn",
+	"Comment": "returns true if the symbol contains the given columnident.if symbol is a function the function tree will be traversed",
+	"Method": "boolean containsColumn(Symbol symbol,Path path,boolean containsColumn,Iterable<? extends Symbol> symbols,Path path){\r\n    for (Symbol symbol : symbols) {\r\n        if (containsColumn(symbol, path)) {\r\n            return true;\r\n        }\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "io.crate.integrationtests.InsertIntoIntegrationTest.testInsertWithErrorMustNotBeInsertedOnReplica",
+	"Comment": "test that when an error happens on the primary, the record should never be inserted on the replica.since we cannot force a select statement to be executed on a replica, we repeat this test to increase the chance.",
+	"Method": "void testInsertWithErrorMustNotBeInsertedOnReplica(){\r\n    execute(\"create table test (id integer primary key, name string) with (number_of_replicas=1)\");\r\n    ensureYellow();\r\n    execute(\"insert into test (id, name) values (1, 'foo')\");\r\n    assertThat(response.rowCount(), is(1L));\r\n    try {\r\n        execute(\"insert into test (id, name) values (1, 'bar')\");\r\n        fail(\"Expecting a DuplicateKeyException\");\r\n    } catch (SQLActionException e) {\r\n        assertThat(e.getMessage(), containsString(\"DuplicateKeyException\"));\r\n    }\r\n    refresh();\r\n    execute(\"select _version, name from test\");\r\n    assertThat((String) response.rows()[0][1], is(\"foo\"));\r\n    assertThat((Long) response.rows()[0][0], is(1L));\r\n    execute(\"select _version, name from test\");\r\n    assertThat((String) response.rows()[0][1], is(\"foo\"));\r\n    assertThat((Long) response.rows()[0][0], is(1L));\r\n}"
+}, {
+	"Path": "io.crate.execution.dsl.projection.GroupProjection.outputs",
+	"Comment": "returns a list of outputs, with the group by keys going first,and the aggregations coming last",
+	"Method": "List<? extends Symbol> outputs(){\r\n    if (outputs == null) {\r\n        outputs = new ArrayList(keys.size() + values.size());\r\n        outputs.addAll(keys);\r\n        outputs.addAll(values);\r\n    }\r\n    return outputs;\r\n}"
+}, {
+	"Path": "com.sun.btrace.BTraceUtils.parseFloat",
+	"Comment": "returns a new float initialized to the valuerepresented by the specified string, as performedby the valueof method of class float.",
+	"Method": "float parseFloat(String s,float parseFloat,String s){\r\n    return Numbers.parseFloat(s);\r\n}"
+}, {
+	"Path": "com.sun.btrace.BTraceUtils.field",
+	"Comment": "returns a field object that reflects the specified declaredfield of the class or interface represented by the given classobject. the name parameter is a string thatspecifies the simple name of the desired field. throws a runtimeexceptionwhen field is not found.",
+	"Method": "Field field(Class clazz,String name,boolean throwException,Field field,Class clazz,String name,Field field,String clazz,String name,boolean throwException,Field field,String clazz,String name,Field field,Class clazz,String name,boolean throwException,Field field,Class clazz,String name,Field field,String clazz,String name,boolean throwException,Field field,String clazz,String name){\r\n    ClassLoader callerLoader = Reflection.getCallerClass(STACK_DEC).getClassLoader();\r\n    return Reflective.field(classForName(clazz, callerLoader), name);\r\n}"
+}, {
+	"Path": "carbon.widget.LinearLayout.getCornerRadius",
+	"Comment": "gets the corner radius. if corner radius is equal to 0, rounded corners are turned off.",
+	"Method": "float getCornerRadius(){\r\n    return corners.getTopStart();\r\n}"
+}, {
+	"Path": "carbon.drawable.ripple.RippleDrawableICS.tryRippleEnter",
+	"Comment": "attempts to start an enter animation for the active hotspot. fails ifthere are too many animating ripples.",
+	"Method": "void tryRippleEnter(){\r\n    if (mExitingRipplesCount >= MAX_RIPPLES) {\r\n        return;\r\n    }\r\n    if (mRipple == null) {\r\n        final float x;\r\n        final float y;\r\n        if (mHasPending) {\r\n            mHasPending = false;\r\n            x = mPendingX;\r\n            y = mPendingY;\r\n        } else {\r\n            x = mHotspotBounds.exactCenterX();\r\n            y = mHotspotBounds.exactCenterY();\r\n        }\r\n        final boolean isBounded = isBounded();\r\n        mRipple = new RippleForeground(this, mHotspotBounds, x, y, isBounded);\r\n    }\r\n    mRipple.setup(mState.mMaxRadius, mDensity);\r\n    mRipple.enter(false);\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTP.getReplyStrings",
+	"Comment": "returns the lines of text from the last ftp server response as an arrayof strings, one entry per line.the end of line markers of each arestripped from each line.",
+	"Method": "String[] getReplyStrings(){\r\n    return _replyLines.toArray(new String[_replyLines.size()]);\r\n}"
+}, {
+	"Path": "io.crate.metadata.ColumnIdent.validateDotInColumnName",
+	"Comment": "checks if a column name contains a dot and throws an exception if it does.",
+	"Method": "void validateDotInColumnName(String columnName){\r\n    if (columnName.indexOf('.') != -1) {\r\n        throw new InvalidColumnNameException(columnName, \"contains a dot\");\r\n    }\r\n}"
+}, {
+	"Path": "carbon.widget.ConstraintLayout.getCornerRadius",
+	"Comment": "gets the corner radius. if corner radius is equal to 0, rounded corners are turned off.",
+	"Method": "float getCornerRadius(){\r\n    return corners.getTopStart();\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPClient.getStatus",
+	"Comment": "issue the ftp stat command to the server for a given pathname.thisshould produce a listing of the file or directory.",
+	"Method": "String getStatus(String getStatus,String pathname){\r\n    if (FTPReply.isPositiveCompletion(stat(pathname))) {\r\n        return getReplyString();\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.DatagramSocketClient.getDefaultTimeout",
+	"Comment": "returns the default timeout in milliseconds that is used whenopening a socket.",
+	"Method": "int getDefaultTimeout(){\r\n    return _timeout_;\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPClientConfig.lookupDateFormatSymbols",
+	"Comment": "looks up the supplied language code in the internally maintained table oflanguage codes.returns a dateformatsymbols object configured withshort month names corresponding to the code.if there is no correspondingentry in the table, the object returned will be that forlocale.us",
+	"Method": "DateFormatSymbols lookupDateFormatSymbols(String languageCode){\r\n    Object lang = LANGUAGE_CODE_MAP.get(languageCode);\r\n    if (lang != null) {\r\n        if (lang instanceof Locale) {\r\n            return new DateFormatSymbols((Locale) lang);\r\n        } else if (lang instanceof String) {\r\n            return getDateFormatSymbols((String) lang);\r\n        }\r\n    }\r\n    return new DateFormatSymbols(Locale.US);\r\n}"
+}, {
+	"Path": "com.sun.btrace.BTraceUtils.declaringClass",
+	"Comment": "returns the class object representing the class or interfacethat declares the field represented by the given field object.",
+	"Method": "Class declaringClass(Field field,Class declaringClass,Field field){\r\n    return Reflective.declaringClass(field);\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ProtocolCommandEvent.isCommand",
+	"Comment": "returns true if the protocolcommandevent was generated as a resultof sending a command.",
+	"Method": "boolean isCommand(){\r\n    return __isCommand;\r\n}"
+}, {
+	"Path": "com.sun.btrace.BTraceUtils.finalizationCount",
+	"Comment": "returns the approximate number of objects forwhich finalization is pending.",
+	"Method": "long finalizationCount(long finalizationCount){\r\n    return Sys.Memory.finalizationCount();\r\n}"
+}, {
+	"Path": "io.crate.exceptions.SQLExceptions.userFriendlyCrateExceptionTopOnly",
+	"Comment": "converts a possible es exception to a crate one and returns the message.the message will not contain any information about possible nested exceptions.",
+	"Method": "String userFriendlyCrateExceptionTopOnly(Throwable e){\r\n    return esToCrateException(e).getMessage();\r\n}"
+}, {
+	"Path": "carbon.widget.RadioButton.setOnCheckedChangeListener",
+	"Comment": "register a callback to be invoked when the checked state of this buttonchanges.",
+	"Method": "void setOnCheckedChangeListener(OnCheckedChangeListener listener){\r\n    mOnCheckedChangeListener = listener;\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPSCommand.getCommand",
+	"Comment": "retrieve the ftps command string corresponding to a specifiedcommand code.",
+	"Method": "String getCommand(int command){\r\n    return _commands[command];\r\n}"
+}, {
+	"Path": "org.connectbot.service.TerminalBridge.increaseFontSize",
+	"Comment": "convenience function to increase the font size by a given step.",
+	"Method": "void increaseFontSize(){\r\n    setFontSize(fontSizeDp + FONT_SIZE_STEP);\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTP.allo",
+	"Comment": "a convenience method to send the ftp allo command to the server,receive the reply, and return the reply code.",
+	"Method": "int allo(int bytes,int allo,int bytes,int recordSize){\r\n    return sendCommand(FTPCmd.ALLO, Integer.toString(bytes) + \" R \" + Integer.toString(recordSize));\r\n}"
+}, {
+	"Path": "carbon.widget.Toolbar.getCornerRadius",
+	"Comment": "gets the corner radius. if corner radius is equal to 0, rounded corners are turned off.",
+	"Method": "float getCornerRadius(){\r\n    return corners.getTopStart();\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPClient.remoteStoreUnique",
+	"Comment": "initiate a server to server file transfer.this method tells theserver to which the client is connected to store a file onthe other server using a unique filename.the other server must have had aremoteretrieveissuedto it by another ftpclient.many ftp servers require that a basefilename be given from which the unique filename can be derived.forthose servers use the other version ofremotestoreunique",
+	"Method": "boolean remoteStoreUnique(String filename,boolean remoteStoreUnique){\r\n    if (__dataConnectionMode == ACTIVE_REMOTE_DATA_CONNECTION_MODE || __dataConnectionMode == PASSIVE_REMOTE_DATA_CONNECTION_MODE) {\r\n        return FTPReply.isPositivePreliminary(stou());\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "com.sun.btrace.api.BTraceTask.isUnsafe",
+	"Comment": "checks whether the task requires to be run in btrace unsafe mode",
+	"Method": "boolean isUnsafe(){\r\n    return false;\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPClient.remoteRetrieve",
+	"Comment": "initiate a server to server file transfer.this method tells theserver to which the client is connected to retrieve a given file fromthe other server.",
+	"Method": "boolean remoteRetrieve(String filename){\r\n    if (__dataConnectionMode == ACTIVE_REMOTE_DATA_CONNECTION_MODE || __dataConnectionMode == PASSIVE_REMOTE_DATA_CONNECTION_MODE) {\r\n        return FTPReply.isPositivePreliminary(retr(filename));\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "carbon.view.View.setCornerRadius",
+	"Comment": "sets the corner radius. if corner radius is equal to 0, rounded corners are turned off.",
+	"Method": "void setCornerRadius(float cornerRadius){\r\n    setCorners(new Corners(cornerRadius, false));\r\n}"
+}, {
+	"Path": "io.crate.auth.user.UserPrivileges.matchPrivilegeOfAnyType",
+	"Comment": "try to match a privilege at the given collection ignoring the type.",
+	"Method": "boolean matchPrivilegeOfAnyType(Privilege.Clazz clazz,String ident){\r\n    boolean foundPrivilege;\r\n    switch(clazz) {\r\n        case CLUSTER:\r\n            foundPrivilege = hasAnyClusterPrivilege();\r\n            break;\r\n        case SCHEMA:\r\n            foundPrivilege = hasAnySchemaPrivilege(ident);\r\n            if (foundPrivilege == false) {\r\n                foundPrivilege = hasAnyClusterPrivilege();\r\n            }\r\n            break;\r\n        case TABLE:\r\n            foundPrivilege = hasAnyTablePrivilege(ident);\r\n            if (foundPrivilege == false) {\r\n                String schemaIdent = new IndexParts(ident).getSchema();\r\n                foundPrivilege = hasAnySchemaPrivilege(schemaIdent);\r\n                if (foundPrivilege == false) {\r\n                    foundPrivilege = hasAnyClusterPrivilege();\r\n                }\r\n            }\r\n            break;\r\n        case VIEW:\r\n            foundPrivilege = hasAnyViewPrivilege(ident);\r\n            if (foundPrivilege == false) {\r\n                String schemaIdent = new IndexParts(ident).getSchema();\r\n                foundPrivilege = hasAnySchemaPrivilege(schemaIdent);\r\n                if (foundPrivilege == false) {\r\n                    foundPrivilege = hasAnyClusterPrivilege();\r\n                }\r\n            }\r\n            break;\r\n        default:\r\n            throw new IllegalStateException(\"Unsupported privilege class=\" + clazz);\r\n    }\r\n    return foundPrivilege;\r\n}"
+}, {
+	"Path": "com.sun.btrace.BTraceUtils.isInteruppted",
+	"Comment": "tests whether this thread has been interrupted.the interruptedstatus of the thread is unaffected by this method.a thread interruption ignored because a thread was not aliveat the time of the interrupt will be reflected by this methodreturning false.",
+	"Method": "boolean isInteruppted(boolean isInteruppted){\r\n    return Threads.isInteruppted();\r\n}"
+}, {
+	"Path": "carbon.recycler.ItemTouchHelper.select",
+	"Comment": "starts dragging or swiping the given view. call with null if you want to clear it.",
+	"Method": "void select(ViewHolder selected,int actionState){\r\n    if (selected == mSelected && actionState == mActionState) {\r\n        return;\r\n    }\r\n    mDragScrollStartTimeInMs = Long.MIN_VALUE;\r\n    final int prevActionState = mActionState;\r\n    endRecoverAnimation(selected, true);\r\n    mActionState = actionState;\r\n    if (actionState == ACTION_STATE_DRAG) {\r\n        mOverdrawChild = selected.itemView;\r\n        addChildDrawingOrderCallback();\r\n    }\r\n    int actionStateMask = (1 << (DIRECTION_FLAG_COUNT + DIRECTION_FLAG_COUNT * actionState)) - 1;\r\n    boolean preventLayout = false;\r\n    if (mSelected != null) {\r\n        final ViewHolder prevSelected = mSelected;\r\n        if (prevSelected.itemView.getParent() != null) {\r\n            final int swipeDir = prevActionState == ACTION_STATE_DRAG ? 0 : swipeIfNecessary(prevSelected);\r\n            releaseVelocityTracker();\r\n            final float targetTranslateX, targetTranslateY;\r\n            int animationType;\r\n            switch(swipeDir) {\r\n                case LEFT:\r\n                case RIGHT:\r\n                case START:\r\n                case END:\r\n                    targetTranslateY = 0;\r\n                    targetTranslateX = Math.signum(mDx) * mRecyclerView.getWidth();\r\n                    break;\r\n                case UP:\r\n                case DOWN:\r\n                    targetTranslateX = 0;\r\n                    targetTranslateY = Math.signum(mDy) * mRecyclerView.getHeight();\r\n                    break;\r\n                default:\r\n                    targetTranslateX = 0;\r\n                    targetTranslateY = 0;\r\n            }\r\n            if (prevActionState == ACTION_STATE_DRAG) {\r\n                animationType = ANIMATION_TYPE_DRAG;\r\n            } else if (swipeDir > 0) {\r\n                animationType = ANIMATION_TYPE_SWIPE_SUCCESS;\r\n            } else {\r\n                animationType = ANIMATION_TYPE_SWIPE_CANCEL;\r\n            }\r\n            getSelectedDxDy(mTmpPosition);\r\n            final float currentTranslateX = mTmpPosition[0];\r\n            final float currentTranslateY = mTmpPosition[1];\r\n            final RecoverAnimation rv = new RecoverAnimation(prevSelected, animationType, prevActionState, currentTranslateX, currentTranslateY, targetTranslateX, targetTranslateY) {\r\n                @Override\r\n                public void onAnimationEnd(Animator animation) {\r\n                    super.onAnimationEnd(animation);\r\n                    if (this.mOverridden) {\r\n                        return;\r\n                    }\r\n                    if (swipeDir <= 0) {\r\n                        mCallback.clearView(mRecyclerView, prevSelected);\r\n                    } else {\r\n                        mPendingCleanup.add(prevSelected.itemView);\r\n                        mIsPendingCleanup = true;\r\n                        if (swipeDir > 0) {\r\n                            postDispatchSwipe(this, swipeDir);\r\n                        }\r\n                    }\r\n                    if (mOverdrawChild == prevSelected.itemView) {\r\n                        removeChildDrawingOrderCallbackIfNecessary(prevSelected.itemView);\r\n                    }\r\n                }\r\n            };\r\n            final long duration = mCallback.getAnimationDuration(mRecyclerView, animationType, targetTranslateX - currentTranslateX, targetTranslateY - currentTranslateY);\r\n            rv.setDuration(duration);\r\n            mRecoverAnimations.add(rv);\r\n            rv.start();\r\n            preventLayout = true;\r\n        } else {\r\n            removeChildDrawingOrderCallbackIfNecessary(prevSelected.itemView);\r\n            mCallback.clearView(mRecyclerView, prevSelected);\r\n        }\r\n        mSelected = null;\r\n    }\r\n    if (selected != null) {\r\n        mSelectedFlags = (mCallback.getAbsoluteMovementFlags(mRecyclerView, selected) & actionStateMask) >> (mActionState * DIRECTION_FLAG_COUNT);\r\n        mSelectedStartX = selected.itemView.getLeft();\r\n        mSelectedStartY = selected.itemView.getTop();\r\n        mSelected = selected;\r\n        if (actionState == ACTION_STATE_DRAG) {\r\n            mSelected.itemView.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);\r\n        }\r\n    }\r\n    final ViewParent rvParent = mRecyclerView.getParent();\r\n    if (rvParent != null) {\r\n        rvParent.requestDisallowInterceptTouchEvent(mSelected != null);\r\n    }\r\n    if (!preventLayout) {\r\n        mRecyclerView.getLayoutManager().requestSimpleAnimationsInNextLayout();\r\n    }\r\n    mCallback.onSelectedChanged(mSelected, mActionState);\r\n    mRecyclerView.invalidate();\r\n}"
+}, {
+	"Path": "carbon.recycler.ItemTouchHelper.select",
+	"Comment": "starts dragging or swiping the given view. call with null if you want to clear it.",
+	"Method": "void select(ViewHolder selected,int actionState){\r\n    super.onAnimationEnd(animation);\r\n    if (this.mOverridden) {\r\n        return;\r\n    }\r\n    if (swipeDir <= 0) {\r\n        mCallback.clearView(mRecyclerView, prevSelected);\r\n    } else {\r\n        mPendingCleanup.add(prevSelected.itemView);\r\n        mIsPendingCleanup = true;\r\n        if (swipeDir > 0) {\r\n            postDispatchSwipe(this, swipeDir);\r\n        }\r\n    }\r\n    if (mOverdrawChild == prevSelected.itemView) {\r\n        removeChildDrawingOrderCallbackIfNecessary(prevSelected.itemView);\r\n    }\r\n}"
+}, {
+	"Path": "com.sun.btrace.BTraceUtils.threadState",
+	"Comment": "returns the state of the given thread.this method is designed for use in monitoring of the system state,not for synchronization control.",
+	"Method": "Thread.State threadState(Thread thread,Thread.State threadState,Thread thread){\r\n    return Threads.threadState(thread);\r\n}"
+}, {
+	"Path": "io.crate.blob.v2.BlobIndex.retrieveBlobRootDir",
+	"Comment": "traverse the path down until the shard index was foundand return the root path of the blob directory.",
+	"Method": "Path retrieveBlobRootDir(Path blobDir,String indexName,Logger logger){\r\n    do {\r\n        if (blobDir.endsWith(indexName)) {\r\n            break;\r\n        }\r\n        blobDir = blobDir.getParent();\r\n        if (blobDir == null) {\r\n            logger.debug(\"Blob index directory not found for index '{}'\", indexName);\r\n        }\r\n    } while (blobDir != null);\r\n    return blobDir;\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.io.FromNetASCIIInputStream.available",
+	"Comment": "returns the number of bytes that can be read without blocking exceptwhen newline conversions have to be made somewhere within theavailable block of bytes.in other words, you really should notrely on the value returned by this method if you are trying to avoidblocking.",
+	"Method": "int available(){\r\n    if (in == null) {\r\n        throw new IOException(\"Stream closed\");\r\n    }\r\n    return (buf.length - pos) + in.available();\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPClient.getBufferSize",
+	"Comment": "retrieve the current internal buffer size for buffered data streams.",
+	"Method": "int getBufferSize(){\r\n    return __bufferSize;\r\n}"
+}, {
+	"Path": "com.airbnb.android.airmapview.DefaultAirMapViewBuilder.getWebMapViewBuilder",
+	"Comment": "decides what the map web provider should be used and generates a builder for it.",
+	"Method": "AirMapViewBuilder getWebMapViewBuilder(){\r\n    if (context != null) {\r\n        try {\r\n            ApplicationInfo ai = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);\r\n            Bundle bundle = ai.metaData;\r\n            String accessToken = bundle.getString(\"com.mapbox.ACCESS_TOKEN\");\r\n            String mapId = bundle.getString(\"com.mapbox.MAP_ID\");\r\n            if (!TextUtils.isEmpty(accessToken) && !TextUtils.isEmpty(mapId)) {\r\n                return new MapboxWebMapViewBuilder(accessToken, mapId);\r\n            }\r\n        } catch (PackageManager.NameNotFoundException e) {\r\n            Log.e(TAG, \"Failed to load Mapbox access token and map id\", e);\r\n        }\r\n    }\r\n    return new WebAirMapViewBuilder();\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTP.rmd",
+	"Comment": "a convenience method to send the ftp rmd command to the server,receive the reply, and return the reply code.",
+	"Method": "int rmd(String pathname){\r\n    return sendCommand(FTPCmd.RMD, pathname);\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPFile.getGroup",
+	"Comment": "returns the name of the group owning the file.sometimes this will bea string representation of the group number.",
+	"Method": "String getGroup(){\r\n    return _group;\r\n}"
+}, {
+	"Path": "carbon.widget.RelativeLayout.setCornerRadius",
+	"Comment": "sets the corner radius. if corner radius is equal to 0, rounded corners are turned off.",
+	"Method": "void setCornerRadius(float cornerRadius){\r\n    setCorners(new Corners(cornerRadius, false));\r\n}"
+}, {
+	"Path": "io.crate.expression.scalar.DateTruncFunction.truncate",
+	"Comment": "truncates given timestamp down to the given interval.the timestamp is expected to be in milliseconds.",
+	"Method": "Long truncate(Rounding rounding,Long ts){\r\n    if (ts == null) {\r\n        return null;\r\n    }\r\n    return rounding.round(ts);\r\n}"
+}, {
+	"Path": "org.connectbot.service.PromptHelper.requestBooleanPrompt",
+	"Comment": "request a boolean response from parent. this is a blocking call until user\tinterface returns a value.",
+	"Method": "Boolean requestBooleanPrompt(String instructions,String hint){\r\n    Boolean value = null;\r\n    try {\r\n        value = (Boolean) requestPrompt(instructions, hint, Boolean.class);\r\n    } catch (Exception e) {\r\n    }\r\n    return value;\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTP.site",
+	"Comment": "a convenience method to send the ftp site command to the server,receive the reply, and return the reply code.",
+	"Method": "int site(String parameters){\r\n    return sendCommand(FTPCmd.SITE, parameters);\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTP.syst",
+	"Comment": "a convenience method to send the ftp syst command to the server,receive the reply, and return the reply code.",
+	"Method": "int syst(){\r\n    return sendCommand(FTPCmd.SYST);\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.DatagramSocketClient.getSoTimeout",
+	"Comment": "returns the timeout in milliseconds of the currently opened socket.if you call this method when the client socket is not open,a nullpointerexception is thrown.",
+	"Method": "int getSoTimeout(){\r\n    return _socket_.getSoTimeout();\r\n}"
+}, {
+	"Path": "com.sun.btrace.instr.MethodTracker.getEndTs",
+	"Comment": "used when timing the method execution or in adaptive sampling.to be used at the end of the sampled block.",
+	"Method": "long getEndTs(int methodId){\r\n    long ts = System.nanoTime();\r\n    tsArray[methodId].set(ts);\r\n    return ts;\r\n}"
+}, {
+	"Path": "io.crate.integrationtests.SQLTransportIntegrationTest.systemExecute",
+	"Comment": "execute a sql statement as system query on a specific node in the cluster",
+	"Method": "SQLResponse systemExecute(String stmt,String schema,String node){\r\n    SQLOperations sqlOperations = internalCluster().getInstance(SQLOperations.class, node);\r\n    UserLookup userLookup;\r\n    try {\r\n        userLookup = internalCluster().getInstance(UserLookup.class, node);\r\n    } catch (ConfigurationException ignored) {\r\n        userLookup = userName -> User.CRATE_USER;\r\n    }\r\n    Session session = sqlOperations.createSession(schema, userLookup.findUser(\"crate\"));\r\n    response = SQLTransportExecutor.execute(stmt, null, session).actionGet(SQLTransportExecutor.REQUEST_TIMEOUT);\r\n    return response;\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPFile.toString",
+	"Comment": "returns a string representation of the ftpfile information.",
+	"Method": "String toString(){\r\n    return getRawListing();\r\n}"
+}, {
+	"Path": "io.crate.expression.symbol.ParameterSymbol.getBoundType",
+	"Comment": "returns the bound type of the parameter. the type might be boundupfront by the client or become defined during the analysis.",
+	"Method": "DataType getBoundType(){\r\n    if (boundType.id() == UndefinedType.ID) {\r\n        return internalType;\r\n    }\r\n    return boundType;\r\n}"
+}, {
+	"Path": "org.connectbot.service.TerminalBridge.decreaseFontSize",
+	"Comment": "convenience function to decrease the font size by a given step.",
+	"Method": "void decreaseFontSize(){\r\n    setFontSize(fontSizeDp - FONT_SIZE_STEP);\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTP.type",
+	"Comment": "a convenience method to send the ftp type command to the server,receive the reply, and return the reply code.",
+	"Method": "int type(int fileType,int formatOrByteSize,int type,int fileType){\r\n    return sendCommand(FTPCmd.TYPE, __modes.substring(fileType, fileType + 1));\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPClient.listHelp",
+	"Comment": "fetches the help information for a given command from the server andreturns the full string.",
+	"Method": "String listHelp(String listHelp,String command){\r\n    if (FTPReply.isPositiveCompletion(help(command))) {\r\n        return getReplyString();\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "io.crate.analyze.CreateTableAnalyzedStatement.hasColumnDefinition",
+	"Comment": "return true if a columndefinition with name columnname exists",
+	"Method": "boolean hasColumnDefinition(ColumnIdent columnIdent){\r\n    return (analyzedTableElements().columnIdents().contains(columnIdent) || columnIdent.name().equalsIgnoreCase(\"_id\"));\r\n}"
+}, {
+	"Path": "com.spotify.docker.BuildMojo.separatorsToUnix",
+	"Comment": "converts all separators to the unix separator of forward slash.",
+	"Method": "String separatorsToUnix(String path){\r\n    if (path == null || path.indexOf(WINDOWS_SEPARATOR) == -1) {\r\n        return path;\r\n    }\r\n    return path.replace(WINDOWS_SEPARATOR, UNIX_SEPARATOR);\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTP.help",
+	"Comment": "a convenience method to send the ftp help command to the server,receive the reply, and return the reply code.",
+	"Method": "int help(int help,String command){\r\n    return sendCommand(FTPCmd.HELP, command);\r\n}"
+}, {
+	"Path": "com.sun.btrace.BTraceUtils.currentThread",
+	"Comment": "returns a reference to the currently executing thread object.",
+	"Method": "Thread currentThread(Thread currentThread){\r\n    return Threads.currentThread();\r\n}"
+}, {
+	"Path": "carbon.widget.EditText.setCornerRadius",
+	"Comment": "sets the corner radius. if corner radius is equal to 0, rounded corners are turned off.",
+	"Method": "void setCornerRadius(float cornerRadius){\r\n    setCorners(new Corners(cornerRadius, false));\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.io.CopyStreamAdapter.addCopyStreamListener",
+	"Comment": "registers a copystreamlistener to receive copystreamevents.although this method is not declared to be synchronized, it isimplemented in a thread safe manner.",
+	"Method": "void addCopyStreamListener(CopyStreamListener listener){\r\n    internalListeners.addListener(listener);\r\n}"
+}, {
+	"Path": "carbon.drawable.ripple.RippleDrawableICS.getOutline",
+	"Comment": "populates outline with the first available layer outline,excluding the mask layer.",
+	"Method": "void getOutline(Outline outline){\r\n    final LayerState state = mLayerState;\r\n    final ChildDrawable[] children = state.mChildren;\r\n    final int N = state.mNum;\r\n    for (int i = 0; i < N; i++) {\r\n        if (children[i].mId != R.id.carbon_mask) {\r\n            children[i].mDrawable.getOutline(outline);\r\n            if (!outline.isEmpty())\r\n                return;\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPSClient.setAuthValue",
+	"Comment": "set auth command use value.this processing is done before connected processing.",
+	"Method": "void setAuthValue(String auth){\r\n    this.auth = auth;\r\n}"
+}, {
+	"Path": "io.crate.execution.dsl.phases.RoutedCollectPhase.user",
+	"Comment": "returns the user of the current session. can be null and will not be streamed.",
+	"Method": "User user(){\r\n    return user;\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPClient.hasFeature",
+	"Comment": "query the server for a supported feature.caches the parsed response to avoid resending the command repeatedly.",
+	"Method": "boolean hasFeature(String feature,boolean hasFeature,String feature,String value){\r\n    if (!initFeatureMap()) {\r\n        return false;\r\n    }\r\n    Set<String> entries = __featuresMap.get(feature.toUpperCase(Locale.ENGLISH));\r\n    if (entries != null) {\r\n        return entries.contains(value);\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "io.crate.analyze.Id.estimateSize",
+	"Comment": "estimates the size the bytesref values will take if written onto a streamoutput using the string streamer",
+	"Method": "int estimateSize(Iterable<String> values){\r\n    int expectedEncodedSize = 0;\r\n    for (String value : values) {\r\n        expectedEncodedSize += 5 + (value != null ? value.length() : 0);\r\n    }\r\n    return expectedEncodedSize;\r\n}"
+}, {
+	"Path": "io.crate.metadata.doc.DocTableInfo.partitionedByColumns",
+	"Comment": "columns this table is partitioned by.guaranteed to be in the same order as defined in create table statement",
+	"Method": "List<Reference> partitionedByColumns(){\r\n    return partitionedByColumns;\r\n}"
+}, {
+	"Path": "com.sun.btrace.BTraceUtils.getAndDecrement",
+	"Comment": "atomically decrements by one the current value of given atomicinteger.",
+	"Method": "int getAndDecrement(AtomicInteger ai,long getAndDecrement,AtomicLong al,int getAndDecrement,AtomicInteger ai,long getAndDecrement,AtomicLong al){\r\n    return Atomic.getAndDecrement(al);\r\n}"
+}, {
+	"Path": "carbon.drawable.ripple.LollipopDrawablesCompat.createFromXml",
+	"Comment": "create a drawable from an xml document. for more information on how tocreate resources in xml, seedrawable resources.",
+	"Method": "Drawable createFromXml(Resources r,XmlPullParser parser,Drawable createFromXml,Resources r,XmlPullParser parser,Resources.Theme theme){\r\n    AttributeSet attrs = Xml.asAttributeSet(parser);\r\n    int type;\r\n    while ((type = parser.next()) != XmlPullParser.START_TAG && type != XmlPullParser.END_DOCUMENT) {\r\n    }\r\n    if (type != XmlPullParser.START_TAG) {\r\n        throw new XmlPullParserException(\"No start tag found\");\r\n    }\r\n    Drawable drawable = createFromXmlInner(r, parser, attrs, theme);\r\n    if (drawable == null) {\r\n        throw new RuntimeException(\"Unknown initial tag: \" + parser.getName());\r\n    }\r\n    return drawable;\r\n}"
+}, {
+	"Path": "org.connectbot.service.TerminalManager.sendActivityNotification",
+	"Comment": "send system notification to user for a certain host. when user selects\tthe notification, it will bring them directly to the consoleactivity\tdisplaying the host.",
+	"Method": "void sendActivityNotification(HostBean host){\r\n    if (!prefs.getBoolean(PreferenceConstants.BELL_NOTIFICATION, false))\r\n        return;\r\n    ConnectionNotifier.getInstance().showActivityNotification(this, host);\r\n}"
+}, {
+	"Path": "com.airbnb.android.airmapview.RuntimePermissionUtils.verifyPermissions",
+	"Comment": "verifies that any of the given permissions have been granted.",
+	"Method": "boolean verifyPermissions(int grantResults){\r\n    for (int result : grantResults) {\r\n        if (result != PackageManager.PERMISSION_GRANTED) {\r\n            return false;\r\n        }\r\n    }\r\n    return true;\r\n}"
+}, {
+	"Path": "carbon.beta.AppBarLayout.setCornerRadius",
+	"Comment": "sets the corner radius. if corner radius is equal to 0, rounded corners are turned off.",
+	"Method": "void setCornerRadius(float cornerRadius){\r\n    setCorners(new Corners(cornerRadius, false));\r\n}"
+}, {
+	"Path": "io.crate.expression.symbol.Literal.convert",
+	"Comment": "convert the given symbol to a literal with the given type, unless the type already matches,in which case the symbol will be returned as is.",
+	"Method": "Literal convert(Symbol symbol,DataType type){\r\n    assert symbol instanceof Literal : \"expected a parameter or literal symbol\";\r\n    Literal literal = (Literal) symbol;\r\n    if (literal.valueType().equals(type)) {\r\n        return literal;\r\n    }\r\n    try {\r\n        return of(type, type.value(literal.value()));\r\n    } catch (IllegalArgumentException | ClassCastException e) {\r\n        throw new ConversionException(symbol, type);\r\n    }\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ProtocolCommandEvent.getReplyCode",
+	"Comment": "returns the reply code of the received server reply.undefined ifthis is not a reply event.",
+	"Method": "int getReplyCode(){\r\n    return __replyCode;\r\n}"
+}, {
+	"Path": "de.mud.terminal.VDUBuffer.setBottomMargin",
+	"Comment": "set the bottom scroll margin for the screen. if the current top marginis bigger it will become the bottom margin and the line will become thetop margin.",
+	"Method": "void setBottomMargin(int l){\r\n    if (l < topMargin) {\r\n        bottomMargin = topMargin;\r\n        topMargin = l;\r\n    } else\r\n        bottomMargin = l;\r\n    if (topMargin < 0)\r\n        topMargin = 0;\r\n    if (bottomMargin >= height)\r\n        bottomMargin = height - 1;\r\n}"
+}, {
+	"Path": "com.sun.btrace.aggregation.Aggregation.getKeyData",
+	"Comment": "returns a list of the aggregationkeys that belong to this aggregation.",
+	"Method": "List<AggregationKey> getKeyData(){\r\n    List<AggregationKey> keyList = new ArrayList();\r\n    List<Entry<AggregationKey, AggregationValue>> sortedContents = sort();\r\n    for (Entry<AggregationKey, AggregationValue> item : sortedContents) {\r\n        keyList.add(item.getKey());\r\n    }\r\n    return keyList;\r\n}"
+}, {
+	"Path": "io.crate.protocols.SSL.extractCN",
+	"Comment": "extract the common name from the subjectdn of a x509 certificate",
+	"Method": "String extractCN(Certificate certificate,String extractCN,String subjectDN){\r\n    try {\r\n        LdapName ldapName = new LdapName(subjectDN);\r\n        for (Rdn rdn : ldapName.getRdns()) {\r\n            if (\"CN\".equalsIgnoreCase(rdn.getType())) {\r\n                return rdn.getValue().toString();\r\n            }\r\n        }\r\n        throw new RuntimeException(\"Could not extract commonName from certificate subjectDN: \" + subjectDN);\r\n    } catch (InvalidNameException e) {\r\n        throw new RuntimeException(\"Could not extract commonName from certificate\", e);\r\n    }\r\n}"
+}, {
+	"Path": "io.crate.execution.engine.distribution.merge.PassThroughPagingIterator.repeatable",
+	"Comment": "create an iterator that is able to repeat over what has previously been iterated",
+	"Method": "PassThroughPagingIterator<TKey, TRow> repeatable(){\r\n    return new PassThroughPagingIterator(true);\r\n}"
+}, {
+	"Path": "com.sun.btrace.runtime.ProbeDescriptorLoader.openDescriptor",
+	"Comment": "look for .xml file in each probe descriptor dir or on classpath",
+	"Method": "InputStream openDescriptor(String namespace){\r\n    InputStream is = null;\r\n    if (probeDescDirs != null) {\r\n        is = openDescriptorFromDirs(namespace);\r\n    }\r\n    if (is == null) {\r\n        is = openDescriptorFromClassPath(namespace);\r\n    }\r\n    if (is == null && debug.isDebug())\r\n        debug.debug(\"no probe descriptor found for \" + namespace);\r\n    return is;\r\n}"
+}, {
+	"Path": "io.crate.planner.operators.Union.addMergeIfNeeded",
+	"Comment": "wraps the plan inside a merge plan if limit or offset need to be applied.",
+	"Method": "ExecutionPlan addMergeIfNeeded(ExecutionPlan plan,PlannerContext plannerContext){\r\n    ResultDescription resultDescription = plan.resultDescription();\r\n    if (resultDescription.hasRemainingLimitOrOffset()) {\r\n        return Merge.ensureOnHandler(plan, plannerContext);\r\n    }\r\n    return plan;\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.DefaultDatagramSocketFactory.createDatagramSocket",
+	"Comment": "creates a datagramsocket at the specified address on the local hostat a specified port.",
+	"Method": "DatagramSocket createDatagramSocket(DatagramSocket createDatagramSocket,int port,DatagramSocket createDatagramSocket,int port,InetAddress laddr){\r\n    return new DatagramSocket(port, laddr);\r\n}"
+}, {
+	"Path": "io.crate.metadata.SysNodesTableInfoTest.testRegistered",
+	"Comment": "ensures that all columns registered in sysnodestableinfo can actually be resolved",
+	"Method": "void testRegistered(){\r\n    SysNodesTableInfo info = new SysNodesTableInfo();\r\n    ReferenceResolver<?> referenceResolver = new StaticTableReferenceResolver(SysNodesTableInfo.expressions());\r\n    Iterator<Reference> iter = info.iterator();\r\n    while (iter.hasNext()) {\r\n        assertNotNull(referenceResolver.getImplementation(iter.next()));\r\n    }\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPSServerSocketFactory.init",
+	"Comment": "sets the socket so newly accepted connections will use ssl client mode.",
+	"Method": "ServerSocket init(ServerSocket socket){\r\n    ((SSLServerSocket) socket).setUseClientMode(true);\r\n    return socket;\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPClient.login",
+	"Comment": "login to the ftp server using the provided username, password,and account.if no account is required by the server, onlythe username and password, the account information is not used.",
+	"Method": "boolean login(String username,String password,boolean login,String username,String password,String account){\r\n    user(username);\r\n    if (FTPReply.isPositiveCompletion(_replyCode)) {\r\n        return true;\r\n    }\r\n    if (!FTPReply.isPositiveIntermediate(_replyCode)) {\r\n        return false;\r\n    }\r\n    pass(password);\r\n    if (FTPReply.isPositiveCompletion(_replyCode)) {\r\n        return true;\r\n    }\r\n    if (!FTPReply.isPositiveIntermediate(_replyCode)) {\r\n        return false;\r\n    }\r\n    return FTPReply.isPositiveCompletion(acct(account));\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.util.Base64.encodeBase64",
+	"Comment": "encodes binary data using the base64 algorithm, optionally chunking the output into 76character blocks.",
+	"Method": "byte[] encodeBase64(byte[] binaryData,byte[] encodeBase64,byte[] binaryData,boolean isChunked,byte[] encodeBase64,byte[] binaryData,boolean isChunked,boolean urlSafe,byte[] encodeBase64,byte[] binaryData,boolean isChunked,boolean urlSafe,int maxResultSize){\r\n    if (binaryData == null || binaryData.length == 0) {\r\n        return binaryData;\r\n    }\r\n    long len = getEncodeLength(binaryData, isChunked ? CHUNK_SIZE : 0, isChunked ? CHUNK_SEPARATOR : EMPTY_BYTE_ARRAY);\r\n    if (len > maxResultSize) {\r\n        throw new IllegalArgumentException(\"Input array too big, the output array would be bigger (\" + len + \") than the specified maxium size of \" + maxResultSize);\r\n    }\r\n    Base64 b64 = isChunked ? new Base64(urlSafe) : new Base64(0, CHUNK_SEPARATOR, urlSafe);\r\n    return b64.encode(binaryData);\r\n}"
+}, {
+	"Path": "de.mud.terminal.VDUBuffer.setTopMargin",
+	"Comment": "set the top scroll margin for the screen. if the current bottom marginis smaller it will become the top margin and the line will become thebottom margin.",
+	"Method": "void setTopMargin(int l){\r\n    if (l > bottomMargin) {\r\n        topMargin = bottomMargin;\r\n        bottomMargin = l;\r\n    } else\r\n        topMargin = l;\r\n    if (topMargin < 0)\r\n        topMargin = 0;\r\n    if (bottomMargin >= height)\r\n        bottomMargin = height - 1;\r\n}"
+}, {
+	"Path": "org.connectbot.util.HostDatabase.getHosts",
+	"Comment": "return a cursor that contains information about all known hosts.",
+	"Method": "List<HostBean> getHosts(boolean sortColors){\r\n    String sortField = sortColors ? FIELD_HOST_COLOR : FIELD_HOST_NICKNAME;\r\n    List<HostBean> hosts;\r\n    Cursor c = mDb.query(TABLE_HOSTS, null, null, null, null, null, sortField + \" ASC\");\r\n    hosts = createHostBeans(c);\r\n    c.close();\r\n    return hosts;\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ProtocolCommandEvent.getMessage",
+	"Comment": "returns the entire message sent to or received from the server.includes the line terminator.",
+	"Method": "String getMessage(){\r\n    return __message;\r\n}"
+}, {
+	"Path": "carbon.recycler.ItemTouchHelper.scrollIfNecessary",
+	"Comment": "if user drags the view to the edge, trigger a scroll if necessary.",
+	"Method": "boolean scrollIfNecessary(){\r\n    if (mSelected == null) {\r\n        mDragScrollStartTimeInMs = Long.MIN_VALUE;\r\n        return false;\r\n    }\r\n    final long now = System.currentTimeMillis();\r\n    final long scrollDuration = mDragScrollStartTimeInMs == Long.MIN_VALUE ? 0 : now - mDragScrollStartTimeInMs;\r\n    RecyclerView.LayoutManager lm = mRecyclerView.getLayoutManager();\r\n    if (mTmpRect == null) {\r\n        mTmpRect = new Rect();\r\n    }\r\n    int scrollX = 0;\r\n    int scrollY = 0;\r\n    lm.calculateItemDecorationsForChild(mSelected.itemView, mTmpRect);\r\n    if (lm.canScrollHorizontally()) {\r\n        int curX = (int) (mSelectedStartX + mDx);\r\n        final int leftDiff = curX - mTmpRect.left - mRecyclerView.getPaddingLeft();\r\n        if (mDx < 0 && leftDiff < 0) {\r\n            scrollX = leftDiff;\r\n        } else if (mDx > 0) {\r\n            final int rightDiff = curX + mSelected.itemView.getWidth() + mTmpRect.right - (mRecyclerView.getWidth() - mRecyclerView.getPaddingRight());\r\n            if (rightDiff > 0) {\r\n                scrollX = rightDiff;\r\n            }\r\n        }\r\n    }\r\n    if (lm.canScrollVertically()) {\r\n        int curY = (int) (mSelectedStartY + mDy);\r\n        final int topDiff = curY - mTmpRect.top - mRecyclerView.getPaddingTop();\r\n        if (mDy < 0 && topDiff < 0) {\r\n            scrollY = topDiff;\r\n        } else if (mDy > 0) {\r\n            final int bottomDiff = curY + mSelected.itemView.getHeight() + mTmpRect.bottom - (mRecyclerView.getHeight() - mRecyclerView.getPaddingBottom());\r\n            if (bottomDiff > 0) {\r\n                scrollY = bottomDiff;\r\n            }\r\n        }\r\n    }\r\n    if (scrollX != 0) {\r\n        scrollX = mCallback.interpolateOutOfBoundsScroll(mRecyclerView, mSelected.itemView.getWidth(), scrollX, mRecyclerView.getWidth(), scrollDuration);\r\n    }\r\n    if (scrollY != 0) {\r\n        scrollY = mCallback.interpolateOutOfBoundsScroll(mRecyclerView, mSelected.itemView.getHeight(), scrollY, mRecyclerView.getHeight(), scrollDuration);\r\n    }\r\n    if (scrollX != 0 || scrollY != 0) {\r\n        if (mDragScrollStartTimeInMs == Long.MIN_VALUE) {\r\n            mDragScrollStartTimeInMs = now;\r\n        }\r\n        mRecyclerView.scrollBy(scrollX, scrollY);\r\n        return true;\r\n    }\r\n    mDragScrollStartTimeInMs = Long.MIN_VALUE;\r\n    return false;\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.io.CopyStreamEvent.getBytesTransferred",
+	"Comment": "returns the number of bytes transferred by the write that triggeredthe event.",
+	"Method": "int getBytesTransferred(){\r\n    return bytesTransferred;\r\n}"
+}, {
+	"Path": "com.sun.btrace.BTraceUtils.getTotalGcTime",
+	"Comment": "returns the total amount of time spent in garbagecollection up to this pointsince the application was started.",
+	"Method": "long getTotalGcTime(long getTotalGcTime){\r\n    return Sys.Memory.getTotalGcTime();\r\n}"
+}, {
+	"Path": "com.sun.btrace.BTraceUtils.loader",
+	"Comment": "returns the class loader for the given class. some implementations may usenull to represent the bootstrap class loader. this method will returnnull in such implementations if this class was loaded by the bootstrapclass loader.",
+	"Method": "ClassLoader loader(Class clazz){\r\n    return clazz.getClassLoader();\r\n}"
+}, {
+	"Path": "io.crate.execution.ddl.tables.TableCreator.deleteOrphanedPartitions",
+	"Comment": "if some orphaned partition with the same table name still exist,delete them beforehand as they would create unwanted and maybe invalidinitial data.should never delete partitions of existing partitioned tables",
+	"Method": "void deleteOrphanedPartitions(CreateTableResponseListener listener,RelationName relationName){\r\n    String partitionWildCard = PartitionName.templateName(relationName.schema(), relationName.name()) + \"*\";\r\n    String[] orphans = indexNameExpressionResolver.concreteIndexNames(clusterService.state(), IndicesOptions.strictExpand(), partitionWildCard);\r\n    if (orphans.length > 0) {\r\n        if (logger.isDebugEnabled()) {\r\n            logger.debug(\"Deleting orphaned partitions: {}\", Joiner.on(\", \").join(orphans));\r\n        }\r\n        transportDeleteIndexAction.execute(new DeleteIndexRequest(orphans), new ActionListener<AcknowledgedResponse>() {\r\n            @Override\r\n            public void onResponse(AcknowledgedResponse response) {\r\n                if (!response.isAcknowledged()) {\r\n                    warnNotAcknowledged(\"deleting orphans\");\r\n                }\r\n                listener.onResponse(SUCCESS_RESULT);\r\n            }\r\n            @Override\r\n            public void onFailure(Exception e) {\r\n                listener.onFailure(e);\r\n            }\r\n        });\r\n    } else {\r\n        listener.onResponse(SUCCESS_RESULT);\r\n    }\r\n}"
+}, {
+	"Path": "io.crate.execution.ddl.tables.TableCreator.deleteOrphanedPartitions",
+	"Comment": "if some orphaned partition with the same table name still exist,delete them beforehand as they would create unwanted and maybe invalidinitial data.should never delete partitions of existing partitioned tables",
+	"Method": "void deleteOrphanedPartitions(CreateTableResponseListener listener,RelationName relationName){\r\n    if (!response.isAcknowledged()) {\r\n        warnNotAcknowledged(\"deleting orphans\");\r\n    }\r\n    listener.onResponse(SUCCESS_RESULT);\r\n}"
+}, {
+	"Path": "io.crate.execution.ddl.tables.TableCreator.deleteOrphanedPartitions",
+	"Comment": "if some orphaned partition with the same table name still exist,delete them beforehand as they would create unwanted and maybe invalidinitial data.should never delete partitions of existing partitioned tables",
+	"Method": "void deleteOrphanedPartitions(CreateTableResponseListener listener,RelationName relationName){\r\n    listener.onFailure(e);\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTP.noop",
+	"Comment": "a convenience method to send the ftp noop command to the server,receive the reply, and return the reply code.",
+	"Method": "int noop(){\r\n    return sendCommand(FTPCmd.NOOP);\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.SocketClient.getSoTimeout",
+	"Comment": "returns the timeout in milliseconds of the currently opened socket.",
+	"Method": "int getSoTimeout(){\r\n    return _socket_.getSoTimeout();\r\n}"
+}, {
+	"Path": "org.connectbot.service.PromptHelper.popResponse",
+	"Comment": "return the internal response value just before erasing and returning it.",
+	"Method": "Object popResponse(){\r\n    Object value = response;\r\n    response = null;\r\n    return value;\r\n}"
+}, {
+	"Path": "io.crate.analyze.Id.compileWithNullValidation",
+	"Comment": "returns a function which can be used to generate an id with null validation.",
+	"Method": "Function<List<String>, String> compileWithNullValidation(int numPks,int clusteredByPosition,Function<List<String>, String> compileWithNullValidation,List<ColumnIdent> pkColumns,ColumnIdent clusteredBy){\r\n    final int numPks = pkColumns.size();\r\n    if (numPks == 1 && getOnlyElement(pkColumns).equals(DocSysColumns.ID)) {\r\n        return RANDOM_ID;\r\n    }\r\n    return compileWithNullValidation(numPks, pkColumns.indexOf(clusteredBy));\r\n}"
+}, {
+	"Path": "carbon.widget.RecyclerView.getCornerRadius",
+	"Comment": "gets the corner radius. if corner radius is equal to 0, rounded corners are turned off.",
+	"Method": "float getCornerRadius(){\r\n    return corners.getTopStart();\r\n}"
+}, {
+	"Path": "io.crate.execution.engine.sort.SortSymbolVisitor.visitReference",
+	"Comment": "generate a sortfield from a reference symbol.the implementation is similar to how es 2.4 sortparseelement worked",
+	"Method": "SortField visitReference(Reference symbol,SortSymbolContext context){\r\n    ColumnIdent columnIdent = symbol.column();\r\n    if (columnIdent.isTopLevel()) {\r\n        if (DocSysColumns.SCORE.equals(columnIdent)) {\r\n            return !context.reverseFlag ? SORT_SCORE_REVERSE : SORT_SCORE;\r\n        } else if (DocSysColumns.RAW.equals(columnIdent) || DocSysColumns.ID.equals(columnIdent)) {\r\n            return customSortField(DocSysColumns.nameForLucene(columnIdent), symbol, context, false);\r\n        }\r\n    }\r\n    if (symbol.isColumnStoreDisabled()) {\r\n        SortField.Type type = LUCENE_TYPE_MAP.get(symbol.valueType());\r\n        return customSortField(symbol.toString(), symbol, context, type == null);\r\n    }\r\n    MultiValueMode sortMode = context.reverseFlag ? MultiValueMode.MAX : MultiValueMode.MIN;\r\n    String indexName;\r\n    FieldComparatorSource fieldComparatorSource;\r\n    MappedFieldType fieldType = fieldTypeLookup.get(columnIdent.fqn());\r\n    if (fieldType == null) {\r\n        indexName = columnIdent.fqn();\r\n        fieldComparatorSource = new NullFieldComparatorSource(LUCENE_TYPE_MAP.get(symbol.valueType()), context.reverseFlag, context.nullFirst);\r\n        return new SortField(indexName, fieldComparatorSource, context.reverseFlag);\r\n    } else {\r\n        return context.context.getFieldData(fieldType).sortField(SortOrder.missing(context.reverseFlag, context.nullFirst), sortMode, null, context.reverseFlag);\r\n    }\r\n}"
+}, {
+	"Path": "io.crate.lucene.CommonQueryBuilderTest.testRegexQueryPcre",
+	"Comment": "when using pcre features, switch to differentregex implementation on top of java.util.regex.",
+	"Method": "void testRegexQueryPcre(){\r\n    Query query = convert(\"name ~ '\\\\D'\");\r\n    assertThat(query, instanceOf(CrateRegexQuery.class));\r\n}"
+}, {
+	"Path": "carbon.drawable.ripple.LayerDrawable.updateStateFromTypedArray",
+	"Comment": "initializes the constant state from the values in the typed array.",
+	"Method": "void updateStateFromTypedArray(TypedArray a){\r\n    final LayerState state = mLayerState;\r\n    state.mChangingConfigurations |= TypedArrayCompat.getChangingConfigurations(a);\r\n    state.mThemeAttrs = TypedArrayCompat.extractThemeAttrs(a);\r\n    final int N = a.getIndexCount();\r\n    for (int i = 0; i < N; i++) {\r\n        int attr = a.getIndex(i);\r\n        if (attr == R.styleable.LayerDrawable_android_opacity) {\r\n            state.mOpacityOverride = a.getInt(attr, state.mOpacityOverride);\r\n        } else if (attr == R.styleable.LayerDrawable_android_paddingTop) {\r\n            state.mPaddingTop = a.getDimensionPixelOffset(attr, state.mPaddingTop);\r\n        } else if (attr == R.styleable.LayerDrawable_android_paddingBottom) {\r\n            state.mPaddingBottom = a.getDimensionPixelOffset(attr, state.mPaddingBottom);\r\n        } else if (attr == R.styleable.LayerDrawable_android_paddingLeft) {\r\n            state.mPaddingLeft = a.getDimensionPixelOffset(attr, state.mPaddingLeft);\r\n        } else if (attr == R.styleable.LayerDrawable_android_paddingRight) {\r\n            state.mPaddingRight = a.getDimensionPixelOffset(attr, state.mPaddingRight);\r\n        } else if (attr == R.styleable.LayerDrawable_android_paddingStart) {\r\n            state.mPaddingStart = a.getDimensionPixelOffset(attr, state.mPaddingStart);\r\n        } else if (attr == R.styleable.LayerDrawable_android_paddingEnd) {\r\n            state.mPaddingEnd = a.getDimensionPixelOffset(attr, state.mPaddingEnd);\r\n        } else if (attr == R.styleable.LayerDrawable_android_autoMirrored) {\r\n            state.mAutoMirrored = a.getBoolean(attr, state.mAutoMirrored);\r\n        } else if (attr == R.styleable.LayerDrawable_android_paddingMode) {\r\n            state.mPaddingMode = a.getInteger(attr, state.mPaddingMode);\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "io.crate.execution.dsl.phases.RoutedCollectPhase.normalize",
+	"Comment": "normalizes the symbols of this node with the given normalizer",
+	"Method": "RoutedCollectPhase normalize(EvaluatingNormalizer normalizer,TransactionContext transactionContext){\r\n    RoutedCollectPhase result = this;\r\n    Function<Symbol, Symbol> normalize = s -> normalizer.normalize(s, transactionContext);\r\n    List<Symbol> newToCollect = Lists2.map(toCollect, normalize);\r\n    boolean changed = !newToCollect.equals(toCollect);\r\n    Symbol newWhereClause = normalizer.normalize(where, transactionContext);\r\n    OrderBy orderBy = this.orderBy;\r\n    if (orderBy != null) {\r\n        orderBy = orderBy.copyAndReplace(normalize);\r\n    }\r\n    changed = changed || newWhereClause != where;\r\n    if (changed) {\r\n        result = new RoutedCollectPhase(jobId(), phaseId(), name(), routing, maxRowGranularity, newToCollect, projections, newWhereClause, distributionInfo, user);\r\n        result.nodePageSizeHint(nodePageSizeHint);\r\n        result.orderBy(orderBy);\r\n    }\r\n    return result;\r\n}"
+}, {
+	"Path": "carbon.widget.GridLayout.setCornerRadius",
+	"Comment": "sets the corner radius. if corner radius is equal to 0, rounded corners are turned off.",
+	"Method": "void setCornerRadius(float cornerRadius){\r\n    setCorners(new Corners(cornerRadius, false));\r\n}"
+}, {
+	"Path": "carbon.widget.RadioGroup.setOnCheckedChangeListener",
+	"Comment": "register a callback to be invoked when the checked radio buttonchanges in this group.",
+	"Method": "void setOnCheckedChangeListener(OnCheckedChangeListener listener){\r\n    mOnCheckedChangeListener = listener;\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTP.rest",
+	"Comment": "a convenience method to send the ftp rest command to the server,receive the reply, and return the reply code.",
+	"Method": "int rest(String marker){\r\n    return sendCommand(FTPCmd.REST, marker);\r\n}"
+}, {
+	"Path": "com.sun.btrace.BTraceUtils.unbox",
+	"Comment": "returns the double value represented by the specified double.",
+	"Method": "boolean unbox(Boolean b,char unbox,Character ch,byte unbox,Byte b,short unbox,Short s,int unbox,Integer i,long unbox,Long l,float unbox,Float f,double unbox,Double d,boolean unbox,Boolean b,char unbox,Character ch,byte unbox,Byte b,short unbox,Short s,int unbox,Integer i,long unbox,Long l,float unbox,Float f,double unbox,Double d){\r\n    return Numbers.unbox(d);\r\n}"
+}, {
+	"Path": "com.sun.btrace.BTraceUtils.freeMemory",
+	"Comment": "returns the amount of free memory in the java virtual machine.calling thegc method may result in increasing the value returnedby freememory.",
+	"Method": "long freeMemory(long freeMemory){\r\n    return Sys.Memory.freeMemory();\r\n}"
+}, {
+	"Path": "io.crate.execution.engine.collect.stats.JobsLogs.uniqueOperationId",
+	"Comment": "generate a unique id for an operation based on jobid and operationid.",
+	"Method": "Tuple<Integer, UUID> uniqueOperationId(int operationId,UUID jobId){\r\n    return Tuple.tuple(operationId, jobId);\r\n}"
+}, {
+	"Path": "com.sun.btrace.util.IntervalTest.testUnionFollowingIntervals",
+	"Comment": "test of union method, of class interval.checking following intervals",
+	"Method": "void testUnionFollowingIntervals(){\r\n    System.out.println(\"Following Intervals\");\r\n    Collection<Interval> intervals = Arrays.asList(new Interval(1, 6), new Interval(7, 10), new Interval(11, 12));\r\n    List<Interval> expResult = Arrays.asList(new Interval(1, 12));\r\n    List<Interval> result = Interval.union(intervals);\r\n    assertEquals(expResult, result);\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTP.user",
+	"Comment": "a convenience method to send the ftp user command to the server,receive the reply, and return the reply code.",
+	"Method": "int user(String username){\r\n    return sendCommand(FTPCmd.USER, username);\r\n}"
+}, {
+	"Path": "io.crate.testing.SQLTransportExecutor.getObject",
+	"Comment": "retrieve the same type of object from the resultset as the crateclient would return",
+	"Method": "Object getObject(ResultSet resultSet,int i,String typeName){\r\n    Object value;\r\n    switch(typeName) {\r\n        case \"int2\":\r\n            Integer intValue = (Integer) resultSet.getObject(i + 1);\r\n            if (intValue == null) {\r\n                return null;\r\n            }\r\n            value = intValue.shortValue();\r\n            break;\r\n        case \"byte\":\r\n            value = resultSet.getByte(i + 1);\r\n            break;\r\n        case \"_json\":\r\n            List<Object> jsonObjects = new ArrayList();\r\n            for (Object json : (Object[]) resultSet.getArray(i + 1).getArray()) {\r\n                jsonObjects.add(jsonToObject(((PGobject) json).getValue()));\r\n            }\r\n            value = jsonObjects.toArray();\r\n            break;\r\n        case \"json\":\r\n            String json = resultSet.getString(i + 1);\r\n            value = jsonToObject(json);\r\n            break;\r\n        default:\r\n            value = resultSet.getObject(i + 1);\r\n            break;\r\n    }\r\n    if (value instanceof Timestamp) {\r\n        value = ((Timestamp) value).getTime();\r\n    } else if (value instanceof Array) {\r\n        value = ((Array) value).getArray();\r\n    }\r\n    return value;\r\n}"
+}, {
+	"Path": "io.crate.metadata.PartitionName.estimateSize",
+	"Comment": "estimates the size the bytesref values will take if written onto a streamoutput using the string streamer",
+	"Method": "int estimateSize(Iterable<? extends String> values){\r\n    int expectedEncodedSize = 0;\r\n    for (String value : values) {\r\n        expectedEncodedSize += 5 + (value != null ? value.length() : 0);\r\n    }\r\n    return expectedEncodedSize;\r\n}"
+}, {
+	"Path": "com.sun.btrace.runtime.BTraceProbeNode.callers",
+	"Comment": "collects all the methods from which this particular method is reachable",
+	"Method": "Set<BTraceMethodNode> callers(String name,String desc){\r\n    Set<String> closure = new HashSet();\r\n    graph.callers(name, desc, closure);\r\n    return fromIdSet(closure);\r\n}"
+}, {
+	"Path": "org.connectbot.transport.AbsTransport.getUri",
+	"Comment": "encode the current transport into a uri that can be passed via intent calls.",
+	"Method": "Uri getUri(String input){\r\n    return null;\r\n}"
+}, {
+	"Path": "io.crate.types.DataType.precedes",
+	"Comment": "returns true if this datatype precedes the supplied datatype.",
+	"Method": "boolean precedes(DataType other){\r\n    return this.precedence().ordinal() > other.precedence().ordinal();\r\n}"
+}, {
+	"Path": "io.crate.auth.user.User.hasAnyPrivilege",
+	"Comment": "checks if the user has any privilege that matches the given class, type and identcurrently we check for any privilege, since class is always cluster and ident null.",
+	"Method": "boolean hasAnyPrivilege(Privilege.Clazz clazz,String ident){\r\n    return isSuperUser() || privileges.matchPrivilegeOfAnyType(clazz, ident);\r\n}"
+}, {
+	"Path": "com.sun.btrace.BTraceUtils.box",
+	"Comment": "returns a double instance representing the specifieddouble value.",
+	"Method": "Boolean box(boolean b,Character box,char c,Byte box,byte b,Short box,short s,Integer box,int i,Long box,long l,Float box,float f,Double box,double d,Boolean box,boolean b,Character box,char c,Byte box,byte b,Short box,short s,Integer box,int i,Long box,long l,Float box,float f,Double box,double d){\r\n    return Numbers.box(d);\r\n}"
+}, {
+	"Path": "io.crate.metadata.Schemas.viewExists",
+	"Comment": "performs a lookup to see if a view with the relationname exists.",
+	"Method": "boolean viewExists(RelationName relationName){\r\n    ViewsMetaData views = clusterService.state().metaData().custom(ViewsMetaData.TYPE);\r\n    return views != null && views.getView(relationName) != null;\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.util.Base64.reset",
+	"Comment": "resets this base64 object to its initial newly constructed state.",
+	"Method": "void reset(){\r\n    buffer = null;\r\n    pos = 0;\r\n    readPos = 0;\r\n    currentLinePos = 0;\r\n    modulus = 0;\r\n    eof = false;\r\n}"
+}, {
+	"Path": "com.sun.btrace.BTraceUtils.vmUptime",
+	"Comment": "returns the uptime of the java virtual machine in milliseconds.",
+	"Method": "long vmUptime(long vmUptime){\r\n    return Sys.VM.vmUptime();\r\n}"
+}, {
+	"Path": "carbon.widget.DrawerLayout.getCornerRadius",
+	"Comment": "gets the corner radius. if corner radius is equal to 0, rounded corners are turned off.",
+	"Method": "float getCornerRadius(){\r\n    return corners.getTopStart();\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.io.CRLFLineReader.readLine",
+	"Comment": "read a line of text.a line is considered to be terminated by carriage return followed immediately by a linefeed.this contrasts with bufferedreader which also allows other combinations.",
+	"Method": "String readLine(){\r\n    StringBuilder sb = new StringBuilder();\r\n    int intch;\r\n    boolean prevWasCR = false;\r\n    synchronized (lock) {\r\n        while ((intch = read()) != -1) {\r\n            if (prevWasCR && intch == LF) {\r\n                return sb.substring(0, sb.length() - 1);\r\n            }\r\n            if (intch == CR) {\r\n                prevWasCR = true;\r\n            } else {\r\n                prevWasCR = false;\r\n            }\r\n            sb.append((char) intch);\r\n        }\r\n    }\r\n    String string = sb.toString();\r\n    if (string.length() == 0) {\r\n        return null;\r\n    }\r\n    return string;\r\n}"
+}, {
+	"Path": "com.sun.btrace.util.IntervalTest.testUnionIntersectingIntervals",
+	"Comment": "test of union method, of class interval.checking intersecting intervals",
+	"Method": "void testUnionIntersectingIntervals(){\r\n    System.out.println(\"Intersecting Intervals\");\r\n    Collection<Interval> intervals = Arrays.asList(new Interval(1, 6), new Interval(6, 10), new Interval(8, 12));\r\n    List<Interval> expResult = Arrays.asList(new Interval(1, 12));\r\n    List<Interval> result = Interval.union(intervals);\r\n    assertEquals(expResult, result);\r\n}"
+}, {
+	"Path": "io.crate.expression.scalar.HashFunctionsTest.testConcatenation",
+	"Comment": "integration test to ensure checksums can be used with string operations.",
+	"Method": "void testConcatenation(){\r\n    assertEvaluate(\"'crate ' || sha1('')\", \"crate da39a3ee5e6b4b0d3255bfef95601890afd80709\");\r\n}"
+}, {
+	"Path": "carbon.drawable.ripple.LayerDrawable.refreshChildPadding",
+	"Comment": "refreshes the cached padding values for the specified child.",
+	"Method": "boolean refreshChildPadding(int i,ChildDrawable r){\r\n    if (r.mDrawable != null) {\r\n        final Rect rect = mTmpRect;\r\n        r.mDrawable.getPadding(rect);\r\n        if (rect.left != mPaddingL[i] || rect.top != mPaddingT[i] || rect.right != mPaddingR[i] || rect.bottom != mPaddingB[i]) {\r\n            mPaddingL[i] = rect.left;\r\n            mPaddingT[i] = rect.top;\r\n            mPaddingR[i] = rect.right;\r\n            mPaddingB[i] = rect.bottom;\r\n            return true;\r\n        }\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPClient.setRemoteVerificationEnabled",
+	"Comment": "enable or disable verification that the remote host taking partof a data connection is the same as the host to which the controlconnection is attached.the default is for verification to beenabled.you may set this value at any time, whether theftpclient is currently connected or not.",
+	"Method": "void setRemoteVerificationEnabled(boolean enable){\r\n    __remoteVerificationEnabled = enable;\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.SocketClient.setProxy",
+	"Comment": "sets the proxy for use with all the connections.the proxy is used for connections established after thecall to this method.",
+	"Method": "void setProxy(Proxy proxy){\r\n    setSocketFactory(new DefaultSocketFactory(proxy));\r\n    connProxy = proxy;\r\n}"
+}, {
+	"Path": "com.sun.btrace.util.IntervalTest.testUnionDisparateIntervals",
+	"Comment": "test of union method, of class interval.checking disparate intervals",
+	"Method": "void testUnionDisparateIntervals(){\r\n    System.out.println(\"Disparate Intervals\");\r\n    Collection<Interval> intervals = Arrays.asList(new Interval(1, 3), new Interval(5, 8), new Interval(10, 12));\r\n    List<Interval> expResult = new ArrayList(intervals);\r\n    List<Interval> result = Interval.union(intervals);\r\n    assertEquals(expResult, result);\r\n}"
+}, {
+	"Path": "carbon.internal.WeakHashSet.iterator",
+	"Comment": "returns an iterator over the elements in this set.the elementsare returned in no particular order.",
+	"Method": "Iterator iterator(){\r\n    processQueue();\r\n    final Iterator i = super.iterator();\r\n    return new Iterator() {\r\n        public boolean hasNext() {\r\n            return i.hasNext();\r\n        }\r\n        public Object next() {\r\n            return getReferenceObject((WeakReference) i.next());\r\n        }\r\n        public void remove() {\r\n            i.remove();\r\n        }\r\n    };\r\n}"
+}, {
+	"Path": "carbon.internal.WeakHashSet.iterator",
+	"Comment": "returns an iterator over the elements in this set.the elementsare returned in no particular order.",
+	"Method": "Iterator iterator(){\r\n    return i.hasNext();\r\n}"
+}, {
+	"Path": "carbon.internal.WeakHashSet.iterator",
+	"Comment": "returns an iterator over the elements in this set.the elementsare returned in no particular order.",
+	"Method": "Iterator iterator(){\r\n    return getReferenceObject((WeakReference) i.next());\r\n}"
+}, {
+	"Path": "carbon.internal.WeakHashSet.iterator",
+	"Comment": "returns an iterator over the elements in this set.the elementsare returned in no particular order.",
+	"Method": "Iterator iterator(){\r\n    i.remove();\r\n}"
+}, {
+	"Path": "com.sun.btrace.BTraceRuntime.enter",
+	"Comment": "enter method is called by every probed method justbefore the probe actions start.",
+	"Method": "boolean enter(BTraceRuntime current,boolean enter){\r\n    return enter(dummy);\r\n}"
+}, {
+	"Path": "carbon.widget.ImageView.setCornerRadius",
+	"Comment": "sets the corner radius. if corner radius is equal to 0, rounded corners are turned off.",
+	"Method": "void setCornerRadius(float cornerRadius){\r\n    setCorners(new Corners(cornerRadius, false));\r\n}"
+}, {
+	"Path": "com.sun.btrace.BTraceUtils.threadId",
+	"Comment": "returns the identifier of the given thread.the thread id is a positivelong number generated when the given thread was created.the thread id is unique and remains unchanged during its lifetime.when a thread is terminated, the thread id may be reused.",
+	"Method": "long threadId(Thread thread,long threadId,Thread thread){\r\n    return Threads.threadId(thread);\r\n}"
+}, {
+	"Path": "io.crate.blob.BlobContainer.cleanDigests",
+	"Comment": "delete all digests that have a .x suffix.they are leftover files from a previous recovery that was interrupted",
+	"Method": "String[] cleanDigests(String[] names,int index){\r\n    if (names == null) {\r\n        return null;\r\n    }\r\n    List<String> newNames = new ArrayList(names.length);\r\n    for (String name : names) {\r\n        if (name.contains(\".\")) {\r\n            if (!new File(subDirs[index], name).delete()) {\r\n                logger.error(\"Could not delete {}/{}\", subDirs[index], name);\r\n            }\r\n        } else {\r\n            newNames.add(name);\r\n        }\r\n    }\r\n    return newNames.toArray(new String[newNames.size()]);\r\n}"
+}, {
+	"Path": "com.sun.btrace.BTraceUtils.isArray",
+	"Comment": "determines if the given class object represents an array class.",
+	"Method": "boolean isArray(Class clazz,boolean isArray,Class clazz){\r\n    return Reflective.isArray(clazz);\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPSClient.execADAT",
+	"Comment": "send the adat command with the specified authentication data.",
+	"Method": "int execADAT(byte[] data){\r\n    if (data != null) {\r\n        return sendCommand(CMD_ADAT, Base64.encodeBase64StringUnChunked(data));\r\n    } else {\r\n        return sendCommand(CMD_ADAT);\r\n    }\r\n}"
+}, {
+	"Path": "carbon.widget.CoordinatorLayout.getCornerRadius",
+	"Comment": "gets the corner radius. if corner radius is equal to 0, rounded corners are turned off.",
+	"Method": "float getCornerRadius(){\r\n    return corners.getTopStart();\r\n}"
+}, {
+	"Path": "io.crate.integrationtests.JoinIntegrationTest.testJoinBranchReorderingOnMultipleTables",
+	"Comment": "some implementations will apply the branch reordering optimisation, whilst others might not.either way, all join implementations should yield the same results",
+	"Method": "void testJoinBranchReorderingOnMultipleTables(){\r\n    execute(\"create table t1 (a integer)\");\r\n    execute(\"create table t2 (x integer)\");\r\n    execute(\"create table t3 (y integer)\");\r\n    ensureYellow();\r\n    execute(\"insert into t1 (a) values (0), (1)\");\r\n    execute(\"insert into t2 (x) values (0), (1), (2)\");\r\n    execute(\"insert into t3 (y) values (0), (1), (2), (3), (4), (5), (6), (7), (8), (9)\");\r\n    execute(\"refresh table t1, t2, t3\");\r\n    Iterable<TableStats> tableStatsOnAllNodes = internalCluster().getInstances(TableStats.class);\r\n    for (TableStats tableStats : tableStatsOnAllNodes) {\r\n        ObjectObjectHashMap<RelationName, TableStats.Stats> newStats = new ObjectObjectHashMap();\r\n        newStats.put(new RelationName(sqlExecutor.getCurrentSchema(), \"t1\"), new TableStats.Stats(2L, 8L));\r\n        newStats.put(new RelationName(sqlExecutor.getCurrentSchema(), \"t2\"), new TableStats.Stats(3L, 12L));\r\n        newStats.put(new RelationName(sqlExecutor.getCurrentSchema(), \"t3\"), new TableStats.Stats(10L, 40L));\r\n        tableStats.updateTableStats(newStats);\r\n    }\r\n    execute(\"select a, x, y from t1 join t2 on t1.a = t2.x join t3 on t3.y = t2.x where t1.a < t2.x + 1 \" + \"and t2.x < t3.y + 1 order by a, x, y\");\r\n    assertThat(TestingHelpers.printedTable(response.rows()), is(\"0| 0| 0\\n\" + \"1| 1| 1\\n\"));\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTP.pass",
+	"Comment": "a convenience method to send the ftp pass command to the server,receive the reply, and return the reply code.",
+	"Method": "int pass(String password){\r\n    return sendCommand(FTPCmd.PASS, password);\r\n}"
+}, {
+	"Path": "de.schildbach.wallet.integration.android.BitcoinIntegration.transactionHashFromResult",
+	"Comment": "get transaction hash from result intent. meant for usage by applications initiating a bitcoin payment.you can use this hash to request the transaction from the bitcoin network, in order to validate. forthis, you need your own bitcoin infrastructure though. there is no guarantee that the transaction hasever been broadcasted to the bitcoin network.",
+	"Method": "String transactionHashFromResult(Intent result){\r\n    final String txHash = result.getStringExtra(INTENT_EXTRA_TRANSACTION_HASH);\r\n    return txHash;\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTP.rnfr",
+	"Comment": "a convenience method to send the ftp rnfr command to the server,receive the reply, and return the reply code.",
+	"Method": "int rnfr(String pathname){\r\n    return sendCommand(FTPCmd.RNFR, pathname);\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTP.acct",
+	"Comment": "a convenience method to send the ftp acct command to the server,receive the reply, and return the reply code.",
+	"Method": "int acct(String account){\r\n    return sendCommand(FTPCmd.ACCT, account);\r\n}"
+}, {
+	"Path": "com.twosigma.beakerx.table.format.TableDisplayStringFormat.getTimeFormat",
+	"Comment": "get a formatter that will show date in a timestamp format with the specified precision",
+	"Method": "TableDisplayStringFormat getTimeFormat(TableDisplayStringFormat getTimeFormat,boolean humanFriendly,TableDisplayStringFormat getTimeFormat,TimeUnit unit,TableDisplayStringFormat getTimeFormat,TimeUnit unit,boolean humanFriendly){\r\n    return new TimeStringFormat(unit, humanFriendly);\r\n}"
+}, {
+	"Path": "com.spotify.docker.Utils.pushImageTag",
+	"Comment": "push just the tags listed in the pom rather than all images using imagename",
+	"Method": "void pushImageTag(DockerClient docker,String imageName,List<String> imageTags,Log log,boolean skipPush){\r\n    if (skipPush) {\r\n        log.info(\"Skipping docker push\");\r\n        return;\r\n    }\r\n    if (imageTags.isEmpty()) {\r\n        throw new MojoExecutionException(\"You have used option \\\"pushImageTag\\\" but have\" + \" not specified an \\\"imageTag\\\" in your\" + \" docker-maven-client's plugin configuration\");\r\n    }\r\n    final CompositeImageName compositeImageName = CompositeImageName.create(imageName, imageTags);\r\n    for (final String imageTag : compositeImageName.getImageTags()) {\r\n        final String imageNameWithTag = compositeImageName.getName() + \":\" + imageTag;\r\n        log.info(\"Pushing \" + imageNameWithTag);\r\n        docker.push(imageNameWithTag, new AnsiProgressHandler());\r\n    }\r\n}"
+}, {
+	"Path": "com.sun.btrace.DOTWriter.expandCollections",
+	"Comment": "control the switching of collections from detail to expanded.",
+	"Method": "void expandCollections(boolean expandCollections){\r\n    this.expandCollections = expandCollections;\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.util.SubnetUtils.toInteger",
+	"Comment": "convert a dotted decimal format address to a packed integer format",
+	"Method": "int toInteger(String address){\r\n    Matcher matcher = addressPattern.matcher(address);\r\n    if (matcher.matches()) {\r\n        return matchAddress(matcher);\r\n    } else {\r\n        throw new IllegalArgumentException(\"Could not parse [\" + address + \"]\");\r\n    }\r\n}"
+}, {
+	"Path": "io.crate.auth.user.User.hasPrivilege",
+	"Comment": "checks if the user has a privilege that matches the given class, type, ident anddefault schema. currently only the type is checked since class is alwayscluster and ident null.",
+	"Method": "boolean hasPrivilege(Privilege.Type type,Privilege.Clazz clazz,String ident,String defaultSchema){\r\n    return isSuperUser() || privileges.matchPrivilege(type, clazz, ident, defaultSchema);\r\n}"
+}, {
+	"Path": "io.crate.execution.jobs.TasksService.killAll",
+	"Comment": "kills all tasks which are active at the time of the call of this method.",
+	"Method": "CompletableFuture<Integer> killAll(){\r\n    for (KillAllListener killAllListener : killAllListeners) {\r\n        try {\r\n            killAllListener.killAllJobs();\r\n        } catch (Throwable t) {\r\n            logger.error(\"Failed to call killAllJobs on listener {}\", t, killAllListener);\r\n        }\r\n    }\r\n    Collection<UUID> toKill = ImmutableList.copyOf(activeTasks.keySet());\r\n    if (toKill.isEmpty()) {\r\n        return CompletableFuture.completedFuture(0);\r\n    }\r\n    return killTasks(toKill);\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPClient.sendNoOp",
+	"Comment": "sends a noop command to the ftp server.this is useful for preventingserver timeouts.",
+	"Method": "boolean sendNoOp(){\r\n    return FTPReply.isPositiveCompletion(noop());\r\n}"
+}, {
+	"Path": "org.abstractmeta.toolbox.compilation.compiler.util.ClassPathUtil.getClassPathEntries",
+	"Comment": "returns current jvm class path entriesthis method read java.class.path property",
+	"Method": "Collection<String> getClassPathEntries(){\r\n    String classPath = System.getProperty(\"java.class.path\", \"\");\r\n    Collection<String> result = new ArrayList<String>();\r\n    Collections.addAll(result, classPath.split(getClassPathSeparator()));\r\n    return result;\r\n}"
+}, {
+	"Path": "carbon.drawable.ripple.TypedArrayCompat.getChangingConfigurations",
+	"Comment": "return a mask of the configuration parameters for which the values inthis typed array may change.",
+	"Method": "int getChangingConfigurations(TypedArray array,int getChangingConfigurations,TypedArray array,int getChangingConfigurations,TypedArray array,int getChangingConfigurations,TypedArray array){\r\n    return IMPL.getChangingConfigurations(array);\r\n}"
+}, {
+	"Path": "carbon.widget.CheckBox.setOnCheckedChangeListener",
+	"Comment": "register a callback to be invoked when the checked state of this buttonchanges.",
+	"Method": "void setOnCheckedChangeListener(OnCheckedChangeListener listener){\r\n    onCheckedChangeListener = listener;\r\n}"
+}, {
+	"Path": "com.airbnb.android.airmapview.NativeGoogleMapFragment.getGoogleMap",
+	"Comment": "this method will return the google map if initialized. will return null otherwise",
+	"Method": "GoogleMap getGoogleMap(){\r\n    return googleMap;\r\n}"
+}, {
+	"Path": "de.schildbach.wallet.integration.android.BitcoinIntegration.paymentFromResult",
+	"Comment": "get bip70 payment message from result intent. meant for usage by applications initiating a bitcoinpayment.you can use the transactions contained in the payment to validate the payment. for this, you need yourown bitcoin infrastructure though. there is no guarantee that the payment will ever confirm.",
+	"Method": "byte[] paymentFromResult(Intent result){\r\n    final byte[] payment = result.getByteArrayExtra(INTENT_EXTRA_PAYMENT);\r\n    return payment;\r\n}"
+}, {
+	"Path": "carbon.beta.CollapsingToolbarLayout.setCornerRadius",
+	"Comment": "sets the corner radius. if corner radius is equal to 0, rounded corners are turned off.",
+	"Method": "void setCornerRadius(float cornerRadius){\r\n    setCorners(new Corners(cornerRadius, false));\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPClient.remoteAppend",
+	"Comment": "initiate a server to server file transfer.this method tells theserver to which the client is connected to append to a given file onthe other server.the other server must have had a remoteretrieveissued to it by another ftpclient.",
+	"Method": "boolean remoteAppend(String filename){\r\n    if (__dataConnectionMode == ACTIVE_REMOTE_DATA_CONNECTION_MODE || __dataConnectionMode == PASSIVE_REMOTE_DATA_CONNECTION_MODE) {\r\n        return FTPReply.isPositivePreliminary(appe(filename));\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "carbon.drawable.ripple.RippleDrawableICS.tryRippleExit",
+	"Comment": "attempts to start an exit animation for the active hotspot. fails ifthere is no active hotspot.",
+	"Method": "void tryRippleExit(){\r\n    if (mRipple != null) {\r\n        if (mExitingRipples == null) {\r\n            mExitingRipples = new RippleForeground[MAX_RIPPLES];\r\n        }\r\n        mExitingRipples[mExitingRipplesCount++] = mRipple;\r\n        mRipple.exit();\r\n        mRipple = null;\r\n    }\r\n}"
+}, {
+	"Path": "carbon.internal.Menu.getOrdering",
+	"Comment": "returns the ordering across all items. this will grab the category fromthe upper bits, find out how to order the category with respect to othercategories, and combine it with the lower bits.",
+	"Method": "int getOrdering(int categoryOrder){\r\n    final int index = (categoryOrder & CATEGORY_MASK) >> CATEGORY_SHIFT;\r\n    if (index < 0 || index >= sCategoryToOrder.length) {\r\n        throw new IllegalArgumentException(\"order does not contain a valid category.\");\r\n    }\r\n    return (sCategoryToOrder[index] << CATEGORY_SHIFT) | (categoryOrder & USER_MASK);\r\n}"
+}, {
+	"Path": "com.sun.btrace.BTraceUtils.parseDouble",
+	"Comment": "returns a new double initialized to the valuerepresented by the specified string, as performedby the valueof methcod of classdouble.",
+	"Method": "double parseDouble(String s,double parseDouble,String s){\r\n    return Numbers.parseDouble(s);\r\n}"
+}, {
+	"Path": "com.sun.btrace.runtime.BTraceProbeNode.callees",
+	"Comment": "collects all the methods reachable from this particular method",
+	"Method": "Set<BTraceMethodNode> callees(String name,String desc){\r\n    Set<String> closure = new HashSet();\r\n    graph.callees(name, desc, closure);\r\n    return fromIdSet(closure);\r\n}"
+}, {
+	"Path": "com.sun.btrace.BTraceUtils.currentThreadCpuTime",
+	"Comment": "returns the total cpu time for the current thread in nanoseconds.the returned value is of nanoseconds precision butnot necessarily nanoseconds accuracy.if the implementation distinguishes between user mode time and systemmode time, the returned cpu time is the amount of time thatthe current thread has executed in user mode or system mode.",
+	"Method": "long currentThreadCpuTime(long currentThreadCpuTime){\r\n    return Sys.VM.currentThreadCpuTime();\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTP.isStrictMultilineParsing",
+	"Comment": "return whether strict multiline parsing is enabled, as per rfc 959, section 4.2.",
+	"Method": "boolean isStrictMultilineParsing(){\r\n    return strictMultilineParsing;\r\n}"
+}, {
+	"Path": "carbon.widget.FrameLayout.setCornerRadius",
+	"Comment": "sets the corner radius. if corner radius is equal to 0, rounded corners are turned off.",
+	"Method": "void setCornerRadius(float cornerRadius){\r\n    setCorners(new Corners(cornerRadius, false));\r\n}"
+}, {
+	"Path": "com.sun.btrace.BTraceUtils.length",
+	"Comment": "returns the length of the given string.the length is equal to the number of unicodecode units in the string.",
+	"Method": "int length(String str,int length,String str,int length,Appendable buffer){\r\n    return Strings.length(str);\r\n}"
+}, {
+	"Path": "com.sun.btrace.BTraceUtils.availableProcessors",
+	"Comment": "returns the number of processors available to the java virtual machine.this value may change during a particular invocation of the virtualmachine.applications that are sensitive to the number of availableprocessors should therefore occasionally poll this property and adjusttheir resource usage appropriately.",
+	"Method": "long availableProcessors(long availableProcessors){\r\n    return Sys.Env.availableProcessors();\r\n}"
+}, {
+	"Path": "com.arialyy.aria.util.WeakHandler.post",
+	"Comment": "causes the runnable r to be added to the message queue.the runnable will be run on the thread to which this handler isattached.",
+	"Method": "boolean post(Runnable r){\r\n    return mExec.post(wrapRunnable(r));\r\n}"
+}, {
+	"Path": "com.sun.btrace.BTraceUtils.newAggregation",
+	"Comment": "creates a new aggregation based on the given aggregation function type.",
+	"Method": "Aggregation newAggregation(AggregationFunction type,Aggregation newAggregation,AggregationFunction type){\r\n    return Aggregations.newAggregation(type);\r\n}"
+}, {
+	"Path": "io.crate.action.sql.PreparedStmt.setDescribedParameters",
+	"Comment": "sets the parameters sent back from a parameterdescription message.",
+	"Method": "void setDescribedParameters(DataType[] describedParameters){\r\n    this.describedParameterTypes = describedParameters;\r\n}"
+}, {
+	"Path": "com.sun.btrace.Profiler.snapshot",
+	"Comment": "creates an immutable snapshot of the collected profiling data.makes it possible to reset the profiler after creating the snapshot, eventually",
+	"Method": "Snapshot snapshot(Snapshot snapshot,boolean reset){\r\n    return snapshot(false);\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.parser.FTPTimestampParserImpl.setServerTimeZone",
+	"Comment": "sets a timezone represented by the supplied id string into allof the parsers used by this server.",
+	"Method": "void setServerTimeZone(String serverTimeZoneId){\r\n    TimeZone serverTimeZone = TimeZone.getDefault();\r\n    if (serverTimeZoneId != null) {\r\n        serverTimeZone = TimeZone.getTimeZone(serverTimeZoneId);\r\n    }\r\n    this.defaultDateFormat.setTimeZone(serverTimeZone);\r\n    if (this.recentDateFormat != null) {\r\n        this.recentDateFormat.setTimeZone(serverTimeZone);\r\n    }\r\n}"
+}, {
+	"Path": "com.sun.btrace.BTraceUtils.regexp",
+	"Comment": "compiles the given regular expression into a pattern with the givenflags.",
+	"Method": "Pattern regexp(String regex,Pattern regexp,String regex,int flags,Pattern regexp,String regex,Pattern regexp,String regex,int flags){\r\n    return Strings.regexp(regex, flags);\r\n}"
+}, {
+	"Path": "io.crate.integrationtests.RegexpIntegrationTest.testRegexpMatchQueryOperatorOnSysShards",
+	"Comment": "also test ~ and ~ operators with pcre features, but on system tables.",
+	"Method": "void testRegexpMatchQueryOperatorOnSysShards(){\r\n    this.setup.setUpLocations();\r\n    ensureGreen();\r\n    refresh();\r\n    execute(\"select table_name, * from sys.shards where table_name ~ '(?i)LOCATIONS' order by table_name\");\r\n    assertThat(response.rowCount(), is(2L));\r\n    assertThat((String) response.rows()[0][0], is(\"locations\"));\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.io.CopyStreamException.getTotalBytesTransferred",
+	"Comment": "returns the total number of bytes confirmed to havebeen transferred by a failed copy operation.",
+	"Method": "long getTotalBytesTransferred(){\r\n    return totalBytesTransferred;\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPReply.isPositivePreliminary",
+	"Comment": "determine if a reply code is a positive preliminary response.allcodes beginning with a 1 are positive preliminary responses.postitive preliminary responses are used to indicate tentative success.no further commands can be issued to the ftp server after a positivepreliminary response until a follow up response is received from theserver.",
+	"Method": "boolean isPositivePreliminary(int reply){\r\n    return (reply >= 100 && reply < 200);\r\n}"
+}, {
+	"Path": "org.connectbot.transport.AbsTransport.enablePortForward",
+	"Comment": "enables a port forward member. after calling this method, the port forward should\tbe operational iff it could be enabled by the transport.",
+	"Method": "boolean enablePortForward(PortForwardBean portForward){\r\n    return false;\r\n}"
+}, {
+	"Path": "io.crate.metadata.Scalar.evaluateIfLiterals",
+	"Comment": "this method will evaluate the function using the given scalar if all arguments are literals.otherwise it will return the function as is or null in case it contains a null literal",
+	"Method": "Symbol evaluateIfLiterals(Scalar<ReturnType, InputType> scalar,Function function){\r\n    List<Symbol> arguments = function.arguments();\r\n    for (Symbol argument : arguments) {\r\n        if (!(argument instanceof Input)) {\r\n            return function;\r\n        }\r\n    }\r\n    Input[] inputs = new Input[arguments.size()];\r\n    int idx = 0;\r\n    for (Symbol arg : arguments) {\r\n        inputs[idx] = (Input) arg;\r\n        idx++;\r\n    }\r\n    return Literal.of(function.info().returnType(), scalar.evaluate(inputs));\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.util.Base64.encodeBase64Chunked",
+	"Comment": "encodes binary data using the base64 algorithm and chunks the encoded output into 76 characterblocks",
+	"Method": "byte[] encodeBase64Chunked(byte[] binaryData){\r\n    return encodeBase64(binaryData, true);\r\n}"
+}, {
+	"Path": "carbon.drawable.ripple.RippleDrawableICS.clearHotspots",
+	"Comment": "cancels and removes the active ripple, all exiting ripples, and thebackground. nothing will be drawn after this method is called.",
+	"Method": "void clearHotspots(){\r\n    if (mRipple != null) {\r\n        mRipple.end();\r\n        mRipple = null;\r\n        mRippleActive = false;\r\n    }\r\n    if (mBackground != null) {\r\n        mBackground.end();\r\n        mBackground = null;\r\n        mBackgroundActive = false;\r\n    }\r\n    cancelExitingRipples();\r\n}"
+}, {
+	"Path": "io.crate.metadata.ColumnIdent.validateSubscriptPatternInColumnName",
+	"Comment": "checks if a column name contains a subscript notation and throws an exception if it does.",
+	"Method": "void validateSubscriptPatternInColumnName(String columnName){\r\n    if (SUBSCRIPT_PATTERN.matcher(columnName).matches()) {\r\n        throw new InvalidColumnNameException(columnName, \"conflicts with subscript pattern\");\r\n    }\r\n}"
+}, {
+	"Path": "io.crate.testing.TestingHelpers.printedTable",
+	"Comment": "prints the contents of a result array as a human readable table",
+	"Method": "String printedTable(Object[][] result,String printedTable,Bucket result){\r\n    return printRows(Arrays.asList(Buckets.materialize(result)));\r\n}"
+}, {
+	"Path": "io.crate.execution.dml.ShardResponse.markResponseItemsAndFailures",
+	"Comment": "iterates over the provided shardresponse locations and marks the corresponding location in the provided bitsetwith true if the response has an item at the location or false if the location is a failure.",
+	"Method": "void markResponseItemsAndFailures(ShardResponse shardResponse,BitSet bitSet){\r\n    IntArrayList itemIndices = shardResponse.itemIndices();\r\n    List<Failure> failures = shardResponse.failures();\r\n    for (int i = 0; i < itemIndices.size(); i++) {\r\n        int location = itemIndices.get(i);\r\n        ShardResponse.Failure failure = failures.get(i);\r\n        if (failure == null) {\r\n            bitSet.set(location, true);\r\n        } else {\r\n            bitSet.set(location, false);\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "com.sun.btrace.BTraceUtils.peakThreadCount",
+	"Comment": "returns the peak live thread count since the java virtual machinestarted or peak was reset.",
+	"Method": "long peakThreadCount(long peakThreadCount){\r\n    return Sys.VM.peakThreadCount();\r\n}"
+}, {
+	"Path": "carbon.drawable.ripple.LayerDrawable.getNumberOfLayers",
+	"Comment": "returns the number of layers contained within this layer drawable.",
+	"Method": "int getNumberOfLayers(){\r\n    return mLayerState.mNum;\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.io.DotTerminatedMessageWriter.flush",
+	"Comment": "flushes the underlying output, writing all buffered output.",
+	"Method": "void flush(){\r\n    synchronized (lock) {\r\n        __output.flush();\r\n    }\r\n}"
+}, {
+	"Path": "com.sun.btrace.BTraceUtils.jstackAllStr",
+	"Comment": "returns atmost given number of frames in stack tracesof all threads as a string.",
+	"Method": "String jstackAllStr(String jstackAllStr,int numFrames,String jstackAllStr,String jstackAllStr,int numFrames){\r\n    return Threads.jstackAllStr(numFrames);\r\n}"
+}, {
+	"Path": "com.sun.btrace.BTraceUtils.vmStartTime",
+	"Comment": "returns the start time of the java virtual machine in milliseconds.this method returns the approximate time when the java virtualmachine started.",
+	"Method": "long vmStartTime(long vmStartTime){\r\n    return Sys.VM.vmStartTime();\r\n}"
+}, {
+	"Path": "carbon.drawable.ripple.LollipopDrawable.getAlpha",
+	"Comment": "gets the current alpha value for the drawable. 0 means fully transparent,255 means fully opaque. this method is implemented bydrawable subclasses and the value returned is specific to how that class treats alpha.the default return value is 255 if the class does not override this method to return a valuespecific to its use of alpha.",
+	"Method": "int getAlpha(){\r\n    return 0xFF;\r\n}"
+}, {
+	"Path": "io.crate.execution.engine.collect.stats.JobsLogs.isEnabled",
+	"Comment": "indicates if statistics are gathered.this result will change if the cluster settings is updated.",
+	"Method": "boolean isEnabled(){\r\n    return enabled.getAsBoolean();\r\n}"
+}, {
+	"Path": "carbon.widget.AutoCompleteEditText.performCompletion",
+	"Comment": "replaces the current word with s. used by adapter to set the selected item as text.",
+	"Method": "void performCompletion(String s){\r\n    int selStart = getSelectionStart();\r\n    int selEnd = getSelectionEnd();\r\n    if (selStart != selEnd)\r\n        return;\r\n    Editable text = getText();\r\n    HintSpan[] spans = text.getSpans(0, length(), HintSpan.class);\r\n    if (spans.length > 1)\r\n        throw new IllegalStateException(\"more than one HintSpan\");\r\n    Word word = getCurrentWord();\r\n    if (word == null)\r\n        throw new IllegalStateException(\"no word to complete\");\r\n    autoCompleting = true;\r\n    text.delete(selStart, selStart + word.postCursor.length());\r\n    text.delete(selStart - word.preCursor.length(), selStart);\r\n    text.insert(selStart - word.preCursor.length(), s);\r\n    setSelection(selStart - word.preCursor.length() + s.length());\r\n    fireOnFilterEvent(null);\r\n    super.setImeOptions(prevOptions);\r\n    autoCompleting = false;\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTP.port",
+	"Comment": "a convenience method to send the ftp port command to the server,receive the reply, and return the reply code.",
+	"Method": "int port(InetAddress host,int port){\r\n    int num;\r\n    StringBuilder info = new StringBuilder(24);\r\n    info.append(host.getHostAddress().replace('.', ','));\r\n    num = port >>> 8;\r\n    info.append(',');\r\n    info.append(num);\r\n    info.append(',');\r\n    num = port & 0xff;\r\n    info.append(num);\r\n    return sendCommand(FTPCmd.PORT, info.toString());\r\n}"
+}, {
+	"Path": "io.crate.analyze.TableParameterInfo.supportedSettings",
+	"Comment": "returns list of public settings names supported by this table",
+	"Method": "ImmutableMap<String, Setting> supportedSettings(){\r\n    return supportedSettings;\r\n}"
+}, {
+	"Path": "carbon.view.View.getCornerRadius",
+	"Comment": "gets the corner radius. if corner radius is equal to 0, rounded corners are turned off.",
+	"Method": "float getCornerRadius(){\r\n    return corners.getTopStart();\r\n}"
+}, {
+	"Path": "net.sf.jtreemap.swing.TreeMapNodeBuilder.buildLeaf",
+	"Comment": "add a leaf to the tree. if the parent is null, the build node become the root if and only if thetree have no root yet. if the parent is null and if the root is alreadybuild, the node will not be added to the tree.",
+	"Method": "TreeMapNode buildLeaf(String label,double weight,Value value,TreeMapNode parent){\r\n    final TreeMapNode node = new TreeMapNode(label, weight, value);\r\n    if (parent != null) {\r\n        parent.add(node);\r\n    } else if (this.root == null) {\r\n        this.root = node;\r\n    }\r\n    return node;\r\n}"
+}, {
+	"Path": "com.sun.btrace.profiling.MethodInvocationRecorderTest.testRecordEntry",
+	"Comment": "test of recordentry method, of class methodinvocationrecorder.",
+	"Method": "void testRecordEntry(){\r\n    System.out.println(\"recordEntry\");\r\n}"
+}, {
+	"Path": "com.twosigma.beakerx.table.format.TableDisplayStringFormat.getHTMLFormat",
+	"Comment": "get a formatter that shows strings as formatted html with specified width",
+	"Method": "TableDisplayStringFormat getHTMLFormat(TableDisplayStringFormat getHTMLFormat,int width){\r\n    return new HTMLStringFormat(width);\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.util.KeyManagerUtils.createClientKeyManager",
+	"Comment": "create a client key manager which returns a particular key.does not handle server keys.uses the default store type and assumes the key password is the same as the store password.the key alias is found by searching the keystore for the first private key entry",
+	"Method": "KeyManager createClientKeyManager(KeyStore ks,String keyAlias,String keyPass,KeyManager createClientKeyManager,String storeType,File storePath,String storePass,String keyAlias,String keyPass,KeyManager createClientKeyManager,File storePath,String storePass,String keyAlias,KeyManager createClientKeyManager,File storePath,String storePass){\r\n    return createClientKeyManager(DEFAULT_STORE_TYPE, storePath, storePass, null, storePass);\r\n}"
+}, {
+	"Path": "com.sun.btrace.DOTWriter.shouldDetail",
+	"Comment": "determine if a node should be detailed based on object and class filters.",
+	"Method": "boolean shouldDetail(Object object){\r\n    if (object == this)\r\n        return false;\r\n    if (!filtering)\r\n        return true;\r\n    if (!includeObjects.isEmpty()) {\r\n        return includeObjects.contains(object);\r\n    }\r\n    if (!includeClasses.isEmpty()) {\r\n        for (Class clazz : includeClasses) {\r\n            if (clazz.isInstance(object))\r\n                return true;\r\n        }\r\n        return false;\r\n    }\r\n    if (includeClassNames != null) {\r\n        return includeClassNames.matcher(object.getClass().getName()).matches();\r\n    }\r\n    if (!excludeObjects.isEmpty()) {\r\n        if (excludeObjects.contains(object))\r\n            return false;\r\n    }\r\n    if (!excludeClasses.isEmpty()) {\r\n        for (Class clazz : excludeClasses) {\r\n            if (clazz.isInstance(object))\r\n                return false;\r\n        }\r\n    }\r\n    if (excludeClassNames != null) {\r\n        return !excludeClassNames.matcher(object.getClass().getName()).matches();\r\n    }\r\n    return true;\r\n}"
+}, {
+	"Path": "io.crate.expression.reference.file.LineContext.getCurrentUriFailure",
+	"Comment": "return the current uri failure if any. a null value indicates that no failure happened while accessing the uri.",
+	"Method": "String getCurrentUriFailure(){\r\n    return currentUriFailure;\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.io.SocketOutputStream.write",
+	"Comment": "writes a number of bytes from a byte array to the stream starting froma given offset.this method bypasses the equivalent method infilteroutputstream because the filteroutputstream implementation isvery inefficient.",
+	"Method": "void write(byte buffer,int offset,int length){\r\n    out.write(buffer, offset, length);\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.parser.ConfigurableFTPFileEntryParserImpl.parseTimestamp",
+	"Comment": "this method is called by the concrete parsers to delegatetimestamp parsing to the timestamp parser.",
+	"Method": "Calendar parseTimestamp(String timestampStr){\r\n    return this.timestampParser.parseTimestamp(timestampStr);\r\n}"
+}, {
+	"Path": "de.mud.terminal.vt320.setVMS",
+	"Comment": "enable the vms mode of the terminal to handle some things differentlyfor vms hosts.",
+	"Method": "void setVMS(boolean vms){\r\n    this.vms = vms;\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPClient.setControlKeepAliveTimeout",
+	"Comment": "set the time to wait between sending control connection keepalive messageswhen processing file upload or download.",
+	"Method": "void setControlKeepAliveTimeout(long controlIdle){\r\n    __controlKeepAliveTimeout = controlIdle * 1000;\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTP.stru",
+	"Comment": "a convenience method to send the ftp stru command to the server,receive the reply, and return the reply code.",
+	"Method": "int stru(int structure){\r\n    return sendCommand(FTPCmd.STRU, __modes.substring(structure, structure + 1));\r\n}"
+}, {
+	"Path": "io.crate.metadata.Schemas.isDefaultOrCustomSchema",
+	"Comment": "checks if a given schema name string is a user defined schema or the default one.",
+	"Method": "boolean isDefaultOrCustomSchema(String schemaName){\r\n    if (schemaName == null) {\r\n        return true;\r\n    }\r\n    if (schemaName.equalsIgnoreCase(InformationSchemaInfo.NAME) || schemaName.equalsIgnoreCase(SysSchemaInfo.NAME) || schemaName.equalsIgnoreCase(BlobSchemaInfo.NAME)) {\r\n        return false;\r\n    }\r\n    return true;\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.io.SocketInputStream.close",
+	"Comment": "closes the stream and immediately afterward closes the referencedsocket.",
+	"Method": "void close(){\r\n    super.close();\r\n    __socket.close();\r\n}"
+}, {
+	"Path": "com.airbnb.android.airmapview.RuntimePermissionUtils.hasSelfPermissions",
+	"Comment": "returns true if the context has access to any given permissions.",
+	"Method": "boolean hasSelfPermissions(Context context,String permissions){\r\n    for (String permission : permissions) {\r\n        if (checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED) {\r\n            return true;\r\n        }\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.SocketClient.isAvailable",
+	"Comment": "make various checks on the socket to test if it is available for use.note that the only sure test is to use it, but these checks may helpin some cases.",
+	"Method": "boolean isAvailable(){\r\n    if (isConnected()) {\r\n        try {\r\n            if (_socket_.getInetAddress() == null) {\r\n                return false;\r\n            }\r\n            if (_socket_.getPort() == 0) {\r\n                return false;\r\n            }\r\n            if (_socket_.getRemoteSocketAddress() == null) {\r\n                return false;\r\n            }\r\n            if (_socket_.isClosed()) {\r\n                return false;\r\n            }\r\n            if (_socket_.isInputShutdown()) {\r\n                return false;\r\n            }\r\n            if (_socket_.isOutputShutdown()) {\r\n                return false;\r\n            }\r\n            _socket_.getInputStream();\r\n            _socket_.getOutputStream();\r\n        } catch (IOException ioex) {\r\n            return false;\r\n        }\r\n        return true;\r\n    } else {\r\n        return false;\r\n    }\r\n}"
+}, {
+	"Path": "com.arialyy.aria.util.WeakHandler.postDelayed",
+	"Comment": "causes the runnable r to be added to the message queue, to be runafter the specified amount of time elapses.the runnable will be run on the thread to which this handleris attached.",
+	"Method": "boolean postDelayed(Runnable r,long delayMillis){\r\n    return mExec.postDelayed(wrapRunnable(r), delayMillis);\r\n}"
+}, {
+	"Path": "org.connectbot.util.HostDatabase.saveKnownHost",
+	"Comment": "record the given hostkey into database under this nickname.",
+	"Method": "void saveKnownHost(String hostname,int port,String hostkeyalgo,byte[] hostkey){\r\n    HashMap<String, String> selection = new HashMap();\r\n    selection.put(FIELD_HOST_HOSTNAME, hostname);\r\n    selection.put(FIELD_HOST_PORT, String.valueOf(port));\r\n    HostBean hostBean = findHost(selection);\r\n    if (hostBean == null) {\r\n        Log.e(TAG, \"Tried to save known host for \" + hostname + \":\" + port + \" it doesn't exist in the database\");\r\n        return;\r\n    }\r\n    ContentValues values = new ContentValues();\r\n    values.put(FIELD_KNOWNHOSTS_HOSTKEYALGO, hostkeyalgo);\r\n    values.put(FIELD_KNOWNHOSTS_HOSTKEY, hostkey);\r\n    values.put(FIELD_KNOWNHOSTS_HOSTID, hostBean.getId());\r\n    mDb.beginTransaction();\r\n    try {\r\n        mDb.delete(TABLE_KNOWNHOSTS, FIELD_KNOWNHOSTS_HOSTID + \" = ? AND \" + FIELD_KNOWNHOSTS_HOSTKEYALGO + \" = ?\", new String[] { String.valueOf(hostBean.getId()), hostkeyalgo });\r\n        mDb.insert(TABLE_KNOWNHOSTS, null, values);\r\n        mDb.setTransactionSuccessful();\r\n    } finally {\r\n        mDb.endTransaction();\r\n    }\r\n    Log.d(TAG, String.format(\"Finished saving hostkey information for '%s:%d' algo %s\", hostname, port, hostkeyalgo));\r\n}"
+}, {
+	"Path": "org.connectbot.TerminalView.setNotifications",
+	"Comment": "sets the ability for the terminalview to display toast notifications to the user.",
+	"Method": "void setNotifications(boolean value){\r\n    notifications = value;\r\n}"
+}, {
+	"Path": "io.crate.metadata.FunctionImplementation.normalizeSymbol",
+	"Comment": "normalize a symbol into a simplified form.this may return the symbol as is if it cannot be normalized.",
+	"Method": "Symbol normalizeSymbol(Function function,TransactionContext transactionContext){\r\n    return function;\r\n}"
+}, {
+	"Path": "io.crate.monitor.SysInfo.gather",
+	"Comment": "this is the main method to obtain the sysinfo data structure.",
+	"Method": "SysInfo gather(SysInfo gather){\r\n    return INSTANCE;\r\n}"
+}, {
+	"Path": "io.crate.execution.support.ThreadPools.runWithAvailableThreads",
+	"Comment": "uses up to availablethreads threads to run all suppliers.if availablethreads is smaller than the number of suppliers it will run multiple suppliersgrouped within the available threads.",
+	"Method": "CompletableFuture<List<T>> runWithAvailableThreads(Executor executor,IntSupplier availableThreads,Collection<Supplier<T>> suppliers){\r\n    int threadsToUse = availableThreads.getAsInt();\r\n    if (threadsToUse < suppliers.size()) {\r\n        Iterable<List<Supplier<T>>> partitions = Iterables.partition(suppliers, suppliers.size() / threadsToUse);\r\n        ArrayList<CompletableFuture<List<T>>> futures = new ArrayList(threadsToUse + 1);\r\n        for (List<Supplier<T>> partition : partitions) {\r\n            Supplier<List<T>> executePartition = () -> Lists2.map(partition, Supplier::get);\r\n            futures.add(CompletableFutures.supplyAsync(executePartition, executor));\r\n        }\r\n        return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).thenApply(aVoid -> {\r\n            ArrayList<T> finalResult = new ArrayList(suppliers.size());\r\n            for (CompletableFuture<List<T>> future : futures) {\r\n                finalResult.addAll(future.join());\r\n            }\r\n            return finalResult;\r\n        });\r\n    } else {\r\n        ArrayList<CompletableFuture<T>> futures = new ArrayList(suppliers.size());\r\n        for (Supplier<T> supplier : suppliers) {\r\n            futures.add(CompletableFutures.supplyAsync(supplier, executor));\r\n        }\r\n        return CompletableFutures.allAsList(futures);\r\n    }\r\n}"
+}, {
+	"Path": "net.sf.jtreemap.swing.TreeMapNodeBuilder.buildBranch",
+	"Comment": "add a branch to the tree. if the parent is null, the build node become the root if and only if thetree have no root yet. if the parent is null and if the root is alreadybuild, the node will not be added to the tree.",
+	"Method": "TreeMapNode buildBranch(String label,TreeMapNode parent){\r\n    final TreeMapNode node = new TreeMapNode(label);\r\n    if (parent != null) {\r\n        parent.add(node);\r\n    } else if (this.root == null) {\r\n        this.root = node;\r\n    }\r\n    return node;\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTP.getReplyCode",
+	"Comment": "returns the integer value of the reply code of the last ftp reply.you will usually only use this method after you connect to theftp server to check that the connection was successful since connectis of type void.",
+	"Method": "int getReplyCode(){\r\n    return _replyCode;\r\n}"
+}, {
+	"Path": "carbon.drawable.ripple.RippleComponent.endSoftwareAnimations",
+	"Comment": "ends any current software animations, jumping the values to their endstate.",
+	"Method": "void endSoftwareAnimations(){\r\n    if (mSoftwareAnimator != null) {\r\n        mSoftwareAnimator.end();\r\n        mSoftwareAnimator = null;\r\n    }\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPReply.isNegativePermanent",
+	"Comment": "determine if a reply code is a negative permanent response.allcodes beginning with a 5 are negative permanent responses.the ftp server will send a negative permanent response on thefailure of a command that cannot be reattempted with success.",
+	"Method": "boolean isNegativePermanent(int reply){\r\n    return (reply >= 500 && reply < 600);\r\n}"
+}, {
+	"Path": "io.crate.common.Hex.encodeHexString",
+	"Comment": "converts an array of bytes into a string representing the hexadecimal values of each byte in order. the returnedstring will be double the length of the passed array, as it takes two characters to represent any given byte.",
+	"Method": "String encodeHexString(byte[] data){\r\n    return new String(encodeHex(data));\r\n}"
+}, {
+	"Path": "carbon.drawable.ripple.RippleForeground.getBounds",
+	"Comment": "returns the maximum bounds of the ripple relative to the ripple center.",
+	"Method": "void getBounds(Rect bounds){\r\n    final int outerX = (int) mTargetX;\r\n    final int outerY = (int) mTargetY;\r\n    final int r = (int) mTargetRadius + 1;\r\n    bounds.set(outerX - r, outerY - r, outerX + r, outerY + r);\r\n}"
+}, {
+	"Path": "org.connectbot.service.TerminalManager.reconnectPending",
+	"Comment": "reconnect all bridges that were pending a reconnect when connectivity\twas lost.",
+	"Method": "void reconnectPending(){\r\n    synchronized (mPendingReconnect) {\r\n        for (WeakReference<TerminalBridge> ref : mPendingReconnect) {\r\n            TerminalBridge bridge = ref.get();\r\n            if (bridge == null) {\r\n                continue;\r\n            }\r\n            bridge.startConnection();\r\n        }\r\n        mPendingReconnect.clear();\r\n    }\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPReply.isNegativeTransient",
+	"Comment": "determine if a reply code is a negative transient response.allcodes beginning with a 4 are negative transient responses.the ftp server will send a negative transient response on thefailure of a command that can be reattempted with success.",
+	"Method": "boolean isNegativeTransient(int reply){\r\n    return (reply >= 400 && reply < 500);\r\n}"
+}, {
+	"Path": "com.twosigma.beakerx.table.renderer.TableDisplayCellRenderer.getDataBarsRenderer",
+	"Comment": "shows data bars in the background if the values in the column are all number.",
+	"Method": "TableDisplayCellRenderer getDataBarsRenderer(TableDisplayCellRenderer getDataBarsRenderer,boolean includeText){\r\n    return new DataBarsRenderer(includeText);\r\n}"
+}, {
+	"Path": "carbon.internal.Menu.removeItemAtInt",
+	"Comment": "remove the item at the given index and optionally forces menu views toupdate.",
+	"Method": "void removeItemAtInt(int index,boolean updateChildrenOnMenuViews){\r\n    if ((index < 0) || (index >= mItems.size()))\r\n        return;\r\n    mItems.remove(index);\r\n    if (updateChildrenOnMenuViews)\r\n        onItemsChanged(true);\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.SocketClient.verifyRemote",
+	"Comment": "verifies that the remote end of the given socket is connected to thethe same host that the socketclient is currently connected to.thisis useful for doing a quick security check when a client needs toaccept a connection from a server, such as an ftp data connection ora bsd r command standard error stream.",
+	"Method": "boolean verifyRemote(Socket socket){\r\n    InetAddress host1, host2;\r\n    host1 = socket.getInetAddress();\r\n    host2 = getRemoteAddress();\r\n    return host1.equals(host2);\r\n}"
+}, {
+	"Path": "io.crate.execution.engine.collect.RemoteCollectorFactory.createCollector",
+	"Comment": "create a remotecollectorthe remotecollector will collect data from another node using a wormhole as if it was collecting on this node.this should only be used if a shard is not available on the current node due to a relocation",
+	"Method": "BatchIterator<Row> createCollector(ShardId shardId,RoutedCollectPhase collectPhase,CollectTask collectTask,ShardCollectorProviderFactory shardCollectorProviderFactory){\r\n    final UUID childJobId = UUID.randomUUID();\r\n    Collector<Row, ?, List<Object[]>> listCollector = Collectors.mapping(Row::materialize, Collectors.toList());\r\n    CollectingRowConsumer<?, List<Object[]>> consumer = new CollectingRowConsumer(listCollector);\r\n    ShardStateAwareRemoteCollector shardStateAwareRemoteCollector = new ShardStateAwareRemoteCollector(shardId, consumer, clusterService, indicesService, getLocalCollectorProvider(shardCollectorProviderFactory, collectPhase, collectTask, consumer), getRemoteCollectorProvider(childJobId, shardId, collectPhase, collectTask, consumer), searchTp, threadPool.getThreadContext());\r\n    return CollectingBatchIterator.newInstance(() -> {\r\n    }, shardStateAwareRemoteCollector::kill, () -> {\r\n        shardStateAwareRemoteCollector.doCollect();\r\n        return consumer.resultFuture().thenApply(results -> results.stream().map(Buckets.arrayToSharedRow())::iterator);\r\n    });\r\n}"
+}, {
+	"Path": "org.connectbot.service.TerminalBridge.enablePortForward",
+	"Comment": "enables a port forward member. after calling this method, the port forward should\tbe operational.",
+	"Method": "boolean enablePortForward(PortForwardBean portForward){\r\n    if (!transport.isConnected()) {\r\n        Log.i(TAG, \"Attempt to enable port forward while not connected\");\r\n        return false;\r\n    }\r\n    return transport.enablePortForward(portForward);\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.util.Base64.hasData",
+	"Comment": "returns true if this base64 object has buffered data for reading.",
+	"Method": "boolean hasData(){\r\n    return this.buffer != null;\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.io.CopyStreamException.getIOException",
+	"Comment": "returns the ioexception responsible for the failure of a copy operation.",
+	"Method": "IOException getIOException(){\r\n    return (IOException) getCause();\r\n}"
+}, {
+	"Path": "io.crate.integrationtests.SQLTransportIntegrationTest.isFeatureEnabled",
+	"Comment": "we sometimes randomize the use of features in tests.this method verifies the provided ratio and based on it and a random numberindicates if a feature should be enabled or not.",
+	"Method": "boolean isFeatureEnabled(double ratio){\r\n    if (ratio == 0) {\r\n        return false;\r\n    }\r\n    assert ratio >= 0.0 && ratio <= 1.0;\r\n    return ratio == 1 || RandomizedContext.current().getRandom().nextDouble() < ratio;\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPClient.remoteStore",
+	"Comment": "initiate a server to server file transfer.this method tells theserver to which the client is connected to store a file onthe other server using the given filename.the other server musthave had aremoteretrieveissued to it by anotherftpclient.",
+	"Method": "boolean remoteStore(String filename){\r\n    if (__dataConnectionMode == ACTIVE_REMOTE_DATA_CONNECTION_MODE || __dataConnectionMode == PASSIVE_REMOTE_DATA_CONNECTION_MODE) {\r\n        return FTPReply.isPositivePreliminary(stor(filename));\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPClient.disconnect",
+	"Comment": "closes the connection to the ftp server and restoresconnection parameters to the default values.",
+	"Method": "void disconnect(){\r\n    super.disconnect();\r\n    __initDefaults();\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTP.getReplyString",
+	"Comment": "returns the entire text of the last ftp server response exactlyas it was received, including all end of line markers in netasciiformat.",
+	"Method": "String getReplyString(){\r\n    StringBuilder buffer;\r\n    if (!_newReplyString) {\r\n        return _replyString;\r\n    }\r\n    buffer = new StringBuilder(256);\r\n    for (String line : _replyLines) {\r\n        buffer.append(line);\r\n        buffer.append(SocketClient.NETASCII_EOL);\r\n    }\r\n    _newReplyString = false;\r\n    return (_replyString = buffer.toString());\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.util.TrustManagerUtils.getValidateServerCertificateTrustManager",
+	"Comment": "generate a trustmanager that checks server certificates for validity,but otherwise performs no checks.",
+	"Method": "X509TrustManager getValidateServerCertificateTrustManager(){\r\n    return CHECK_SERVER_VALIDITY;\r\n}"
+}, {
+	"Path": "io.crate.execution.dml.upsert.ShardUpsertRequest.isRetry",
+	"Comment": "returns true if this request has been sent to a shard copy more than once.",
+	"Method": "boolean isRetry(){\r\n    return isRetry;\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.util.SSLSocketUtils.enableEndpointNameVerification",
+	"Comment": "enable the https endpoint identification algorithm on an sslsocket.",
+	"Method": "boolean enableEndpointNameVerification(SSLSocket socket){\r\n    try {\r\n        Class<?> cls = Class.forName(\"javax.net.ssl.SSLParameters\");\r\n        Method setEndpointIdentificationAlgorithm = cls.getDeclaredMethod(\"setEndpointIdentificationAlgorithm\", String.class);\r\n        Method getSSLParameters = SSLSocket.class.getDeclaredMethod(\"getSSLParameters\");\r\n        Method setSSLParameters = SSLSocket.class.getDeclaredMethod(\"setSSLParameters\", cls);\r\n        if (setEndpointIdentificationAlgorithm != null && getSSLParameters != null && setSSLParameters != null) {\r\n            Object sslParams = getSSLParameters.invoke(socket);\r\n            if (sslParams != null) {\r\n                setEndpointIdentificationAlgorithm.invoke(sslParams, \"HTTPS\");\r\n                setSSLParameters.invoke(socket, sslParams);\r\n                return true;\r\n            }\r\n        }\r\n    } catch (SecurityException e) {\r\n    } catch (ClassNotFoundException e) {\r\n    } catch (NoSuchMethodException e) {\r\n    } catch (IllegalArgumentException e) {\r\n    } catch (IllegalAccessException e) {\r\n    } catch (InvocationTargetException e) {\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "carbon.widget.EditText.setRequired",
+	"Comment": "sets it the underlying inputview has to be not empty. adds an asterisk to hint text and labeltext",
+	"Method": "void setRequired(boolean required){\r\n    this.required = required;\r\n}"
+}, {
+	"Path": "io.crate.protocols.postgres.Messages.sendShortMsg",
+	"Comment": "send a message that just contains the msgtype and the msg length",
+	"Method": "void sendShortMsg(Channel channel,char msgType,String traceLogMsg){\r\n    ByteBuf buffer = channel.alloc().buffer(5);\r\n    buffer.writeByte(msgType);\r\n    buffer.writeInt(4);\r\n    ChannelFuture channelFuture = channel.write(buffer);\r\n    if (LOGGER.isTraceEnabled()) {\r\n        channelFuture.addListener((ChannelFutureListener) future -> LOGGER.trace(traceLogMsg));\r\n    }\r\n}"
+}, {
+	"Path": "carbon.drawable.ripple.RippleComponent.cancelSoftwareAnimations",
+	"Comment": "cancels any current software animations, leaving the values in theircurrent state.",
+	"Method": "void cancelSoftwareAnimations(){\r\n    if (mSoftwareAnimator != null) {\r\n        mSoftwareAnimator.cancel();\r\n        mSoftwareAnimator = null;\r\n    }\r\n}"
+}, {
+	"Path": "com.sun.btrace.profiling.MethodInvocationRecorderTest.testGetRecords",
+	"Comment": "test of getrecords method, of class methodinvocationrecorder.",
+	"Method": "void testGetRecords(){\r\n    System.out.println(\"getRecords\");\r\n    Profiler.Record[] expected = new Profiler.Record[] { new Profiler.Record(\"r1\"), new Profiler.Record(\"r2\") };\r\n    expected[0].invocations = 1;\r\n    expected[0].selfTime = 10;\r\n    expected[0].wallTime = 20;\r\n    expected[1].invocations = 1;\r\n    expected[1].selfTime = 10;\r\n    expected[1].wallTime = 10;\r\n    mir.recordEntry(\"r1\");\r\n    mir.recordEntry(\"r2\");\r\n    mir.recordExit(\"r2\", 10);\r\n    mir.recordExit(\"r1\", 20);\r\n    Profiler.Record[] result = mir.getRecords(false);\r\n    assertArrayEquals(expected, result);\r\n}"
+}, {
+	"Path": "io.crate.metadata.PartitionName.templatePrefix",
+	"Comment": "return the template prefix to match against index names for the given schema and table name",
+	"Method": "String templatePrefix(String schemaName,String tableName){\r\n    return templateName(schemaName, tableName) + \"*\";\r\n}"
+}, {
+	"Path": "com.sun.btrace.compiler.PCPP.nextRequiredToken",
+	"Comment": "reads the next token and throws an ioexception if it is not the specifiedtoken character.",
+	"Method": "void nextRequiredToken(int requiredToken){\r\n    int nextTok = nextToken();\r\n    if (nextTok != requiredToken) {\r\n        String msg = \"Expected token '\" + requiredToken + \"' but got \";\r\n        switch(nextTok) {\r\n            case StreamTokenizer.TT_EOF:\r\n                msg += \"<EOF>\";\r\n                break;\r\n            case StreamTokenizer.TT_EOL:\r\n                msg += \"<EOL>\";\r\n                break;\r\n            default:\r\n                msg += \"'\" + curTokenAsString() + \"'\";\r\n                break;\r\n        }\r\n        msg += \" at file \" + filename() + \", line \" + lineNumber();\r\n        throw new IOException(msg);\r\n    }\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPClient.__mergeListeners",
+	"Comment": "merge two copystream listeners, either or both of which may be null.",
+	"Method": "CopyStreamListener __mergeListeners(CopyStreamListener local){\r\n    if (local == null) {\r\n        return __copyStreamListener;\r\n    }\r\n    if (__copyStreamListener == null) {\r\n        return local;\r\n    }\r\n    CopyStreamAdapter merged = new CopyStreamAdapter();\r\n    merged.addCopyStreamListener(local);\r\n    merged.addCopyStreamListener(__copyStreamListener);\r\n    return merged;\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.parser.MVSFTPEntryParser.parseUnixList",
+	"Comment": "parse the entry as a standard unix file. using the unixftpentryparser.",
+	"Method": "boolean parseUnixList(FTPFile file,String entry){\r\n    file = unixFTPEntryParser.parseFTPEntry(entry);\r\n    if (file == null) {\r\n        return false;\r\n    }\r\n    return true;\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTP.mfmt",
+	"Comment": "a convenience method to send the ftp mfmt command to the server,receive the reply, and return the reply code.",
+	"Method": "int mfmt(String pathname,String timeval){\r\n    return sendCommand(FTPCmd.MFMT, timeval + \" \" + pathname);\r\n}"
+}, {
+	"Path": "de.mud.telnet.TelnetProtocolHandler.reset",
+	"Comment": "reset the protocol handler. this may be necessary after theconnection was closed or some other problem occured.",
+	"Method": "void reset(){\r\n    neg_state = 0;\r\n    receivedDX = new byte[256];\r\n    sentDX = new byte[256];\r\n    receivedWX = new byte[256];\r\n    sentWX = new byte[256];\r\n}"
+}, {
+	"Path": "io.crate.analyze.repositories.TypeSettings.dynamicProperties",
+	"Comment": "return possible dynamic genericproperties which will not be validated.",
+	"Method": "GenericProperties dynamicProperties(GenericProperties genericProperties){\r\n    return GenericProperties.EMPTY;\r\n}"
+}, {
+	"Path": "com.twosigma.beakerx.table.format.TableDisplayStringFormat.getDecimalFormat",
+	"Comment": "get a formatter that works with bigdecimal, double, and float",
+	"Method": "TableDisplayStringFormat getDecimalFormat(int minDecimals,int maxDecimals){\r\n    return new DecimalStringFormat(minDecimals, maxDecimals);\r\n}"
+}, {
+	"Path": "io.crate.analyze.InsertFromValuesAnalyzer.addPrimaryKeyValue",
+	"Comment": "sets a primary key value at the correct index of the given array structure.values could be applied in an unordered way, so given the correct column index of the defined primary keydefinition is very important here.",
+	"Method": "void addPrimaryKeyValue(int index,Object value,String[] primaryKeyValues){\r\n    if (value == null) {\r\n        throw new IllegalArgumentException(\"Primary key value must not be NULL\");\r\n    }\r\n    assert primaryKeyValues.length > index : \"Index of primary key value is greater than the array holding the values\";\r\n    primaryKeyValues[index] = value.toString();\r\n}"
+}, {
+	"Path": "carbon.internal.Menu.createNewMenuItem",
+	"Comment": "layoutlib overrides this method to return its custom implementation of menuitem",
+	"Method": "MenuItem createNewMenuItem(int group,int id,int categoryOrder,int ordering,CharSequence title,int defaultShowAsAction){\r\n    return new MenuItem(group, id, categoryOrder, title);\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPCommand.getCommand",
+	"Comment": "retrieve the ftp protocol command string corresponding to a specifiedcommand code.",
+	"Method": "String getCommand(int command){\r\n    return _commands[command];\r\n}"
+}, {
+	"Path": "carbon.widget.FrameLayout.getCornerRadius",
+	"Comment": "gets the corner radius. if corner radius is equal to 0, rounded corners are turned off.",
+	"Method": "float getCornerRadius(){\r\n    return corners.getTopStart();\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPClient.getAutodetectUTF8",
+	"Comment": "tells if automatic server encoding detection is enabled or disabled.",
+	"Method": "boolean getAutodetectUTF8(){\r\n    return __autodetectEncoding;\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPClient.isRemoteVerificationEnabled",
+	"Comment": "return whether or not verification of the remote host participatingin data connections is enabled.the default behavior is forverification to be enabled.",
+	"Method": "boolean isRemoteVerificationEnabled(){\r\n    return __remoteVerificationEnabled;\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ProtocolCommandSupport.getListenerCount",
+	"Comment": "returns the number of protocolcommandlisteners currently registered.",
+	"Method": "int getListenerCount(){\r\n    return __listeners.getListenerCount();\r\n}"
+}, {
+	"Path": "io.crate.test.integration.CrateDummyClusterServiceUnitTest.additionalClusterSettings",
+	"Comment": "override this method to provide additional cluster settings.",
+	"Method": "Collection<Setting<?>> additionalClusterSettings(){\r\n    return EMPTY_CLUSTER_SETTINGS;\r\n}"
+}, {
+	"Path": "io.crate.testing.RowGenerator.fromSingleColValues",
+	"Comment": "return a iterable where each row has the same instance, but the data changes depending on the given iterable.",
+	"Method": "Iterable<Row> fromSingleColValues(Iterable<T> iterable){\r\n    return () -> new Iterator<Row>() {\r\n        private Object[] cells = new Object[1];\r\n        private RowN row = new RowN(cells);\r\n        private Iterator<?> iterator = iterable.iterator();\r\n        @Override\r\n        public boolean hasNext() {\r\n            return iterator.hasNext();\r\n        }\r\n        @Override\r\n        public Row next() {\r\n            cells[0] = iterator.next();\r\n            return row;\r\n        }\r\n    };\r\n}"
+}, {
+	"Path": "io.crate.testing.RowGenerator.fromSingleColValues",
+	"Comment": "return a iterable where each row has the same instance, but the data changes depending on the given iterable.",
+	"Method": "Iterable<Row> fromSingleColValues(Iterable<T> iterable){\r\n    return iterator.hasNext();\r\n}"
+}, {
+	"Path": "io.crate.testing.RowGenerator.fromSingleColValues",
+	"Comment": "return a iterable where each row has the same instance, but the data changes depending on the given iterable.",
+	"Method": "Iterable<Row> fromSingleColValues(Iterable<T> iterable){\r\n    cells[0] = iterator.next();\r\n    return row;\r\n}"
+}, {
+	"Path": "carbon.internal.WeakHashSet.add",
+	"Comment": "adds the specified element to this set if it is not alreadypresent.",
+	"Method": "boolean add(Object o){\r\n    processQueue();\r\n    return super.add(WeakElement.create(o, this.queue));\r\n}"
+}, {
+	"Path": "carbon.widget.Button.setCornerRadius",
+	"Comment": "sets the corner radius. if corner radius is equal to 0, rounded corners are turned off.",
+	"Method": "void setCornerRadius(float cornerRadius){\r\n    setCorners(new Corners(cornerRadius, false));\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.util.Base64.isArrayByteBase64",
+	"Comment": "tests a given byte array to see if it contains only valid characters within the base64alphabet. currently themethod treats whitespace as valid.",
+	"Method": "boolean isArrayByteBase64(byte[] arrayOctet){\r\n    for (int i = 0; i < arrayOctet.length; i++) {\r\n        if (!isBase64(arrayOctet[i]) && !isWhiteSpace(arrayOctet[i])) {\r\n            return false;\r\n        }\r\n    }\r\n    return true;\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPFile.getTimestamp",
+	"Comment": "returns the file timestamp.this usually the last modification time.",
+	"Method": "Calendar getTimestamp(){\r\n    return _date;\r\n}"
+}, {
+	"Path": "com.sun.btrace.BTraceUtils.classForName",
+	"Comment": "returns the class for the given class nameusing the given class loader.",
+	"Method": "Class classForName(String name,Class classForName,String name,ClassLoader cl,Class classForName,String name,Class classForName,String name,ClassLoader cl){\r\n    return Reflective.classForName(name, cl);\r\n}"
+}, {
+	"Path": "carbon.widget.TextView.setCornerRadius",
+	"Comment": "sets the corner radius. if corner radius is equal to 0, rounded corners are turned off.",
+	"Method": "void setCornerRadius(float cornerRadius){\r\n    setCorners(new Corners(cornerRadius, false));\r\n}"
+}, {
+	"Path": "carbon.internal.Menu.addInternal",
+	"Comment": "adds an item to the menu.the other add methods funnel to this.",
+	"Method": "android.view.MenuItem addInternal(int group,int id,int categoryOrder,CharSequence title){\r\n    final int ordering = getOrdering(categoryOrder);\r\n    final MenuItem item = createNewMenuItem(group, id, categoryOrder, ordering, title, mDefaultShowAsAction);\r\n    mItems.add(findInsertIndex(mItems, ordering), item);\r\n    onItemsChanged(true);\r\n    return item;\r\n}"
+}, {
+	"Path": "com.sun.btrace.aggregation.Aggregation.truncate",
+	"Comment": "reduces the size of the aggregation to the absolute value of count. if count is greater thanzero, the largest aggregated values are preserved. if it is less than zero, the smallest aggregated values arepreserved. passing a value of zero clears the aggregation completely.",
+	"Method": "void truncate(int count){\r\n    if (count == 0) {\r\n        values.clear();\r\n    } else {\r\n        List<Map.Entry<AggregationKey, AggregationValue>> sortedContents = sort();\r\n        int collectionSize = sortedContents.size();\r\n        int numberToRemove = collectionSize - Math.abs(count);\r\n        if (numberToRemove < 0) {\r\n            return;\r\n        }\r\n        List<Map.Entry<AggregationKey, AggregationValue>> removeContents;\r\n        if (count > 0) {\r\n            removeContents = sortedContents.subList(0, numberToRemove);\r\n        } else {\r\n            removeContents = sortedContents.subList(collectionSize - numberToRemove, collectionSize);\r\n        }\r\n        for (int i = 0; i < removeContents.size(); i++) {\r\n            values.remove(removeContents.get(i).getKey());\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.io.FromNetASCIIInputStream.isConversionRequired",
+	"Comment": "returns true if the netascii line separator differs from the systemline separator, false if they are the same.this method is usefulto determine whether or not you need to instantiate afromnetasciiinputstream object.",
+	"Method": "boolean isConversionRequired(){\r\n    return !_noConversionRequired;\r\n}"
+}, {
+	"Path": "io.crate.analyze.relations.JoinPairs.isOuterRelation",
+	"Comment": "returns true if relation name is part of an outer join and on the outer side.",
+	"Method": "boolean isOuterRelation(QualifiedName name,List<JoinPair> joinPairs){\r\n    for (JoinPair joinPair : joinPairs) {\r\n        if (joinPair.isOuterRelation(name)) {\r\n            return true;\r\n        }\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "com.sun.btrace.BTraceUtils.isInterface",
+	"Comment": "determines if the specified class object represents aninterface type.",
+	"Method": "boolean isInterface(Class clazz,boolean isInterface,Class clazz){\r\n    return Reflective.isInterface(clazz);\r\n}"
+}, {
+	"Path": "io.crate.blob.v2.BlobIndex.isBlobIndex",
+	"Comment": "check if this index is a blob tablethis only works for indices that were created via sql.",
+	"Method": "boolean isBlobIndex(String indexName){\r\n    return indexName.startsWith(INDEX_PREFIX);\r\n}"
+}, {
+	"Path": "com.sun.btrace.profiling.MethodInvocationRecorderTest.testRecordExit",
+	"Comment": "test of recordexit method, of class methodinvocationrecorder.",
+	"Method": "void testRecordExit(){\r\n    System.out.println(\"recordExit\");\r\n}"
+}, {
+	"Path": "com.arialyy.aria.util.WeakHandler.removeCallbacksAndMessages",
+	"Comment": "remove any pending posts of callbacks and sent messages whoseobj is token.if token is null,all callbacks and messages will be removed.",
+	"Method": "void removeCallbacksAndMessages(Object token){\r\n    mExec.removeCallbacksAndMessages(token);\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTP.feat",
+	"Comment": "a convenience method to send the ftp feat command to the server, receive the reply,and return the reply code.",
+	"Method": "int feat(){\r\n    return sendCommand(FTPCmd.FEAT);\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPFile.setGroup",
+	"Comment": "set the name of the group owning the file.this may bea string representation of the group number.",
+	"Method": "void setGroup(String group){\r\n    _group = group;\r\n}"
+}, {
+	"Path": "org.connectbot.SettingsFragment.onDisplayPreferenceDialog",
+	"Comment": "called when a preference in the tree requests to display a dialog. subclasses should\toverride this method to display custom dialogs or to handle dialogs for custom preference\tclasses.",
+	"Method": "void onDisplayPreferenceDialog(Preference preference){\r\n    if (preference instanceof VolumePreference) {\r\n        DialogFragment fragment = VolumePreferenceFragment.newInstance(preference);\r\n        fragment.setTargetFragment(this, 0);\r\n        fragment.show(getFragmentManager(), \"android.support.v7.preference.PreferenceFragment.DIALOG\");\r\n    } else {\r\n        super.onDisplayPreferenceDialog(preference);\r\n    }\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPClient.getControlKeepAliveTimeout",
+	"Comment": "get the time to wait between sending control connection keepalive messages.",
+	"Method": "long getControlKeepAliveTimeout(){\r\n    return __controlKeepAliveTimeout / 1000;\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPSClient.setEnabledSessionCreation",
+	"Comment": "controls whether a new ssl session may be established by this socket.",
+	"Method": "void setEnabledSessionCreation(boolean isCreation){\r\n    this.isCreation = isCreation;\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTPFile.getRawListing",
+	"Comment": "get the original ftp server raw listing used to initialize the ftpfile.",
+	"Method": "String getRawListing(){\r\n    return _rawListing;\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.util.Base64.containsBase64Byte",
+	"Comment": "tests a given byte array to see if it contains only valid characters within the base64alphabet.",
+	"Method": "boolean containsBase64Byte(byte[] arrayOctet){\r\n    for (byte element : arrayOctet) {\r\n        if (isBase64(element)) {\r\n            return true;\r\n        }\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "io.crate.planner.operators.LogicalPlan.preferShardProjections",
+	"Comment": "indicates if the operators which are added on top of this logicalplan should operate on a shard level.operating on a shard level increases parallelism.",
+	"Method": "boolean preferShardProjections(){\r\n    return false;\r\n}"
+}, {
+	"Path": "de.mud.terminal.VDUBuffer.setScreenSize",
+	"Comment": "change the size of the screen. this will include adjustment of thescrollback buffer.",
+	"Method": "void setScreenSize(int w,int h,boolean broadcast){\r\n    char[][] cbuf;\r\n    long[][] abuf;\r\n    int maxSize = bufSize;\r\n    int oldAbsR = screenBase + getCursorRow();\r\n    if (w < 1 || h < 1)\r\n        return;\r\n    if (debug > 0)\r\n        System.err.println(\"VDU: screen size [\" + w + \",\" + h + \"]\");\r\n    if (h > maxBufSize)\r\n        maxBufSize = h;\r\n    if (h > bufSize) {\r\n        bufSize = h;\r\n        screenBase = 0;\r\n        windowBase = 0;\r\n    }\r\n    if (windowBase + h >= bufSize)\r\n        windowBase = bufSize - h;\r\n    if (screenBase + h >= bufSize)\r\n        screenBase = bufSize - h;\r\n    cbuf = new char[bufSize][w];\r\n    abuf = new long[bufSize][w];\r\n    for (int i = 0; i < bufSize; i++) {\r\n        Arrays.fill(cbuf[i], ' ');\r\n    }\r\n    if (bufSize < maxSize)\r\n        maxSize = bufSize;\r\n    int rowLength;\r\n    if (charArray != null && charAttributes != null) {\r\n        for (int i = 0; i < maxSize && charArray[i] != null; i++) {\r\n            rowLength = charArray[i].length;\r\n            System.arraycopy(charArray[i], 0, cbuf[i], 0, w < rowLength ? w : rowLength);\r\n            System.arraycopy(charAttributes[i], 0, abuf[i], 0, w < rowLength ? w : rowLength);\r\n        }\r\n    }\r\n    int C = getCursorColumn();\r\n    if (C < 0)\r\n        C = 0;\r\n    else if (C >= w)\r\n        C = w - 1;\r\n    int R = getCursorRow();\r\n    if (R + screenBase <= oldAbsR)\r\n        R = oldAbsR - screenBase;\r\n    if (R < 0)\r\n        R = 0;\r\n    else if (R >= h)\r\n        R = h - 1;\r\n    setCursorPosition(C, R);\r\n    charArray = cbuf;\r\n    charAttributes = abuf;\r\n    width = w;\r\n    height = h;\r\n    topMargin = 0;\r\n    bottomMargin = h - 1;\r\n    update = new boolean[h + 1];\r\n    update[0] = true;\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.io.CopyStreamAdapter.removeCopyStreamListener",
+	"Comment": "unregisters a copystreamlistener.although this method is notsynchronized, it is implemented in a thread safe manner.",
+	"Method": "void removeCopyStreamListener(CopyStreamListener listener){\r\n    internalListeners.removeListener(listener);\r\n}"
+}, {
+	"Path": "carbon.widget.GridLayout.getCornerRadius",
+	"Comment": "gets the corner radius. if corner radius is equal to 0, rounded corners are turned off.",
+	"Method": "float getCornerRadius(){\r\n    return corners.getTopStart();\r\n}"
+}, {
+	"Path": "org.connectbot.service.TerminalBridge.setCharset",
+	"Comment": "sets the encoding used by the terminal. if the connection is live,\tthen the character set is changed for the next read.",
+	"Method": "void setCharset(String encoding){\r\n    if (relay != null)\r\n        relay.setCharset(encoding);\r\n    keyListener.setCharset(encoding);\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.io.CopyStreamEvent.getTotalBytesTransferred",
+	"Comment": "returns the total number of bytes transferred so far by the copyoperation.",
+	"Method": "long getTotalBytesTransferred(){\r\n    return totalBytesTransferred;\r\n}"
+}, {
+	"Path": "com.sun.btrace.BTraceUtils.currentThreadUserTime",
+	"Comment": "returns the cpu time that the current thread has executedin user mode in nanoseconds.the returned value is of nanoseconds precision butnot necessarily nanoseconds accuracy.",
+	"Method": "long currentThreadUserTime(long currentThreadUserTime){\r\n    return Sys.VM.currentThreadUserTime();\r\n}"
+}, {
+	"Path": "io.crate.core.collections.ForEach.forEach",
+	"Comment": "invoke a consumer for each elements of a collection or an array",
+	"Method": "void forEach(Object arrayOrCollection,Consumer<Object> consumer){\r\n    if (arrayOrCollection.getClass().isArray()) {\r\n        int arrayLength = Array.getLength(arrayOrCollection);\r\n        for (int i = 0; i < arrayLength; i++) {\r\n            Object elem = Array.get(arrayOrCollection, i);\r\n            consumer.accept(elem);\r\n        }\r\n    } else if (arrayOrCollection instanceof Collection) {\r\n        for (Object elem : ((Collection) arrayOrCollection)) {\r\n            consumer.accept(elem);\r\n        }\r\n    } else {\r\n        throw new AssertionError(\"argument is neither an array nor a collection\");\r\n    }\r\n}"
+}, {
+	"Path": "io.crate.collections.Lists2.concat",
+	"Comment": "create a new list that contains the elements of both arguments",
+	"Method": "List<T> concat(Collection<? extends T> list1,Collection<? extends T> list2){\r\n    ArrayList<T> list = new ArrayList(list1.size() + list2.size());\r\n    list.addAll(list1);\r\n    list.addAll(list2);\r\n    return list;\r\n}"
+}, {
+	"Path": "io.crate.integrationtests.RegexpIntegrationTest.testRegexpMatchQueryOperatorWithPcreViaElasticSearchForDelete",
+	"Comment": "same as above, running through the same code path for delete expressions.",
+	"Method": "void testRegexpMatchQueryOperatorWithPcreViaElasticSearchForDelete(){\r\n    this.setup.setUpLocations();\r\n    ensureGreen();\r\n    refresh();\r\n    execute(\"delete from locations where name ~ '(?i).*centauri.*'\");\r\n    assertThat(response.rowCount(), is(1L));\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.ftp.FTP.pwd",
+	"Comment": "a convenience method to send the ftp pwd command to the server,receive the reply, and return the reply code.",
+	"Method": "int pwd(){\r\n    return sendCommand(FTPCmd.PWD);\r\n}"
+}, {
+	"Path": "org.connectbot.service.TerminalManager.openConnection",
+	"Comment": "open a new connection by reading parameters from the given uri. follows\tformat specified by an individual transport.",
+	"Method": "TerminalBridge openConnection(HostBean host,TerminalBridge openConnection,Uri uri){\r\n    HostBean host = TransportFactory.findHost(hostdb, uri);\r\n    if (host == null)\r\n        host = TransportFactory.getTransport(uri.getScheme()).createHost(uri);\r\n    return openConnection(host);\r\n}"
+}, {
+	"Path": "com.sun.btrace.BTraceUtils.incrementAndGet",
+	"Comment": "atomically increments by one the current value of given atomicinteger.",
+	"Method": "int incrementAndGet(AtomicInteger ai,long incrementAndGet,AtomicLong al,int incrementAndGet,AtomicInteger ai,long incrementAndGet,AtomicLong al){\r\n    return Atomic.incrementAndGet(al);\r\n}"
+}, {
+	"Path": "aria.apache.commons.net.io.DotTerminatedMessageReader.readLine",
+	"Comment": "read a line of text.a line is considered to be terminated by carriage return followed immediately by a linefeed.this contrasts with bufferedreader which also allows other combinations.",
+	"Method": "String readLine(){\r\n    StringBuilder sb = new StringBuilder();\r\n    int intch;\r\n    synchronized (lock) {\r\n        while ((intch = read()) != -1) {\r\n            if (intch == LF && atBeginning) {\r\n                return sb.substring(0, sb.length() - 1);\r\n            }\r\n            sb.append((char) intch);\r\n        }\r\n    }\r\n    String string = sb.toString();\r\n    if (string.length() == 0) {\r\n        return null;\r\n    }\r\n    return string;\r\n}"
+}, {
+	"Path": "io.crate.metadata.doc.array.ArrayMapperTest.mapper",
+	"Comment": "create index with type and mapping and validate documentmapper serialization",
+	"Method": "DocumentMapper mapper(String indexName,String type,String mapping){\r\n    client().admin().indices().prepareCreate(indexName).setWaitForActiveShards(1).addMapping(type, mapping, XContentType.JSON).setSettings(Settings.builder().put(\"number_of_replicas\", 0).put(\"number_of_shards\", 1).build()).execute().actionGet();\r\n    String[] nodeNames = internalCluster().getNodeNames();\r\n    assert nodeNames.length == 1 : \"must have only 1 node, got: \" + Arrays.toString(nodeNames);\r\n    ClusterService clusterService = internalCluster().getInstance(ClusterService.class);\r\n    Index index = clusterService.state().getMetaData().index(indexName).getIndex();\r\n    IndicesService instanceFromNode = internalCluster().getInstance(IndicesService.class);\r\n    IndexService indexService = instanceFromNode.indexServiceSafe(index);\r\n    DocumentMapperParser parser = indexService.mapperService().documentMapperParser();\r\n    DocumentMapper defaultMapper = parser.parse(type, new CompressedXContent(mapping));\r\n    XContentBuilder builder = XContentFactory.contentBuilder(XContentType.JSON);\r\n    builder.startObject();\r\n    defaultMapper.toXContent(builder, ToXContent.EMPTY_PARAMS);\r\n    builder.endObject();\r\n    String rebuildMapping = Strings.toString(builder);\r\n    return parser.parse(type, new CompressedXContent(rebuildMapping));\r\n}"
+}, {
+	"Path": "com.sun.btrace.samples.AllMethodsLevels.l0",
+	"Comment": "capturing only methods invoked from javax.swing.jcomponent class.",
+	"Method": "void l0(String probeMethod){\r\n    println(\"# \" + probeMethod);\r\n}"
+}, {
+	"Path": "com.sun.btrace.samples.AllMethodsLevels.l1",
+	"Comment": "this will intercept all the methods from javax.swing. classes.",
+	"Method": "void l1(String probeMethod){\r\n    println(\"## \" + probeMethod);\r\n}"
+}]

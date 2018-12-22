@@ -1,0 +1,813 @@
+[{
+	"Path": "io.vavr.collection.Seq.lastIndexOfSlice",
+	"Comment": "finds last index before or at a given end index where this sequence contains a given sequence as a slice.",
+	"Method": "int lastIndexOfSlice(Iterable<? extends T> that,int lastIndexOfSlice,Iterable<? extends T> that,int end){\r\n    return lastIndexOfSlice(that, Integer.MAX_VALUE);\r\n}"
+}, {
+	"Path": "io.vavr.control.Either.orElseRun",
+	"Comment": "runs an action in the case this is a projection on a left value.",
+	"Method": "void orElseRun(Consumer<? super L> action){\r\n    Objects.requireNonNull(action, \"action is null\");\r\n    if (isLeft()) {\r\n        action.accept(getLeft());\r\n    }\r\n}"
+}, {
+	"Path": "io.vavr.collection.CharSeq.contains",
+	"Comment": "returns true if and only if this string contains the specifiedsequence of char values.",
+	"Method": "boolean contains(CharSequence s){\r\n    return back.contains(s);\r\n}"
+}, {
+	"Path": "org.knowm.xchange.dto.account.Balance.getWithdrawing",
+	"Comment": "returns the amount of the currency in this balance that is locked in withdrawal",
+	"Method": "BigDecimal getWithdrawing(){\r\n    return withdrawing;\r\n}"
+}, {
+	"Path": "org.knowm.xchange.bitcoinde.BitcoindeAdapters.adaptAccountInfo",
+	"Comment": "adapt a org.knowm.xchange.bitcoinde.dto.marketdata.bitcoindeaccount object to an accountinfoobject.",
+	"Method": "AccountInfo adaptAccountInfo(BitcoindeAccountWrapper bitcoindeAccount){\r\n    BitcoindeBalance btc = bitcoindeAccount.getData().getBalances().getBtc();\r\n    BitcoindeBalance eth = bitcoindeAccount.getData().getBalances().getEth();\r\n    BigDecimal eur = bitcoindeAccount.getData().getFidorReservation().getAvailableAmount();\r\n    Balance btcBalance = new Balance(Currency.BTC, btc.getAvailableAmount());\r\n    Balance ethBalance = new Balance(Currency.ETH, eth.getAvailableAmount());\r\n    Balance eurBalance = new Balance(Currency.EUR, eur);\r\n    Wallet wallet = new Wallet(btcBalance, ethBalance, eurBalance);\r\n    return new AccountInfo(wallet);\r\n}"
+}, {
+	"Path": "io.vavr.test.Property.predicateError",
+	"Comment": "creates a checkerror caused by an exception when testing a predicate.",
+	"Method": "CheckError predicateError(Throwable cause){\r\n    return new CheckError(\"Applying predicate: \" + cause.getMessage(), cause);\r\n}"
+}, {
+	"Path": "io.vavr.test.Gen.frequency",
+	"Comment": "chooses one of the given generators according to their frequency.only generators with positive frequencies ares used in returnedgenerator.",
+	"Method": "Gen<T> frequency(Tuple2<Integer, Gen<T>> generators,Gen<T> frequency,Iterable<Tuple2<Integer, Gen<T>>> generators,Gen<T> frequency,int n,java.util.Iterator<Tuple2<Integer, Gen<T>>> iter){\r\n    Objects.requireNonNull(generators, \"generators is null\");\r\n    final Vector<Tuple2<Integer, Gen<T>>> filtered = Iterator.ofAll(generators).filter(t -> t._1() > 0).toVector();\r\n    if (filtered.isEmpty()) {\r\n        throw new IllegalArgumentException(\"no generator with positive weight\");\r\n    }\r\n    final int size = filtered.map(t -> t._1).sum().intValue();\r\n    return choose(1, size).flatMap(n -> GenModule.frequency(n, filtered.iterator()));\r\n}"
+}, {
+	"Path": "twitter4j.TwitterFactory.getInstance",
+	"Comment": "returns a instance associated with the configuration bound to this factory.",
+	"Method": "Twitter getInstance(Twitter getInstance,AccessToken accessToken,Twitter getInstance,Authorization auth){\r\n    try {\r\n        return TWITTER_CONSTRUCTOR.newInstance(conf, auth);\r\n    } catch (InstantiationException e) {\r\n        throw new AssertionError(e);\r\n    } catch (IllegalAccessException e) {\r\n        throw new AssertionError(e);\r\n    } catch (InvocationTargetException e) {\r\n        throw new AssertionError(e);\r\n    }\r\n}"
+}, {
+	"Path": "org.knowm.xchange.utils.DateUtils.toUnixTimeNullSafe",
+	"Comment": "convert java time to unix time long, simply by dividing by the time 1000. null safe",
+	"Method": "Long toUnixTimeNullSafe(Date time){\r\n    return time == null ? null : time.getTime() / 1000;\r\n}"
+}, {
+	"Path": "org.knowm.xchange.coinbase.service.CoinbaseAccountServiceRaw.createCoinbaseButton",
+	"Comment": "authenticated resource that creates a payment button, page, or iframe to accept bitcoin on yourwebsite. this can be used to accept bitcoin for an individual item or to integrate with yourexisting shopping cart solution. for example, you could create a new payment button for eachshopping cart on your website, setting the total and order number in the button at checkout.",
+	"Method": "CoinbaseButton createCoinbaseButton(CoinbaseButton button){\r\n    final CoinbaseButton createdButton = coinbase.createButton(button, exchange.getExchangeSpecification().getApiKey(), signatureCreator, exchange.getNonceFactory());\r\n    return handleResponse(createdButton);\r\n}"
+}, {
+	"Path": "io.vavr.collection.PriorityQueue.enqueueAll",
+	"Comment": "enqueues the given elements. a queue has fifo order, i.e. the first of the given elements isthe first which will be retrieved.",
+	"Method": "PriorityQueue<T> enqueueAll(Iterable<? extends T> elements){\r\n    return merge(ofAll(comparator, elements));\r\n}"
+}, {
+	"Path": "io.vavr.test.Gen.choose",
+	"Comment": "chooses an enum value from all the enum constants defined in the enumerated type.",
+	"Method": "Gen<Integer> choose(int min,int max,Gen<Long> choose,long min,long max,Gen<Double> choose,double min,double max,Gen<Character> choose,char min,char max,Gen<Character> choose,char characters,Gen<T> choose,Class<T> clazz,Gen<T> choose,T values,Gen<T> choose,Iterable<T> values){\r\n    Objects.requireNonNull(values, \"values is null\");\r\n    final Iterator<T> iterator = Iterator.ofAll(values);\r\n    if (!iterator.hasNext()) {\r\n        throw new IllegalArgumentException(\"Empty iterable\");\r\n    }\r\n    @SuppressWarnings(\"unchecked\")\r\n    final T[] array = (T[]) iterator.toJavaArray();\r\n    return choose(array);\r\n}"
+}, {
+	"Path": "org.knowm.xchange.btcturk.BTCTurkAdapters.adaptOrderBook",
+	"Comment": "adapts org.knowm.xchange.btcturk.dto.marketdata.btcturkorderbook to a orderbook object",
+	"Method": "OrderBook adaptOrderBook(BTCTurkOrderBook btcTurkOrderBook,CurrencyPair currencyPair){\r\n    List<LimitOrder> asks = createOrders(currencyPair, Order.OrderType.ASK, btcTurkOrderBook.getAsks());\r\n    List<LimitOrder> bids = createOrders(currencyPair, Order.OrderType.BID, btcTurkOrderBook.getBids());\r\n    return new OrderBook(btcTurkOrderBook.getTimestamp(), asks, bids);\r\n}"
+}, {
+	"Path": "twitter4j.HttpResponse.asString",
+	"Comment": "returns the response body as string.disconnects the internal httpurlconnection silently.",
+	"Method": "String asString(){\r\n    if (null == responseAsString) {\r\n        BufferedReader br = null;\r\n        InputStream stream = null;\r\n        try {\r\n            stream = asStream();\r\n            if (null == stream) {\r\n                return null;\r\n            }\r\n            br = new BufferedReader(new InputStreamReader(stream, \"UTF-8\"));\r\n            StringBuilder buf = new StringBuilder();\r\n            String line;\r\n            while ((line = br.readLine()) != null) {\r\n                buf.append(line).append(\"\\n\");\r\n            }\r\n            this.responseAsString = buf.toString();\r\n            logger.debug(responseAsString);\r\n            stream.close();\r\n            streamConsumed = true;\r\n        } catch (IOException ioe) {\r\n            throw new TwitterException(ioe.getMessage(), ioe);\r\n        } finally {\r\n            if (stream != null) {\r\n                try {\r\n                    stream.close();\r\n                } catch (IOException ignore) {\r\n                }\r\n            }\r\n            if (br != null) {\r\n                try {\r\n                    br.close();\r\n                } catch (IOException ignore) {\r\n                }\r\n            }\r\n            disconnectForcibly();\r\n        }\r\n    }\r\n    return responseAsString;\r\n}"
+}, {
+	"Path": "io.vavr.test.Property.arbitraryError",
+	"Comment": "creates a checkerror caused by an exception when obtaining a generator.",
+	"Method": "CheckError arbitraryError(int position,int size,Throwable cause){\r\n    return new CheckError(String.format(\"Arbitrary %s of size %s: %s\", position, size, cause.getMessage()), cause);\r\n}"
+}, {
+	"Path": "org.knowm.xchange.utils.retries.Retries.callWithRetries",
+	"Comment": "allows a client to attempt a call and retry a finite amount of times if the exception thrown isthe right kind. the retries back off exponentially.",
+	"Method": "V callWithRetries(int nAttempts,int initialRetrySec,Callable<V> action,IPredicate<Exception> retryableException){\r\n    int retryDelaySec = initialRetrySec;\r\n    for (int attemptsLeftAfterThis = nAttempts - 1; attemptsLeftAfterThis >= 0; attemptsLeftAfterThis--) {\r\n        try {\r\n            return action.call();\r\n        } catch (Exception e) {\r\n            if (!retryableException.test(e)) {\r\n                throw e;\r\n            }\r\n            if (attemptsLeftAfterThis <= 0) {\r\n                throw new RuntimeException(\"Ultimately failed after \" + nAttempts + \" attempts.\", e);\r\n            }\r\n            log.warn(\"Failed; {} attempts left: {}\", e.toString(), attemptsLeftAfterThis);\r\n        }\r\n        retryDelaySec = pauseAndIncrease(retryDelaySec);\r\n    }\r\n    throw new RuntimeException(\"Failed; total attempts allowed: \" + nAttempts);\r\n}"
+}, {
+	"Path": "io.vavr.collection.Traversable.isSequential",
+	"Comment": "checks if the elements of this traversable appear in encounter order.",
+	"Method": "boolean isSequential(){\r\n    return false;\r\n}"
+}, {
+	"Path": "org.knowm.xchange.mercadobitcoin.MercadoBitcoinAdapters.adaptOrderBook",
+	"Comment": "adapts a org.knowm.xchange.mercadobitcoin.dto.marketdata.orderbook to a orderbook object",
+	"Method": "OrderBook adaptOrderBook(MercadoBitcoinOrderBook mercadoBitcoinOrderBook,CurrencyPair currencyPair){\r\n    List<LimitOrder> asks = createOrders(currencyPair, OrderType.ASK, mercadoBitcoinOrderBook.getAsks());\r\n    List<LimitOrder> bids = createOrders(currencyPair, OrderType.BID, mercadoBitcoinOrderBook.getBids());\r\n    return new OrderBook(null, asks, bids);\r\n}"
+}, {
+	"Path": "twitter4j.TwitterObjectFactory.getRawJSON",
+	"Comment": "returns a raw json form of the provided object.note that raw json forms can be retrieved only from the same thread invoked the last method call and will become inaccessible once another method call",
+	"Method": "String getRawJSON(Object obj){\r\n    if (!registeredAtleastOnce) {\r\n        throw new IllegalStateException(\"Apparently jsonStoreEnabled is not set to true.\");\r\n    }\r\n    Object json = rawJsonMap.get().get(obj);\r\n    if (json instanceof String) {\r\n        return (String) json;\r\n    } else if (json != null) {\r\n        return json.toString();\r\n    } else {\r\n        return null;\r\n    }\r\n}"
+}, {
+	"Path": "io.vavr.control.Validation.getOrElseGet",
+	"Comment": "gets the value if it is a valid or an value calculated from the errors",
+	"Method": "T getOrElseGet(Function<? super Seq<? super E>, ? extends T> other){\r\n    Objects.requireNonNull(other, \"other is null\");\r\n    if (isValid()) {\r\n        return get();\r\n    } else {\r\n        return other.apply(getErrors());\r\n    }\r\n}"
+}, {
+	"Path": "twitter4j.LazyStatus.isRetweetedByMe",
+	"Comment": "returns true if the authenticating user has retweeted this tweet, or false when the tweet wascreated before this feature was enabled.",
+	"Method": "boolean isRetweetedByMe(){\r\n    return getTarget().isRetweetedByMe();\r\n}"
+}, {
+	"Path": "twitter4j.Logger.getLogger",
+	"Comment": "returns a logger instance associated with the specified class.",
+	"Method": "Logger getLogger(Class<?> clazz){\r\n    return LOGGER_FACTORY.getLogger(clazz);\r\n}"
+}, {
+	"Path": "org.knowm.xchange.currency.Currency.getCurrencyCodes",
+	"Comment": "gets the set of all currency codes associated with this currency.",
+	"Method": "Set<String> getCurrencyCodes(){\r\n    return attributes.codes;\r\n}"
+}, {
+	"Path": "io.vavr.Lazy.get",
+	"Comment": "evaluates this lazy value and caches it, when called the first time.on subsequent calls, returns the cached value.",
+	"Method": "T get(){\r\n    return (supplier == null) ? value : computeValue();\r\n}"
+}, {
+	"Path": "org.knowm.xchange.ripple.service.RippleTradeServiceRaw.getTrade",
+	"Comment": "retrieve order details from local store if they have been previously stored otherwise queryexternal server.",
+	"Method": "IRippleTradeTransaction getTrade(String account,RippleNotification notification){\r\n    final RippleExchange ripple = (RippleExchange) exchange;\r\n    if (ripple.isStoreTradeTransactionDetails()) {\r\n        Map<String, IRippleTradeTransaction> cache = rawTradeStore.get(account);\r\n        if (cache == null) {\r\n            cache = new ConcurrentHashMap();\r\n            rawTradeStore.put(account, cache);\r\n        }\r\n        if (cache.containsKey(notification.getHash())) {\r\n            return cache.get(notification.getHash());\r\n        }\r\n    }\r\n    final IRippleTradeTransaction trade;\r\n    try {\r\n        if (notification.getType().equals(\"order\")) {\r\n            trade = ripplePublic.orderTransaction(account, notification.getHash());\r\n        } else if (notification.getType().equals(\"payment\")) {\r\n            trade = ripplePublic.paymentTransaction(account, notification.getHash());\r\n        } else {\r\n            throw new IllegalArgumentException(String.format(\"unexpected notification %s type for transaction[%s] and account[%s]\", notification.getType(), notification.getHash(), notification.getAccount()));\r\n        }\r\n    } catch (final RippleException e) {\r\n        if (e.getHttpStatusCode() == 500 && e.getErrorType().equals(\"transaction\")) {\r\n            logger.error(\"exception reading {} transaction[{}] for account[{}]\", notification.getType(), notification.getHash(), account, e);\r\n            return null;\r\n        } else {\r\n            throw e;\r\n        }\r\n    }\r\n    if (ripple.isStoreTradeTransactionDetails()) {\r\n        rawTradeStore.get(account).put(notification.getHash(), trade);\r\n    }\r\n    return trade;\r\n}"
+}, {
+	"Path": "org.terasology.registry.CoreRegistryTest.setup",
+	"Comment": "create a context implementation instance an assign it to coreregistry before testing.",
+	"Method": "void setup(){\r\n    context = new ContextImplementation();\r\n    CoreRegistry.setContext(context);\r\n}"
+}, {
+	"Path": "org.knowm.xchange.bitstamp.BitstampAdapters.adaptOrderBook",
+	"Comment": "adapts a org.knowm.xchange.bitstamp.api.model.orderbook to a orderbook object",
+	"Method": "OrderBook adaptOrderBook(BitstampOrderBook bitstampOrderBook,CurrencyPair currencyPair){\r\n    List<LimitOrder> asks = createOrders(currencyPair, Order.OrderType.ASK, bitstampOrderBook.getAsks());\r\n    List<LimitOrder> bids = createOrders(currencyPair, Order.OrderType.BID, bitstampOrderBook.getBids());\r\n    return new OrderBook(bitstampOrderBook.getTimestamp(), asks, bids);\r\n}"
+}, {
+	"Path": "org.knowm.xchange.coinmarketcap.service.CoinMarketCapMarketDataServiceRaw.getCoinMarketCapCurrencies",
+	"Comment": "unauthenticated resource that returns currencies supported on coinmarketcap.",
+	"Method": "List<CoinMarketCapCurrency> getCoinMarketCapCurrencies(){\r\n    List<CoinMarketCapTicker> tickers = getCoinMarketCapTickers();\r\n    List<CoinMarketCapCurrency> currencies = new ArrayList();\r\n    for (CoinMarketCapTicker ticker : tickers) currencies.add(ticker.getBaseCurrency());\r\n    return currencies;\r\n}"
+}, {
+	"Path": "org.knowm.xchange.coinbase.service.CoinbaseAccountServiceRaw.createCoinbaseOrder",
+	"Comment": "authenticated resource which returns an order for a new button.",
+	"Method": "CoinbaseOrder createCoinbaseOrder(String code,CoinbaseOrder createCoinbaseOrder,CoinbaseButton button){\r\n    final CoinbaseOrder createdOrder = coinbase.createOrder(button, exchange.getExchangeSpecification().getApiKey(), signatureCreator, exchange.getNonceFactory());\r\n    return handleResponse(createdOrder);\r\n}"
+}, {
+	"Path": "org.knowm.xchange.service.account.AccountService.requestDepositAddress",
+	"Comment": "request a digital currency address to fund this account. allows to fund the exchange accountwith digital currency from an external address",
+	"Method": "String requestDepositAddress(Currency currency,String args){\r\n    throw new NotYetImplementedForExchangeException();\r\n}"
+}, {
+	"Path": "com.db.chart.view.BaseBarChartView.calculatePositionOffset",
+	"Comment": "having calculated previously the barwidth gives the offset to knowwhere to start drawing the first bar of each group.",
+	"Method": "void calculatePositionOffset(int size){\r\n    if (size % 2 == 0)\r\n        drawingOffset = size * barWidth / 2 + (size - 1) * (style.setSpacing / 2);\r\n    else\r\n        drawingOffset = size * barWidth / 2 + ((size - 1) / 2) * style.setSpacing;\r\n}"
+}, {
+	"Path": "twitter4j.JSONStringer.open",
+	"Comment": "enters a new scope by appending any necessary whitespace and the givenbracket.",
+	"Method": "JSONStringer open(Scope empty,String openBracket){\r\n    if (stack.isEmpty() && out.length() > 0) {\r\n        throw new JSONException(\"Nesting problem: multiple top-level roots\");\r\n    }\r\n    beforeValue();\r\n    stack.add(empty);\r\n    out.append(openBracket);\r\n    return this;\r\n}"
+}, {
+	"Path": "org.knowm.xchange.ripple.RippleAdapters.adaptOrderBook",
+	"Comment": "adapts a ripple orderbook to an xchange orderbook object. counterparties are not mapped sincethe application calling this should know and keep track of the counterparties it is using inthe polling thread.",
+	"Method": "OrderBook adaptOrderBook(RippleOrderBook rippleOrderBook,RippleMarketDataParams params,CurrencyPair currencyPair){\r\n    final // e.g. XRP/BTC+rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B\r\n    String orderBook = rippleOrderBook.getOrderBook();\r\n    final String[] splitPair = orderBook.split(\"/\");\r\n    final String[] baseSplit = splitPair[0].split(\"\\\\+\");\r\n    final String baseSymbol = baseSplit[0];\r\n    if (baseSymbol.equals(currencyPair.base.getCurrencyCode()) == false) {\r\n        throw new IllegalStateException(String.format(\"base symbol in Ripple order book %s does not match requested base %s\", orderBook, currencyPair));\r\n    }\r\n    final String baseCounterparty;\r\n    if (baseSymbol.equals(\"XRP\")) {\r\n        baseCounterparty = \"\";\r\n    } else {\r\n        baseCounterparty = baseSplit[1];\r\n    }\r\n    if (baseCounterparty.equals(params.getBaseCounterparty()) == false) {\r\n        throw new IllegalStateException(String.format(\"base counterparty in Ripple order book %s does not match requested counterparty %s\", orderBook, params.getBaseCounterparty()));\r\n    }\r\n    final String[] counterSplit = splitPair[1].split(\"\\\\+\");\r\n    final String counterSymbol = counterSplit[0];\r\n    if (counterSymbol.equals(currencyPair.counter.getCurrencyCode()) == false) {\r\n        throw new IllegalStateException(String.format(\"counter symbol in Ripple order book %s does not match requested base %s\", orderBook, currencyPair));\r\n    }\r\n    final String counterCounterparty;\r\n    if (counterSymbol.equals(\"XRP\")) {\r\n        counterCounterparty = \"\";\r\n    } else {\r\n        counterCounterparty = counterSplit[1];\r\n    }\r\n    if (counterCounterparty.equals(params.getCounterCounterparty()) == false) {\r\n        throw new IllegalStateException(String.format(\"counter counterparty in Ripple order book %s does not match requested counterparty %s\", orderBook, params.getCounterCounterparty()));\r\n    }\r\n    final List<LimitOrder> bids = createOrders(currencyPair, OrderType.BID, rippleOrderBook.getBids(), baseCounterparty, counterCounterparty);\r\n    final List<LimitOrder> asks = createOrders(currencyPair, OrderType.ASK, rippleOrderBook.getAsks(), baseCounterparty, counterCounterparty);\r\n    return new OrderBook(null, asks, bids);\r\n}"
+}, {
+	"Path": "io.vavr.test.Arbitrary.distinct",
+	"Comment": "returns an arbitrary based on this arbitrary which produces unique values.",
+	"Method": "Arbitrary<T> distinct(){\r\n    return distinctBy(Function.identity());\r\n}"
+}, {
+	"Path": "twitter4j.LazyStatus.getContributors",
+	"Comment": "returns an array of contributors, or null if no contributor is associated with this status.",
+	"Method": "long[] getContributors(){\r\n    return getTarget().getContributors();\r\n}"
+}, {
+	"Path": "twitter4j.AsyncTwitterFactory.getInstance",
+	"Comment": "a kind of copy factory method constructs an asynctwitter from twitter instance",
+	"Method": "AsyncTwitter getInstance(AsyncTwitter getInstance,AccessToken accessToken,AsyncTwitter getInstance,Authorization auth,AsyncTwitter getInstance,Twitter twitter){\r\n    return new AsyncTwitterImpl(twitter.getConfiguration(), twitter.getAuthorization());\r\n}"
+}, {
+	"Path": "twitter4j.HttpResponse.asJSONArray",
+	"Comment": "returns the response body as twitter4j.jsonarray.disconnects the internal httpurlconnection silently.",
+	"Method": "JSONArray asJSONArray(){\r\n    if (jsonArray == null) {\r\n        try {\r\n            jsonArray = new JSONArray(asString());\r\n            if (CONF.isPrettyDebugEnabled()) {\r\n                logger.debug(jsonArray.toString(1));\r\n            } else {\r\n                logger.debug(responseAsString != null ? responseAsString : jsonArray.toString());\r\n            }\r\n        } catch (JSONException jsone) {\r\n            if (logger.isDebugEnabled()) {\r\n                throw new TwitterException(jsone.getMessage() + \":\" + this.responseAsString, jsone);\r\n            } else {\r\n                throw new TwitterException(jsone.getMessage(), jsone);\r\n            }\r\n        } finally {\r\n            disconnectForcibly();\r\n        }\r\n    }\r\n    return jsonArray;\r\n}"
+}, {
+	"Path": "com.squareup.wire.ProtoReader.readVarint32",
+	"Comment": "reads a raw varint from the stream.if larger than 32 bits, discard theupper bits.",
+	"Method": "int readVarint32(){\r\n    if (state != STATE_VARINT && state != STATE_LENGTH_DELIMITED) {\r\n        throw new ProtocolException(\"Expected VARINT or LENGTH_DELIMITED but was \" + state);\r\n    }\r\n    int result = internalReadVarint32();\r\n    afterPackableScalar(STATE_VARINT);\r\n    return result;\r\n}"
+}, {
+	"Path": "twitter4j.LazyStatus.getGeoLocation",
+	"Comment": "returns the location that this tweet refers to if available.",
+	"Method": "GeoLocation getGeoLocation(){\r\n    return getTarget().getGeoLocation();\r\n}"
+}, {
+	"Path": "org.knowm.xchange.coinbase.service.CoinbaseAccountServiceRaw.getCoinbaseUsers",
+	"Comment": "authenticated resource that shows the current user and their settings.",
+	"Method": "CoinbaseUsers getCoinbaseUsers(){\r\n    final CoinbaseUsers users = coinbase.getUsers(exchange.getExchangeSpecification().getApiKey(), signatureCreator, exchange.getNonceFactory());\r\n    return users;\r\n}"
+}, {
+	"Path": "org.knowm.xchange.coinbase.service.CoinbaseMarketDataServiceRaw.getCoinbaseSellPrice",
+	"Comment": "unauthenticated resource that tells you the total amount you can get if you sell some quantitybitcoin.",
+	"Method": "CoinbasePrice getCoinbaseSellPrice(CoinbasePrice getCoinbaseSellPrice,BigDecimal quantity,CoinbasePrice getCoinbaseSellPrice,BigDecimal quantity,String currency){\r\n    return coinbase.getSellPrice(quantity, currency);\r\n}"
+}, {
+	"Path": "org.knowm.xchange.dto.account.Balance.getLoaned",
+	"Comment": "returns the loaned amount of the total currency in this balance that will bereturned.",
+	"Method": "BigDecimal getLoaned(){\r\n    return loaned;\r\n}"
+}, {
+	"Path": "org.knowm.xchange.dragonex.dto.Token.valid",
+	"Comment": "assume the token is expired 1 minute before the actual expiry",
+	"Method": "boolean valid(){\r\n    return expireTime * 1000 - System.currentTimeMillis() > TimeUnit.MINUTES.toMillis(1);\r\n}"
+}, {
+	"Path": "org.knowm.xchange.dsx.service.DSXTradeServiceRaw.getDSXOrderHistory",
+	"Comment": "get map of order history from dsx exchange. all parameters are nullable",
+	"Method": "Map<Long, DSXOrderHistoryResult> getDSXOrderHistory(Long count,Long fromId,Long endId,DSXAuthenticatedV2.SortOrder order,Long since,Long end,String pair){\r\n    DSXOrderHistoryReturn dsxOrderHistory = dsx.orderHistory(apiKey, signatureCreator, exchange.getNonceFactory(), count, fromId, endId, order, since, end, pair);\r\n    String error = dsxOrderHistory.getError();\r\n    if (MSG_NO_TRADES.equals(error)) {\r\n        return Collections.emptyMap();\r\n    }\r\n    checkResult(dsxOrderHistory);\r\n    return dsxOrderHistory.getReturnValue();\r\n}"
+}, {
+	"Path": "io.vavr.collection.AbstractQueue.enqueue",
+	"Comment": "enqueues the given elements. a queue has fifo order, i.e. the first of the given elements isthe first which will be retrieved.",
+	"Method": "Q enqueue(T element,Q enqueue,T elements){\r\n    Objects.requireNonNull(elements, \"elements is null\");\r\n    return enqueueAll(List.of(elements));\r\n}"
+}, {
+	"Path": "com.db.chart.util.Preconditions.checkNotNull",
+	"Comment": "ensures that an object reference passed as a parameter to the calling method is not null.",
+	"Method": "T checkNotNull(T reference){\r\n    if (reference == null)\r\n        throw new NullPointerException();\r\n    else\r\n        return reference;\r\n}"
+}, {
+	"Path": "org.knowm.xchange.currency.Currency.getInstanceNoCreate",
+	"Comment": "returns the currency instance for the given currency code only if one already exists.",
+	"Method": "Currency getInstanceNoCreate(String currencyCode){\r\n    return currencies.get(currencyCode.toUpperCase());\r\n}"
+}, {
+	"Path": "twitter4j.StreamingGZIPInputStream.available",
+	"Comment": "overrides behavior of gzipinputstream which assumes we have all the data availablewhich is not true for streaming. we instead rely on the underlying stream to tell ushow much data is available.programs should not count on this method to return the actual numberof bytes that could be read without blocking.",
+	"Method": "int available(){\r\n    return wrapped.available();\r\n}"
+}, {
+	"Path": "io.vavr.match.model.ClassModel.getClassName",
+	"Comment": "returns the simple name for top level class and the combined class name for inner classes",
+	"Method": "String getClassName(){\r\n    final String fqn = getFullQualifiedName();\r\n    return hasDefaultPackage() ? fqn : fqn.substring(getPackageName().length() + 1);\r\n}"
+}, {
+	"Path": "com.squareup.wire.schema.SchemaLoader.addSource",
+	"Comment": "add directory or zip file source from which proto files will be loaded.",
+	"Method": "SchemaLoader addSource(File file,SchemaLoader addSource,Path path){\r\n    sources.add(path);\r\n    return this;\r\n}"
+}, {
+	"Path": "io.vavr.match.PatternsProcessor.process",
+	"Comment": "gathers annotated elements, transforms elements to a generator model and generates the model to code.",
+	"Method": "boolean process(Set<? extends TypeElement> annotations,RoundEnvironment roundEnv){\r\n    if (!annotations.isEmpty()) {\r\n        final Set<TypeElement> typeElements = roundEnv.getElementsAnnotatedWith(Patterns.class).stream().filter(element -> element instanceof TypeElement).map(element -> (TypeElement) element).collect(Collectors.toSet());\r\n        if (!typeElements.isEmpty()) {\r\n            final Set<ClassModel> classModels = transform(typeElements);\r\n            if (!classModels.isEmpty()) {\r\n                generate(classModels);\r\n            }\r\n        }\r\n    }\r\n    return true;\r\n}"
+}, {
+	"Path": "com.db.chart.animation.Animation.prepareExitAnimation",
+	"Comment": "method that prepares the enter animation. defines starting points, targets,distance, yadda, as well as the first set of points to be drawn.",
+	"Method": "ArrayList<ChartSet> prepareExitAnimation(ChartView chartView){\r\n    mIsEntering = false;\r\n    return prepareAnimation(chartView);\r\n}"
+}, {
+	"Path": "org.knowm.xchange.dto.account.Balance.getBorrowed",
+	"Comment": "returns the borrowed amount of the available currency in this balance that must berepaid.",
+	"Method": "BigDecimal getBorrowed(){\r\n    return borrowed;\r\n}"
+}, {
+	"Path": "org.knowm.xchange.coinbase.v2.service.CoinbaseMarketDataServiceRaw.getCoinbaseSellPrice",
+	"Comment": "unauthenticated resource that tells you the amount you can get if you sell one unit.",
+	"Method": "CoinbasePrice getCoinbaseSellPrice(Currency base,Currency counter){\r\n    return coinbase.getSellPrice(Coinbase.CB_VERSION_VALUE, base + \"-\" + counter).getData();\r\n}"
+}, {
+	"Path": "org.knowm.xchange.dsx.service.DSXTradeServiceRaw.getDSXTradeHistory",
+	"Comment": "get map of trade history from dsx exchange. all parameters are nullable",
+	"Method": "Map<Long, DSXTradeHistoryResult> getDSXTradeHistory(Integer count,Long fromId,Long endId,DSXAuthenticatedV2.SortOrder order,Long since,Long end,String pair){\r\n    DSXTradeHistoryReturn dsxTradeHistory = dsx.tradeHistory(apiKey, signatureCreator, exchange.getNonceFactory(), count, fromId, endId, order, since, end, pair);\r\n    String error = dsxTradeHistory.getError();\r\n    if (MSG_NO_TRADES.equals(error)) {\r\n        return Collections.emptyMap();\r\n    }\r\n    checkResult(dsxTradeHistory);\r\n    return dsxTradeHistory.getReturnValue();\r\n}"
+}, {
+	"Path": "io.vavr.test.Property.genError",
+	"Comment": "creates a checkerror caused by an exception when generating a value.",
+	"Method": "CheckError genError(int position,int size,Throwable cause){\r\n    return new CheckError(String.format(\"Gen %s of size %s: %s\", position, size, cause.getMessage()), cause);\r\n}"
+}, {
+	"Path": "io.vavr.OutputTester.captureErrOut",
+	"Comment": "execute the given runnable and capture everything that writtento stderr. the written text is normalized to unix line feeds before its returned.",
+	"Method": "String captureErrOut(Runnable runnable){\r\n    return Output.ERR.capture(runnable);\r\n}"
+}, {
+	"Path": "com.db.chart.model.LineSet.setDotsDrawable",
+	"Comment": "define a background drawable to each of the dataset points to bedrawn instead of the usual dot.",
+	"Method": "LineSet setDotsDrawable(Drawable drawable){\r\n    checkNotNull(drawable);\r\n    for (ChartEntry e : getEntries()) ((Point) e).setDrawable(drawable);\r\n    return this;\r\n}"
+}, {
+	"Path": "com.squareup.wire.schema.internal.Util.isValidTag",
+	"Comment": "true if the supplied value is in the valid tag range and not reserved.",
+	"Method": "boolean isValidTag(int value){\r\n    return (value >= MIN_TAG_VALUE && value < RESERVED_TAG_VALUE_START) || (value > RESERVED_TAG_VALUE_END && value <= MAX_TAG_VALUE);\r\n}"
+}, {
+	"Path": "org.knowm.xchange.coinbase.service.CoinbaseMarketDataServiceRaw.getCoinbaseBuyPrice",
+	"Comment": "unauthenticated resource that tells you the total price to buy some quantity of bitcoin.",
+	"Method": "CoinbasePrice getCoinbaseBuyPrice(CoinbasePrice getCoinbaseBuyPrice,BigDecimal quantity,CoinbasePrice getCoinbaseBuyPrice,BigDecimal quantity,String currency){\r\n    return coinbase.getBuyPrice(quantity, currency);\r\n}"
+}, {
+	"Path": "org.knowm.xchange.currency.Currency.getCurrencyCode",
+	"Comment": "gets the currency code originally used to acquire this object.",
+	"Method": "String getCurrencyCode(){\r\n    return code;\r\n}"
+}, {
+	"Path": "io.vavr.test.CheckResult.assertIsSatisfiedWithExhaustion",
+	"Comment": "asserts that this checkresult is satisfied with a given exhausted state.",
+	"Method": "void assertIsSatisfiedWithExhaustion(boolean exhausted){\r\n    if (!isSatisfied()) {\r\n        throw new AssertionError(\"Expected satisfied check result but was \" + this);\r\n    } else if (isExhausted() != exhausted) {\r\n        throw new AssertionError(\"Expected satisfied check result to be \" + (exhausted ? \"\" : \"not \") + \"exhausted but was: \" + this);\r\n    }\r\n}"
+}, {
+	"Path": "com.db.chart.model.LineSet.setFill",
+	"Comment": "define the color to fill up the line area.if no color has been previously defined to the line it will automatically be set to thesame color fill color.",
+	"Method": "LineSet setFill(int color){\r\n    mHasFill = true;\r\n    mFillColor = color;\r\n    if (mColor == DEFAULT_COLOR)\r\n        mColor = color;\r\n    return this;\r\n}"
+}, {
+	"Path": "org.knowm.xchange.utils.DateUtils.fromMillisUtc",
+	"Comment": "creates a date from a long representing milliseconds from epoch",
+	"Method": "Date fromMillisUtc(long millisecondsFromEpoch){\r\n    return new Date(millisecondsFromEpoch);\r\n}"
+}, {
+	"Path": "twitter4j.util.CharacterUtil.isExceedingLengthLimitation",
+	"Comment": "returns true if the length of the string is exceeding length limitation",
+	"Method": "boolean isExceedingLengthLimitation(String text){\r\n    return count(text) > MAX_TWEET_LENGTH;\r\n}"
+}, {
+	"Path": "com.squareup.wire.schema.Options.union",
+	"Comment": "combine values for the same key, resolving conflicts based on their type.",
+	"Method": "Object union(Linker linker,Object a,Object b,ImmutableMap<ProtoMember, Object> union,Linker linker,Map<ProtoMember, Object> a,Map<ProtoMember, Object> b,ImmutableList<Object> union,List<?> a,List<?> b){\r\n    return ImmutableList.builder().addAll(a).addAll(b).build();\r\n}"
+}, {
+	"Path": "org.knowm.xchange.coinbase.v2.service.CoinbaseMarketDataServiceRaw.getCoinbaseSpotRate",
+	"Comment": "unauthenticated resource that tells you the current price of one unit. this is usuallysomewhere in between the buy and sell price, current to within a few minutes.",
+	"Method": "CoinbasePrice getCoinbaseSpotRate(Currency base,Currency counter){\r\n    return coinbase.getSpotRate(Coinbase.CB_VERSION_VALUE, base + \"-\" + counter).getData();\r\n}"
+}, {
+	"Path": "com.db.chart.renderer.AxisRenderer.calculateValues",
+	"Comment": "calculate labels based on the minimum and maximum value displayedas well as the step used to defined both of them.",
+	"Method": "ArrayList<Float> calculateValues(float min,float max,float step){\r\n    ArrayList<Float> result = new ArrayList();\r\n    float pos = min;\r\n    while (pos <= max) {\r\n        result.add(pos);\r\n        pos += step;\r\n    }\r\n    if (result.get(result.size() - 1) < max)\r\n        result.add(pos);\r\n    return result;\r\n}"
+}, {
+	"Path": "org.knowm.xchange.coinbase.service.CoinbaseAccountServiceRaw.getCoinbaseTransaction",
+	"Comment": "authenticated resource which returns the details of an individual transaction.",
+	"Method": "CoinbaseTransaction getCoinbaseTransaction(String transactionIdOrIdemField){\r\n    final CoinbaseTransaction transaction = coinbase.getTransactionDetails(transactionIdOrIdemField, exchange.getExchangeSpecification().getApiKey(), signatureCreator, exchange.getNonceFactory());\r\n    return handleResponse(transaction);\r\n}"
+}, {
+	"Path": "org.knowm.xchange.coinbase.service.CoinbaseAccountServiceRaw.redeemCoinbaseToken",
+	"Comment": "authenticated resource which claims a redeemable token for its address and bitcoin.",
+	"Method": "boolean redeemCoinbaseToken(String tokenId){\r\n    final CoinbaseBaseResponse response = coinbase.redeemToken(tokenId, exchange.getExchangeSpecification().getApiKey(), signatureCreator, exchange.getNonceFactory());\r\n    return handleResponse(response).isSuccess();\r\n}"
+}, {
+	"Path": "io.vavr.collection.Tree.leafCount",
+	"Comment": "counts the number of leaves of this tree. the empty tree has no leaves.",
+	"Method": "int leafCount(){\r\n    if (isEmpty()) {\r\n        return 0;\r\n    } else if (isLeaf()) {\r\n        return 1;\r\n    } else {\r\n        return getChildren().foldLeft(0, (count, child) -> count + child.leafCount());\r\n    }\r\n}"
+}, {
+	"Path": "org.terasology.logic.health.BlockDamageAuthoritySystem.computeOffsets",
+	"Comment": "computes n random offset values for each block part texture.",
+	"Method": "List<Vector2f> computeOffsets(BlockAppearance blockAppearance,float scale){\r\n    final float relativeTileSize = worldAtlas.getRelativeTileSize();\r\n    final int absoluteTileSize = worldAtlas.getTileSize();\r\n    final float pixelSize = relativeTileSize / absoluteTileSize;\r\n    final int spriteWidth = TeraMath.ceilToInt(scale * absoluteTileSize);\r\n    final Stream<Vector2f> baseOffsets = Arrays.stream(BlockPart.sideValues()).map(blockAppearance::getTextureAtlasPos);\r\n    return baseOffsets.flatMap(baseOffset -> IntStream.range(0, 8).boxed().map(i -> new Vector2f(baseOffset).add(random.nextInt(absoluteTileSize - spriteWidth) * pixelSize, random.nextInt(absoluteTileSize - spriteWidth) * pixelSize))).collect(Collectors.toList());\r\n}"
+}, {
+	"Path": "twitter4j.Query.resultType",
+	"Comment": "if specified, returns tweets included popular or real time or both in the response",
+	"Method": "Query resultType(ResultType resultType){\r\n    setResultType(resultType);\r\n    return this;\r\n}"
+}, {
+	"Path": "org.knowm.xchange.ripple.dto.account.RippleSettings.getTransferFeeRate",
+	"Comment": "the raw transfer rate is represented as an integer, the amount that must be sent in order for 1billion units to arrive. for example, a 20% transfer fee is represented as the value 120000000.the value cannot be less than 1000000000. less than that would indicate giving away money forsending transactions, which is exploitable. you can specify 0 as a shortcut for 1000000000,meaning no fee.",
+	"Method": "BigDecimal getTransferFeeRate(){\r\n    if (transferRate == 0) {\r\n        return BigDecimal.ZERO;\r\n    } else {\r\n        return BigDecimal.valueOf(transferRate).divide(TRANSFER_RATE_DENOMINATOR).subtract(BigDecimal.ONE);\r\n    }\r\n}"
+}, {
+	"Path": "com.squareup.wire.FieldBinding.value",
+	"Comment": "accept a single value, independent of whether this value is single or repeated.",
+	"Method": "void value(B builder,Object value){\r\n    if (label.isRepeated()) {\r\n        List<Object> list = (List<Object>) getFromBuilder(builder);\r\n        list.add(value);\r\n    } else if (!keyAdapterString.isEmpty()) {\r\n        Map<Object, Object> map = (Map<Object, Object>) getFromBuilder(builder);\r\n        map.putAll((Map<?, ?>) value);\r\n    } else {\r\n        set(builder, value);\r\n    }\r\n}"
+}, {
+	"Path": "org.knowm.xchange.idex.IdexTradeService.placeLimitOrder",
+	"Comment": "returns orderhash so you can fetch it and cancel it... but there is a ordernumber that you canintercept if you need to.",
+	"Method": "String placeLimitOrder(LimitOrder placeOrder){\r\n    OrderType type = placeOrder.getType();\r\n    Currency baseCurrency = placeOrder.getCurrencyPair().base;\r\n    Currency counterCurrency = placeOrder.getCurrencyPair().counter;\r\n    BigDecimal originalAmount = placeOrder.getOriginalAmount();\r\n    BigDecimal limitPrice = placeOrder.getLimitPrice();\r\n    OrderReq orderReq = createNormalizedLimitOrderReq(baseCurrency, counterCurrency, type, limitPrice, originalAmount, null, null, null);\r\n    try {\r\n        orderApi.order(orderReq).getOrderHash();\r\n    } catch (Exception e) {\r\n        e.printStackTrace();\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "org.knowm.xchange.ripple.service.RippleTradeServiceRaw.clearOrderDetailsStore",
+	"Comment": "clear any stored order details to allow memory to be released.",
+	"Method": "void clearOrderDetailsStore(){\r\n    for (final Map<String, IRippleTradeTransaction> cache : rawTradeStore.values()) {\r\n        cache.clear();\r\n    }\r\n    rawTradeStore.clear();\r\n}"
+}, {
+	"Path": "org.knowm.xchange.therock.service.TheRockTradeService.cancelOrder",
+	"Comment": "not available from exchange since therock needs currency pair in order to cancel an order",
+	"Method": "boolean cancelOrder(String orderId,boolean cancelOrder,CancelOrderParams params,boolean cancelOrder,CurrencyPair currencyPair,String orderId){\r\n    TheRockOrder cancelledOrder = cancelTheRockOrder(currencyPair, Long.parseLong(orderId));\r\n    return \"deleted\".equals(cancelledOrder.getStatus());\r\n}"
+}, {
+	"Path": "io.vavr.concurrent.Future.zip",
+	"Comment": "returns a tuple of this and that future result.if this future failed the result contains this failure. otherwise the result contains that failure ora tuple of both successful future results.",
+	"Method": "Future<Tuple2<T, U>> zip(Future<? extends U> that){\r\n    Objects.requireNonNull(that, \"that is null\");\r\n    return zipWith(that, Tuple::of);\r\n}"
+}, {
+	"Path": "twitter4j.JSONTokener.back",
+	"Comment": "unreads the most recent character of input. if no input characters havebeen read, the input is unchanged.",
+	"Method": "void back(){\r\n    if (--pos == -1) {\r\n        pos = 0;\r\n    }\r\n}"
+}, {
+	"Path": "org.knowm.xchange.bitfinex.v1.service.BitfinexTradeService.filterOrders",
+	"Comment": "bitfinex api does not provide filtering option. so we should filter orders ourselves",
+	"Method": "OpenOrders filterOrders(OpenOrders rawOpenOrders,OpenOrdersParams params){\r\n    if (params == null) {\r\n        return rawOpenOrders;\r\n    }\r\n    List<LimitOrder> openOrdersList = rawOpenOrders.getOpenOrders();\r\n    openOrdersList.removeIf(openOrder -> !params.accept(openOrder));\r\n    return new OpenOrders(openOrdersList);\r\n}"
+}, {
+	"Path": "io.vavr.collection.Iterator.iterate",
+	"Comment": "generates an infinite iterator using a function to calculate the next valuebased on the previous.",
+	"Method": "Iterator<T> iterate(Supplier<? extends Option<? extends T>> supplier,Iterator<T> iterate,T seed,Function<? super T, ? extends T> f){\r\n    Objects.requireNonNull(f, \"f is null\");\r\n    return new AbstractIterator<T>() {\r\n        Function<? super T, ? extends T> nextFunc = s -> {\r\n            nextFunc = f;\r\n            return seed;\r\n        };\r\n        T current = null;\r\n        @Override\r\n        public boolean hasNext() {\r\n            return true;\r\n        }\r\n        @Override\r\n        public T getNext() {\r\n            current = nextFunc.apply(current);\r\n            return current;\r\n        }\r\n    };\r\n}"
+}, {
+	"Path": "io.vavr.collection.Iterator.iterate",
+	"Comment": "generates an infinite iterator using a function to calculate the next valuebased on the previous.",
+	"Method": "Iterator<T> iterate(Supplier<? extends Option<? extends T>> supplier,Iterator<T> iterate,T seed,Function<? super T, ? extends T> f){\r\n    return true;\r\n}"
+}, {
+	"Path": "io.vavr.collection.Iterator.iterate",
+	"Comment": "generates an infinite iterator using a function to calculate the next valuebased on the previous.",
+	"Method": "Iterator<T> iterate(Supplier<? extends Option<? extends T>> supplier,Iterator<T> iterate,T seed,Function<? super T, ? extends T> f){\r\n    current = nextFunc.apply(current);\r\n    return current;\r\n}"
+}, {
+	"Path": "org.knowm.xchange.service.marketdata.MarketDataService.getTickers",
+	"Comment": "get the tickers representing the current exchange rate for the provided parameters",
+	"Method": "List<Ticker> getTickers(Params params){\r\n    throw new NotYetImplementedForExchangeException();\r\n}"
+}, {
+	"Path": "io.vavr.collection.BitMappedTrie.modify",
+	"Comment": "descend the tree from root to leaf, applying the given modifications along the way, returning the new root",
+	"Method": "Object modify(Object root,int depthShift,int index,NodeModifier node,NodeModifier leaf){\r\n    return (depthShift == 0) ? leaf.apply(root, index) : modifyNonLeaf(root, depthShift, index, node, leaf);\r\n}"
+}, {
+	"Path": "org.knowm.xchange.kraken.service.KrakenAccountServiceRaw.getKrakenLedgerInfo",
+	"Comment": "retrieves the full account ledger which represents all account asset activity.",
+	"Method": "Map<String, KrakenLedger> getKrakenLedgerInfo(Map<String, KrakenLedger> getKrakenLedgerInfo,LedgerType ledgerType,Date start,Date end,Long offset,Currency assets){\r\n    String startTime = null;\r\n    String endTime = null;\r\n    long longOffset = 0;\r\n    if (start != null) {\r\n        startTime = String.valueOf(DateUtils.toUnixTime(start));\r\n    }\r\n    if (end != null) {\r\n        endTime = String.valueOf(DateUtils.toUnixTime(end));\r\n    }\r\n    if (offset != null) {\r\n        longOffset = offset;\r\n    }\r\n    Map<String, KrakenLedger> fullLedgerMap = getKrakenPartialLedgerInfo(ledgerType, startTime, endTime, offset, assets);\r\n    Map<String, KrakenLedger> lastLedgerMap = fullLedgerMap;\r\n    while (!lastLedgerMap.isEmpty()) {\r\n        longOffset += lastLedgerMap.size();\r\n        lastLedgerMap = getKrakenPartialLedgerInfo(ledgerType, startTime, endTime, longOffset, assets);\r\n        if (lastLedgerMap.size() == 1 && fullLedgerMap.keySet().containsAll(lastLedgerMap.keySet())) {\r\n            break;\r\n        }\r\n        fullLedgerMap.putAll(lastLedgerMap);\r\n    }\r\n    return fullLedgerMap;\r\n}"
+}, {
+	"Path": "org.knowm.xchange.coinmate.ExchangeUtils.createExchangeFromJsonConfiguration",
+	"Comment": "create a coinmate exchange using the keys provided in a exchangeconfiguration.json file on theclasspath. see the sampleexchangeconfiguration.json file for format of required file.",
+	"Method": "Exchange createExchangeFromJsonConfiguration(){\r\n    ExchangeSpecification exSpec = new ExchangeSpecification(CoinmateExchange.class);\r\n    ObjectMapper mapper = new ObjectMapper();\r\n    InputStream is = ExchangeUtils.class.getClassLoader().getResourceAsStream(\"exchangeConfiguration.json\");\r\n    if (is == null) {\r\n        logger.warn(\"No exchangeConfiguration.json file found. Returning null exchange.\");\r\n        return null;\r\n    }\r\n    try {\r\n        ExchangeConfiguration conf = mapper.readValue(is, ExchangeConfiguration.class);\r\n        logger.debug(conf.toString());\r\n        if (conf.publicApiKey != null) {\r\n            exSpec.setApiKey(conf.publicApiKey);\r\n        }\r\n        if (conf.privateApiKey != null) {\r\n            exSpec.setSecretKey(conf.privateApiKey);\r\n        }\r\n        if (conf.clientId != null) {\r\n            exSpec.setUserName(conf.clientId);\r\n        }\r\n    } catch (Exception e) {\r\n        logger.warn(\"An exception occured while loading the exchangeConfiguration.json file from the classpath. \" + \"Returning null exchange.\", e);\r\n        return null;\r\n    }\r\n    return ExchangeFactory.INSTANCE.createExchange(exSpec);\r\n}"
+}, {
+	"Path": "twitter4j.Query.maxId",
+	"Comment": "if specified, returns tweets with status ids less than the given id.",
+	"Method": "Query maxId(long maxId){\r\n    setMaxId(maxId);\r\n    return this;\r\n}"
+}, {
+	"Path": "org.knowm.xchange.bitfinex.v1.BitfinexAdapters.adaptDynamicTradingFees",
+	"Comment": "each element in the response array contains a set of currencies that are at a given fee tier.the api returns the fee per currency in each tier and does not make any promises that they areall the same, so this adapter will use the fee per currency instead of the fee per tier.",
+	"Method": "Map<CurrencyPair, Fee> adaptDynamicTradingFees(BitfinexTradingFeeResponse[] responses,List<CurrencyPair> currencyPairs){\r\n    Map<CurrencyPair, Fee> result = new HashMap<CurrencyPair, Fee>();\r\n    for (BitfinexTradingFeeResponse response : responses) {\r\n        BitfinexTradingFeeResponse.BitfinexTradingFeeResponseRow[] responseRows = response.getTradingFees();\r\n        for (BitfinexTradingFeeResponse.BitfinexTradingFeeResponseRow responseRow : responseRows) {\r\n            Currency currency = Currency.getInstance(responseRow.getCurrency());\r\n            BigDecimal percentToFraction = BigDecimal.ONE.divide(BigDecimal.ONE.scaleByPowerOfTen(2));\r\n            Fee fee = new Fee(responseRow.getMakerFee().multiply(percentToFraction), responseRow.getTakerFee().multiply(percentToFraction));\r\n            for (CurrencyPair pair : currencyPairs) {\r\n                if (pair.base.equals(currency)) {\r\n                    if (result.put(pair, fee) != null) {\r\n                        throw new IllegalStateException(\"Fee for currency pair \" + pair + \" is overspecified\");\r\n                    }\r\n                }\r\n            }\r\n        }\r\n    }\r\n    return result;\r\n}"
+}, {
+	"Path": "org.knowm.xchange.abucoins.service.AbucoinsBaseService.timestamp",
+	"Comment": "helper method that performs a null check. signaturecreator is null if no api key is provided.",
+	"Method": "String timestamp(){\r\n    return String.valueOf((System.currentTimeMillis() / 1000) + timeDiffFromServer);\r\n}"
+}, {
+	"Path": "io.vavr.collection.RedBlackTree.min",
+	"Comment": "returns the minimum element of this tree according to the underlying comparator.",
+	"Method": "Option<T> min(){\r\n    return isEmpty() ? Option.none() : Option.some(Node.minimum((Node<T>) this));\r\n}"
+}, {
+	"Path": "org.terasology.logic.health.HealthAuthoritySystem.onAttackEntity",
+	"Comment": "override the default behavior for an attack, causing it damage as opposed to just destroying it or doing nothing.",
+	"Method": "void onAttackEntity(AttackEvent event,EntityRef targetEntity){\r\n    damageEntity(event, targetEntity);\r\n}"
+}, {
+	"Path": "org.knowm.xchange.coinbase.service.CoinbaseBaseService.createCoinbaseUser",
+	"Comment": "unauthenticated resource that creates a user with an email and password.",
+	"Method": "CoinbaseUser createCoinbaseUser(CoinbaseUser user,CoinbaseUser createCoinbaseUser,CoinbaseUser user,String oAuthClientId){\r\n    final CoinbaseUser createdUser = coinbase.createUser(user.withoAuthClientId(oAuthClientId));\r\n    return handleResponse(createdUser);\r\n}"
+}, {
+	"Path": "com.db.chart.view.ChartView.setValueThreshold",
+	"Comment": "display a value threshold either in a form of line or band.in order to produce a line, the start and end value will be equal.",
+	"Method": "ChartView setValueThreshold(float startValue,float endValue,Paint paint,ChartView setValueThreshold,float[] startValues,float[] endValues,Paint paint){\r\n    checkNotNull(startValues);\r\n    checkNotNull(endValues);\r\n    mThresholdStartValues.clear();\r\n    mThresholdEndValues.clear();\r\n    for (int i = 0; i < startValues.length; i++) {\r\n        mThresholdStartValues.add(startValues[i]);\r\n        mThresholdEndValues.add(endValues[i]);\r\n    }\r\n    style.valueThresPaint = checkNotNull(paint);\r\n    return this;\r\n}"
+}, {
+	"Path": "org.knowm.xchange.coinbasepro.CoinbaseProAdapters.adaptOrderStatus",
+	"Comment": "the status from the coinbaseproorder object converted to xchange status",
+	"Method": "OrderStatus adaptOrderStatus(CoinbaseProOrder order){\r\n    if (order.getStatus().equals(\"pending\")) {\r\n        return OrderStatus.PENDING_NEW;\r\n    }\r\n    if (order.getStatus().equals(\"done\") || order.getStatus().equals(\"settled\")) {\r\n        if (order.getDoneReason().equals(\"filled\")) {\r\n            return OrderStatus.FILLED;\r\n        }\r\n        if (order.getDoneReason().equals(\"canceled\")) {\r\n            return OrderStatus.CANCELED;\r\n        }\r\n        return OrderStatus.UNKNOWN;\r\n    }\r\n    if (order.getFilledSize().signum() == 0) {\r\n        if (order.getStatus().equals(\"open\") && order.getStop() != null) {\r\n            return OrderStatus.STOPPED;\r\n        }\r\n        return OrderStatus.NEW;\r\n    }\r\n    if (order.getFilledSize().compareTo(BigDecimal.ZERO) > 0 && order.getSize().compareTo(order.getFilledSize()) >= 0)\r\n        return OrderStatus.PARTIALLY_FILLED;\r\n    return OrderStatus.UNKNOWN;\r\n}"
+}, {
+	"Path": "twitter4j.LazyStatus.getUserMentionEntities",
+	"Comment": "returns an array of user mentions in the tweet, or null if no users were mentioned.",
+	"Method": "UserMentionEntity[] getUserMentionEntities(){\r\n    return getTarget().getUserMentionEntities();\r\n}"
+}, {
+	"Path": "io.vavr.collection.Multimap.containsValue",
+	"Comment": "returns true if this multimap maps one or more keys to thespecified value. this operation will require time linear in the map size.",
+	"Method": "boolean containsValue(V value){\r\n    return iterator().map(Tuple2::_2).contains(value);\r\n}"
+}, {
+	"Path": "com.db.chart.view.ChartView.drawThreshold",
+	"Comment": "draw a threshold line or band on the labels or values axis. if same values or same labelindex have been given then a line will be drawn rather than a band.",
+	"Method": "void drawThreshold(Canvas canvas,float left,float top,float right,float bottom,Paint paint){\r\n    if (left == right || top == bottom)\r\n        canvas.drawLine(left, top, right, bottom, paint);\r\n    else\r\n        canvas.drawRect(left, top, right, bottom, paint);\r\n}"
+}, {
+	"Path": "org.knowm.xchange.coinbase.service.CoinbaseAccountServiceRaw.getCoinbaseAddresses",
+	"Comment": "authenticated resource that returns bitcoin addresses a user has associated with their account.",
+	"Method": "CoinbaseAddresses getCoinbaseAddresses(CoinbaseAddresses getCoinbaseAddresses,Integer page,Integer limit,String filter){\r\n    final CoinbaseAddresses receiveResult = coinbase.getAddresses(page, limit, filter, exchange.getExchangeSpecification().getApiKey(), signatureCreator, exchange.getNonceFactory());\r\n    return receiveResult;\r\n}"
+}, {
+	"Path": "io.vavr.test.Gen.filter",
+	"Comment": "returns a generator based on this generator which produces values that fulfill the given predicate.",
+	"Method": "Gen<T> filter(Predicate<? super T> predicate){\r\n    Objects.requireNonNull(predicate, \"predicate is null\");\r\n    return random -> {\r\n        int count = 0;\r\n        final int filterThreshold = Integer.MAX_VALUE;\r\n        T t;\r\n        while (!predicate.test(t = apply(random))) {\r\n            if (++count == filterThreshold) {\r\n                throw new IllegalStateException(\"empty filter\");\r\n            }\r\n        }\r\n        return t;\r\n    };\r\n}"
+}, {
+	"Path": "org.knowm.xchange.coinbasepro.CoinbaseProExchange.concludeHostParams",
+	"Comment": "adjust host parameters depending on exchange specific parameters",
+	"Method": "void concludeHostParams(ExchangeSpecification exchangeSpecification){\r\n    if (exchangeSpecification.getExchangeSpecificParameters() != null) {\r\n        if (exchangeSpecification.getExchangeSpecificParametersItem(\"Use_Sandbox\").equals(true)) {\r\n            exchangeSpecification.setSslUri(\"https://api-public.sandbox.pro.coinbase.com\");\r\n            exchangeSpecification.setHost(\"api-public.sandbox.pro.coinbase.com\");\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "org.knowm.xchange.dsx.service.DSXTradeServiceRaw.getDSXTransHistory",
+	"Comment": "get map of transaction history from dsx exchange. all parameters are nullable",
+	"Method": "Map<Long, DSXTransHistoryResult> getDSXTransHistory(Integer count,Long fromId,Long endId,DSXAuthenticatedV2.SortOrder order,Long since,Long end,DSXTransHistoryResult.Type type,DSXTransHistoryResult.Status status,String currency){\r\n    DSXTransHistoryReturn dsxTransHistory = dsx.transHistory(apiKey, signatureCreator, exchange.getNonceFactory(), count, fromId, endId, order, since, end, type, status, currency);\r\n    String error = dsxTransHistory.getError();\r\n    if (MSG_NO_TRADES.equals(error)) {\r\n        return Collections.emptyMap();\r\n    }\r\n    checkResult(dsxTransHistory);\r\n    return dsxTransHistory.getReturnValue();\r\n}"
+}, {
+	"Path": "io.vavr.collection.Vector.ofAll",
+	"Comment": "creates a vector of the given elements.the resulting vector has the same iteration order as the given iterable of elementsif the iteration order of the elements is stable.",
+	"Method": "Vector<T> ofAll(BitMappedTrie<T> trie,Vector<T> ofAll,Iterable<? extends T> iterable,Vector<T> ofAll,java.util.stream.Stream<? extends T> javaStream,Vector<Boolean> ofAll,boolean elements,Vector<Byte> ofAll,byte elements,Vector<Character> ofAll,char elements,Vector<Double> ofAll,double elements,Vector<Float> ofAll,float elements,Vector<Integer> ofAll,int elements,Vector<Long> ofAll,long elements,Vector<Short> ofAll,short elements){\r\n    Objects.requireNonNull(elements, \"elements is null\");\r\n    return ofAll(BitMappedTrie.ofAll(elements));\r\n}"
+}, {
+	"Path": "com.db.chart.animation.Animation.inSequence",
+	"Comment": "entries will animate sequentially instead of all at the same time.",
+	"Method": "Animation inSequence(float factor,int[] order,Animation inSequence,float factor){\r\n    mAnimateOverlapFactor = factor;\r\n    return this;\r\n}"
+}, {
+	"Path": "org.knowm.xchange.coinbase.v2.service.CoinbaseMarketDataServiceRaw.getCoinbaseBuyPrice",
+	"Comment": "unauthenticated resource that tells you the price to buy one unit.",
+	"Method": "CoinbasePrice getCoinbaseBuyPrice(Currency base,Currency counter){\r\n    return coinbase.getBuyPrice(Coinbase.CB_VERSION_VALUE, base + \"-\" + counter).getData();\r\n}"
+}, {
+	"Path": "org.knowm.xchange.gemini.v1.GeminiExchange.concludeHostParams",
+	"Comment": "adjust host parameters depending on exchange specific parameters",
+	"Method": "void concludeHostParams(ExchangeSpecification exchangeSpecification){\r\n    if (exchangeSpecification.getExchangeSpecificParameters() != null) {\r\n        if (exchangeSpecification.getExchangeSpecificParametersItem(\"Use_Sandbox\").equals(true)) {\r\n            exchangeSpecification.setSslUri(\"https://api.sandbox.gemini.com\");\r\n            exchangeSpecification.setHost(\"api.sandbox.gemini.com\");\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "io.vavr.collection.LinearSeq.search",
+	"Comment": "searches this sequence for a specific element using a linear search. the sequence must already be sorted intoascending order according to the specified comparator. if it is not sorted, the results are undefined.",
+	"Method": "int search(T element,int search,T element,Comparator<? super T> comparator){\r\n    Objects.requireNonNull(comparator, \"comparator is null\");\r\n    final ToIntFunction<T> comparison = current -> comparator.compare(element, current);\r\n    return LinearSeqModule.Search.linearSearch(this, comparison);\r\n}"
+}, {
+	"Path": "io.vavr.collection.Traversable.find",
+	"Comment": "returns the first element of this which satisfies the given predicate.",
+	"Method": "Option<T> find(Predicate<? super T> predicate){\r\n    Objects.requireNonNull(predicate, \"predicate is null\");\r\n    for (T a : this) {\r\n        if (predicate.test(a)) {\r\n            return Option.some(a);\r\n        }\r\n    }\r\n    return Option.none();\r\n}"
+}, {
+	"Path": "io.vavr.match.generator.Generator.mapToName",
+	"Comment": "recursively maps generic type parameters to names according to their kind",
+	"Method": "String mapToName(ImportManager im,TypeParameterModel typeParameterModel,String mapToName,ImportManager im,ClassModel classModel){\r\n    final List<TypeParameterModel> typeParameters = classModel.getTypeParameters();\r\n    final String simpleName = im.getType(classModel);\r\n    if (typeParameters.size() == 0) {\r\n        return simpleName;\r\n    } else {\r\n        return simpleName + classModel.getTypeParameters().stream().map(typeParam -> mapToName(im, typeParam)).collect(joining(\", \", \"<\", \">\"));\r\n    }\r\n}"
+}, {
+	"Path": "org.knowm.xchange.bitcoinde.BitcoindeAdapters.adaptOrderBook",
+	"Comment": "adapt a org.knowm.xchange.bitcoinde.dto.marketdata.bitcoindeorderbook object to an orderbookobject.",
+	"Method": "OrderBook adaptOrderBook(BitcoindeOrderbookWrapper bitcoindeOrderbookWrapper,CurrencyPair currencyPair){\r\n    List<LimitOrder> asks = createOrders(currencyPair, Order.OrderType.ASK, bitcoindeOrderbookWrapper.getBitcoindeOrders().getAsks());\r\n    List<LimitOrder> bids = createOrders(currencyPair, Order.OrderType.BID, bitcoindeOrderbookWrapper.getBitcoindeOrders().getBids());\r\n    Collections.sort(bids, BID_COMPARATOR);\r\n    Collections.sort(asks, ASK_COMPARATOR);\r\n    return new OrderBook(null, asks, bids);\r\n}"
+}, {
+	"Path": "io.vavr.collection.TreeMap.empty",
+	"Comment": "returns the empty treemap. the underlying key comparator is the natural comparator of k.",
+	"Method": "TreeMap<K, V> empty(TreeMap<K, V> empty,Comparator<? super K> keyComparator){\r\n    return new TreeMap(RedBlackTree.empty(EntryComparator.of(keyComparator)));\r\n}"
+}, {
+	"Path": "io.vavr.collection.Queue.enqueueAll",
+	"Comment": "enqueues the given elements. a queue has fifo order, i.e. the first of the given elements isthe first which will be retrieved.",
+	"Method": "Queue<T> enqueueAll(Iterable<? extends T> elements){\r\n    Objects.requireNonNull(elements, \"elements is null\");\r\n    if (isEmpty() && elements instanceof Queue) {\r\n        return (Queue<T>) elements;\r\n    } else {\r\n        return io.vavr.collection.List.ofAll(elements).foldLeft(this, Queue::enqueue);\r\n    }\r\n}"
+}, {
+	"Path": "org.terasology.rendering.nui.layers.ingame.inventory.InventoryGrid.getTargetEntity",
+	"Comment": "returns an entityref to the entity whose inventory is displayed using this grid.",
+	"Method": "EntityRef getTargetEntity(){\r\n    return targetEntity.get();\r\n}"
+}, {
+	"Path": "org.knowm.xchange.ripple.service.RippleAccountServiceRaw.clearAccountSettingsStore",
+	"Comment": "clear any stored account settings to allow memory to be released and details to be refreshed.",
+	"Method": "void clearAccountSettingsStore(){\r\n    accountSettingsStore.clear();\r\n}"
+}, {
+	"Path": "io.vavr.collection.Tree.branchCount",
+	"Comment": "counts the number of branches of this tree. the empty tree and a leaf have no branches.",
+	"Method": "int branchCount(){\r\n    if (isEmpty() || isLeaf()) {\r\n        return 0;\r\n    } else {\r\n        return getChildren().foldLeft(1, (count, child) -> count + child.branchCount());\r\n    }\r\n}"
+}, {
+	"Path": "org.knowm.xchange.coinbase.service.CoinbaseMarketDataServiceRaw.getCoinbaseSpotRate",
+	"Comment": "unauthenticated resource that tells you the current price of bitcoin. this is usually somewherein between the buy and sell price, current to within a few minutes.",
+	"Method": "CoinbaseMoney getCoinbaseSpotRate(String currency){\r\n    return coinbase.getSpotRate(currency);\r\n}"
+}, {
+	"Path": "twitter4j.TwitterStreamFactory.getInstance",
+	"Comment": "returns a instance associated with the configuration bound to this factory.",
+	"Method": "TwitterStream getInstance(TwitterStream getInstance,AccessToken accessToken,TwitterStream getInstance,Authorization auth,TwitterStream getInstance,Configuration conf,Authorization auth){\r\n    return new TwitterStreamImpl(conf, auth);\r\n}"
+}, {
+	"Path": "io.vavr.collection.Seq.indexWhere",
+	"Comment": "finds index of the first element satisfying some predicate after or atsome start index.",
+	"Method": "int indexWhere(Predicate<? super T> predicate,int indexWhere,Predicate<? super T> predicate,int from){\r\n    return indexWhere(predicate, 0);\r\n}"
+}, {
+	"Path": "org.knowm.xchange.dto.account.Balance.getDepositing",
+	"Comment": "returns the amount of the currency in this balance that is locked in deposit",
+	"Method": "BigDecimal getDepositing(){\r\n    return depositing;\r\n}"
+}, {
+	"Path": "io.vavr.collection.Tree.isBranch",
+	"Comment": "checks if this tree is a branch. a tree is a branch if it is a node which has children.because the empty tree is not a node, it is not a branch by definition.",
+	"Method": "boolean isBranch(){\r\n    return !(isEmpty() || isLeaf());\r\n}"
+}, {
+	"Path": "org.knowm.xchange.coingi.service.CoingiAccountService.requestDepositAddress",
+	"Comment": "this returns the current deposit address. it does not generate a new one! repeated calls willreturn the same.",
+	"Method": "String requestDepositAddress(Currency currency,String arguments){\r\n    throw new NotYetImplementedForExchangeException();\r\n}"
+}, {
+	"Path": "twitter4j.JSONStringer.replaceTop",
+	"Comment": "replace the value on the top of the stack with the given value.",
+	"Method": "void replaceTop(Scope topOfStack){\r\n    stack.set(stack.size() - 1, topOfStack);\r\n}"
+}, {
+	"Path": "twitter4j.LazyOEmbed.getCacheAge",
+	"Comment": "the suggested cache lifetime for this resource, in seconds. consumers may choose to use this value or not.",
+	"Method": "long getCacheAge(){\r\n    return getTarget().getCacheAge();\r\n}"
+}, {
+	"Path": "io.vavr.control.Either.getOrElseGet",
+	"Comment": "gets the right value or an alternate value, if the projected either is a left.",
+	"Method": "R getOrElseGet(Function<? super L, ? extends R> other){\r\n    Objects.requireNonNull(other, \"other is null\");\r\n    if (isRight()) {\r\n        return get();\r\n    } else {\r\n        return other.apply(getLeft());\r\n    }\r\n}"
+}, {
+	"Path": "org.knowm.xchange.coinbase.service.CoinbaseAccountServiceRaw.requestMoneyCoinbaseRequest",
+	"Comment": "authenticated resource which lets the user request money from a bitcoin address.",
+	"Method": "CoinbaseTransaction requestMoneyCoinbaseRequest(CoinbaseRequestMoneyRequest transactionRequest){\r\n    final CoinbaseTransaction pendingTransaction = coinbase.requestMoney(new CoinbaseTransaction(transactionRequest), exchange.getExchangeSpecification().getApiKey(), signatureCreator, exchange.getNonceFactory());\r\n    return handleResponse(pendingTransaction);\r\n}"
+}, {
+	"Path": "io.vavr.collection.Map.lift",
+	"Comment": "turns this map into a plain function returning an option result.",
+	"Method": "Function1<K, Option<V>> lift(){\r\n    return this::get;\r\n}"
+}, {
+	"Path": "org.knowm.xchange.ExchangeSpecification.getHttpConnTimeout",
+	"Comment": "get the http connection timeout for the connection. if the default value of zero is returnedthen the default rescu timeout will be applied. check the exchange code to see if this optionhas been implemented.",
+	"Method": "int getHttpConnTimeout(){\r\n    return httpConnTimeout;\r\n}"
+}, {
+	"Path": "org.knowm.xchange.coinbase.service.CoinbaseAccountServiceRaw.resendCoinbaseRequest",
+	"Comment": "authenticated resource which lets the user resend a money request.",
+	"Method": "CoinbaseBaseResponse resendCoinbaseRequest(String transactionId){\r\n    final CoinbaseBaseResponse response = coinbase.resendRequest(transactionId, exchange.getExchangeSpecification().getApiKey(), signatureCreator, exchange.getNonceFactory());\r\n    return handleResponse(response);\r\n}"
+}, {
+	"Path": "twitter4j.GeoQuery.setGranularity",
+	"Comment": "sets the minimal granularity of data to return.if this is not passed in, then neighborhood is assumed.city can also be passed.",
+	"Method": "void setGranularity(String granularity){\r\n    this.granularity = granularity;\r\n}"
+}, {
+	"Path": "io.vavr.test.Arbitrary.distinctBy",
+	"Comment": "returns an arbitrary based on this arbitrary which produces unique values based on the given function.",
+	"Method": "Arbitrary<T> distinctBy(Comparator<? super T> comparator,Arbitrary<T> distinctBy,Function<? super T, ? extends U> keyExtractor){\r\n    Objects.requireNonNull(keyExtractor, \"keyExtractor is null\");\r\n    final java.util.Set<U> seen = new java.util.HashSet();\r\n    return filter(t -> seen.add(keyExtractor.apply(t)));\r\n}"
+}, {
+	"Path": "io.vavr.collection.Seq.lastIndexWhere",
+	"Comment": "finds index of last element satisfying some predicate before or at givenend index.",
+	"Method": "int lastIndexWhere(Predicate<? super T> predicate,int lastIndexWhere,Predicate<? super T> predicate,int end){\r\n    return lastIndexWhere(predicate, length() - 1);\r\n}"
+}, {
+	"Path": "com.squareup.wire.schema.IdentifierSetTest.includeType",
+	"Comment": "note that including a type includes nested members, but not nested types.",
+	"Method": "void includeType(){\r\n    IdentifierSet set = new IdentifierSet.Builder().include(\"a.b.Message\").build();\r\n    assertThat(policy(set, \"a.b.Message\")).isEqualTo(Policy.INCLUDED);\r\n    assertThat(policy(set, \"a.b.Message#member\")).isEqualTo(Policy.INCLUDED);\r\n    assertThat(policy(set, \"a.b.Message.Nested\")).isEqualTo(Policy.UNSPECIFIED);\r\n    assertThat(policy(set, \"a.b.Another\")).isEqualTo(Policy.UNSPECIFIED);\r\n    assertThat(policy(set, \"a.b.Another#member\")).isEqualTo(Policy.UNSPECIFIED);\r\n}"
+}, {
+	"Path": "com.db.chart.view.BaseStackBarChartView.calculateMaxStackBarValue",
+	"Comment": "this method will calculate what needs to be the max axis value that fits all the setsaggregated, one on top of the other.",
+	"Method": "void calculateMaxStackBarValue(){\r\n    float positiveStackValue;\r\n    float negativeStackValue;\r\n    BarSet barSet;\r\n    Bar bar;\r\n    int maxStackValue = 0;\r\n    int minStackValue = 0;\r\n    int dataSize = data.size();\r\n    int setSize = data.get(0).size();\r\n    for (int i = 0; i < setSize; i++) {\r\n        positiveStackValue = 0;\r\n        negativeStackValue = 0;\r\n        for (int j = 0; j < dataSize; j++) {\r\n            barSet = (BarSet) data.get(j);\r\n            bar = (Bar) barSet.getEntry(i);\r\n            if (bar.getValue() >= 0)\r\n                positiveStackValue += bar.getValue();\r\n            else\r\n                negativeStackValue += bar.getValue();\r\n        }\r\n        if (maxStackValue < (int) Math.ceil(positiveStackValue))\r\n            maxStackValue = (int) Math.ceil(positiveStackValue);\r\n        if (minStackValue > (int) Math.ceil(negativeStackValue * -1) * -1)\r\n            minStackValue = (int) Math.ceil(negativeStackValue * -1) * -1;\r\n    }\r\n    super.setAxisBorderValues(minStackValue, maxStackValue, this.getStep());\r\n}"
+}, {
+	"Path": "twitter4j.Query.getCount",
+	"Comment": "returns the number of tweets to return per page, up to a max of 100",
+	"Method": "int getCount(){\r\n    return count;\r\n}"
+}, {
+	"Path": "twitter4j.Query.setMaxId",
+	"Comment": "if specified, returns tweets with status ids less than the given id.",
+	"Method": "void setMaxId(long maxId){\r\n    this.maxId = maxId;\r\n}"
+}, {
+	"Path": "com.squareup.wire.schema.MarkSet.mark",
+	"Comment": "marks a member as transitively reachable by the includes set. returns true if the mark is new,the member will be retained, and its own dependencies should be traversed.",
+	"Method": "boolean mark(ProtoType type,boolean mark,ProtoMember protoMember){\r\n    if (protoMember == null)\r\n        throw new NullPointerException(\"type == null\");\r\n    if (identifierSet.excludes(protoMember))\r\n        return false;\r\n    return members.containsKey(protoMember.type()) ? members.put(protoMember.type(), protoMember) : types.add(protoMember.type());\r\n}"
+}, {
+	"Path": "com.squareup.wire.schema.internal.parser.OptionReader.readKindAndValue",
+	"Comment": "reads a value that can be a map, list, string, number, boolean or enum.",
+	"Method": "KindAndValue readKindAndValue(){\r\n    char peeked = reader.peekChar();\r\n    switch(peeked) {\r\n        case '{':\r\n            return KindAndValue.of(MAP, readMap('{', '}', ':'));\r\n        case '[':\r\n            return KindAndValue.of(LIST, readList());\r\n        case '\"':\r\n        case '\\'':\r\n            return KindAndValue.of(STRING, reader.readString());\r\n        default:\r\n            if (Character.isDigit(peeked) || peeked == '-') {\r\n                return KindAndValue.of(NUMBER, reader.readWord());\r\n            }\r\n            String word = reader.readWord();\r\n            switch(word) {\r\n                case \"true\":\r\n                    return KindAndValue.of(BOOLEAN, \"true\");\r\n                case \"false\":\r\n                    return KindAndValue.of(BOOLEAN, \"false\");\r\n                default:\r\n                    return KindAndValue.of(ENUM, word);\r\n            }\r\n    }\r\n}"
+}, {
+	"Path": "org.knowm.xchange.utils.DateUtils.toUnixTime",
+	"Comment": "convert java time to unix time long, simply by dividing by the time 1000",
+	"Method": "long toUnixTime(long javaTime,long toUnixTime,Date time){\r\n    return time.getTime() / 1000;\r\n}"
+}, {
+	"Path": "twitter4j.JSONTokener.syntaxError",
+	"Comment": "returns an exception containing the given message plus the currentposition and the entire input string.",
+	"Method": "JSONException syntaxError(String message){\r\n    return new JSONException(message + this);\r\n}"
+}, {
+	"Path": "org.knowm.xchange.coinbase.service.CoinbaseAccountServiceRaw.getCoinbaseOrder",
+	"Comment": "authenticated resource which returns order details for a specific order id or merchant custom.",
+	"Method": "CoinbaseOrder getCoinbaseOrder(String orderIdOrCustom){\r\n    final CoinbaseOrder order = coinbase.getOrder(orderIdOrCustom, exchange.getExchangeSpecification().getApiKey(), signatureCreator, exchange.getNonceFactory());\r\n    return handleResponse(order);\r\n}"
+}, {
+	"Path": "org.terasology.registry.CoreRegistryTest.testNullReturnOnMissingContext",
+	"Comment": "check if coreregistry returns null on its methods when the context is not defined.",
+	"Method": "void testNullReturnOnMissingContext(){\r\n    CoreRegistry.setContext(null);\r\n    assertEquals(CoreRegistry.put(Integer.class, 10), null);\r\n    assertEquals(CoreRegistry.get(Integer.class), null);\r\n}"
+}, {
+	"Path": "io.vavr.collection.Traversable.minBy",
+	"Comment": "calculates the minimum of this elements using a specific comparator.",
+	"Method": "Option<T> minBy(Comparator<? super T> comparator,Option<T> minBy,Function<? super T, ? extends U> f){\r\n    Objects.requireNonNull(f, \"f is null\");\r\n    if (isEmpty()) {\r\n        return Option.none();\r\n    } else {\r\n        final Iterator<T> iter = iterator();\r\n        T tm = iter.next();\r\n        U um = f.apply(tm);\r\n        while (iter.hasNext()) {\r\n            final T t = iter.next();\r\n            final U u = f.apply(t);\r\n            if (u.compareTo(um) < 0) {\r\n                um = u;\r\n                tm = t;\r\n            }\r\n        }\r\n        return Option.some(tm);\r\n    }\r\n}"
+}, {
+	"Path": "org.terasology.core.world.generator.facetProviders.SurfaceObjectProvider.populateFacet",
+	"Comment": "populates a given facet based on filters and population densities",
+	"Method": "void populateFacet(ObjectFacet3D<T> facet,SurfaceHeightFacet surfaceFacet,ObjectFacet2D<? extends B> typeFacet,List<Predicate<Vector3i>> filters){\r\n    Region3i worldRegion = facet.getWorldRegion();\r\n    int minY = worldRegion.minY();\r\n    int maxY = worldRegion.maxY();\r\n    Vector3i pos = new Vector3i();\r\n    for (int z = worldRegion.minZ(); z <= worldRegion.maxZ(); z++) {\r\n        for (int x = worldRegion.minX(); x <= worldRegion.maxX(); x++) {\r\n            int height = TeraMath.floorToInt(surfaceFacet.getWorld(x, z)) + 1;\r\n            if (height >= minY && height <= maxY) {\r\n                pos.set(x, height, z);\r\n                if (applyAll(filters, pos)) {\r\n                    B biome = typeFacet.getWorld(x, z);\r\n                    Map<T, Float> plantProb = probsTable.row(biome);\r\n                    T type = getType(x, z, plantProb);\r\n                    if (type != null) {\r\n                        facet.setWorld(x, height, z, type);\r\n                    }\r\n                }\r\n            }\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "twitter4j.JSONStringer.beforeValue",
+	"Comment": "inserts any necessary separators and whitespace before a literal value,inline array, or inline object. also adjusts the stack to expect either aclosing bracket or another element.",
+	"Method": "void beforeValue(){\r\n    if (stack.isEmpty()) {\r\n        return;\r\n    }\r\n    Scope context = peek();\r\n    if (context == Scope.EMPTY_ARRAY) {\r\n        replaceTop(Scope.NONEMPTY_ARRAY);\r\n        newline();\r\n    } else if (context == Scope.NONEMPTY_ARRAY) {\r\n        out.append(',');\r\n        newline();\r\n    } else if (context == Scope.DANGLING_KEY) {\r\n        out.append(indent == null ? \":\" : \": \");\r\n        replaceTop(Scope.NONEMPTY_OBJECT);\r\n    } else if (context != Scope.NULL) {\r\n        throw new JSONException(\"Nesting problem\");\r\n    }\r\n}"
+}, {
+	"Path": "twitter4j.LazyOEmbed.getWidth",
+	"Comment": "the width in pixels of the image specified in the url parameter.",
+	"Method": "int getWidth(){\r\n    return getTarget().getWidth();\r\n}"
+}, {
+	"Path": "org.knowm.xchange.lakebtc.LakeBTCAdapters.adaptCurrencyPair",
+	"Comment": "adapts a currency pair to the keys returned by the tickers map.",
+	"Method": "String adaptCurrencyPair(CurrencyPair currencyPair){\r\n    return currencyPair.base.getCurrencyCode().toLowerCase() + currencyPair.counter.getCurrencyCode().toLowerCase();\r\n}"
+}, {
+	"Path": "io.vavr.collection.Map.containsValue",
+	"Comment": "returns true if this map maps one or more keys to thespecified value. this operation will require time linear in the map size.",
+	"Method": "boolean containsValue(V value){\r\n    return iterator().map(Tuple2::_2).contains(value);\r\n}"
+}, {
+	"Path": "twitter4j.LazyStatus.getURLEntities",
+	"Comment": "returns an array if urlentity mentioned in the tweet, or null if no urls were mentioned.",
+	"Method": "URLEntity[] getURLEntities(){\r\n    return getTarget().getURLEntities();\r\n}"
+}, {
+	"Path": "org.knowm.xchange.service.account.AccountService.withdrawFunds",
+	"Comment": "withdraw funds from this account. allows to withdraw digital currency funds from the exchangeaccount to an external address",
+	"Method": "String withdrawFunds(Currency currency,BigDecimal amount,String address,String withdrawFunds,WithdrawFundsParams params){\r\n    throw new NotYetImplementedForExchangeException();\r\n}"
+}, {
+	"Path": "io.vavr.collection.List.push",
+	"Comment": "pushes the given elements on top of this list. a list has lifo order, i.e. the last of the given elements isthe first which will be retrieved.",
+	"Method": "List<T> push(T element,List<T> push,T elements){\r\n    Objects.requireNonNull(elements, \"elements is null\");\r\n    List<T> result = this;\r\n    for (T element : elements) {\r\n        result = result.prepend(element);\r\n    }\r\n    return result;\r\n}"
+}, {
+	"Path": "io.vavr.collection.Traversable.single",
+	"Comment": "returns the single element of this traversable or throws, if this is empty or contains more than one element.",
+	"Method": "T single(){\r\n    return singleOption().getOrElseThrow(() -> new NoSuchElementException(\"Does not contain a single value\"));\r\n}"
+}, {
+	"Path": "com.db.chart.view.ChartView.setClickableRegions",
+	"Comment": "manually set chart clickable regions.normally the system sets the regions matching the entries position in the screen.see method defineregions for more information.",
+	"Method": "void setClickableRegions(ArrayList<ArrayList<Region>> regions){\r\n    mRegions = regions;\r\n}"
+}, {
+	"Path": "org.knowm.xchange.coinbase.v2.service.CoinbaseAccountServiceRaw.getCoinbasePaymentMethods",
+	"Comment": "authenticated resource that shows the current user payment methods.",
+	"Method": "List<CoinbasePaymentMethod> getCoinbasePaymentMethods(){\r\n    String apiKey = exchange.getExchangeSpecification().getApiKey();\r\n    BigDecimal timestamp = coinbase.getTime(Coinbase.CB_VERSION_VALUE).getData().getEpoch();\r\n    return coinbase.getPaymentMethods(Coinbase.CB_VERSION_VALUE, apiKey, signatureCreator2, timestamp).getData();\r\n}"
+}, {
+	"Path": "io.vavr.collection.RedBlackTree.max",
+	"Comment": "returns the maximum element of this tree according to the underlying comparator.",
+	"Method": "Option<T> max(){\r\n    return isEmpty() ? Option.none() : Option.some(Node.maximum((Node<T>) this));\r\n}"
+}, {
+	"Path": "com.db.chart.view.ChartView.getInnerChartTop",
+	"Comment": "inner chart refers only to the area where chart data will be draw,excluding labels, axis, etc.",
+	"Method": "float getInnerChartTop(){\r\n    return yRndr.getInnerChartTop();\r\n}"
+}, {
+	"Path": "com.db.chart.renderer.AxisRenderer.measure",
+	"Comment": "measure inner bounds required in order to have enough spaceto display all axis elements based.",
+	"Method": "void measure(int left,int top,int right,int bottom){\r\n    mInnerChartLeft = measureInnerChartLeft(left);\r\n    mInnerChartTop = measureInnerChartTop(top);\r\n    mInnerChartRight = measureInnerChartRight(right);\r\n    mInnerChartBottom = measureInnerChartBottom(bottom);\r\n}"
+}, {
+	"Path": "org.terasology.core.world.generator.facetProviders.SurfaceObjectProvider.register",
+	"Comment": "registers an object type with a certain population density based on an environmental variable",
+	"Method": "void register(B biome,T tree,float probability){\r\n    Preconditions.checkArgument(probability >= 0, \"probability must be >= 0\");\r\n    Preconditions.checkArgument(probability <= 1, \"probability must be <= 1\");\r\n    probsTable.put(biome, tree, probability);\r\n}"
+}, {
+	"Path": "com.db.chart.animation.Animation.animate",
+	"Comment": "method that prepares the animation. defines starting points, targets,distance, yadda, as well as the first set of points to be drawn.",
+	"Method": "ArrayList<ChartSet> animate(ArrayList<float[][]> start,ArrayList<float[][]> end){\r\n    ValueAnimator animator;\r\n    mAnimators.addAll(animateEntries(start, end));\r\n    for (ChartSet set : mData) {\r\n        animator = set.animateAlpha(mAlpha, set.getAlpha());\r\n        animator.setDuration(mDuration);\r\n        animator.setInterpolator(mInterpolator);\r\n        mAnimators.add(animator);\r\n    }\r\n    if (mColor != -1 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)\r\n        for (ChartSet set : mData) for (ChartEntry entry : set.getEntries()) {\r\n            animator = entry.animateColor(mColor, entry.getColor());\r\n            animator.setDuration(mDuration);\r\n            animator.setInterpolator(mInterpolator);\r\n            mAnimators.add(animator);\r\n        }\r\n    long maxDelay = 0;\r\n    for (ValueAnimator e : mAnimators) {\r\n        if (maxDelay < e.getStartDelay())\r\n            maxDelay = e.getStartDelay();\r\n        e.start();\r\n    }\r\n    animator = ValueAnimator.ofInt(0, 1);\r\n    animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {\r\n        @Override\r\n        public void onAnimationUpdate(ValueAnimator animation) {\r\n            mCallback.onAnimationUpdate(mData);\r\n        }\r\n    });\r\n    animator.addListener(mAnimatorListener);\r\n    animator.setDuration(mDuration + maxDelay);\r\n    animator.start();\r\n    return mData;\r\n}"
+}, {
+	"Path": "com.db.chart.animation.Animation.animate",
+	"Comment": "method that prepares the animation. defines starting points, targets,distance, yadda, as well as the first set of points to be drawn.",
+	"Method": "ArrayList<ChartSet> animate(ArrayList<float[][]> start,ArrayList<float[][]> end){\r\n    mCallback.onAnimationUpdate(mData);\r\n}"
+}, {
+	"Path": "com.db.chart.animation.Animation.prepareEnterAnimation",
+	"Comment": "method that prepares the enter animation. defines starting points, targets,distance, yadda, as well as the first set of points to be drawn.",
+	"Method": "ArrayList<ChartSet> prepareEnterAnimation(ChartView chartView){\r\n    mIsEntering = true;\r\n    return prepareAnimation(chartView);\r\n}"
+}, {
+	"Path": "io.vavr.control.Option.onSuccess",
+	"Comment": "applies an action to this value if this is defined, otherwise nothing happens.",
+	"Method": "Option<T> onSuccess(Consumer<? super T> action){\r\n    Objects.requireNonNull(action, \"action is null\");\r\n    if (isDefined()) {\r\n        action.accept(get());\r\n    }\r\n    return this;\r\n}"
+}, {
+	"Path": "org.knowm.xchange.therock.service.trade.AbstractTheRockTradeServiceIntegration.createExchange",
+	"Comment": "substitute apikey, secretkey and username in order to run the inherited integration tests",
+	"Method": "Exchange createExchange(){\r\n    Exchange exchange = ExchangeFactory.INSTANCE.createExchange(TheRockExchange.class.getName());\r\n    exchange.getExchangeSpecification().setApiKey(\"ApiKey\");\r\n    exchange.getExchangeSpecification().setSecretKey(\"SecretKey\");\r\n    exchange.getExchangeSpecification().setUserName(\"UserName\");\r\n    exchange.applySpecification(exchange.getExchangeSpecification());\r\n    return exchange;\r\n}"
+}, {
+	"Path": "org.terasology.registry.CoreRegistryTest.testContextGetIndependenceFromContextInterfaceImplementation",
+	"Comment": "test if the coreregistry context is being returned by the get method when the argument is context.classindependently of the context implementation.",
+	"Method": "void testContextGetIndependenceFromContextInterfaceImplementation(){\r\n    assertEquals(CoreRegistry.get(Context.class), context);\r\n    assertEquals(context.get(Context.class), null);\r\n}"
+}, {
+	"Path": "com.squareup.wire.schema.ProtoType.enclosingTypeOrPackage",
+	"Comment": "returns the enclosing type, or null if this type is not nested in another type.",
+	"Method": "String enclosingTypeOrPackage(){\r\n    int dot = string.lastIndexOf('.');\r\n    return dot == -1 ? null : string.substring(0, dot);\r\n}"
+}, {
+	"Path": "org.knowm.xchange.coinbase.service.CoinbaseAccountServiceRaw.getCoinbaseContacts",
+	"Comment": "authenticated resource that returns contacts the user has previously sent to or received from.",
+	"Method": "CoinbaseContacts getCoinbaseContacts(CoinbaseContacts getCoinbaseContacts,Integer page,Integer limit,String filter){\r\n    final CoinbaseContacts contacts = coinbase.getContacts(page, limit, filter, exchange.getExchangeSpecification().getApiKey(), signatureCreator, exchange.getNonceFactory());\r\n    return contacts;\r\n}"
+}, {
+	"Path": "org.knowm.xchange.coinbase.service.CoinbaseAccountServiceRaw.getCoinbaseRecurringPayment",
+	"Comment": "authenticated resource that lets you show an individual recurring payment.",
+	"Method": "CoinbaseRecurringPayment getCoinbaseRecurringPayment(String recurringPaymentId){\r\n    final CoinbaseRecurringPayment recurringPayment = coinbase.getRecurringPayment(recurringPaymentId, exchange.getExchangeSpecification().getApiKey(), signatureCreator, exchange.getNonceFactory());\r\n    return recurringPayment;\r\n}"
+}, {
+	"Path": "com.db.chart.view.ChartView.getInnerChartRight",
+	"Comment": "inner chart refers only to the area where chart data will be draw,excluding labels, axis, etc.",
+	"Method": "float getInnerChartRight(){\r\n    return xRndr.getInnerChartRight();\r\n}"
+}, {
+	"Path": "org.knowm.xchange.cryptonit2.CryptonitAdapters.adaptOrderBook",
+	"Comment": "adapts a org.knowm.xchange.cryptonit2.api.model.orderbook to a orderbook object",
+	"Method": "OrderBook adaptOrderBook(CryptonitOrderBook cryptonitOrderBook,CurrencyPair currencyPair){\r\n    List<LimitOrder> asks = createOrders(currencyPair, OrderType.ASK, cryptonitOrderBook.getAsks());\r\n    List<LimitOrder> bids = createOrders(currencyPair, OrderType.BID, cryptonitOrderBook.getBids());\r\n    return new OrderBook(cryptonitOrderBook.getTimestamp(), asks, bids);\r\n}"
+}, {
+	"Path": "org.knowm.xchange.currency.Currency.getDisplayName",
+	"Comment": "gets the name that is suitable for displaying this currency.",
+	"Method": "String getDisplayName(){\r\n    return attributes.name;\r\n}"
+}, {
+	"Path": "com.db.chart.view.BaseBarChartView.calculateBarsWidth",
+	"Comment": "calculates bar width based on the distance of two horizontal labels.",
+	"Method": "void calculateBarsWidth(int nSets,float x0,float x1){\r\n    barWidth = ((x1 - x0) - style.barSpacing - style.setSpacing * (nSets - 1)) / nSets;\r\n}"
+}, {
+	"Path": "io.vavr.AbstractValueTest.isSerializable",
+	"Comment": "states whether the specific value implementation is serializable.test classes override this method to return false if needed.",
+	"Method": "boolean isSerializable(){\r\n    final Object nonEmpty = of(1);\r\n    if (empty() instanceof Serializable != nonEmpty instanceof Serializable) {\r\n        throw new Error(\"empty and non-empty do not consistently implement Serializable\");\r\n    }\r\n    final boolean actual = nonEmpty instanceof Serializable;\r\n    final boolean expected = Match(nonEmpty).of(Case($(anyOf(instanceOf(Future.class), instanceOf(io.vavr.collection.Iterator.class))), false), Case($(anyOf(instanceOf(Either.class), instanceOf(Lazy.class), instanceOf(Option.class), instanceOf(Try.class), instanceOf(Traversable.class), instanceOf(Validation.class))), true));\r\n    assertThat(actual).isEqualTo(expected);\r\n    return actual;\r\n}"
+}, {
+	"Path": "org.knowm.xchange.ccex.CCEXAdapters.adaptOrderBook",
+	"Comment": "adapts a org.knowm.xchange.ccex.api.model.orderbook to a orderbook object",
+	"Method": "OrderBook adaptOrderBook(CCEXGetorderbook ccexOrderBook,CurrencyPair currencyPair){\r\n    List<LimitOrder> asks = createOrders(currencyPair, Order.OrderType.ASK, ccexOrderBook.getAsks());\r\n    List<LimitOrder> bids = createOrders(currencyPair, Order.OrderType.BID, ccexOrderBook.getBids());\r\n    Date date = new Date();\r\n    return new OrderBook(date, asks, bids);\r\n}"
+}, {
+	"Path": "com.db.chart.model.BarSet.setGradientColor",
+	"Comment": "define a gradient color to the bars. previously defined colors will be overridden.",
+	"Method": "BarSet setGradientColor(int colors,float[] positions){\r\n    if (colors.length == 0)\r\n        throw new IllegalArgumentException(\"Colors argument can't be null or empty.\");\r\n    checkNotNull(colors);\r\n    for (ChartEntry e : getEntries()) ((Bar) e).setGradientColor(colors, positions);\r\n    return this;\r\n}"
+}, {
+	"Path": "org.knowm.xchange.therock.service.TheRockTradeService.getOpenOrders",
+	"Comment": "not available from exchange since therock needs currency pair in order to return open orders",
+	"Method": "OpenOrders getOpenOrders(OpenOrders getOpenOrders,OpenOrdersParams params){\r\n    CurrencyPair currencyPair = null;\r\n    if (params instanceof OpenOrdersParamCurrencyPair) {\r\n        currencyPair = ((OpenOrdersParamCurrencyPair) params).getCurrencyPair();\r\n    }\r\n    if (currencyPair == null) {\r\n        throw new ExchangeException(\"CurrencyPair parameter must not be null.\");\r\n    }\r\n    return TheRockAdapters.adaptOrders(getTheRockOrders(currencyPair));\r\n}"
+}, {
+	"Path": "com.db.chart.tooltip.Tooltip.on",
+	"Comment": "maintain information about whether the tooltip is being displayed or not.",
+	"Method": "boolean on(){\r\n    return mOn;\r\n}"
+}, {
+	"Path": "com.squareup.wire.schema.SchemaLoader.sources",
+	"Comment": "returns a mutable list of the sources that this loader will load from.",
+	"Method": "List<Path> sources(){\r\n    return sources;\r\n}"
+}, {
+	"Path": "io.vavr.match.generator.Generator.deriveUpperBounds",
+	"Comment": "introduces new upper generic type bounds for decomposed object parts",
+	"Method": "List<String> deriveUpperBounds(List<String> typeArgs,int count){\r\n    final List<String> result = new ArrayList();\r\n    final Set<String> knownTypeArgs = new HashSet(typeArgs);\r\n    for (int i = 0; i < count; i++) {\r\n        String typeArg = \"_\" + (i + 1);\r\n        while (knownTypeArgs.contains(typeArg)) {\r\n            typeArg = \"_\" + typeArg;\r\n        }\r\n        result.add(typeArg);\r\n        knownTypeArgs.add(typeArg);\r\n    }\r\n    return result;\r\n}"
+}, {
+	"Path": "twitter4j.TwitterTest.testRateLimitStatus",
+	"Comment": "need to think of a way to test this, perhaps mocking out twitter is the way to go",
+	"Method": "void testRateLimitStatus(){\r\n    Map<String, RateLimitStatus> rateLimitStatus = twitter1.getRateLimitStatus();\r\n    assertNotNull(TwitterObjectFactory.getRawJSON(rateLimitStatus));\r\n    assertEquals(rateLimitStatus, TwitterObjectFactory.createRateLimitStatus(TwitterObjectFactory.getRawJSON(rateLimitStatus)));\r\n    RateLimitStatus status = rateLimitStatus.values().iterator().next();\r\n    assertTrue(10 < status.getLimit());\r\n    assertTrue(10 < status.getRemaining());\r\n    assertTrue(0 < status.getSecondsUntilReset());\r\n    rateLimitStatus = twitter1.getRateLimitStatus(\"block\", \"statuses\");\r\n    assertTrue(rateLimitStatus.values().size() > 5);\r\n    twitter1.addRateLimitStatusListener(new RateLimitStatusListener() {\r\n        public void onRateLimitStatus(RateLimitStatusEvent event) {\r\n            System.out.println(\"onRateLimitStatus\" + event);\r\n            accountLimitStatusAcquired = event.isAccountRateLimitStatus();\r\n            ipLimitStatusAcquired = event.isIPRateLimitStatus();\r\n            TwitterTest.this.rateLimitStatus = event.getRateLimitStatus();\r\n        }\r\n        public void onRateLimitReached(RateLimitStatusEvent event) {\r\n        }\r\n    });\r\n    assertDeserializedFormIsNotEqual(twitter1);\r\n    twitter1.addRateLimitStatusListener(new RateLimitStatusListener() {\r\n        public void onRateLimitStatus(RateLimitStatusEvent event) {\r\n            accountLimitStatusAcquired = event.isAccountRateLimitStatus();\r\n            ipLimitStatusAcquired = event.isIPRateLimitStatus();\r\n            TwitterTest.this.rateLimitStatus = event.getRateLimitStatus();\r\n        }\r\n        public void onRateLimitReached(RateLimitStatusEvent event) {\r\n        }\r\n    });\r\n    assertDeserializedFormIsNotEqual(twitter1);\r\n    twitter1.getMentionsTimeline();\r\n    assertTrue(accountLimitStatusAcquired);\r\n    assertFalse(ipLimitStatusAcquired);\r\n    RateLimitStatus previous = this.rateLimitStatus;\r\n    twitter1.getMentionsTimeline();\r\n    assertTrue(accountLimitStatusAcquired);\r\n    assertFalse(ipLimitStatusAcquired);\r\n    assertTrue(previous.getRemaining() > this.rateLimitStatus.getRemaining());\r\n    assertEquals(previous.getLimit(), this.rateLimitStatus.getLimit());\r\n}"
+}, {
+	"Path": "twitter4j.TwitterTest.testRateLimitStatus",
+	"Comment": "need to think of a way to test this, perhaps mocking out twitter is the way to go",
+	"Method": "void testRateLimitStatus(){\r\n    System.out.println(\"onRateLimitStatus\" + event);\r\n    accountLimitStatusAcquired = event.isAccountRateLimitStatus();\r\n    ipLimitStatusAcquired = event.isIPRateLimitStatus();\r\n    TwitterTest.this.rateLimitStatus = event.getRateLimitStatus();\r\n}"
+}, {
+	"Path": "twitter4j.TwitterTest.testRateLimitStatus",
+	"Comment": "need to think of a way to test this, perhaps mocking out twitter is the way to go",
+	"Method": "void testRateLimitStatus(){\r\n}"
+}, {
+	"Path": "twitter4j.TwitterTest.testRateLimitStatus",
+	"Comment": "need to think of a way to test this, perhaps mocking out twitter is the way to go",
+	"Method": "void testRateLimitStatus(){\r\n    accountLimitStatusAcquired = event.isAccountRateLimitStatus();\r\n    ipLimitStatusAcquired = event.isIPRateLimitStatus();\r\n    TwitterTest.this.rateLimitStatus = event.getRateLimitStatus();\r\n}"
+}, {
+	"Path": "twitter4j.TwitterTest.testRateLimitStatus",
+	"Comment": "need to think of a way to test this, perhaps mocking out twitter is the way to go",
+	"Method": "void testRateLimitStatus(){\r\n}"
+}, {
+	"Path": "io.vavr.test.Arbitrary.filter",
+	"Comment": "returns an arbitrary based on this arbitrary which produces values that fulfill the given predicate.",
+	"Method": "Arbitrary<T> filter(Predicate<? super T> predicate){\r\n    return size -> apply(size).filter(predicate);\r\n}"
+}, {
+	"Path": "com.db.chart.view.ChartView.getInnerChartLeft",
+	"Comment": "inner chart refers only to the area where chart data will be draw,excluding labels, axis, etc.",
+	"Method": "float getInnerChartLeft(){\r\n    return xRndr.getInnerChartLeft();\r\n}"
+}, {
+	"Path": "io.vavr.collection.Array.ofAll",
+	"Comment": "creates an array of the given elements.the resulting array has the same iteration order as the given iterable of elementsif the iteration order of the elements is stable.",
+	"Method": "Array<T> ofAll(Iterable<? extends T> elements,Array<T> ofAll,java.util.stream.Stream<? extends T> javaStream,Array<Boolean> ofAll,boolean elements,Array<Byte> ofAll,byte elements,Array<Character> ofAll,char elements,Array<Double> ofAll,double elements,Array<Float> ofAll,float elements,Array<Integer> ofAll,int elements,Array<Long> ofAll,long elements,Array<Short> ofAll,short elements){\r\n    Objects.requireNonNull(elements, \"elements is null\");\r\n    return ofAll(Iterator.ofAll(elements));\r\n}"
+}, {
+	"Path": "com.squareup.wire.ProtoWriter.tagSize",
+	"Comment": "compute the number of bytes that would be needed to encode a tag.",
+	"Method": "int tagSize(int tag){\r\n    return varint32Size(makeTag(tag, FieldEncoding.VARINT));\r\n}"
+}, {
+	"Path": "org.knowm.xchange.ripple.RippleServerTrustTest.noSecretKeyTest",
+	"Comment": "make sure it is possible to create a default public query only ripple connection without asecret key.",
+	"Method": "void noSecretKeyTest(){\r\n    final Exchange exchange = ExchangeFactory.INSTANCE.createExchange(RippleExchange.class.getName());\r\n    assertThat(exchange).isInstanceOf(RippleExchange.class);\r\n    assertThat(exchange.getExchangeSpecification().getSecretKey()).isNull();\r\n    assertThat(exchange.getExchangeSpecification().getSslUri()).isEqualTo(RippleExchange.REST_API_RIPPLE_LABS);\r\n}"
+}, {
+	"Path": "com.db.chart.model.LineSet.setGradientFill",
+	"Comment": "define the gradient colors to fill up the line area.if no color has been previously defined to the line it will automatically be set to thefirst color defined in gradient.",
+	"Method": "LineSet setGradientFill(int colors,float[] positions){\r\n    if (colors.length == 0)\r\n        throw new IllegalArgumentException(\"Colors argument can't be null or empty.\");\r\n    mHasGradientFill = true;\r\n    mGradientColors = checkNotNull(colors);\r\n    mGradientPositions = positions;\r\n    if (mColor == DEFAULT_COLOR)\r\n        mColor = colors[0];\r\n    return this;\r\n}"
+}, {
+	"Path": "com.db.chart.model.BarSet.setColor",
+	"Comment": "define the color of bars. previously defined colors will be overridden.",
+	"Method": "BarSet setColor(int color){\r\n    for (ChartEntry e : getEntries()) e.setColor(color);\r\n    return this;\r\n}"
+}, {
+	"Path": "org.knowm.xchange.okcoin.service.OkCoinFuturesTradeService.getPriceLimits",
+	"Comment": "retrieves the max price from the okex imposed by the price limits",
+	"Method": "OkCoinPriceLimit getPriceLimits(CurrencyPair currencyPair,Object args){\r\n    if (args != null && args.length > 0)\r\n        return getFuturesPriceLimits(currencyPair, (FuturesContract) args[0]);\r\n    else\r\n        return getFuturesPriceLimits(currencyPair, futuresContract);\r\n}"
+}, {
+	"Path": "io.vavr.collection.CharSeq.length",
+	"Comment": "returns the length of this string.the length is equal to the number of unicodecode units in the string.",
+	"Method": "int length(){\r\n    return back.length();\r\n}"
+}, {
+	"Path": "twitter4j.HttpResponse.asJSONObject",
+	"Comment": "returns the response body as twitter4j.jsonobject.disconnects the internal httpurlconnection silently.",
+	"Method": "JSONObject asJSONObject(){\r\n    if (json == null) {\r\n        try {\r\n            json = new JSONObject(asString());\r\n            if (CONF.isPrettyDebugEnabled()) {\r\n                logger.debug(json.toString(1));\r\n            } else {\r\n                logger.debug(responseAsString != null ? responseAsString : json.toString());\r\n            }\r\n        } catch (JSONException jsone) {\r\n            if (responseAsString == null) {\r\n                throw new TwitterException(jsone.getMessage(), jsone);\r\n            } else {\r\n                throw new TwitterException(jsone.getMessage() + \":\" + this.responseAsString, jsone);\r\n            }\r\n        } finally {\r\n            disconnectForcibly();\r\n        }\r\n    }\r\n    return json;\r\n}"
+}, {
+	"Path": "twitter4j.JSONObjectType.determine",
+	"Comment": "determine the respective object type for a given jsonobject.thismethod inspects the object to figure out what type of object itrepresents.this is useful when processing json events of mixed typefrom a stream, in which case you may need to know what type of objectto construct, or how to handle the event properly.",
+	"Method": "Type determine(JSONObject json){\r\n    if (!json.isNull(\"sender\")) {\r\n        return Type.SENDER;\r\n    } else if (!json.isNull(\"text\")) {\r\n        return Type.STATUS;\r\n    } else if (!json.isNull(\"direct_message\")) {\r\n        return Type.DIRECT_MESSAGE;\r\n    } else if (!json.isNull(\"delete\")) {\r\n        return Type.DELETE;\r\n    } else if (!json.isNull(\"limit\")) {\r\n        return Type.LIMIT;\r\n    } else if (!json.isNull(\"warning\")) {\r\n        return Type.STALL_WARNING;\r\n    } else if (!json.isNull(\"scrub_geo\")) {\r\n        return Type.SCRUB_GEO;\r\n    } else if (!json.isNull(\"friends\")) {\r\n        return Type.FRIENDS;\r\n    } else if (!json.isNull(\"event\")) {\r\n        String event;\r\n        try {\r\n            event = json.getString(\"event\");\r\n            if (\"favorite\".equals(event)) {\r\n                return Type.FAVORITE;\r\n            } else if (\"unfavorite\".equals(event)) {\r\n                return Type.UNFAVORITE;\r\n            } else if (\"follow\".equals(event)) {\r\n                return Type.FOLLOW;\r\n            } else if (\"unfollow\".equals(event)) {\r\n                return Type.UNFOLLOW;\r\n            } else if (event.startsWith(\"list\")) {\r\n                if (\"list_member_added\".equals(event)) {\r\n                    return Type.USER_LIST_MEMBER_ADDED;\r\n                } else if (\"list_member_removed\".equals(event)) {\r\n                    return Type.USER_LIST_MEMBER_DELETED;\r\n                } else if (\"list_user_subscribed\".equals(event)) {\r\n                    return Type.USER_LIST_SUBSCRIBED;\r\n                } else if (\"list_user_unsubscribed\".equals(event)) {\r\n                    return Type.USER_LIST_UNSUBSCRIBED;\r\n                } else if (\"list_created\".equals(event)) {\r\n                    return Type.USER_LIST_CREATED;\r\n                } else if (\"list_updated\".equals(event)) {\r\n                    return Type.USER_LIST_UPDATED;\r\n                } else if (\"list_destroyed\".equals(event)) {\r\n                    return Type.USER_LIST_DESTROYED;\r\n                }\r\n            } else if (\"user_update\".equals(event)) {\r\n                return Type.USER_UPDATE;\r\n            } else if (\"user_delete\".equals(event)) {\r\n                return Type.USER_DELETE;\r\n            } else if (\"user_suspend\".equals(event)) {\r\n                return Type.USER_SUSPEND;\r\n            } else if (\"block\".equals(event)) {\r\n                return Type.BLOCK;\r\n            } else if (\"unblock\".equals(event)) {\r\n                return Type.UNBLOCK;\r\n            } else if (\"retweeted_retweet\".equals(event)) {\r\n                return Type.RETWEETED_RETWEET;\r\n            } else if (\"favorited_retweet\".equals(event)) {\r\n                return Type.FAVORITED_RETWEET;\r\n            } else if (\"quoted_tweet\".equals(event)) {\r\n                return Type.QUOTED_TWEET;\r\n            } else if (\"mute\".equals(event)) {\r\n                return Type.MUTE;\r\n            } else if (\"unmute\".equals(event)) {\r\n                return Type.UNMUTE;\r\n            }\r\n        } catch (JSONException jsone) {\r\n            try {\r\n                logger.warn(\"Failed to get event element: \", json.toString(2));\r\n            } catch (JSONException ignore) {\r\n            }\r\n        }\r\n    } else if (!json.isNull(\"disconnect\")) {\r\n        return Type.DISCONNECTION;\r\n    }\r\n    return Type.UNKNOWN;\r\n}"
+}, {
+	"Path": "io.vavr.test.Arbitrary.intersperse",
+	"Comment": "intersperses values from this arbitrary instance with those of another.",
+	"Method": "Arbitrary<T> intersperse(Arbitrary<T> other){\r\n    Objects.requireNonNull(other, \"other is null\");\r\n    return size -> this.apply(size).intersperse(other.apply(size));\r\n}"
+}, {
+	"Path": "org.knowm.xchange.mercadobitcoin.MercadoBitcoinAdapters.adaptAccountInfo",
+	"Comment": "adapts a mercadobitcoinbasetradeapiresult to an accountinfo",
+	"Method": "AccountInfo adaptAccountInfo(MercadoBitcoinBaseTradeApiResult<MercadoBitcoinAccountInfo> accountInfo,String userName){\r\n    Balance brlBalance = new Balance(Currency.BRL, accountInfo.getTheReturn().getFunds().getBrl());\r\n    Balance btcBalance = new Balance(Currency.BTC, accountInfo.getTheReturn().getFunds().getBtc());\r\n    Balance ltcBalance = new Balance(Currency.LTC, accountInfo.getTheReturn().getFunds().getLtc());\r\n    return new AccountInfo(userName, new Wallet(brlBalance, btcBalance, ltcBalance));\r\n}"
+}, {
+	"Path": "com.db.chart.view.ChartView.setAxisLabelsSpacing",
+	"Comment": "set spacing between labels and axis. will be applied to both x and y.",
+	"Method": "ChartView setAxisLabelsSpacing(int spacing){\r\n    style.axisLabelsSpacing = spacing;\r\n    return this;\r\n}"
+}, {
+	"Path": "twitter4j.LazyUser.isFollowRequestSent",
+	"Comment": "returns true if the authenticating user has requested to follow this user,otherwise false.",
+	"Method": "boolean isFollowRequestSent(){\r\n    return getTarget().isFollowRequestSent();\r\n}"
+}, {
+	"Path": "com.squareup.wire.schema.SchemaLoader.addProto",
+	"Comment": "add a proto file to load. dependencies will be loaded automatically from the configuredsources.",
+	"Method": "SchemaLoader addProto(String proto){\r\n    protos.add(proto);\r\n    return this;\r\n}"
+}, {
+	"Path": "org.knowm.xchange.dto.marketdata.OrderBook.updateDate",
+	"Comment": "todo should this raise an exception if the order timestamp is in the past?",
+	"Method": "void updateDate(Date updateDate){\r\n    if (updateDate != null && (timeStamp == null || updateDate.after(timeStamp))) {\r\n        this.timeStamp = updateDate;\r\n    }\r\n}"
+}, {
+	"Path": "io.vavr.concurrent.Future.zipWith",
+	"Comment": "returns a this and that future result combined using a given combinator function.if this future failed the result contains this failure. otherwise the result contains that failure ora combination of both successful future results.",
+	"Method": "Future<R> zipWith(Future<? extends U> that,BiFunction<? super T, ? super U, ? extends R> combinator){\r\n    Objects.requireNonNull(that, \"that is null\");\r\n    Objects.requireNonNull(combinator, \"combinator is null\");\r\n    return join(executor(), tryComplete -> onComplete(res1 -> {\r\n        if (res1.isFailure()) {\r\n            tryComplete.test((Try.Failure<R>) res1);\r\n        } else {\r\n            that.onComplete(res2 -> {\r\n                final Try<R> result = res1.flatMap(t -> res2.map(u -> combinator.apply(t, u)));\r\n                tryComplete.test(result);\r\n            });\r\n        }\r\n    }));\r\n}"
+}, {
+	"Path": "io.vavr.JmhRunner.aggregate",
+	"Comment": "used for dead code elimination and correctness assertion inside the benchmarks",
+	"Method": "int aggregate(int x,int y){\r\n    return x ^ y;\r\n}"
+}, {
+	"Path": "io.vavr.collection.List.ofAll",
+	"Comment": "creates a list of the given elements.the resulting list has the same iteration order as the given iterable of elementsif the iteration order of the elements is stable.",
+	"Method": "List<T> ofAll(Iterable<? extends T> elements,List<T> ofAll,java.util.stream.Stream<? extends T> javaStream,List<Boolean> ofAll,boolean elements,List<Byte> ofAll,byte elements,List<Character> ofAll,char elements,List<Double> ofAll,double elements,List<Float> ofAll,float elements,List<Integer> ofAll,int elements,List<Long> ofAll,long elements,List<Short> ofAll,short elements){\r\n    Objects.requireNonNull(elements, \"elements is null\");\r\n    return ofAll(Iterator.ofAll(elements));\r\n}"
+}]

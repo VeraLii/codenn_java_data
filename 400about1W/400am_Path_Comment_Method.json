@@ -1,0 +1,97 @@
+[{
+	"Path": "org.lwjgl.system.MemoryUtil.memLengthASCII",
+	"Comment": "returns the number of bytes required to encode the specified text in the ascii encoding.",
+	"Method": "int memLengthASCII(CharSequence value,boolean nullTerminated){\r\n    return value.length() + (nullTerminated ? 1 : 0);\r\n}"
+}, {
+	"Path": "org.lwjgl.opengl.WGL.wglCopyContext",
+	"Comment": "copies selected groups of rendering states from one opengl rendering context to another.",
+	"Method": "boolean wglCopyContext(long src,long dst,int mask){\r\n    long __functionAddress = Functions.CopyContext;\r\n    if (CHECKS) {\r\n        check(src);\r\n        check(dst);\r\n    }\r\n    return callPPI(__functionAddress, src, dst, mask) != 0;\r\n}"
+}, {
+	"Path": "org.lwjgl.llvm.LLVMCore.LLVMRemoveBasicBlockFromParent",
+	"Comment": "remove a basic block from a function.this deletes the basic block from its containing function but keep the basic block alive.",
+	"Method": "void LLVMRemoveBasicBlockFromParent(long BB){\r\n    long __functionAddress = Functions.RemoveBasicBlockFromParent;\r\n    if (CHECKS) {\r\n        check(BB);\r\n    }\r\n    invokePV(__functionAddress, BB);\r\n}"
+}, {
+	"Path": "org.lwjgl.system.Struct.free",
+	"Comment": "frees the struct allocation.this method should not be used if the memory backing this struct is not owned by the struct.",
+	"Method": "void free(){\r\n    nmemFree(address());\r\n}"
+}, {
+	"Path": "org.lwjgl.opengl.WGLAMDGPUAssociation.wglBlitContextFramebufferAMD",
+	"Comment": "blits data from one context to another. this facilitates high performance data communication between multiple contexts.",
+	"Method": "void wglBlitContextFramebufferAMD(long dstCtx,int srcX0,int srcY0,int srcX1,int srcY1,int dstX0,int dstY0,int dstX1,int dstY1,int mask,int filter){\r\n    long __functionAddress = GL.getCapabilitiesWGL().wglBlitContextFramebufferAMD;\r\n    if (CHECKS) {\r\n        check(__functionAddress);\r\n        check(dstCtx);\r\n    }\r\n    callPV(__functionAddress, dstCtx, srcX0, srcY0, srcX1, srcY1, dstX0, dstY0, dstX1, dstY1, mask, filter);\r\n}"
+}, {
+	"Path": "org.lwjgl.llvm.LLVMCore.LLVMConstAllOnes",
+	"Comment": "obtain a constant value referring to the instance of a type consisting of all ones.this is only valid for integer types.",
+	"Method": "long LLVMConstAllOnes(long Ty){\r\n    long __functionAddress = Functions.ConstAllOnes;\r\n    if (CHECKS) {\r\n        check(Ty);\r\n    }\r\n    return invokePP(__functionAddress, Ty);\r\n}"
+}, {
+	"Path": "org.lwjgl.opengl.GL30.glVertexAttribI3ui",
+	"Comment": "specifies the value of an unsigned pure integer generic vertex attribute. the w component is implicitly set to 1.",
+	"Method": "void glVertexAttribI3ui(int index,int x,int y,int z){\r\n    GL30C.glVertexAttribI3ui(index, x, y, z);\r\n}"
+}, {
+	"Path": "org.lwjgl.opencl.INTELVAAPIMediaSharing.clGetDeviceIDsFromVA_APIMediaAdapterINTEL",
+	"Comment": "queries the opencl devices corresponding to a va api display.",
+	"Method": "int clGetDeviceIDsFromVA_APIMediaAdapterINTEL(long platform,int media_adapter_type,long media_adapter,int media_adapter_set,PointerBuffer devices,IntBuffer num_devices,int clGetDeviceIDsFromVA_APIMediaAdapterINTEL,long platform,int media_adapter_type,long media_adapter,int media_adapter_set,PointerBuffer devices,int[] num_devices){\r\n    long __functionAddress = CL.getICD().clGetDeviceIDsFromVA_APIMediaAdapterINTEL;\r\n    if (CHECKS) {\r\n        check(__functionAddress);\r\n        check(platform);\r\n        check(media_adapter);\r\n        checkSafe(num_devices, 1);\r\n    }\r\n    return callPPPPI(__functionAddress, platform, media_adapter_type, media_adapter, media_adapter_set, remainingSafe(devices), memAddressSafe(devices), num_devices);\r\n}"
+}, {
+	"Path": "org.lwjgl.opengl.GL11.glLineWidth",
+	"Comment": "sets the width of rasterized line segments. the default width is 1.0.",
+	"Method": "void glLineWidth(float width){\r\n    GL11C.glLineWidth(width);\r\n}"
+}, {
+	"Path": "org.lwjgl.opengl.CGL.CGLChoosePixelFormat",
+	"Comment": "creates a pixel format object that satisfies the constraints of the specified buffer and renderer attributes.",
+	"Method": "int CGLChoosePixelFormat(IntBuffer attribs,PointerBuffer pix,IntBuffer npix,int CGLChoosePixelFormat,int[] attribs,PointerBuffer pix,int[] npix){\r\n    long __functionAddress = Functions.ChoosePixelFormat;\r\n    if (CHECKS) {\r\n        checkNT(attribs);\r\n        check(pix, 1);\r\n        check(npix, 1);\r\n    }\r\n    return callPPPI(__functionAddress, attribs, memAddress(pix), npix);\r\n}"
+}, {
+	"Path": "org.lwjgl.llvm.ClangIndex.clang_loadDiagnostics",
+	"Comment": "deserialize a set of diagnostics from a clang diagnostics bitcode file.",
+	"Method": "long clang_loadDiagnostics(ByteBuffer file,IntBuffer error,CXString errorString,long clang_loadDiagnostics,CharSequence file,IntBuffer error,CXString errorString){\r\n    if (CHECKS) {\r\n        check(error, 1);\r\n    }\r\n    MemoryStack stack = stackGet();\r\n    int stackPointer = stack.getPointer();\r\n    try {\r\n        stack.nUTF8(file, true);\r\n        long fileEncoded = stack.getPointerAddress();\r\n        return nclang_loadDiagnostics(fileEncoded, memAddress(error), errorString.address());\r\n    } finally {\r\n        stack.setPointer(stackPointer);\r\n    }\r\n}"
+}, {
+	"Path": "org.lwjgl.opengl.WGL.wglCreateContext",
+	"Comment": "creates a new opengl rendering context, which is suitable for drawing on the device referenced by device. the rendering context has the same pixelformat as the device context.",
+	"Method": "long wglCreateContext(long hdc){\r\n    long __functionAddress = Functions.CreateContext;\r\n    if (CHECKS) {\r\n        check(hdc);\r\n    }\r\n    return callPP(__functionAddress, hdc);\r\n}"
+}, {
+	"Path": "org.lwjgl.system.dyncall.DynLoad.dlSymsNameFromValue",
+	"Comment": "returns the symbol name exported by the specified library at the specified address.",
+	"Method": "String dlSymsNameFromValue(long pSyms,long value){\r\n    if (CHECKS) {\r\n        check(pSyms);\r\n        check(value);\r\n    }\r\n    long __result = ndlSymsNameFromValue(pSyms, value);\r\n    return memASCIISafe(__result);\r\n}"
+}, {
+	"Path": "org.lwjgl.opengl.GL30.glFramebufferTexture1D",
+	"Comment": "attaches a level of a 1d texture object as a logical buffer to the currently bound framebuffer object.",
+	"Method": "void glFramebufferTexture1D(int target,int attachment,int textarget,int texture,int level){\r\n    GL30C.glFramebufferTexture1D(target, attachment, textarget, texture, level);\r\n}"
+}, {
+	"Path": "org.lwjgl.system.macosx.ObjCRuntime.objc_getProtocol",
+	"Comment": "returns a specified protocol.this function acquires the runtime lock.",
+	"Method": "long objc_getProtocol(ByteBuffer name,long objc_getProtocol,CharSequence name){\r\n    MemoryStack stack = stackGet();\r\n    int stackPointer = stack.getPointer();\r\n    try {\r\n        stack.nUTF8(name, true);\r\n        long nameEncoded = stack.getPointerAddress();\r\n        return nobjc_getProtocol(nameEncoded);\r\n    } finally {\r\n        stack.setPointer(stackPointer);\r\n    }\r\n}"
+}, {
+	"Path": "org.lwjgl.llvm.ClangIndex.clang_codeCompleteGetNumDiagnostics",
+	"Comment": "determine the number of diagnostics produced prior to the location where code completion was performed.",
+	"Method": "int clang_codeCompleteGetNumDiagnostics(CXCodeCompleteResults Results){\r\n    return nclang_codeCompleteGetNumDiagnostics(Results.address());\r\n}"
+}, {
+	"Path": "org.lwjgl.system.StructBuffer.get",
+	"Comment": "absolute get method. reads the struct data at the specified index into the specified struct.",
+	"Method": "T get(SELF get,T value,T get,int index,SELF get,int index,T value){\r\n    int sizeof = getElementFactory().sizeof();\r\n    memCopy(address + Checks.check(index, limit) * sizeof, value.address(), sizeof);\r\n    return self();\r\n}"
+}, {
+	"Path": "org.lwjgl.opengl.WGLNVDXInterop.wglDXObjectAccessNV",
+	"Comment": "modifies the access mode of an interop object, if a different access mode is required after the object has been registered.",
+	"Method": "boolean wglDXObjectAccessNV(long object,int access){\r\n    long __functionAddress = GL.getCapabilitiesWGL().wglDXObjectAccessNV;\r\n    if (CHECKS) {\r\n        check(__functionAddress);\r\n        check(object);\r\n    }\r\n    return callPI(__functionAddress, object, access) != 0;\r\n}"
+}, {
+	"Path": "org.lwjgl.opengl.GL30.glFramebufferTexture2D",
+	"Comment": "attaches a level of a 2d texture object as a logical buffer to the currently bound framebuffer object.",
+	"Method": "void glFramebufferTexture2D(int target,int attachment,int textarget,int texture,int level){\r\n    GL30C.glFramebufferTexture2D(target, attachment, textarget, texture, level);\r\n}"
+}, {
+	"Path": "org.lwjgl.system.dyncall.DynLoad.dlSymsName",
+	"Comment": "returns the symbol name exported by the specified library at the specified index.",
+	"Method": "String dlSymsName(long pSyms,int index){\r\n    if (CHECKS) {\r\n        check(pSyms);\r\n    }\r\n    long __result = ndlSymsName(pSyms, index);\r\n    return memASCIISafe(__result);\r\n}"
+}, {
+	"Path": "org.lwjgl.nuklear.Nuklear.nk_layout_row_begin",
+	"Comment": "starts a new dynamic or fixed row with given height and columns.",
+	"Method": "void nk_layout_row_begin(NkContext ctx,int fmt,float row_height,int cols){\r\n    nnk_layout_row_begin(ctx.address(), fmt, row_height, cols);\r\n}"
+}, {
+	"Path": "org.lwjgl.llvm.ClangIndex.clang_disposeIndex",
+	"Comment": "destroy the given index.the index must not be destroyed until all of the translation units created within that index have been destroyed.",
+	"Method": "void clang_disposeIndex(long index){\r\n    long __functionAddress = Functions.disposeIndex;\r\n    if (CHECKS) {\r\n        check(index);\r\n    }\r\n    invokePV(__functionAddress, index);\r\n}"
+}, {
+	"Path": "org.lwjgl.odbc.SQL.SQLFetch",
+	"Comment": "msdn referencefetches the next rowset of data from the result set and returns data for all bound columns.",
+	"Method": "short SQLFetch(long StatementHandle){\r\n    long __functionAddress = Functions.Fetch;\r\n    if (CHECKS) {\r\n        check(StatementHandle);\r\n    }\r\n    return callPS(__functionAddress, StatementHandle);\r\n}"
+}, {
+	"Path": "org.lwjgl.opengl.GL30.glFramebufferTexture3D",
+	"Comment": "attaches a layer of a 3d texture object as a logical buffer to the currently bound framebuffer object.",
+	"Method": "void glFramebufferTexture3D(int target,int attachment,int textarget,int texture,int level,int layer){\r\n    GL30C.glFramebufferTexture3D(target, attachment, textarget, texture, level, layer);\r\n}"
+}]

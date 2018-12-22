@@ -1,0 +1,633 @@
+[{
+	"Path": "org.drools.decisiontable.parser.xls.PropertiesSheetListener.getProperties",
+	"Comment": "return the key value pairs. if this is called before the sheet isfinished, then it will build the properties map with what is known.subsequent calls will update the properties map.",
+	"Method": "CaseInsensitiveMap getProperties(){\r\n    finishSheet();\r\n    return this._properties;\r\n}"
+}, {
+	"Path": "org.drools.workbench.models.datamodel.rule.FactPattern.setFactType",
+	"Comment": "warning! this method should only be used for fixtures purposes!",
+	"Method": "void setFactType(String factType){\r\n    this.factType = factType;\r\n}"
+}, {
+	"Path": "org.drools.testcoverage.functional.GuidedDecisionTableTest.testUniqueHitPolicyWithSalience",
+	"Comment": "even when there are multiple matching rules, only one is fired.however not the first one, but the one with the highest salience.",
+	"Method": "void testUniqueHitPolicyWithSalience(){\r\n    initKieSession(\"uniqueHitPolicyWithSalience.gdst\");\r\n    kSession.insert(johnFromBarcelona);\r\n    kSession.fireAllRules();\r\n    Assertions.assertThat(rulesFired.getFiredRules().size()).isEqualTo(1);\r\n    Assertions.assertThat(rulesFired.isRuleFired(\"Row 4 uniqueHitPolicyWithSalience\")).isTrue();\r\n    kSession.dispose();\r\n}"
+}, {
+	"Path": "org.drools.core.util.ClassUtils.loadClass",
+	"Comment": "this method will attempt to load the specified class. it usesa syncrhonized hashmap to cache the reflection class lookup.",
+	"Method": "Class<?> loadClass(String className,ClassLoader classLoader){\r\n    Class cls = (Class) classes.get(className);\r\n    if (cls == null) {\r\n        try {\r\n            cls = Class.forName(className);\r\n        } catch (Exception e) {\r\n        }\r\n        if (cls == null && classLoader != null) {\r\n            try {\r\n                cls = classLoader.loadClass(className);\r\n            } catch (Exception e) {\r\n            }\r\n        }\r\n        if (cls == null) {\r\n            try {\r\n                cls = ClassUtils.class.getClassLoader().loadClass(className);\r\n            } catch (Exception e) {\r\n            }\r\n        }\r\n        if (cls == null) {\r\n            try {\r\n                cls = Thread.currentThread().getContextClassLoader().loadClass(className);\r\n            } catch (Exception e) {\r\n            }\r\n        }\r\n        if (cls == null) {\r\n            try {\r\n                cls = ClassLoader.getSystemClassLoader().loadClass(className);\r\n            } catch (Exception e) {\r\n            }\r\n        }\r\n        if (cls != null) {\r\n            classes.put(className, cls);\r\n        } else {\r\n            throw new RuntimeException(\"Unable to load class '\" + className + \"'\");\r\n        }\r\n    }\r\n    return cls;\r\n}"
+}, {
+	"Path": "org.drools.testcoverage.common.util.PropertiesUtil.getBasedir",
+	"Comment": "gets the base directory of the test execution that was specified by system property basedir.method expects the property to be set.",
+	"Method": "File getBasedir(){\r\n    if (basedir == null) {\r\n        String basedirProp = System.getProperty(\"basedir\");\r\n        assertNotNull(\"System property for basedir not set!\", basedirProp);\r\n        basedir = new File(basedirProp);\r\n        assertTrue(\"Basedir \" + basedir.getAbsolutePath() + \" does not exist! Check value of 'basedir' system property.\", basedir.exists());\r\n    }\r\n    return basedir;\r\n}"
+}, {
+	"Path": "org.kie.dmn.feel.runtime.decisiontables.DecisionTableImpl.actualInputsMatchInputValues",
+	"Comment": "if valid input values are defined, check that all parameters match the respective valid inputs",
+	"Method": "Either<FEELEvent, Object> actualInputsMatchInputValues(EvaluationContext ctx,Object[] params){\r\n    for (int i = 0; i < params.length; i++) {\r\n        final DTInputClause input = inputs.get(i);\r\n        if (input.getInputValues() != null && !input.getInputValues().isEmpty()) {\r\n            final Object parameter = params[i];\r\n            boolean satisfies = input.getInputValues().stream().map(ut -> ut.apply(ctx, parameter)).filter(Boolean::booleanValue).findAny().orElse(false);\r\n            if (!satisfies) {\r\n                String values = input.getInputValuesText();\r\n                return Either.ofLeft(new InvalidInputEvent(FEELEvent.Severity.ERROR, input.getInputExpression() + \"='\" + parameter + \"' does not match any of the valid values \" + values + \" for decision table '\" + getName() + \"'.\", getName(), null, values));\r\n            }\r\n        }\r\n    }\r\n    return Either.ofRight(true);\r\n}"
+}, {
+	"Path": "org.drools.core.util.bitmask.OpenBitSet.flipAndGet",
+	"Comment": "flips a bit and returns the resulting bit value.the index should be less than the openbitset size.",
+	"Method": "boolean flipAndGet(int index,boolean flipAndGet,long index){\r\n    assert index >= 0 && index < numBits;\r\n    int wordNum = (int) (index >> 6);\r\n    int bit = (int) index & 0x3f;\r\n    long bitmask = 1L << bit;\r\n    bits[wordNum] ^= bitmask;\r\n    return (bits[wordNum] & bitmask) != 0;\r\n}"
+}, {
+	"Path": "org.drools.core.util.asm.MethodComparator.getMethodBytecode",
+	"Comment": "this will return a series of bytecode instructions which can be used to compare one method with another.debug info like local var declarations and line numbers are ignored, so the focus is on the content.",
+	"Method": "String getMethodBytecode(String methodName,ClassReader classReader,String getMethodBytecode,String methodName,byte[] bytes){\r\n    final Tracer visit = new Tracer(methodName);\r\n    final ClassReader classReader = new ClassReader(bytes);\r\n    classReader.accept(visit, ClassReader.SKIP_DEBUG);\r\n    return visit.getText();\r\n}"
+}, {
+	"Path": "org.drools.testcoverage.common.util.TestParametersUtil.isTestConfigurationValid",
+	"Comment": "checks, if a test configuration matches specified engine configurations. take note that the engine configurationscan contain contradictory configurations on first sight. this is because they should include allconfigurations requested for tests. e.g. a test could require both combinations with executable model on and also off.",
+	"Method": "boolean isTestConfigurationValid(KieBaseTestConfiguration testConfiguration,EngineTestConfiguration[] engineConfigurations){\r\n    final Set<EngineTestConfiguration> engineTestConfigurationSet = new HashSet(Arrays.asList(engineConfigurations));\r\n    if (testConfiguration.isStreamMode() && !engineTestConfigurationSet.contains(EngineTestConfiguration.STREAM_MODE)) {\r\n        return false;\r\n    }\r\n    if (!testConfiguration.isStreamMode() && !engineTestConfigurationSet.contains(EngineTestConfiguration.CLOUD_MODE)) {\r\n        return false;\r\n    }\r\n    if (testConfiguration.isIdentity() && !engineTestConfigurationSet.contains(EngineTestConfiguration.IDENTITY_MODE)) {\r\n        return false;\r\n    }\r\n    if (!testConfiguration.isIdentity() && !engineTestConfigurationSet.contains(EngineTestConfiguration.EQUALITY_MODE)) {\r\n        return false;\r\n    }\r\n    if (testConfiguration.useAlphaNetworkCompiler() && !engineTestConfigurationSet.contains(EngineTestConfiguration.ALPHA_NETWORK_COMPILER_TRUE)) {\r\n        return false;\r\n    }\r\n    if (!testConfiguration.useAlphaNetworkCompiler() && !engineTestConfigurationSet.contains(EngineTestConfiguration.ALPHA_NETWORK_COMPILER_FALSE)) {\r\n        return false;\r\n    }\r\n    if (!testConfiguration.getExecutableModelProjectClass().isPresent() && !engineTestConfigurationSet.contains(EngineTestConfiguration.EXECUTABLE_MODEL_OFF)) {\r\n        return false;\r\n    }\r\n    if (testConfiguration.getExecutableModelProjectClass().isPresent()) {\r\n        if (testConfiguration.getExecutableModelProjectClass().get().equals(ExecutableModelFlowProject.class) && !engineTestConfigurationSet.contains(EngineTestConfiguration.EXECUTABLE_MODEL_FLOW)) {\r\n            return false;\r\n        }\r\n        if (testConfiguration.getExecutableModelProjectClass().get().equals(ExecutableModelProject.class) && !engineTestConfigurationSet.contains(EngineTestConfiguration.EXECUTABLE_MODEL_PATTERN)) {\r\n            return false;\r\n        }\r\n    }\r\n    return true;\r\n}"
+}, {
+	"Path": "org.drools.workbench.models.datamodel.auditlog.DefaultAuditLogFilter.accept",
+	"Comment": "this is the filtering method. when an auditlogentry is added to anauditlog the auditlog calls this method to determine whether theauditlogentry should be added.",
+	"Method": "boolean accept(AuditLogEntry entry){\r\n    if (!acceptedTypes.containsKey(entry.getGenericType())) {\r\n        return false;\r\n    }\r\n    return acceptedTypes.get(entry.getGenericType());\r\n}"
+}, {
+	"Path": "org.drools.core.time.impl.CronExpressionTest.verifyMatch",
+	"Comment": "verify that the target object and the object we just deserialized match.",
+	"Method": "void verifyMatch(Object target,Object deserialized){\r\n    CronExpression targetCronExpression = (CronExpression) target;\r\n    CronExpression deserializedCronExpression = (CronExpression) deserialized;\r\n    assertNotNull(deserializedCronExpression);\r\n    assertEquals(targetCronExpression.getCronExpression(), deserializedCronExpression.getCronExpression());\r\n    assertEquals(targetCronExpression.getTimeZone(), deserializedCronExpression.getTimeZone());\r\n}"
+}, {
+	"Path": "org.drools.workbench.models.datamodel.rule.RuleModel.getLHSBoundField",
+	"Comment": "this will return the fieldconstraint that a variable is bound to.",
+	"Method": "SingleFieldConstraint getLHSBoundField(String var,SingleFieldConstraint getLHSBoundField,IPattern pat,String var){\r\n    if (pat instanceof FromCompositeFactPattern) {\r\n        pat = ((FromCompositeFactPattern) pat).getFactPattern();\r\n    }\r\n    if (pat instanceof CompositeFactPattern) {\r\n        for (IPattern iPattern : ((CompositeFactPattern) pat).getPatterns()) {\r\n            SingleFieldConstraint fieldConstraint = getLHSBoundField(iPattern, var);\r\n            if (fieldConstraint != null) {\r\n                return fieldConstraint;\r\n            }\r\n        }\r\n    }\r\n    if (pat instanceof FactPattern) {\r\n        final FactPattern p = (FactPattern) pat;\r\n        for (int j = 0; j < p.getFieldConstraints().length; j++) {\r\n            if (p.getFieldConstraints()[j] instanceof SingleFieldConstraint) {\r\n                SingleFieldConstraint fc = (SingleFieldConstraint) p.getFieldConstraints()[j];\r\n                List<String> fieldBindings = getFieldBinding(fc);\r\n                if (fieldBindings.contains(var)) {\r\n                    return fc;\r\n                }\r\n            }\r\n        }\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "org.drools.core.RuleBaseConfiguration.makeImmutable",
+	"Comment": "makes the configuration object immutable. once it becomes immutable,there is no way to make it mutable again.this is done to keep consistency.",
+	"Method": "void makeImmutable(){\r\n    this.immutable = true;\r\n}"
+}, {
+	"Path": "org.drools.core.time.impl.CronTrigger.setNextFireTime",
+	"Comment": "sets the next time at which the crontrigger will fire.this method should not be invoked by client code.",
+	"Method": "void setNextFireTime(Date nextFireTime){\r\n    this.nextFireTime = nextFireTime;\r\n}"
+}, {
+	"Path": "org.drools.examples.sudoku.SetOfNine.getFree",
+	"Comment": "returns the set of integers that still need to be assigned to some cell of this group.",
+	"Method": "Set<Integer> getFree(){\r\n    return free;\r\n}"
+}, {
+	"Path": "org.drools.testcoverage.functional.KieContainerDefaultsTest.testTwoKieSessionsBothDefault",
+	"Comment": "this test checks how kiesessions behave when more than one is set as default.",
+	"Method": "void testTwoKieSessionsBothDefault(){\r\n    final KieModuleModel kieModule = kieServices.newKieModuleModel();\r\n    kieModule.newKieBaseModel(\"firstKBase\").setDefault(true).newKieSessionModel(\"firstKSession\").setDefault(true);\r\n    kieModule.newKieBaseModel(\"secondKBase\").setDefault(true).newKieSessionModel(\"secondKSession\").setDefault(true);\r\n    buildKieModule(kieModule);\r\n    final KieContainer kieContainer = kieServices.newKieContainer(RELEASE_ID);\r\n    Assertions.assertThatThrownBy(() -> kieContainer.newKieSession()).isInstanceOf(RuntimeException.class).hasMessageContaining(\"Cannot find a default KieSession\");\r\n}"
+}, {
+	"Path": "org.drools.model.bitmask.OpenBitSet.trimTrailingZeros",
+	"Comment": "lowers numwords, the number of words in use,by checking for trailing zero words.",
+	"Method": "void trimTrailingZeros(){\r\n    int idx = wlen - 1;\r\n    while (idx >= 0 && bits[idx] == 0) idx--;\r\n    wlen = idx + 1;\r\n}"
+}, {
+	"Path": "org.drools.core.util.LinkedList.removeLast",
+	"Comment": "remove the last node from the list. the previous node then becomes the last node. if this is the lastnode then both first and last node references are set to null.",
+	"Method": "T removeLast(){\r\n    if (this.lastNode == null) {\r\n        return null;\r\n    }\r\n    final T node = this.lastNode;\r\n    this.lastNode = node.getPrevious();\r\n    node.setPrevious(null);\r\n    if (this.lastNode != null) {\r\n        this.lastNode.setNext(null);\r\n    } else {\r\n        this.firstNode = null;\r\n    }\r\n    this.size--;\r\n    return node;\r\n}"
+}, {
+	"Path": "org.drools.core.SessionConfigurationImpl.makeImmutable",
+	"Comment": "makes the configuration object immutable. once it becomes immutable,there is no way to make it mutable again.this is done to keep consistency.",
+	"Method": "void makeImmutable(){\r\n    this.immutable = true;\r\n}"
+}, {
+	"Path": "org.drools.testcoverage.regression.XSDResourceTest.testXSDResourceNotBreakingCompilation",
+	"Comment": "verifies that a xsd resource on the classpath does not break kie package compilation.",
+	"Method": "void testXSDResourceNotBreakingCompilation(){\r\n    final KieContainer kcontainer = KieServices.Factory.get().getKieClasspathContainer();\r\n    Assertions.assertThat(kcontainer.getKieBase(\"kbaseXsdResource\")).as(\"Created KieBase with XSD should not be null\").isNotNull();\r\n}"
+}, {
+	"Path": "org.drools.core.time.impl.CronExpression.isValidExpression",
+	"Comment": "indicates whether the specified cron expression can be parsed into a valid cron expression",
+	"Method": "boolean isValidExpression(String cronExpression){\r\n    try {\r\n        new CronExpression(cronExpression);\r\n    } catch (ParseException pe) {\r\n        return false;\r\n    }\r\n    return true;\r\n}"
+}, {
+	"Path": "org.kie.dmn.feel.lang.impl.FEELEventListenersManager.addListener",
+	"Comment": "registers a new event listener into this feel instance.the event listeners are notified about signitificativeevents during compilation or evaluation of expressions.",
+	"Method": "void addListener(FEELEventListener listener){\r\n    this.listeners.add(listener);\r\n}"
+}, {
+	"Path": "org.drools.modelcompiler.builder.generator.DrlxParseUtil.rescopeNamesToNewScope",
+	"Comment": "mutates expressionsuch that, if it contains a nameexpr for any of the names,it is replaced with a fieldaccessexpr having newscope as the scope.",
+	"Method": "void rescopeNamesToNewScope(Expression newScope,List<String> names,Expression e){\r\n    if (e instanceof NodeWithArguments) {\r\n        NodeWithArguments<?> arguments = (NodeWithArguments) e;\r\n        for (Expression argument : arguments.getArguments()) {\r\n            rescopeNamesToNewScope(newScope, names, argument);\r\n        }\r\n    }\r\n    if (e instanceof AssignExpr) {\r\n        AssignExpr assignExpr = (AssignExpr) e;\r\n        rescopeNamesToNewScope(newScope, names, assignExpr.getTarget());\r\n        rescopeNamesToNewScope(newScope, names, assignExpr.getValue());\r\n    } else if (e instanceof BinaryExpr) {\r\n        rescopeNamesToNewScope(newScope, names, ((BinaryExpr) e).getLeft());\r\n        rescopeNamesToNewScope(newScope, names, ((BinaryExpr) e).getRight());\r\n    } else if (e instanceof UnaryExpr) {\r\n        rescopeNamesToNewScope(newScope, names, ((UnaryExpr) e).getExpression());\r\n    } else if (e instanceof EnclosedExpr) {\r\n        rescopeNamesToNewScope(newScope, names, ((EnclosedExpr) e).getInner());\r\n    } else {\r\n        Optional<Expression> rootNode = DrlxParseUtil.findRootNodeViaScope(e);\r\n        if (rootNode.isPresent() && rootNode.get() instanceof NameExpr) {\r\n            NameExpr nameExpr = (NameExpr) rootNode.get();\r\n            if (names.contains(nameExpr.getNameAsString())) {\r\n                Expression prepend = new FieldAccessExpr(newScope, nameExpr.getNameAsString());\r\n                if (e instanceof NameExpr) {\r\n                    e.getParentNode().get().replace(nameExpr, prepend);\r\n                } else {\r\n                    e.replace(nameExpr, prepend);\r\n                }\r\n            }\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "org.kie.dmn.core.assembler.DMNAssemblerService.compilerConfigWithKModulePrefs",
+	"Comment": "returns a dmncompilerconfiguration with the specified properties set, and applying the explicited dmnprofiles.",
+	"Method": "DMNCompilerConfigurationImpl compilerConfigWithKModulePrefs(ClassLoader classLoader,ChainedProperties chainedProperties,List<DMNProfile> dmnProfiles,DMNCompilerConfigurationImpl config){\r\n    config.setRootClassLoader(classLoader);\r\n    Map<String, String> dmnPrefs = new HashMap();\r\n    chainedProperties.mapStartsWith(dmnPrefs, ORG_KIE_DMN_PREFIX, true);\r\n    config.setProperties(dmnPrefs);\r\n    for (DMNProfile dmnProfile : dmnProfiles) {\r\n        config.addExtensions(dmnProfile.getExtensionRegisters());\r\n        config.addDRGElementCompilers(dmnProfile.getDRGElementCompilers());\r\n        config.addFEELProfile(dmnProfile);\r\n    }\r\n    return config;\r\n}"
+}, {
+	"Path": "org.kie.dmn.feel.FEEL.newInstance",
+	"Comment": "factory method to create a new feel engine instance, using the specified classloader.",
+	"Method": "FEEL newInstance(FEEL newInstance,ClassLoader cl,FEEL newInstance,List<FEELProfile> profiles,FEEL newInstance,ClassLoader cl,List<FEELProfile> profiles){\r\n    return new FEELImpl(cl, profiles);\r\n}"
+}, {
+	"Path": "org.drools.testcoverage.functional.KieContainerTest.createKieModule",
+	"Comment": "helper method creating simple kiemodule with given releaseid.",
+	"Method": "void createKieModule(ReleaseId releaseId){\r\n    final KieModuleModel kmodule = kieServices.newKieModuleModel();\r\n    kmodule.newKieBaseModel(\"defaultKBase\").setDefault(true).newKieSessionModel(SESSION_NAME);\r\n    final KieFileSystem kfs = kieServices.newKieFileSystem();\r\n    kfs.generateAndWritePomXML(releaseId);\r\n    kfs.writeKModuleXML(kmodule.toXML());\r\n    kfs.write(\"src/main/resources/defaultKBase/test.drl\", kieServices.getResources().newByteArrayResource(DRL.getBytes()));\r\n    final KieBuilder kbuilder = kieServices.newKieBuilder(kfs);\r\n    kbuilder.buildAll();\r\n}"
+}, {
+	"Path": "org.drools.workbench.models.testscenarios.shared.Scenario.wasSuccessful",
+	"Comment": "returns true if this was a totally successful scenario, based on theresults contained.",
+	"Method": "boolean wasSuccessful(){\r\n    for (Fixture fixture : fixtures) {\r\n        if (fixture instanceof Expectation) {\r\n            if (!((Expectation) fixture).wasSuccessful()) {\r\n                return false;\r\n            }\r\n        }\r\n    }\r\n    return true;\r\n}"
+}, {
+	"Path": "org.drools.workbench.models.datamodel.rule.FactPattern.getFieldConstraints",
+	"Comment": "this will return the list of field constraints that are in the rootcompositefieldconstraint object. if there is no root, then an empty arraywill be returned.",
+	"Method": "FieldConstraint[] getFieldConstraints(){\r\n    if (this.constraintList == null) {\r\n        return new FieldConstraint[0];\r\n    }\r\n    return this.constraintList.getConstraints();\r\n}"
+}, {
+	"Path": "org.kie.scanner.KieMavenRepository.installArtifact",
+	"Comment": "installs the kjar in the given kiemodule into the local repository.",
+	"Method": "void installArtifact(AFReleaseId releaseId,InternalKieModule kieModule,File pomfile){\r\n    File jarFile = bytesToFile(releaseId, kieModule.getBytes(), \".jar\");\r\n    installArtifact(releaseId, jarFile, pomfile);\r\n}"
+}, {
+	"Path": "org.drools.testcoverage.functional.KieContainerDefaultsTest.testTwoStatelessKieSessionsBothDefault",
+	"Comment": "this test checks how statelesskiesessions behave when more than one is set as default.",
+	"Method": "void testTwoStatelessKieSessionsBothDefault(){\r\n    final KieModuleModel kieModule = kieServices.newKieModuleModel();\r\n    kieModule.newKieBaseModel(\"firstKBase\").setDefault(true).newKieSessionModel(\"firstKSession\").setType(KieSessionModel.KieSessionType.STATELESS).setDefault(true);\r\n    kieModule.newKieBaseModel(\"secondKBase\").setDefault(true).newKieSessionModel(\"secondKSession\").setType(KieSessionModel.KieSessionType.STATELESS).setDefault(true);\r\n    buildKieModule(kieModule);\r\n    final KieContainer kieContainer = kieServices.newKieContainer(RELEASE_ID);\r\n    Assertions.assertThatThrownBy(() -> kieContainer.newStatelessKieSession()).isInstanceOf(RuntimeException.class).hasMessageContaining(\"Cannot find a default StatelessKieSession\");\r\n}"
+}, {
+	"Path": "org.drools.testcoverage.regression.DeserializationWithCompositeTriggerTest.testSerializationAndDeserialization",
+	"Comment": "verifies that serialization of a rule with composite trigger does not fail onorg.drools.core.time.impl.compositemaxdurationtrigger class serialization.",
+	"Method": "void testSerializationAndDeserialization(){\r\n    this.ksession.insert(new StockTick(2, \"AAA\", 1.0, 0));\r\n    this.ksession = SerializationHelper.getSerialisedStatefulKnowledgeSession(ksession, true, false);\r\n    Assertions.assertThat(this.ksession).isNotNull();\r\n}"
+}, {
+	"Path": "org.drools.workbench.models.guided.template.backend.RuleTemplateModelXMLLegacyPersistenceTest.testBackwardsCompat",
+	"Comment": "this will verify that we can load an old brl change. if this fails, thenbackwards compatibility is broken.",
+	"Method": "void testBackwardsCompat(){\r\n    RuleModel m2 = RuleTemplateModelXMLPersistenceImpl.getInstance().unmarshal(loadResource(\"existing_brl.xml\"));\r\n    assertNotNull(m2);\r\n    assertEquals(3, m2.rhs.length);\r\n}"
+}, {
+	"Path": "org.drools.core.rule.QueryImpl.isValid",
+	"Comment": "override this as queries will never have a consequence, and it shouldnot be taken into account when deciding if it is valid.",
+	"Method": "boolean isValid(){\r\n    return super.isSemanticallyValid();\r\n}"
+}, {
+	"Path": "org.drools.core.spi.ConsequenceException.setInfo",
+	"Comment": "set arbitrary extra information about the condition.the info property may be used to communicate the actual block text orother information in the case that consequence does not have block text.",
+	"Method": "void setInfo(String info){\r\n    this.info = info;\r\n}"
+}, {
+	"Path": "org.drools.core.time.impl.CronExpressionTest.getTargetObject",
+	"Comment": "get the object to serialize when generating serialized file for futuretests, and against which to validate deserialized object.",
+	"Method": "Object getTargetObject(){\r\n    CronExpression cronExpression = new CronExpression(\"0 15 10 * * ? 2005\");\r\n    cronExpression.setTimeZone(EST_TIME_ZONE);\r\n    return cronExpression;\r\n}"
+}, {
+	"Path": "org.drools.testcoverage.functional.KieContainerDefaultsTest.testTwoKieBasesNoneDefault",
+	"Comment": "this test checks how kiebases behave when all are explicitly set not to be default.",
+	"Method": "void testTwoKieBasesNoneDefault(){\r\n    final KieModuleModel kieModule = kieServices.newKieModuleModel();\r\n    kieModule.newKieBaseModel(\"firstKBase\").setDefault(false);\r\n    kieModule.newKieBaseModel(\"secondKBase\").setDefault(false);\r\n    buildKieModule(kieModule);\r\n    final KieContainer kieContainer = kieServices.newKieContainer(RELEASE_ID);\r\n    Assertions.assertThatThrownBy(() -> kieContainer.getKieBase()).isInstanceOf(RuntimeException.class).hasMessageContaining(\"Cannot find a default KieBase\");\r\n}"
+}, {
+	"Path": "org.drools.verifier.TestBaseOld.causeMapContains",
+	"Comment": "returns true if map contains redundancy where cause1 is redundant tocause2.",
+	"Method": "boolean causeMapContains(Map<Cause, Set<Cause>> map,Cause cause1,Cause cause2){\r\n    if (map.containsKey(cause1)) {\r\n        Set<Cause> set = map.get(cause1);\r\n        boolean exists = set.remove(cause2);\r\n        if (set.isEmpty()) {\r\n            map.remove(cause1);\r\n        }\r\n        return exists;\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "org.drools.model.bitmask.OpenBitSet.getBit",
+	"Comment": "returns 1 if the bit is set, 0 if not.the index should be less than the openbitset size",
+	"Method": "int getBit(int index){\r\n    assert index >= 0 && index < numBits;\r\n    int i = index >> 6;\r\n    int bit = index & 0x3f;\r\n    return ((int) (bits[i] >>> bit)) & 0x01;\r\n}"
+}, {
+	"Path": "org.drools.core.time.impl.CronExpression.getTimeZone",
+	"Comment": "returns the time zone for which this cronexpression will be resolved.",
+	"Method": "TimeZone getTimeZone(){\r\n    if (timeZone == null) {\r\n        timeZone = TimeZone.getDefault();\r\n    }\r\n    return timeZone;\r\n}"
+}, {
+	"Path": "org.kie.dmn.feel.lang.impl.JavaBackedType.methodToCustomProperty",
+	"Comment": "if method m is annotated with feelproperty, will return feelproperty.value, otherwise empty.",
+	"Method": "Optional<String> methodToCustomProperty(Method m){\r\n    return Optional.ofNullable(m.getAnnotation(FEELProperty.class)).map(a -> a.value());\r\n}"
+}, {
+	"Path": "org.drools.model.bitmask.OpenBitSet.bits2words",
+	"Comment": "returns the number of 64 bit words it would take to hold numbits",
+	"Method": "int bits2words(long numBits){\r\n    return (int) (((numBits - 1) >>> 6) + 1);\r\n}"
+}, {
+	"Path": "org.drools.verifier.TestBaseOld.mapContains",
+	"Comment": "returns true if map contains redundancy where rulename1 is redundant torulename2.",
+	"Method": "boolean mapContains(Map<String, Set<String>> map,String ruleName1,String ruleName2){\r\n    if (map.containsKey(ruleName1)) {\r\n        Set<String> set = map.get(ruleName1);\r\n        boolean exists = set.remove(ruleName2);\r\n        if (set.isEmpty()) {\r\n            map.remove(ruleName1);\r\n        }\r\n        return exists;\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "org.drools.workbench.models.guided.dtable.backend.GuidedDecisionTableProviderImpl.hasDSLSentences",
+	"Comment": "a datamodeloracle just to determine whether the model has dsls is an expensive operation and not needed here.",
+	"Method": "boolean hasDSLSentences(GuidedDecisionTable52 model){\r\n    for (CompositeColumn<? extends BaseColumn> column : model.getConditions()) {\r\n        if (column instanceof BRLConditionColumn) {\r\n            final BRLConditionColumn brlColumn = (BRLConditionColumn) column;\r\n            for (IPattern pattern : brlColumn.getDefinition()) {\r\n                if (pattern instanceof DSLSentence) {\r\n                    return true;\r\n                }\r\n            }\r\n        }\r\n    }\r\n    for (ActionCol52 column : model.getActionCols()) {\r\n        if (column instanceof BRLActionColumn) {\r\n            final BRLActionColumn brlColumn = (BRLActionColumn) column;\r\n            for (IAction action : brlColumn.getDefinition()) {\r\n                if (action instanceof DSLSentence) {\r\n                    return true;\r\n                }\r\n            }\r\n        }\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "org.kie.dmn.feel.lang.impl.JavaBackedType.of",
+	"Comment": "if clazz can be represented as a javabackedtype, returns a javabackedtype for representing clazz.if clazz can not be represented as a javabackedtype, returns builtintype.unknown.this method performs memoization when necessary.",
+	"Method": "Type of(Class<?> clazz){\r\n    return Optional.ofNullable((Type) cache.computeIfAbsent(clazz, JavaBackedType::createIfAnnotated)).orElse(BuiltInType.UNKNOWN);\r\n}"
+}, {
+	"Path": "org.drools.workbench.models.guided.scorecard.backend.base.Helper.createGuidedScoreCard",
+	"Comment": "creates a scorecard that has the fully qualified class namesfor the applicant and applicantattribute fact types.",
+	"Method": "ScoreCardModel createGuidedScoreCard(){\r\n    final ScoreCardModel model = new ScoreCardModel();\r\n    model.setName(\"test\");\r\n    model.setPackageName(\"org.drools.workbench.models.guided.scorecard.backend.test1\");\r\n    model.setReasonCodesAlgorithm(\"none\");\r\n    model.setBaselineScore(0.0);\r\n    model.setInitialScore(0.0);\r\n    model.setFactName(\"org.drools.workbench.models.guided.scorecard.backend.test1.Applicant\");\r\n    model.setFieldName(\"calculatedScore\");\r\n    model.setUseReasonCodes(false);\r\n    model.setReasonCodeField(\"\");\r\n    final Characteristic c = new Characteristic();\r\n    c.setName(\"c1\");\r\n    c.setFact(\"org.drools.workbench.models.guided.scorecard.backend.test1.ApplicantAttribute\");\r\n    c.setDataType(\"int\");\r\n    c.setField(\"attribute\");\r\n    c.setBaselineScore(0.0);\r\n    c.setReasonCode(\"\");\r\n    final Attribute a = new Attribute();\r\n    a.setOperator(\"=\");\r\n    a.setValue(\"10\");\r\n    a.setPartialScore(0.1);\r\n    a.setReasonCode(\"\");\r\n    c.getAttributes().add(a);\r\n    model.getCharacteristics().add(c);\r\n    return model;\r\n}"
+}, {
+	"Path": "org.drools.core.RuleBaseConfiguration.isImmutable",
+	"Comment": "returns true if this configuration object is immutable or false otherwise.",
+	"Method": "boolean isImmutable(){\r\n    return this.immutable;\r\n}"
+}, {
+	"Path": "org.drools.core.time.impl.CronTrigger.getTimeZone",
+	"Comment": "returns the time zone for which the cronexpression ofthis crontrigger will be resolved.",
+	"Method": "TimeZone getTimeZone(){\r\n    if (this.cronEx != null) {\r\n        return this.cronEx.getTimeZone();\r\n    }\r\n    if (this.timeZone == null) {\r\n        this.timeZone = TimeZone.getDefault();\r\n    }\r\n    return this.timeZone;\r\n}"
+}, {
+	"Path": "org.drools.testcoverage.functional.KieRepositoryTest.createKieModule",
+	"Comment": "helper method creating simple kiemodule with given releaseid.",
+	"Method": "void createKieModule(ReleaseId releaseId){\r\n    final KieModuleModel kmodule = kieServices.newKieModuleModel();\r\n    kmodule.newKieBaseModel(\"defaultKBase\").setDefault(true);\r\n    final KieFileSystem kfs = kieServices.newKieFileSystem();\r\n    kfs.generateAndWritePomXML(releaseId);\r\n    kfs.writeKModuleXML(kmodule.toXML());\r\n    kfs.write(\"src/main/resources/defaultKBase/test.drl\", kieServices.getResources().newByteArrayResource(DRL.getBytes()));\r\n    final KieBuilder kbuilder = kieServices.newKieBuilder(kfs);\r\n    kbuilder.buildAll();\r\n}"
+}, {
+	"Path": "org.drools.workbench.models.datamodel.rule.RuleModel.getLHSPatternVariables",
+	"Comment": "this will get a list of all lhs bound variables, excluding bound fields",
+	"Method": "List<String> getLHSPatternVariables(){\r\n    return getLHSVariables(true, false);\r\n}"
+}, {
+	"Path": "org.drools.core.rule.WindowReference.getOuterDeclarations",
+	"Comment": "it is not possible to declare and export any variables,so always return an empty map",
+	"Method": "Map<String, Declaration> getOuterDeclarations(){\r\n    return Collections.emptyMap();\r\n}"
+}, {
+	"Path": "org.drools.workbench.models.testscenarios.shared.Scenario.removeExecutionTrace",
+	"Comment": "remove fixtures between this executiontrace and the previous one.",
+	"Method": "void removeExecutionTrace(ExecutionTrace executionTrace){\r\n    removeExpected(executionTrace);\r\n    removeGiven(executionTrace);\r\n}"
+}, {
+	"Path": "org.drools.core.rule.WindowReference.resolveDeclaration",
+	"Comment": "not possible to resolve any declaration, so always return null.",
+	"Method": "Declaration resolveDeclaration(String identifier){\r\n    return null;\r\n}"
+}, {
+	"Path": "org.drools.testcoverage.regression.DroolsGcCausesNPETest.testMoreTimesRepeated",
+	"Comment": "the original test method reproducing npe during event gc.bz 1181584",
+	"Method": "void testMoreTimesRepeated(){\r\n    final Random r = new Random(1);\r\n    int i = 0;\r\n    try {\r\n        for (; i < 100000; i++) {\r\n            insertAndAdvanceTime(i, r.nextInt(4000));\r\n        }\r\n    } catch (NullPointerException e) {\r\n        LOGGER.warn(\"failed at i = \" + i);\r\n        LOGGER.warn(\"fact count: \" + session.getFactCount());\r\n        logActiveFacts();\r\n        Assertions.fail(\"NPE thrown - consider reopening BZ 1181584\", e);\r\n    }\r\n}"
+}, {
+	"Path": "org.drools.core.util.asm.ClassFieldInspector.getResourcePath",
+	"Comment": "convert it to a form so we can load the bytes from the classpath.",
+	"Method": "String getResourcePath(Class<?> clazz){\r\n    return \"/\" + clazz.getCanonicalName() + \".class\";\r\n}"
+}, {
+	"Path": "org.drools.core.util.asm.MethodComparator.compareBytecode",
+	"Comment": "compares 2 bytecode listings.returns true if they are identical.",
+	"Method": "boolean compareBytecode(String b1,String b2){\r\n    return b1.equals(b2);\r\n}"
+}, {
+	"Path": "org.drools.core.util.StringUtils.toStringArray",
+	"Comment": "copy the given collection into a string array.the collection must contain string elements only.",
+	"Method": "String[] toStringArray(Collection collection){\r\n    if (collection == null) {\r\n        return null;\r\n    }\r\n    return (String[]) collection.toArray(new String[collection.size()]);\r\n}"
+}, {
+	"Path": "org.drools.testcoverage.functional.GuidedDecisionTableTest.testUniqueHitPolicy",
+	"Comment": "even when there are multiple matching rules, only one is fired.",
+	"Method": "void testUniqueHitPolicy(){\r\n    initKieSession(\"uniqueHitPolicy.gdst\");\r\n    kSession.insert(johnFromBarcelona);\r\n    kSession.fireAllRules();\r\n    Assertions.assertThat(rulesFired.getFiredRules().size()).isEqualTo(1);\r\n    Assertions.assertThat(rulesFired.isRuleFired(\"Row 2 uniqueHitPolicy\")).isTrue();\r\n    kSession.dispose();\r\n}"
+}, {
+	"Path": "org.drools.core.util.DateUtils.format",
+	"Comment": "use the simple date formatter to convert the date into a string",
+	"Method": "String format(Date input){\r\n    return df.get().format(input);\r\n}"
+}, {
+	"Path": "org.drools.workbench.models.datamodel.auditlog.DefaultAuditLogFilter.addType",
+	"Comment": "register a type this filter understands. when a new entry is added theauditlogfilter is set to not accept the type by default.",
+	"Method": "void addType(String type){\r\n    this.acceptedTypes.put(type, Boolean.FALSE);\r\n}"
+}, {
+	"Path": "org.drools.core.RuleBaseConfiguration.isMBeansEnabled",
+	"Comment": "returns true if the management and monitoring through mbeans is active",
+	"Method": "boolean isMBeansEnabled(){\r\n    return this.mbeansEnabled;\r\n}"
+}, {
+	"Path": "org.drools.verifier.incompatibility.IncompatibilityBase.createIncompatibilityMap",
+	"Comment": "creates incompatibility map from incompatibility objects, one rule mayhave several incompatibility dependencies.",
+	"Method": "Map<Cause, Set<Cause>> createIncompatibilityMap(VerifierComponentType type,Iterator<Object> iter){\r\n    Map<Cause, Set<Cause>> map = new HashMap<Cause, Set<Cause>>();\r\n    while (iter.hasNext()) {\r\n        Object o = (Object) iter.next();\r\n        if (o instanceof Incompatibility) {\r\n            Incompatibility r = (Incompatibility) o;\r\n            if (((VerifierComponent) r.getLeft()).getVerifierComponentType().equals(type)) {\r\n                Cause left = r.getLeft();\r\n                Cause right = r.getRight();\r\n                if (map.containsKey(left)) {\r\n                    Set<Cause> set = map.get(left);\r\n                    set.add(right);\r\n                } else {\r\n                    Set<Cause> set = new HashSet<Cause>();\r\n                    set.add(right);\r\n                    map.put(left, set);\r\n                }\r\n            }\r\n        }\r\n    }\r\n    return map;\r\n}"
+}, {
+	"Path": "org.drools.core.SessionConfigurationImpl.isImmutable",
+	"Comment": "returns true if this configuration object is immutable or false otherwise.",
+	"Method": "boolean isImmutable(){\r\n    return this.immutable;\r\n}"
+}, {
+	"Path": "org.drools.model.bitmask.OpenBitSet.unionCount",
+	"Comment": "returns the popcount or cardinality of the union of the two sets.neither set is modified.",
+	"Method": "long unionCount(OpenBitSet a,OpenBitSet b){\r\n    long tot = BitUtil.pop_union(a.bits, b.bits, 0, Math.min(a.wlen, b.wlen));\r\n    if (a.wlen < b.wlen) {\r\n        tot += BitUtil.pop_array(b.bits, a.wlen, b.wlen - a.wlen);\r\n    } else if (a.wlen > b.wlen) {\r\n        tot += BitUtil.pop_array(a.bits, b.wlen, a.wlen - b.wlen);\r\n    }\r\n    return tot;\r\n}"
+}, {
+	"Path": "org.kie.dmn.feel.lang.impl.JavaBackedType.createIfAnnotated",
+	"Comment": "for internal use, returns a new javabackedtype if clazz can be represented as such, returns null otherwise.",
+	"Method": "JavaBackedType createIfAnnotated(Class<?> clazz){\r\n    if (clazz.isAnnotationPresent(FEELType.class) || Stream.of(clazz.getMethods()).anyMatch(m -> m.getAnnotation(FEELProperty.class) != null)) {\r\n        return new JavaBackedType(clazz);\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "org.drools.core.time.impl.CronTrigger.setPreviousFireTime",
+	"Comment": "set the previous time at which the crontrigger fired.this method should not be invoked by client code.",
+	"Method": "void setPreviousFireTime(Date previousFireTime){\r\n    this.previousFireTime = previousFireTime;\r\n}"
+}, {
+	"Path": "org.drools.testcoverage.regression.ActivationTest.noDormantCheckOnModifies",
+	"Comment": "tests improper deactivation of already activated rule on the agenda. seebz 862325.",
+	"Method": "void noDormantCheckOnModifies(){\r\n    AgendaEventListener ael = mock(AgendaEventListener.class);\r\n    session.addEventListener(ael);\r\n    session.setGlobal(\"LOGGER\", LOGGER);\r\n    List<Command<?>> commands = new ArrayList<Command<?>>();\r\n    commands.add(getCommands().newInsert(new Person(\"Bob\", 19)));\r\n    commands.add(getCommands().newInsert(new Cheese(\"brie\", 10)));\r\n    commands.add(getCommands().newFireAllRules());\r\n    session.execute(getCommands().newBatchExecution(commands, null));\r\n    verify(ael, times(2)).afterMatchFired(any(AfterMatchFiredEvent.class));\r\n    verify(ael, never()).matchCancelled(any(MatchCancelledEvent.class));\r\n}"
+}, {
+	"Path": "org.drools.verifier.report.components.MissingNumberPattern.getRuleName",
+	"Comment": "returns alway null, because there is no rule that this is related to.",
+	"Method": "String getRuleName(){\r\n    return null;\r\n}"
+}, {
+	"Path": "org.drools.decisiontable.parser.xls.ExcelParserTest.testCellMerge",
+	"Comment": "this should test to see if a cell is in a certain range or not. if it is in a merged range, then it should return the top left cell.",
+	"Method": "void testCellMerge(){\r\n    ExcelParser parser = new ExcelParser((Map<String, List<DataListener>>) null);\r\n    CellRangeAddress[] ranges = new CellRangeAddress[1];\r\n    Workbook workbook = new XSSFWorkbook();\r\n    Sheet sheet = workbook.createSheet();\r\n    Cell cell = sheet.createRow(2).createCell(2);\r\n    ranges[0] = new CellRangeAddress(2, 7, 2, 5);\r\n    cell.setCellValue(FIRST_CELL_CONTENT);\r\n    cell = sheet.createRow(7).createCell(5);\r\n    cell.setCellValue(LAST_CELL_VALUE);\r\n    cell = sheet.createRow(1).createCell(1);\r\n    assertNull(parser.getRangeIfMerged(cell, ranges));\r\n    cell = sheet.getRow(2).createCell(5);\r\n    cell.setCellValue(\"wrong\");\r\n    CellRangeAddress rangeIfMerged = parser.getRangeIfMerged(cell, ranges);\r\n    assertEquals(FIRST_CELL_CONTENT, sheet.getRow(rangeIfMerged.getFirstRow()).getCell(rangeIfMerged.getFirstColumn()).getStringCellValue());\r\n}"
+}, {
+	"Path": "org.drools.core.time.impl.CronExpression.setCalendarHour",
+	"Comment": "advance the calendar to the particular hour paying particular attentionto daylight saving problems.",
+	"Method": "void setCalendarHour(Calendar cal,int hour){\r\n    cal.set(java.util.Calendar.HOUR_OF_DAY, hour);\r\n    if (cal.get(java.util.Calendar.HOUR_OF_DAY) != hour && hour != 24) {\r\n        cal.set(java.util.Calendar.HOUR_OF_DAY, hour + 1);\r\n    }\r\n}"
+}, {
+	"Path": "org.kie.dmn.backend.marshalling.v1_1.xstream.XStreamMarshaller.formatXml",
+	"Comment": "unnecessary as the stax driver custom anon as static definition is embedding the indentation.",
+	"Method": "String formatXml(String xml){\r\n    try {\r\n        Transformer serializer = SAXTransformerFactory.newInstance().newTransformer();\r\n        serializer.setOutputProperty(OutputKeys.INDENT, \"yes\");\r\n        serializer.setOutputProperty(\"{http://xml.apache.org/xslt}indent-amount\", \"2\");\r\n        Source xmlSource = new SAXSource(new InputSource(new ByteArrayInputStream(xml.getBytes())));\r\n        StreamResult res = new StreamResult(new ByteArrayOutputStream());\r\n        serializer.transform(xmlSource, res);\r\n        return new String(((ByteArrayOutputStream) res.getOutputStream()).toByteArray());\r\n    } catch (Exception e) {\r\n        return xml;\r\n    }\r\n}"
+}, {
+	"Path": "org.drools.core.util.ClassUtils.instantiateObject",
+	"Comment": "this method will attempt to create an instance of the specified class. it usesa synchronized hashmap to cache the reflection class lookup.it will execute the defaultconstructor with the passed in arguments",
+	"Method": "Object instantiateObject(String className,Object instantiateObject,String className,ClassLoader classLoader,Object instantiateObject,String className,ClassLoader classLoader,Object args,Object instantiateObject,String className,Object args){\r\n    return instantiateObject(className, null, args);\r\n}"
+}, {
+	"Path": "org.drools.testcoverage.functional.KieContainerDefaultsTest.testTwoKieSessionsNoneDefault",
+	"Comment": "this test checks how kiesessions behave when all are explicitly set not to be default.",
+	"Method": "void testTwoKieSessionsNoneDefault(){\r\n    final KieModuleModel kieModule = kieServices.newKieModuleModel();\r\n    kieModule.newKieBaseModel(\"firstKBase\").setDefault(true).newKieSessionModel(\"firstKSession\").setDefault(false);\r\n    kieModule.newKieBaseModel(\"secondKBase\").setDefault(true).newKieSessionModel(\"secondKSession\").setDefault(false);\r\n    buildKieModule(kieModule);\r\n    final KieContainer kieContainer = kieServices.newKieContainer(RELEASE_ID);\r\n    Assertions.assertThatThrownBy(() -> kieContainer.newKieSession()).isInstanceOf(RuntimeException.class).hasMessageContaining(\"Cannot find a default KieSession\");\r\n}"
+}, {
+	"Path": "org.drools.workbench.models.datamodel.rule.RuleModel.getLHSParentFactPatternForBinding",
+	"Comment": "this will return the factpattern that a variable is bound to. if thevariable is bound to a fieldconstraint the parent factpattern will bereturned.",
+	"Method": "FactPattern getLHSParentFactPatternForBinding(String var){\r\n    if (this.lhs == null) {\r\n        return null;\r\n    }\r\n    for (int i = 0; i < this.lhs.length; i++) {\r\n        IPattern pat = this.lhs[i];\r\n        if (pat instanceof FromCompositeFactPattern) {\r\n            pat = ((FromCompositeFactPattern) pat).getFactPattern();\r\n        }\r\n        if (pat instanceof FactPattern) {\r\n            final FactPattern p = (FactPattern) pat;\r\n            if (p.getBoundName() != null && var.equals(p.getBoundName())) {\r\n                return p;\r\n            }\r\n            for (int j = 0; j < p.getFieldConstraints().length; j++) {\r\n                FieldConstraint fc = p.getFieldConstraints()[j];\r\n                List<String> fieldBindings = getFieldBinding(fc);\r\n                if (fieldBindings.contains(var)) {\r\n                    return p;\r\n                }\r\n            }\r\n        }\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "org.kie.dmn.core.ast.DecisionServiceNodeImpl.getDependencies",
+	"Comment": "will always return an empty collection, a decision service has no dependency.",
+	"Method": "Map<String, DMNNode> getDependencies(){\r\n    return Collections.emptyMap();\r\n}"
+}, {
+	"Path": "org.drools.decisiontable.parser.RuleWorksheetParseTest.testMissingCondition",
+	"Comment": "must have a type for pattern below a condition, not a snippet.",
+	"Method": "void testMissingCondition(){\r\n    try {\r\n        makeRuleSet();\r\n        makeRuleTable();\r\n        makeRow(11, \"C\", \"C\", \"C\", \"A\", \"A\");\r\n        makeRow(12, \"attr == $param\", \"attr == $param\", \"attr == $param\", \"action();\", \"action();\");\r\n        listener.finishSheet();\r\n        fail(\"should have failed\");\r\n    } catch (DecisionTableParseException e) {\r\n        String badCell = RuleSheetParserUtil.rc2name(12, 1);\r\n        System.err.println(e.getMessage());\r\n        assertTrue(e.getMessage().contains(badCell));\r\n    }\r\n}"
+}, {
+	"Path": "org.drools.testcoverage.common.util.TestParametersUtil.getKieBaseAndStatefulKieSessionConfigurations",
+	"Comment": "prepares various combinations of kiebasetestconfiguration and kiesessiontestconfiguration.use only stateful kie sessions.",
+	"Method": "Collection<Object[]> getKieBaseAndStatefulKieSessionConfigurations(){\r\n    final Collection<Object[]> parameters = new ArrayList();\r\n    final Collection<Object[]> kieBaseConfigurations = getKieBaseConfigurations();\r\n    for (final Object[] kieBaseConfigWrapped : kieBaseConfigurations) {\r\n        parameters.add(new Object[] { kieBaseConfigWrapped[0], KieSessionTestConfiguration.STATEFUL_REALTIME });\r\n        if (((KieBaseTestConfiguration) kieBaseConfigWrapped[0]).isStreamMode()) {\r\n            parameters.add(new Object[] { kieBaseConfigWrapped[0], KieSessionTestConfiguration.STATEFUL_PSEUDO });\r\n        }\r\n    }\r\n    return parameters;\r\n}"
+}, {
+	"Path": "org.drools.workbench.models.datamodel.rule.RuleModel.getLHSBoundFact",
+	"Comment": "this will return the factpattern that a variable is bound eto.",
+	"Method": "FactPattern getLHSBoundFact(String var){\r\n    if (this.lhs == null) {\r\n        return null;\r\n    }\r\n    for (int i = 0; i < this.lhs.length; i++) {\r\n        IPattern pat = this.lhs[i];\r\n        if (pat instanceof FromCompositeFactPattern) {\r\n            pat = ((FromCompositeFactPattern) pat).getFactPattern();\r\n        }\r\n        if (pat instanceof FactPattern) {\r\n            final FactPattern p = (FactPattern) pat;\r\n            if (p.getBoundName() != null && var.equals(p.getBoundName())) {\r\n                return p;\r\n            }\r\n        }\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "org.drools.core.util.bitmask.OpenBitSet.getBit",
+	"Comment": "returns 1 if the bit is set, 0 if not.the index should be less than the openbitset size",
+	"Method": "int getBit(int index){\r\n    assert index >= 0 && index < numBits;\r\n    int i = index >> 6;\r\n    int bit = index & 0x3f;\r\n    return ((int) (bits[i] >>> bit)) & 0x01;\r\n}"
+}, {
+	"Path": "org.drools.template.DataProviderCompiler.compile",
+	"Comment": "generates drl from a data provider for the spreadsheet data and templates.",
+	"Method": "String compile(DataProvider dataProvider,String template,String compile,DataProvider dataProvider,InputStream templateStream,String compile,DataProvider dataProvider,TemplateDataListener listener,String compile,DataProvider dataProvider,String template,boolean replaceOptionals,String compile,DataProvider dataProvider,InputStream templateStream,boolean replaceOptionals,String compile,DataProvider dataProvider,TemplateDataListener listener,boolean replaceOptionals){\r\n    List<DataListener> listeners = new ArrayList<DataListener>();\r\n    listeners.add(listener);\r\n    processData(dataProvider, listeners);\r\n    return listener.renderDRL();\r\n}"
+}, {
+	"Path": "org.drools.template.ObjectDataCompiler.compile",
+	"Comment": "compile templates, substituting from a collection of maps or objectsinto the given template.",
+	"Method": "String compile(Collection<?> objs,String template,String compile,Collection<?> objs,InputStream templateStream){\r\n    TemplateContainer tc = new DefaultTemplateContainer(templateStream);\r\n    closeStream(templateStream);\r\n    return compile(new ObjectDataProvider(tc, objs), new TemplateDataListener(tc));\r\n}"
+}, {
+	"Path": "org.drools.core.util.ClassUtils.isMatched",
+	"Comment": "determines if a given full qualified class name matches any import style patterns.",
+	"Method": "boolean isMatched(Map<String, Object> patterns,String className){\r\n    String qualifiedNamespace = className;\r\n    String name = className;\r\n    if (className.indexOf('.') > 0) {\r\n        qualifiedNamespace = className.substring(0, className.lastIndexOf('.')).trim();\r\n        name = className.substring(className.lastIndexOf('.') + 1).trim();\r\n    } else if (className.indexOf('[') == 0) {\r\n        qualifiedNamespace = className.substring(0, className.lastIndexOf('['));\r\n    }\r\n    Object object = patterns.get(qualifiedNamespace);\r\n    if (object == null) {\r\n        return true;\r\n    } else if (STAR.equals(object)) {\r\n        return false;\r\n    } else if (patterns.containsKey(\"*\")) {\r\n        return true;\r\n    } else {\r\n        List list = (List) object;\r\n        return !list.contains(name);\r\n    }\r\n}"
+}, {
+	"Path": "org.drools.persistence.jpa.marshaller.JPAPlaceholderResolverStrategy.isEntity",
+	"Comment": "changed implementation, using entitymanager metamodel in spite of reflection.",
+	"Method": "boolean isEntity(Object o){\r\n    Class<? extends Object> varClass = o.getClass();\r\n    return managedClasses.contains(varClass.getCanonicalName());\r\n}"
+}, {
+	"Path": "org.drools.core.util.asm.MethodComparator.equivalent",
+	"Comment": "this actually does the comparing.class1 and class2 are class reader instances to the respective classes. method1 and method2 are looked up on the respective classes and their contents compared.this is a convenience method.",
+	"Method": "boolean equivalent(String method1,ClassReader class1,String method2,ClassReader class2){\r\n    return getMethodBytecode(method1, class1).equals(getMethodBytecode(method2, class2));\r\n}"
+}, {
+	"Path": "org.drools.testcoverage.functional.GuidedDecisionTableTest.testMoveToBiggerCities",
+	"Comment": "the decision table assumes 3 groups of cities according to people living therethe test assert that people move to bigger city, if they like big cities",
+	"Method": "void testMoveToBiggerCities(){\r\n    initKieSession(\"moveToBiggerCities.gdst\");\r\n    final Address brno = producePeopleInCity(\"Brno\", 7000);\r\n    final Address prague = producePeopleInCity(\"Prague\", 30000);\r\n    final Address london = producePeopleInCity(\"London\", 60000);\r\n    final Address smallCity = new Address();\r\n    smallCity.setCity(\"city with just one person\");\r\n    peter70Years.setAddress(smallCity);\r\n    peter70Years.setLikes(\"big city\");\r\n    william25Years.setAddress(brno);\r\n    william25Years.setLikes(\"big city\");\r\n    mary33Years.setAddress(prague);\r\n    mary33Years.setLikes(\"big city\");\r\n    elizabeth35Years.setAddress(london);\r\n    elizabeth35Years.setLikes(\"big city\");\r\n    kSession.insert(smallCity);\r\n    final FactHandle peter = kSession.insert(peter70Years);\r\n    final FactHandle wiliam = kSession.insert(william25Years);\r\n    final FactHandle mary = kSession.insert(mary33Years);\r\n    final FactHandle elizabeth = kSession.insert(elizabeth35Years);\r\n    Assertions.assertThat(kSession.fireAllRules()).isEqualTo(3);\r\n    Assertions.assertThat(((Person) kSession.getObject(peter)).getAddress().getCity()).isEqualTo(\"Brno\");\r\n    Assertions.assertThat(((Person) kSession.getObject(wiliam)).getAddress().getCity()).isEqualTo(\"Prague\");\r\n    Assertions.assertThat(((Person) kSession.getObject(mary)).getAddress().getCity()).isEqualTo(\"London\");\r\n    Assertions.assertThat(((Person) kSession.getObject(elizabeth)).getAddress().getCity()).isEqualTo(\"London\");\r\n    kSession.dispose();\r\n}"
+}, {
+	"Path": "org.drools.core.util.ArrayIterator.hasNext",
+	"Comment": "returns true if there are more elements to return from the array.",
+	"Method": "boolean hasNext(){\r\n    return (index < endIndex);\r\n}"
+}, {
+	"Path": "org.drools.core.RuleBaseConfiguration.isMultithreadEvaluation",
+	"Comment": "returns true if the partitioning of the rulebase is enabledand false otherwise. default is false.",
+	"Method": "boolean isMultithreadEvaluation(){\r\n    return this.multithread;\r\n}"
+}, {
+	"Path": "org.drools.core.util.ClassUtils.addImportStylePatterns",
+	"Comment": "populates the import style pattern map from give comma delimited string",
+	"Method": "void addImportStylePatterns(Map<String, Object> patterns,String str){\r\n    if (str == null || \"\".equals(str.trim())) {\r\n        return;\r\n    }\r\n    String[] items = str.split(\" \");\r\n    for (String item : items) {\r\n        String qualifiedNamespace = item.substring(0, item.lastIndexOf('.')).trim();\r\n        String name = item.substring(item.lastIndexOf('.') + 1).trim();\r\n        Object object = patterns.get(qualifiedNamespace);\r\n        if (object == null) {\r\n            if (STAR.equals(name)) {\r\n                patterns.put(qualifiedNamespace, STAR);\r\n            } else {\r\n                List<String> list = new ArrayList<String>();\r\n                list.add(name);\r\n                patterns.put(qualifiedNamespace, list);\r\n            }\r\n        } else if (name.equals(STAR)) {\r\n            patterns.put(qualifiedNamespace, STAR);\r\n        } else {\r\n            List list = (List) object;\r\n            if (!list.contains(name)) {\r\n                list.add(name);\r\n            }\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "org.drools.core.util.LinkedList.add",
+	"Comment": "add a linkedlistnode to the list. if the linkedlist is empty then the first andlast nodes are set to the added node.",
+	"Method": "void add(T node){\r\n    if (this.firstNode == null) {\r\n        this.firstNode = node;\r\n        this.lastNode = node;\r\n    } else {\r\n        this.lastNode.setNext(node);\r\n        node.setPrevious(this.lastNode);\r\n        this.lastNode = node;\r\n    }\r\n    this.size++;\r\n}"
+}, {
+	"Path": "org.drools.verifier.visitor.RuleDescrVisitor.visitConsequence",
+	"Comment": "creates verifier object from rule consequence. currently only supportstext based consequences.",
+	"Method": "Consequence visitConsequence(VerifierComponent parent,Object o){\r\n    TextConsequence consequence = new TextConsequence(rule);\r\n    String text = o.toString();\r\n    StringBuffer buffer = new StringBuffer(text);\r\n    int commentIndex = buffer.indexOf(\"//\");\r\n    while (commentIndex != -1) {\r\n        buffer = buffer.delete(commentIndex, buffer.indexOf(\"\\n\", commentIndex));\r\n        commentIndex = buffer.indexOf(\"//\");\r\n    }\r\n    text = buffer.toString();\r\n    text = text.replaceAll(\"\\n\", \"\");\r\n    text = text.replaceAll(\"\\r\", \"\");\r\n    text = text.replaceAll(\"\\t\", \"\");\r\n    text = text.replaceAll(\" \", \"\");\r\n    consequence.setText(text);\r\n    consequence.setParentPath(parent.getPath());\r\n    consequence.setParentType(parent.getVerifierComponentType());\r\n    data.add(consequence);\r\n    return consequence;\r\n}"
+}, {
+	"Path": "org.drools.core.util.bitmask.OpenBitSet.bits2words",
+	"Comment": "returns the number of 64 bit words it would take to hold numbits",
+	"Method": "int bits2words(long numBits){\r\n    return (int) (((numBits - 1) >>> 6) + 1);\r\n}"
+}, {
+	"Path": "org.drools.examples.sudoku.SetOfNine.blockValue",
+	"Comment": "remove an integer from the values still to be assigned to some cell of this group.",
+	"Method": "void blockValue(Integer i){\r\n    free.remove(i);\r\n}"
+}, {
+	"Path": "org.drools.core.util.StringUtils.splitWorker",
+	"Comment": "performs the logic for the split and splitpreservealltokens methods that return a maximum array length.",
+	"Method": "String[] splitWorker(String str,String separatorChars,int max,boolean preserveAllTokens){\r\n    if (str == null) {\r\n        return null;\r\n    }\r\n    final int len = str.length();\r\n    if (len == 0) {\r\n        return EMPTY_STRING_ARRAY;\r\n    }\r\n    final List<String> list = new ArrayList<String>();\r\n    int sizePlus1 = 1;\r\n    int i = 0, start = 0;\r\n    boolean match = false;\r\n    boolean lastMatch = false;\r\n    if (separatorChars == null) {\r\n        while (i < len) {\r\n            if (isWhitespace(str.charAt(i))) {\r\n                if (match || preserveAllTokens) {\r\n                    lastMatch = true;\r\n                    if (sizePlus1++ == max) {\r\n                        i = len;\r\n                        lastMatch = false;\r\n                    }\r\n                    list.add(str.substring(start, i));\r\n                    match = false;\r\n                }\r\n                start = ++i;\r\n                continue;\r\n            } else {\r\n                lastMatch = false;\r\n            }\r\n            match = true;\r\n            i++;\r\n        }\r\n    } else if (separatorChars.length() == 1) {\r\n        final char sep = separatorChars.charAt(0);\r\n        while (i < len) {\r\n            if (str.charAt(i) == sep) {\r\n                if (match || preserveAllTokens) {\r\n                    lastMatch = true;\r\n                    if (sizePlus1++ == max) {\r\n                        i = len;\r\n                        lastMatch = false;\r\n                    }\r\n                    list.add(str.substring(start, i));\r\n                    match = false;\r\n                }\r\n                start = ++i;\r\n                continue;\r\n            } else {\r\n                lastMatch = false;\r\n            }\r\n            match = true;\r\n            i++;\r\n        }\r\n    } else {\r\n        while (i < len) {\r\n            if (separatorChars.indexOf(str.charAt(i)) >= 0) {\r\n                if (match || preserveAllTokens) {\r\n                    lastMatch = true;\r\n                    if (sizePlus1++ == max) {\r\n                        i = len;\r\n                        lastMatch = false;\r\n                    }\r\n                    list.add(str.substring(start, i));\r\n                    match = false;\r\n                }\r\n                start = ++i;\r\n                continue;\r\n            } else {\r\n                lastMatch = false;\r\n            }\r\n            match = true;\r\n            i++;\r\n        }\r\n    }\r\n    if (match || (preserveAllTokens && lastMatch)) {\r\n        list.add(str.substring(start, i));\r\n    }\r\n    return list.toArray(new String[list.size()]);\r\n}"
+}, {
+	"Path": "org.drools.testcoverage.functional.KieRepositoryTest.testRemoveKieModuleSnapshot",
+	"Comment": "tests removing a kiemodule with a snapshot releaseid from kierepository.",
+	"Method": "void testRemoveKieModuleSnapshot(){\r\n    final ReleaseId releaseId = kieServices.newReleaseId(TestConstants.PACKAGE_TESTCOVERAGE, TEST_ARTIFACT_ID, TEST_ARTIFACT_VERSION_SNAPSHOT);\r\n    this.testKieModuleRemoval(releaseId);\r\n}"
+}, {
+	"Path": "org.kie.dmn.feel.codegen.feel11.DirectCompilerVisitor.createUnaryTestExpression",
+	"Comment": "create a directcompilerresult for an equivalent expression representing a unary test.that means the resulting expression is the name of the unary test,which is referring to a fielddeclaration, for a class field member using said name, of type unarytest and as value a lambda expression of a unarytest",
+	"Method": "DirectCompilerResult createUnaryTestExpression(ParserRuleContext ctx,DirectCompilerResult endpoint,UnaryOperator op){\r\n    String originalText = ParserHelper.getOriginalText(ctx);\r\n    LambdaExpr initializer = new LambdaExpr();\r\n    initializer.setEnclosingParameters(true);\r\n    initializer.addParameter(new Parameter(new UnknownType(), \"feelExprCtx\"));\r\n    initializer.addParameter(new Parameter(new UnknownType(), \"left\"));\r\n    Statement lambdaBody = null;\r\n    switch(op) {\r\n        case EQ:\r\n            {\r\n                MethodCallExpr expression = new MethodCallExpr(null, \"eq\");\r\n                expression.addArgument(new NameExpr(\"left\"));\r\n                expression.addArgument(endpoint.getExpression());\r\n                lambdaBody = new ExpressionStmt(expression);\r\n            }\r\n            break;\r\n        case GT:\r\n            {\r\n                MethodCallExpr expression = new MethodCallExpr(null, \"gt\");\r\n                expression.addArgument(new NameExpr(\"left\"));\r\n                expression.addArgument(endpoint.getExpression());\r\n                lambdaBody = new ExpressionStmt(expression);\r\n            }\r\n            break;\r\n        case GTE:\r\n            {\r\n                MethodCallExpr expression = new MethodCallExpr(null, \"gte\");\r\n                expression.addArgument(new NameExpr(\"left\"));\r\n                expression.addArgument(endpoint.getExpression());\r\n                lambdaBody = new ExpressionStmt(expression);\r\n            }\r\n            break;\r\n        case IN:\r\n            {\r\n                MethodCallExpr expression = new MethodCallExpr(endpoint.getExpression(), \"includes\");\r\n                expression.addArgument(new NameExpr(\"left\"));\r\n                lambdaBody = new ExpressionStmt(expression);\r\n            }\r\n            break;\r\n        case LT:\r\n            {\r\n                MethodCallExpr expression = new MethodCallExpr(null, \"lt\");\r\n                expression.addArgument(new NameExpr(\"left\"));\r\n                expression.addArgument(endpoint.getExpression());\r\n                lambdaBody = new ExpressionStmt(expression);\r\n            }\r\n            break;\r\n        case LTE:\r\n            {\r\n                MethodCallExpr expression = new MethodCallExpr(null, \"lte\");\r\n                expression.addArgument(new NameExpr(\"left\"));\r\n                expression.addArgument(endpoint.getExpression());\r\n                lambdaBody = new ExpressionStmt(expression);\r\n            }\r\n            break;\r\n        case NE:\r\n            {\r\n                MethodCallExpr expression = new MethodCallExpr(null, \"ne\");\r\n                expression.addArgument(new NameExpr(\"left\"));\r\n                expression.addArgument(endpoint.getExpression());\r\n                lambdaBody = new ExpressionStmt(expression);\r\n            }\r\n            break;\r\n        case NOT:\r\n            {\r\n                MethodCallExpr expression = new MethodCallExpr(null, \"notExists\");\r\n                expression.addArgument(new NameExpr(\"feelExprCtx\"));\r\n                expression.addArgument(endpoint.getExpression());\r\n                expression.addArgument(new NameExpr(\"left\"));\r\n                lambdaBody = new ExpressionStmt(expression);\r\n            }\r\n            break;\r\n        default:\r\n            throw new UnsupportedOperationException(\"Unable to determine operator of unary test\");\r\n    }\r\n    initializer.setBody(lambdaBody);\r\n    String constantName = \"UT_\" + CodegenStringUtil.escapeIdentifier(originalText);\r\n    VariableDeclarator vd = new VariableDeclarator(JavaParser.parseClassOrInterfaceType(UnaryTest.class.getCanonicalName()), constantName);\r\n    vd.setInitializer(initializer);\r\n    FieldDeclaration fd = new FieldDeclaration();\r\n    fd.setModifier(Modifier.PUBLIC, true);\r\n    fd.setModifier(Modifier.STATIC, true);\r\n    fd.setModifier(Modifier.FINAL, true);\r\n    fd.addVariable(vd);\r\n    fd.setJavadocComment(\" FEEL unary test: \" + originalText + \" \");\r\n    DirectCompilerResult directCompilerResult = DirectCompilerResult.of(new NameExpr(constantName), BuiltInType.UNARY_TEST, endpoint.getFieldDeclarations());\r\n    directCompilerResult.addFieldDesclaration(fd);\r\n    return directCompilerResult;\r\n}"
+}, {
+	"Path": "org.drools.core.util.bitmask.OpenBitSet.trimTrailingZeros",
+	"Comment": "lowers numwords, the number of words in use,by checking for trailing zero words.",
+	"Method": "void trimTrailingZeros(){\r\n    int idx = wlen - 1;\r\n    while (idx >= 0 && bits[idx] == 0) idx--;\r\n    wlen = idx + 1;\r\n}"
+}, {
+	"Path": "org.drools.core.rule.TypeDeclaration.matches",
+	"Comment": "returns true if the given parameter matches this type declaration",
+	"Method": "boolean matches(Object clazz){\r\n    return clazz instanceof FactTemplate ? this.typeTemplate.equals(clazz) : this.typeClass.isAssignableFrom((Class<?>) clazz);\r\n}"
+}, {
+	"Path": "org.drools.core.rule.Pattern.getOffset",
+	"Comment": "the offset of the fact related to this patterninside the tuple",
+	"Method": "int getOffset(){\r\n    return this.offset;\r\n}"
+}, {
+	"Path": "org.kie.dmn.core.impl.DMNKnowledgeBuilderError.from",
+	"Comment": "builds a dmnknowledgebuildererror from a dmnmessage associated with the given resource",
+	"Method": "DMNKnowledgeBuilderError from(Resource resource,String namespace,DMNMessage m){\r\n    ResultSeverity rs = ResultSeverity.ERROR;\r\n    switch(m.getLevel()) {\r\n        case ERROR:\r\n            rs = ResultSeverity.ERROR;\r\n            break;\r\n        case INFO:\r\n            rs = ResultSeverity.INFO;\r\n            break;\r\n        case WARNING:\r\n            rs = ResultSeverity.WARNING;\r\n            break;\r\n        default:\r\n            rs = ResultSeverity.ERROR;\r\n            break;\r\n    }\r\n    DMNKnowledgeBuilderError res = new DMNKnowledgeBuilderError(rs, resource, namespace, m.getMessage());\r\n    res.dmnMessage = m;\r\n    return res;\r\n}"
+}, {
+	"Path": "org.drools.core.rule.WindowReference.getInnerDeclarations",
+	"Comment": "it is not possible to declare any new variables, so alwaysreturn an empty map",
+	"Method": "Map<String, Declaration> getInnerDeclarations(){\r\n    return Collections.emptyMap();\r\n}"
+}, {
+	"Path": "org.drools.decisiontable.parser.RuleWorksheetParseTest.getRuleSheetListener",
+	"Comment": "utility method showing how to get a rule sheet listener from a stream.",
+	"Method": "RuleSheetListener getRuleSheetListener(InputStream stream){\r\n    return RulesheetUtil.getRuleSheetListener(stream);\r\n}"
+}, {
+	"Path": "org.drools.examples.sudoku.Sudoku.consistencyCheck",
+	"Comment": "checks that everything is still according to the sudoku rules.",
+	"Method": "void consistencyCheck(){\r\n    for (int iRow = 0; iRow < 9; iRow++) {\r\n        for (int iCol = 0; iCol < 9; iCol++) {\r\n            Cell cell = cells[iRow][iCol];\r\n            Integer value = cell.getValue();\r\n            if (value != null) {\r\n                if (!cell.getFree().isEmpty()) {\r\n                    throw new IllegalStateException(\"free not empty\");\r\n                }\r\n                for (Cell other : cell.getExCells()) {\r\n                    if (value.equals(other.getValue())) {\r\n                        throw new IllegalStateException(\"duplicate\");\r\n                    }\r\n                    if (other.getFree().contains(value)) {\r\n                        throw new IllegalStateException(\"not eliminated\");\r\n                    }\r\n                }\r\n            }\r\n        }\r\n    }\r\n    for (int i = 0; i < rows.length; i++) {\r\n        Set<Integer> aSet = new HashSet<Integer>();\r\n        for (int j = 0; j < rows[i].getCells().size(); j++) {\r\n            Cell cell = rows[i].getCells().get(j);\r\n            Integer value = cell.getValue();\r\n            if (value != null) {\r\n                aSet.add(value);\r\n            } else {\r\n                aSet.addAll(cell.getFree());\r\n            }\r\n        }\r\n        if (!aSet.equals(CellGroup.ALL_NINE)) {\r\n            throw new IllegalStateException(\"deficit in row\");\r\n        }\r\n    }\r\n    for (int i = 0; i < cols.length; i++) {\r\n        Set<Integer> aSet = new HashSet<Integer>();\r\n        for (int j = 0; j < cols[i].getCells().size(); j++) {\r\n            Cell cell = cols[i].getCells().get(j);\r\n            Integer value = cell.getValue();\r\n            if (value != null) {\r\n                aSet.add(value);\r\n            } else {\r\n                aSet.addAll(cell.getFree());\r\n            }\r\n        }\r\n        if (!aSet.equals(CellGroup.ALL_NINE)) {\r\n            throw new IllegalStateException(\"deficit in column\");\r\n        }\r\n    }\r\n    for (int ir = 0; ir < sqrs.length; ir++) {\r\n        for (int ic = 0; ic < sqrs[ir].length; ic++) {\r\n            Set<Integer> aSet = new HashSet<Integer>();\r\n            for (int j = 0; j < sqrs[ir][ic].getCells().size(); j++) {\r\n                Cell cell = sqrs[ir][ic].getCells().get(j);\r\n                Integer value = cell.getValue();\r\n                if (value != null) {\r\n                    aSet.add(value);\r\n                } else {\r\n                    aSet.addAll(cell.getFree());\r\n                }\r\n            }\r\n            if (!aSet.equals(CellGroup.ALL_NINE)) {\r\n                throw new IllegalStateException(\"deficit in square\");\r\n            }\r\n        }\r\n    }\r\n    System.out.println(\"+++ check OK +++\");\r\n}"
+}, {
+	"Path": "org.drools.testcoverage.functional.KieContainerDefaultsTest.testTwoStatelessKieSessionsOneDefault",
+	"Comment": "this test checks if default statelesskiesessions behave as expected.",
+	"Method": "void testTwoStatelessKieSessionsOneDefault(){\r\n    final KieModuleModel kieModule = kieServices.newKieModuleModel();\r\n    kieModule.newKieBaseModel(\"firstKBase\").setDefault(true).newKieSessionModel(\"firstKSession\").setType(KieSessionModel.KieSessionType.STATELESS).setDefault(true);\r\n    kieModule.newKieBaseModel(\"secondKBase\").setDefault(true).newKieSessionModel(\"secondKSession\").setType(KieSessionModel.KieSessionType.STATELESS).setDefault(false);\r\n    buildKieModule(kieModule);\r\n    final KieContainer kieContainer = kieServices.newKieContainer(RELEASE_ID);\r\n    final StatelessKieSession firstKSession = kieContainer.newStatelessKieSession(\"firstKSession\");\r\n    final StatelessKieSession secondKSession = kieContainer.newStatelessKieSession(\"secondKSession\");\r\n    Assertions.assertThat(firstKSession).isEqualTo(((InternalKieContainer) kieContainer).getStatelessKieSession());\r\n    Assertions.assertThat(secondKSession).isNotEqualTo(((InternalKieContainer) kieContainer).getStatelessKieSession());\r\n}"
+}, {
+	"Path": "org.drools.decisiontable.parser.RulesheetUtil.getRuleSheetListener",
+	"Comment": "utility method showing how to get a rule sheet listener from a stream.",
+	"Method": "RuleSheetListener getRuleSheetListener(InputStream stream){\r\n    final Map<String, List<DataListener>> sheetListeners = new HashMap<String, List<DataListener>>();\r\n    final List<DataListener> listeners = new ArrayList<DataListener>();\r\n    final RuleSheetListener listener = new DefaultRuleSheetListener();\r\n    listeners.add(listener);\r\n    sheetListeners.put(ExcelParser.DEFAULT_RULESHEET_NAME, listeners);\r\n    final ExcelParser parser = new ExcelParser(sheetListeners);\r\n    try {\r\n        parser.parseFile(stream);\r\n    } finally {\r\n        stream.close();\r\n    }\r\n    stream.close();\r\n    return listener;\r\n}"
+}, {
+	"Path": "org.kie.dmn.feel.lang.impl.FEELImpl.newEvaluationContext",
+	"Comment": "creates a new evaluationcontext with the supplied classloader, and the supplied parameters listeners and inputvariables",
+	"Method": "EvaluationContextImpl newEvaluationContext(Collection<FEELEventListener> listeners,Map<String, Object> inputVariables,EvaluationContextImpl newEvaluationContext,ClassLoader cl,Collection<FEELEventListener> listeners,Map<String, Object> inputVariables){\r\n    FEELEventListenersManager eventsManager = getEventsManager(listeners);\r\n    EvaluationContextImpl ctx = new EvaluationContextImpl(cl, eventsManager);\r\n    if (customFrame.isPresent()) {\r\n        ExecutionFrameImpl globalFrame = (ExecutionFrameImpl) ctx.pop();\r\n        ExecutionFrameImpl interveawedFrame = customFrame.get();\r\n        interveawedFrame.setParentFrame(ctx.peek());\r\n        globalFrame.setParentFrame(interveawedFrame);\r\n        ctx.push(interveawedFrame);\r\n        ctx.push(globalFrame);\r\n    }\r\n    ctx.setValues(inputVariables);\r\n    return ctx;\r\n}"
+}, {
+	"Path": "org.drools.core.util.BinaryHeapQueue.grow",
+	"Comment": "increases the size of the heap to support additional elements",
+	"Method": "void grow(){\r\n    final Activation[] elements = new Activation[this.elements.length * 2];\r\n    System.arraycopy(this.elements, 0, elements, 0, this.elements.length);\r\n    this.elements = elements;\r\n}"
+}, {
+	"Path": "org.drools.workbench.models.guided.dtable.backend.util.GuidedDTDRLOtherwiseHelper.getBuilder",
+	"Comment": "retrieve the correct otherwisebuilder for the given column",
+	"Method": "OtherwiseBuilder getBuilder(ConditionCol52 c){\r\n    if (c.getOperator().equals(\"==\")) {\r\n        return new EqualsOtherwiseBuilder();\r\n    } else if (c.getOperator().equals(\"!=\")) {\r\n        return new NotEqualsOtherwiseBuilder();\r\n    }\r\n    throw new IllegalArgumentException(\"ConditionCol operator does not support Otherwise values\");\r\n}"
+}, {
+	"Path": "org.drools.core.time.impl.CronExpression.setTimeZone",
+	"Comment": "sets the time zone for whichthis cronexpression will be resolved.",
+	"Method": "void setTimeZone(TimeZone timeZone){\r\n    this.timeZone = timeZone;\r\n}"
+}, {
+	"Path": "org.drools.workbench.models.datamodel.rule.RuleModel.getRHSBoundFact",
+	"Comment": "this will return the actioninsertfact that a variable is bound to.",
+	"Method": "ActionInsertFact getRHSBoundFact(String var){\r\n    if (this.rhs == null) {\r\n        return null;\r\n    }\r\n    for (int i = 0; i < this.rhs.length; i++) {\r\n        if (this.rhs[i] instanceof ActionInsertFact) {\r\n            final ActionInsertFact p = (ActionInsertFact) this.rhs[i];\r\n            if (p.getBoundName() != null && var.equals(p.getBoundName())) {\r\n                return p;\r\n            }\r\n        }\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "org.drools.core.rule.WindowReference.getNestedElements",
+	"Comment": "it is not possible to nest elements inside an entry point, soalways return an empty list.",
+	"Method": "List<RuleConditionElement> getNestedElements(){\r\n    return Collections.emptyList();\r\n}"
+}, {
+	"Path": "org.drools.benchmark.waltz.WaltzUtil.inscribed_angle",
+	"Comment": "this procedure is passed the basepoint of the intersection of two linesas well as the other two endpoints of the lines and calculates the angleinscribed by these three points.",
+	"Method": "double inscribed_angle(int basepoint,int p1,int p2){\r\n    double angle1, angle2, temp;\r\n    angle1 = get_angle(basepoint, p1);\r\n    angle2 = get_angle(basepoint, p2);\r\n    temp = angle1 - angle2;\r\n    if (temp < 0.0)\r\n        temp = -temp;\r\n    if (temp > PI)\r\n        temp = 2 * PI - temp;\r\n    if (temp < 0.0)\r\n        return (-temp);\r\n    return (temp);\r\n}"
+}, {
+	"Path": "org.drools.testcoverage.functional.GuidedDecisionTableTest.testMoveToPeopleToAddress",
+	"Comment": "this test evaluates table that uses dsl sentences in runtimeespecially it moves people older than 50 from brno technology park to brno city center",
+	"Method": "void testMoveToPeopleToAddress(){\r\n    initKieSession(\"person_actions.dsl\", \"movePeopleToAddress.gdst\");\r\n    final Address technologyPark = new Address();\r\n    technologyPark.setCity(\"Brno\");\r\n    technologyPark.setStreet(\"Technology Park\");\r\n    technologyPark.setNumber(1);\r\n    kSession.insert(technologyPark);\r\n    peter70Years.setAddress(technologyPark);\r\n    william25Years.setAddress(technologyPark);\r\n    final FactHandle peter = kSession.insert(peter70Years);\r\n    final FactHandle william = kSession.insert(william25Years);\r\n    Assertions.assertThat(kSession.fireAllRules()).isEqualTo(1);\r\n    Assertions.assertThat(((Person) kSession.getObject(peter)).getAddress().getStreet()).isEqualTo(\"Joštova\");\r\n    Assertions.assertThat(((Person) kSession.getObject(william)).getAddress().getStreet()).isEqualTo(\"Technology Park\");\r\n    kSession.dispose();\r\n}"
+}, {
+	"Path": "org.drools.core.time.impl.CronExpressionTest.getVersions",
+	"Comment": "get the quartz versions for which we should verifyserialization backwards compatibility.",
+	"Method": "String[] getVersions(){\r\n    return VERSIONS;\r\n}"
+}, {
+	"Path": "org.drools.model.bitmask.OpenBitSet.getAndSet",
+	"Comment": "sets a bit and returns the previous value.the index should be less than the openbitset size.",
+	"Method": "boolean getAndSet(int index,boolean getAndSet,long index){\r\n    assert index >= 0 && index < numBits;\r\n    int wordNum = (int) (index >> 6);\r\n    int bit = (int) index & 0x3f;\r\n    long bitmask = 1L << bit;\r\n    boolean val = (bits[wordNum] & bitmask) != 0;\r\n    bits[wordNum] |= bitmask;\r\n    return val;\r\n}"
+}, {
+	"Path": "org.drools.verifier.core.util.PortablePreconditions.checkEachParameterNotNull",
+	"Comment": "assert that this parameter is not null, as also each item of the array is not null.",
+	"Method": "void checkEachParameterNotNull(String name,T parameters){\r\n    if (parameters == null) {\r\n        throw new IllegalArgumentException(\"Parameter named '\" + name + \"' should be not null!\");\r\n    }\r\n    for (final Object parameter : parameters) {\r\n        if (parameter == null) {\r\n            throw new IllegalArgumentException(\"Parameter named '\" + name + \"' should be not null!\");\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "org.drools.template.jdbc.ResultSetGenerator.compile",
+	"Comment": "generates drl from a data provider for the spreadsheet data and templates.",
+	"Method": "String compile(ResultSet rs,String template,String compile,ResultSet rs,InputStream templateStream,String compile,ResultSet rs,TemplateDataListener listener){\r\n    List<DataListener> listeners = new ArrayList<DataListener>();\r\n    listeners.add(listener);\r\n    processData(rs, listeners);\r\n    return listener.renderDRL();\r\n}"
+}, {
+	"Path": "org.drools.testcoverage.functional.DecisionTableTest.testSequential",
+	"Comment": "test sequential turned on, it overrides all user defined saliences.",
+	"Method": "void testSequential(){\r\n    final KieBase kbase = KieBaseUtil.getKieBaseFromResources(kieBaseTestConfiguration, sequentialDecisionTable);\r\n    final KieSession ksession = kbase.newKieSession();\r\n    final OrderListener listener = new OrderListener();\r\n    ksession.addEventListener(listener);\r\n    ksession.insert(\"something\");\r\n    ksession.fireAllRules();\r\n    Assertions.assertThat(listener.size()).as(\"Wrong number of rules fired\").isEqualTo(3);\r\n    final String[] expected = { \"Rule1\", \"Rule2\", \"Rule3\" };\r\n    for (int i = 0; i < 3; i++) {\r\n        Assertions.assertThat(listener.get(i)).isEqualTo(expected[i]);\r\n    }\r\n    ksession.dispose();\r\n}"
+}, {
+	"Path": "org.drools.testcoverage.functional.KieRepositoryTest.testAddKieModuleSnapshot",
+	"Comment": "tests adding a kiemodule with a snapshot releaseid to kierepository.",
+	"Method": "void testAddKieModuleSnapshot(){\r\n    final ReleaseId releaseId = kieServices.newReleaseId(TestConstants.PACKAGE_TESTCOVERAGE, TEST_ARTIFACT_ID, TEST_ARTIFACT_VERSION_SNAPSHOT);\r\n    this.testKieModuleAddition(releaseId);\r\n}"
+}, {
+	"Path": "org.drools.testcoverage.common.util.TestParametersUtil.getKieBaseStreamConfigurations",
+	"Comment": "prepares collection of stream kiebasetestconfiguration.",
+	"Method": "Collection<Object[]> getKieBaseStreamConfigurations(boolean testAlsoExecutableModel){\r\n    return getKieBaseStreamOrCloudConfigurations(EngineTestConfiguration.STREAM_MODE, testAlsoExecutableModel);\r\n}"
+}, {
+	"Path": "org.drools.testcoverage.common.util.TestParametersUtil.getKieBaseAndKieSessionConfigurations",
+	"Comment": "prepares various combinations of kiebasetestconfiguration and kiesessiontestconfiguration.",
+	"Method": "Collection<Object[]> getKieBaseAndKieSessionConfigurations(){\r\n    final Collection<Object[]> parameters = new ArrayList();\r\n    Collection<Object[]> kieBaseConfigurations = getKieBaseCloudConfigurations(true);\r\n    for (final KieSessionTestConfiguration kieSessionTestConfiguration : KieSessionTestConfiguration.values()) {\r\n        for (final Object[] kieBaseConfigWrapped : kieBaseConfigurations) {\r\n            parameters.add(new Object[] { kieBaseConfigWrapped[0], kieSessionTestConfiguration });\r\n        }\r\n    }\r\n    kieBaseConfigurations = getKieBaseStreamConfigurations(true);\r\n    for (final Object[] kieBaseConfigWrapped : kieBaseConfigurations) {\r\n        parameters.add(new Object[] { kieBaseConfigWrapped[0], KieSessionTestConfiguration.STATEFUL_REALTIME });\r\n        parameters.add(new Object[] { kieBaseConfigWrapped[0], KieSessionTestConfiguration.STATEFUL_PSEUDO });\r\n    }\r\n    return parameters;\r\n}"
+}, {
+	"Path": "org.drools.core.RuleBaseConfiguration.setMBeansEnabled",
+	"Comment": "defines if the rulebase should expose management and monitoring mbeans",
+	"Method": "void setMBeansEnabled(boolean mbeansEnabled){\r\n    checkCanChange();\r\n    this.mbeansEnabled = mbeansEnabled;\r\n}"
+}, {
+	"Path": "org.drools.testcoverage.common.util.TestParametersUtil.getKieBaseConfigurations",
+	"Comment": "get all kiebaseconfigurations for tests based on specified engine configurations.",
+	"Method": "Collection<Object[]> getKieBaseConfigurations(EngineTestConfiguration engineConfigurations,Collection<Object[]> getKieBaseConfigurations){\r\n    final List<EngineTestConfiguration> engineTestConfigurations = Arrays.stream(EngineTestConfiguration.values()).filter(config -> (TEST_WITH_ALPHA_NETWORK || config != EngineTestConfiguration.ALPHA_NETWORK_COMPILER_TRUE) && config != EngineTestConfiguration.EQUALITY_MODE).collect(Collectors.toList());\r\n    return getKieBaseConfigurations(engineTestConfigurations.toArray(new EngineTestConfiguration[] {}));\r\n}"
+}, {
+	"Path": "org.drools.testcoverage.regression.DeclarationWithOrTest.testBindingWithOrInLHS",
+	"Comment": "verifies that the rule with binding and or in lhs compiles and works as expected.",
+	"Method": "void testBindingWithOrInLHS(){\r\n    final KieBuilder kbuilder = KieUtil.getKieBuilderFromDrls(kieBaseTestConfiguration, true, DRL);\r\n    final KieSession ksession = KieBaseUtil.getDefaultKieBaseFromKieBuilder(kbuilder).newKieSession();\r\n    final List<String> list = new ArrayList<String>();\r\n    ksession.setGlobal(\"list\", list);\r\n    try {\r\n        ksession.insert(\"y\");\r\n        ksession.fireAllRules();\r\n    } finally {\r\n        ksession.dispose();\r\n    }\r\n    Assertions.assertThat(list).as(\"Unexpected element in result global\").containsExactly(FACT);\r\n}"
+}, {
+	"Path": "org.drools.workbench.models.testscenarios.shared.Scenario.insertBetween",
+	"Comment": "will slip in a fixture after the specified one, but before the nextexecution trace.",
+	"Method": "void insertBetween(Fixture fixtureBeforeTheNewOne,Fixture newFixture){\r\n    boolean inserted = false;\r\n    int start = (fixtureBeforeTheNewOne == null) ? 0 : fixtures.indexOf(fixtureBeforeTheNewOne) + 1;\r\n    for (int j = start; j < fixtures.size(); j++) {\r\n        if (fixtures.get(j) instanceof ExecutionTrace) {\r\n            getFixtures().add(j, newFixture);\r\n            return;\r\n        }\r\n    }\r\n    if (!inserted) {\r\n        fixtures.add(newFixture);\r\n    }\r\n}"
+}, {
+	"Path": "org.drools.workbench.models.datamodel.rule.RuleModel.isVariableNameUsed",
+	"Comment": "checks to see if a variable is used or not, includes fields as well asfacts.",
+	"Method": "boolean isVariableNameUsed(String s){\r\n    return getAllVariables().contains(s);\r\n}"
+}, {
+	"Path": "org.drools.model.bitmask.OpenBitSet.fastGet",
+	"Comment": "returns true or false for the specified bit index.the index should be less than the openbitset size.",
+	"Method": "boolean fastGet(int index,boolean fastGet,long index){\r\n    assert index >= 0 && index < numBits;\r\n    int i = (int) (index >> 6);\r\n    int bit = (int) index & 0x3f;\r\n    long bitmask = 1L << bit;\r\n    return (bits[i] & bitmask) != 0;\r\n}"
+}, {
+	"Path": "org.kie.dmn.core.compiler.DMNEvaluatorCompiler.recurseUpToInferTypeRef",
+	"Comment": "utility method for decisiontable with only 1 output, to infer typeref from parent",
+	"Method": "QName recurseUpToInferTypeRef(DMNModelImpl model,OutputClause originalElement,DMNElement recursionIdx){\r\n    if (recursionIdx.getParent() instanceof Decision) {\r\n        InformationItem parentVariable = ((Decision) recursionIdx.getParent()).getVariable();\r\n        if (parentVariable != null) {\r\n            return variableTypeRefOrErrIfNull(model, parentVariable);\r\n        } else {\r\n            return null;\r\n        }\r\n    } else if (recursionIdx.getParent() instanceof BusinessKnowledgeModel) {\r\n        InformationItem parentVariable = ((BusinessKnowledgeModel) recursionIdx.getParent()).getVariable();\r\n        if (parentVariable != null) {\r\n            return variableTypeRefOrErrIfNull(model, parentVariable);\r\n        } else {\r\n            return null;\r\n        }\r\n    } else if (recursionIdx.getParent() instanceof ContextEntry) {\r\n        ContextEntry parentCtxEntry = (ContextEntry) recursionIdx.getParent();\r\n        if (parentCtxEntry.getVariable() != null) {\r\n            return variableTypeRefOrErrIfNull(model, parentCtxEntry.getVariable());\r\n        } else {\r\n            Context parentCtx = (Context) parentCtxEntry.getParent();\r\n            if (parentCtx.getContextEntry().get(parentCtx.getContextEntry().size() - 1).equals(parentCtxEntry)) {\r\n                return recurseUpToInferTypeRef(model, originalElement, parentCtx);\r\n            } else {\r\n                MsgUtil.reportMessage(logger, DMNMessage.Severity.ERROR, parentCtxEntry, model, null, null, Msg.MISSING_VARIABLE_ON_CONTEXT, parentCtxEntry);\r\n                return null;\r\n            }\r\n        }\r\n    } else {\r\n        MsgUtil.reportMessage(logger, DMNMessage.Severity.ERROR, originalElement, model, null, null, Msg.UNKNOWN_OUTPUT_TYPE_FOR_DT_ON_NODE, originalElement.getParentDRDElement().getIdentifierString());\r\n        return null;\r\n    }\r\n}"
+}, {
+	"Path": "org.drools.testcoverage.functional.KieContainerDefaultsTest.testTwoStatelessKieSessionsNoneDefault",
+	"Comment": "this test checks how statelesskiesessions behave when all are explicitly set not to be default.",
+	"Method": "void testTwoStatelessKieSessionsNoneDefault(){\r\n    final KieModuleModel kieModule = kieServices.newKieModuleModel();\r\n    kieModule.newKieBaseModel(\"firstKBase\").setDefault(true).newKieSessionModel(\"firstKSession\").setType(KieSessionModel.KieSessionType.STATELESS).setDefault(false);\r\n    kieModule.newKieBaseModel(\"secondKBase\").setDefault(true).newKieSessionModel(\"secondKSession\").setType(KieSessionModel.KieSessionType.STATELESS).setDefault(false);\r\n    buildKieModule(kieModule);\r\n    final KieContainer kieContainer = kieServices.newKieContainer(RELEASE_ID);\r\n    Assertions.assertThatThrownBy(() -> kieContainer.newStatelessKieSession()).isInstanceOf(RuntimeException.class).hasMessageContaining(\"Cannot find a default StatelessKieSession\");\r\n}"
+}, {
+	"Path": "org.drools.core.spi.DeclarationScopeResolver.getDeclarations",
+	"Comment": "return all declarations scoped to the currentruleconditionelement in the build stack",
+	"Method": "Map<String, Declaration> getDeclarations(RuleImpl rule,Map<String, Declaration> getDeclarations,RuleImpl rule,String consequenceName){\r\n    Map<String, Declaration> declarations = new HashMap<String, Declaration>();\r\n    for (RuleConditionElement aBuildStack : this.buildStack) {\r\n        if (aBuildStack instanceof GroupElement && ((GroupElement) aBuildStack).getType() == GroupElement.Type.OR) {\r\n            continue;\r\n        }\r\n        Map<String, Declaration> innerDeclarations = aBuildStack instanceof GroupElement ? ((GroupElement) aBuildStack).getInnerDeclarations(consequenceName) : aBuildStack.getInnerDeclarations();\r\n        declarations.putAll(innerDeclarations);\r\n    }\r\n    if (null != rule.getParent()) {\r\n        return getAllExtendedDeclaration(rule.getParent(), declarations);\r\n    }\r\n    return declarations;\r\n}"
+}, {
+	"Path": "org.kie.dmn.feel.runtime.decisiontables.DTDecisionRule.getOutputEntry",
+	"Comment": "a list of the instances of literalexpression that composethe output components of this decisionrule.",
+	"Method": "List<CompiledExpression> getOutputEntry(){\r\n    if (outputEntry == null) {\r\n        outputEntry = new ArrayList();\r\n    }\r\n    return this.outputEntry;\r\n}"
+}, {
+	"Path": "org.drools.core.util.bitmask.OpenBitSet.getAndSet",
+	"Comment": "sets a bit and returns the previous value.the index should be less than the openbitset size.",
+	"Method": "boolean getAndSet(int index,boolean getAndSet,long index){\r\n    assert index >= 0 && index < numBits;\r\n    int wordNum = (int) (index >> 6);\r\n    int bit = (int) index & 0x3f;\r\n    long bitmask = 1L << bit;\r\n    boolean val = (bits[wordNum] & bitmask) != 0;\r\n    bits[wordNum] |= bitmask;\r\n    return val;\r\n}"
+}, {
+	"Path": "org.drools.core.util.bitmask.OpenBitSet.fastGet",
+	"Comment": "returns true or false for the specified bit index.the index should be less than the openbitset size.",
+	"Method": "boolean fastGet(int index,boolean fastGet,long index){\r\n    assert index >= 0 && index < numBits;\r\n    int i = (int) (index >> 6);\r\n    int bit = (int) index & 0x3f;\r\n    long bitmask = 1L << bit;\r\n    return (bits[i] & bitmask) != 0;\r\n}"
+}, {
+	"Path": "org.drools.example.cdi.scopes.KieBusinessScopeContext.get",
+	"Comment": "return an existing instance of a certain contextual type or a null value.",
+	"Method": "T get(Contextual<T> contextual,CreationalContext<T> creationalContext,T get,Contextual<T> contextual){\r\n    Bean bean = (Bean) contextual;\r\n    if (somewhere.containsKey(bean.getName())) {\r\n        return (T) somewhere.get(bean.getName());\r\n    } else {\r\n        return null;\r\n    }\r\n}"
+}, {
+	"Path": "org.drools.core.reteoo.ReteTest.testObjectTypeNodes",
+	"Comment": "tests objecttypenodes are correctly added to the rete object",
+	"Method": "void testObjectTypeNodes(){\r\n    final Rete rete = kBase.getRete();\r\n    final ObjectTypeNode objectTypeNode = new ObjectTypeNode(1, this.entryPoint, new ClassObjectType(Object.class), buildContext);\r\n    objectTypeNode.attach(buildContext);\r\n    final ObjectTypeNode stringTypeNode = new ObjectTypeNode(2, this.entryPoint, new ClassObjectType(String.class), buildContext);\r\n    stringTypeNode.attach(buildContext);\r\n    final List<ObjectTypeNode> list = rete.getObjectTypeNodes();\r\n    assertEquals(3, list.size());\r\n    assertTrue(list.contains(objectTypeNode));\r\n    assertTrue(list.contains(stringTypeNode));\r\n}"
+}, {
+	"Path": "org.drools.core.time.impl.SerializationTestSupport.writeJobDataFile",
+	"Comment": "use this method in the future to generate other versions ofof the serialized object file.",
+	"Method": "void writeJobDataFile(String version){\r\n    Object obj = getTargetObject();\r\n    FileOutputStream fos = new FileOutputStream(getSerializedFileName(version, obj.getClass()));\r\n    ObjectOutputStream oos = new ObjectOutputStream(fos);\r\n    oos.writeObject(obj);\r\n    oos.flush();\r\n    fos.close();\r\n    oos.close();\r\n}"
+}, {
+	"Path": "org.drools.core.util.bitmask.OpenBitSet.intersectionCount",
+	"Comment": "returns the popcount or cardinality of the intersection of the two sets.neither set is modified.",
+	"Method": "long intersectionCount(OpenBitSet a,OpenBitSet b){\r\n    return BitUtil.pop_intersect(a.bits, b.bits, 0, Math.min(a.wlen, b.wlen));\r\n}"
+}, {
+	"Path": "org.drools.template.model.SnippetBuilder.replace",
+	"Comment": "simple replacer.jakarta commons provided the inspiration for this.",
+	"Method": "String replace(String text,String repl,String with,int max){\r\n    if (text == null || repl == null || repl.equals(\"\") || with == null || max == 0) {\r\n        return text;\r\n    }\r\n    final StringBuffer buf = new StringBuffer(text.length());\r\n    int start = 0, end = 0;\r\n    while ((end = text.indexOf(repl, start)) != -1) {\r\n        buf.append(text.substring(start, end)).append(with);\r\n        start = end + repl.length();\r\n        if (--max == 0) {\r\n            break;\r\n        }\r\n    }\r\n    buf.append(text.substring(start));\r\n    return buf.toString();\r\n}"
+}, {
+	"Path": "org.drools.workbench.models.guided.scorecard.backend.test2.GuidedScoreCardIntegrationJavaClassesAddedToKieFileSystemTest.testScoreCardCompileWithShortFact",
+	"Comment": "this test uses the generated applicant.java and applicantattribute.java files.",
+	"Method": "void testScoreCardCompileWithShortFact(){\r\n    String xml1 = Helper.createGuidedScoreCardXML(true);\r\n    KieServices ks = KieServices.Factory.get();\r\n    KieFileSystem kfs = ks.newKieFileSystem();\r\n    kfs.write(\"pom.xml\", Helper.getPom());\r\n    kfs.write(\"src/main/resources/META-INF/kmodule.xml\", Helper.getKModule());\r\n    kfs.write(\"src/main/java/org/drools/workbench/models/guided/scorecard/backend/test2/Applicant.java\", Helper.getApplicant());\r\n    kfs.write(\"src/main/java/org/drools/workbench/models/guided/scorecard/backend/test2/ApplicantAttribute.java\", Helper.getApplicantAttribute());\r\n    kfs.write(\"src/main/resources/org/drools/workbench/models/guided/scorecard/test2/backend/sc1.scgd\", xml1);\r\n    KieBuilder kieBuilder = ks.newKieBuilder(kfs).buildAll();\r\n    final List<Message> messages = kieBuilder.getResults().getMessages();\r\n    Helper.dumpMessages(messages);\r\n    assertEquals(0, messages.size());\r\n    KieContainer container = ks.newKieContainer(kieBuilder.getKieModule().getReleaseId());\r\n    assertNotNull(container);\r\n    KieBase kbase = container.newKieBase(null);\r\n    assertNotNull(kbase);\r\n    RuleUnitExecutor executor = RuleUnitExecutor.create().bind(kbase);\r\n    DataSource<PMMLRequestData> data = executor.newDataSource(\"request\");\r\n    DataSource<PMML4Result> resultData = executor.newDataSource(\"results\");\r\n    DataSource<PMML4Data> pmmlData = executor.newDataSource(\"pmmlData\");\r\n    DataSource<ApplicantAttribute> applicantData = executor.newDataSource(\"externalBeanApplicantAttribute\");\r\n    PMMLRequestData request = new PMMLRequestData(\"123\", \"test\");\r\n    ApplicantAttribute appAttrib = new ApplicantAttribute();\r\n    appAttrib.setAttribute(10);\r\n    PMML4Result resultHolder = new PMML4Result(\"123\");\r\n    List<String> possiblePackages = calculatePossiblePackageNames(\"Test_short\", \"org.drools.workbench.models.guided.scorecard.backend.test2\");\r\n    Class<? extends RuleUnit> ruleUnitClass = getStartingRuleUnit(\"RuleUnitIndicator\", (InternalKnowledgeBase) kbase, possiblePackages);\r\n    assertNotNull(ruleUnitClass);\r\n    data.insert(request);\r\n    applicantData.insert(appAttrib);\r\n    resultData.insert(resultHolder);\r\n    int count = executor.run(ruleUnitClass);\r\n    assertTrue(count > 0);\r\n    System.out.println(resultHolder);\r\n}"
+}, {
+	"Path": "org.drools.workbench.models.guided.dtable.backend.util.GuidedDTDRLUtilities.convertDTCellValueToString",
+	"Comment": "utility method to convert dtcellvalues to their string representation",
+	"Method": "String convertDTCellValueToString(DTCellValue52 dcv){\r\n    switch(dcv.getDataType()) {\r\n        case BOOLEAN:\r\n            Boolean booleanValue = dcv.getBooleanValue();\r\n            return (booleanValue == null ? null : booleanValue.toString());\r\n        case DATE:\r\n            Date dateValue = dcv.getDateValue();\r\n            return (dateValue == null ? null : DateUtils.format(dcv.getDateValue()));\r\n        case NUMERIC:\r\n            BigDecimal numericValue = (BigDecimal) dcv.getNumericValue();\r\n            return (numericValue == null ? null : numericValue.toPlainString());\r\n        case NUMERIC_BIGDECIMAL:\r\n            BigDecimal bigDecimalValue = (BigDecimal) dcv.getNumericValue();\r\n            return (bigDecimalValue == null ? null : bigDecimalValue.toPlainString());\r\n        case NUMERIC_BIGINTEGER:\r\n            BigInteger bigIntegerValue = (BigInteger) dcv.getNumericValue();\r\n            return (bigIntegerValue == null ? null : bigIntegerValue.toString());\r\n        case NUMERIC_BYTE:\r\n            Byte byteValue = (Byte) dcv.getNumericValue();\r\n            return (byteValue == null ? null : byteValue.toString());\r\n        case NUMERIC_DOUBLE:\r\n            Double doubleValue = (Double) dcv.getNumericValue();\r\n            return (doubleValue == null ? null : doubleValue.toString());\r\n        case NUMERIC_FLOAT:\r\n            Float floatValue = (Float) dcv.getNumericValue();\r\n            return (floatValue == null ? null : floatValue.toString());\r\n        case NUMERIC_INTEGER:\r\n            Integer integerValue = (Integer) dcv.getNumericValue();\r\n            return (integerValue == null ? null : integerValue.toString());\r\n        case NUMERIC_LONG:\r\n            Long longValue = (Long) dcv.getNumericValue();\r\n            return (longValue == null ? null : longValue.toString());\r\n        case NUMERIC_SHORT:\r\n            Short shortValue = (Short) dcv.getNumericValue();\r\n            return (shortValue == null ? null : shortValue.toString());\r\n        default:\r\n            return dcv.getStringValue();\r\n    }\r\n}"
+}, {
+	"Path": "org.drools.verifier.opposites.OppositesBase.createOppositesMap",
+	"Comment": "creates opposites map from opposites objects, one rule may have severalopposing dependencies.",
+	"Method": "Map<Cause, Set<Cause>> createOppositesMap(VerifierComponentType type,Iterator<Object> iter){\r\n    Map<Cause, Set<Cause>> map = new HashMap<Cause, Set<Cause>>();\r\n    while (iter.hasNext()) {\r\n        Object o = (Object) iter.next();\r\n        if (o instanceof Opposites) {\r\n            Opposites r = (Opposites) o;\r\n            if (((VerifierComponent) r.getLeft()).getVerifierComponentType().equals(type)) {\r\n                Cause left = r.getLeft();\r\n                Cause right = r.getRight();\r\n                if (map.containsKey(left)) {\r\n                    Set<Cause> set = map.get(left);\r\n                    set.add(right);\r\n                } else {\r\n                    Set<Cause> set = new HashSet<Cause>();\r\n                    set.add(right);\r\n                    map.put(left, set);\r\n                }\r\n            }\r\n        }\r\n    }\r\n    return map;\r\n}"
+}, {
+	"Path": "org.drools.workbench.models.guided.template.backend.RuleTemplateModelXMLPersistenceTest.testBackwardsCompatibility",
+	"Comment": "this will verify that we can load an old brl change. if this fails, thenbackwards compatibility is broken.",
+	"Method": "void testBackwardsCompatibility(){\r\n    RuleModel m2 = RuleTemplateModelXMLPersistenceImpl.getInstance().unmarshal(loadResource(\"existing_brl.xml\"));\r\n    assertNotNull(m2);\r\n    assertEquals(3, m2.rhs.length);\r\n}"
+}, {
+	"Path": "org.drools.workbench.models.guided.dtable.backend.GuidedDTDRLPersistence.findByLabelledAction",
+	"Comment": "actionsetfield and actionupdatefield need to be grouped in this manner.",
+	"Method": "LabelledAction findByLabelledAction(List<LabelledAction> actions,String boundName,LabelledAction findByLabelledAction,List<LabelledAction> actions,String boundName,boolean isUpdate){\r\n    for (LabelledAction labelledAction : actions) {\r\n        IAction action = labelledAction.action;\r\n        if (action instanceof ActionFieldList) {\r\n            if (labelledAction.boundName.equals(boundName) && labelledAction.isUpdate == isUpdate) {\r\n                return labelledAction;\r\n            }\r\n        }\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "org.kie.dmn.feel.runtime.decisiontables.DecisionTableImpl.defaultToOutput",
+	"Comment": "no hits matched for the dt, so calculate result based on default outputs",
+	"Method": "Object defaultToOutput(EvaluationContext ctx,FEEL feel){\r\n    Map<String, Object> values = ctx.getAllValues();\r\n    if (outputs.size() == 1) {\r\n        Object value = feel.evaluate(outputs.get(0).getDefaultValue(), values);\r\n        return value;\r\n    } else {\r\n        return IntStream.range(0, outputs.size()).boxed().collect(toMap(i -> outputs.get(i).getName(), i -> feel.evaluate(outputs.get(i).getDefaultValue(), values)));\r\n    }\r\n}"
+}, {
+	"Path": "org.drools.core.test.model.Cheese.updatePriceFromLong",
+	"Comment": "this is a test method to test shadow proxy delegationwhen in the presence of a long or double parameter",
+	"Method": "void updatePriceFromLong(long newPrice,double xyz,String bla){\r\n    this.price = (int) newPrice;\r\n}"
+}, {
+	"Path": "org.drools.model.bitmask.OpenBitSet.flipAndGet",
+	"Comment": "flips a bit and returns the resulting bit value.the index should be less than the openbitset size.",
+	"Method": "boolean flipAndGet(int index,boolean flipAndGet,long index){\r\n    assert index >= 0 && index < numBits;\r\n    int wordNum = (int) (index >> 6);\r\n    int bit = (int) index & 0x3f;\r\n    long bitmask = 1L << bit;\r\n    bits[wordNum] ^= bitmask;\r\n    return (bits[wordNum] & bitmask) != 0;\r\n}"
+}, {
+	"Path": "org.drools.testcoverage.functional.KieContainerDefaultsTest.testTwoKieSessionsOneStatelessDefault",
+	"Comment": "this test checks if default kiesessions behave as expected even if one of them is stateless.",
+	"Method": "void testTwoKieSessionsOneStatelessDefault(){\r\n    final KieModuleModel kieModule = kieServices.newKieModuleModel();\r\n    kieModule.newKieBaseModel(\"firstKBase\").setDefault(true).newKieSessionModel(\"firstKSession\").setType(KieSessionModel.KieSessionType.STATELESS).setDefault(true);\r\n    kieModule.newKieBaseModel(\"secondKBase\").setDefault(true).newKieSessionModel(\"secondKSession\").setDefault(false);\r\n    buildKieModule(kieModule);\r\n    final KieContainer kieContainer = kieServices.newKieContainer(RELEASE_ID);\r\n    final StatelessKieSession firstKSession = kieContainer.newStatelessKieSession(\"firstKSession\");\r\n    final KieSession secondKSession = kieContainer.newKieSession(\"secondKSession\");\r\n    try {\r\n        Assertions.assertThat(firstKSession).isEqualTo(((InternalKieContainer) kieContainer).getStatelessKieSession());\r\n        Assertions.assertThat(secondKSession).isNotEqualTo(((InternalKieContainer) kieContainer).getStatelessKieSession());\r\n    } finally {\r\n        secondKSession.dispose();\r\n    }\r\n}"
+}, {
+	"Path": "org.drools.verifier.report.components.MissingRange.getReversedOperator",
+	"Comment": "takes the given operator e, and returns a reversed version of it.",
+	"Method": "Operator getReversedOperator(Operator e){\r\n    if (e.equals(Operator.NOT_EQUAL)) {\r\n        return Operator.EQUAL;\r\n    } else if (e.equals(Operator.EQUAL)) {\r\n        return Operator.NOT_EQUAL;\r\n    } else if (e.equals(Operator.GREATER)) {\r\n        return Operator.LESS_OR_EQUAL;\r\n    } else if (e.equals(Operator.LESS)) {\r\n        return Operator.GREATER_OR_EQUAL;\r\n    } else if (e.equals(Operator.GREATER_OR_EQUAL)) {\r\n        return Operator.LESS;\r\n    } else if (e.equals(Operator.LESS_OR_EQUAL)) {\r\n        return Operator.GREATER;\r\n    } else {\r\n        return Operator.determineOperator(e.getOperatorString(), !e.isNegated());\r\n    }\r\n}"
+}, {
+	"Path": "org.drools.workbench.models.commons.backend.rule.ActionCallMethodBuilder.supports",
+	"Comment": "actioncallmethods do not support chained method invocations",
+	"Method": "boolean supports(String line){\r\n    final List<String> splits = new ArrayList<String>();\r\n    int depth = 0;\r\n    int textDepth = 0;\r\n    boolean escape = false;\r\n    StringBuffer split = new StringBuffer();\r\n    for (char c : line.toCharArray()) {\r\n        if (depth == 0 && c == '.') {\r\n            splits.add(split.toString());\r\n            split = new StringBuffer();\r\n            depth = 0;\r\n            textDepth = 0;\r\n            escape = false;\r\n            continue;\r\n        } else if (c == '\\\\') {\r\n            escape = true;\r\n            split.append(c);\r\n            continue;\r\n        } else if (textDepth == 0 && c == '\"') {\r\n            textDepth++;\r\n        } else if (!escape && textDepth > 0 && c == '\"') {\r\n            textDepth--;\r\n        } else if (textDepth == 0 && c == '(') {\r\n            depth++;\r\n        } else if (textDepth == 0 && c == ')') {\r\n            depth--;\r\n        }\r\n        split.append(c);\r\n        escape = false;\r\n    }\r\n    splits.add(split.toString());\r\n    return splits.size() == 2;\r\n}"
+}, {
+	"Path": "org.drools.verifier.core.util.PortablePreconditions.checkCondition",
+	"Comment": "assert that this parameter is marked as valid by the condition passed as parameter.",
+	"Method": "void checkCondition(String name,boolean condition){\r\n    if (!condition) {\r\n        throw new IllegalStateException(\"Condition '\" + name + \"' is invalid!\");\r\n    }\r\n}"
+}, {
+	"Path": "org.kie.dmn.core.compiler.DMNEvaluatorCompiler.variableTypeRefOrErrIfNull",
+	"Comment": "utility method to have a error message is reported if a dmn variable is missing typeref.",
+	"Method": "QName variableTypeRefOrErrIfNull(DMNModelImpl model,InformationItem variable){\r\n    if (variable.getTypeRef() != null) {\r\n        return variable.getTypeRef();\r\n    } else {\r\n        MsgUtil.reportMessage(logger, DMNMessage.Severity.ERROR, variable, model, null, null, Msg.MISSING_TYPEREF_FOR_VARIABLE, variable.getName(), variable.getParentDRDElement().getIdentifierString());\r\n        return null;\r\n    }\r\n}"
+}, {
+	"Path": "org.drools.core.util.LinkedList.addLast",
+	"Comment": "add a linkedlistnode to the end of the list. if the linkedlist is empty then the first andlast nodes are set to the added node.",
+	"Method": "void addLast(T node){\r\n    if (this.firstNode == null) {\r\n        this.firstNode = node;\r\n        this.lastNode = node;\r\n    } else {\r\n        T currentLast = this.lastNode;\r\n        currentLast.setNext(node);\r\n        node.setPrevious(currentLast);\r\n        this.lastNode = node;\r\n    }\r\n    this.size++;\r\n}"
+}, {
+	"Path": "org.drools.decisiontable.parser.ActionType.addNewActionType",
+	"Comment": "create a new action type that matches this cell, and add it to the map,keyed on that column.",
+	"Method": "void addNewActionType(Map<Integer, ActionType> actionTypeMap,String value,int column,int row){\r\n    final String ucValue = value.toUpperCase();\r\n    Code code = tag2code.get(ucValue);\r\n    if (code == null) {\r\n        code = tag2code.get(ucValue.substring(0, 1));\r\n    }\r\n    if (code != null) {\r\n        int count = 0;\r\n        for (ActionType at : actionTypeMap.values()) {\r\n            if (at.getCode() == code) {\r\n                count++;\r\n            }\r\n        }\r\n        if (count >= code.getMaxCount()) {\r\n            throw new DecisionTableParseException(\"Maximum number of \" + code.getColHeader() + \"/\" + code.getColShort() + \" columns is \" + code.getMaxCount() + \", in cell \" + RuleSheetParserUtil.rc2name(row, column));\r\n        }\r\n        actionTypeMap.put(new Integer(column), new ActionType(code));\r\n    } else {\r\n        throw new DecisionTableParseException(\"Invalid column header: \" + value + \", should be CONDITION, ACTION or attribute, \" + \"in cell \" + RuleSheetParserUtil.rc2name(row, column));\r\n    }\r\n}"
+}, {
+	"Path": "org.drools.core.util.DroolsStreamUtils.streamIn",
+	"Comment": "this method reads the contents from the given input stream and returns the object.the contents in the givenstream could be compressed or uncompressed depending on the given flag.it is assumed that the contentstream was written by the corresponding streamout methods of this class.",
+	"Method": "Object streamIn(byte[] bytes,Object streamIn,byte[] bytes,ClassLoader classLoader,Object streamIn,byte[] bytes,boolean compressed,Object streamIn,byte[] bytes,ClassLoader classLoader,boolean compressed,Object streamIn,InputStream in,Object streamIn,InputStream in,ClassLoader classLoader,Object streamIn,InputStream in,ClassLoader classLoader,boolean compressed){\r\n    if (compressed)\r\n        in = new GZIPInputStream(in);\r\n    return new DroolsObjectInputStream(in, classLoader).readObject();\r\n}"
+}, {
+	"Path": "org.drools.testcoverage.common.util.TestParametersUtil.getStreamKieBaseAndStatefulKieSessionConfigurations",
+	"Comment": "prepares various combinations of kiebasetestconfiguration and kiesessiontestconfiguration.use only stream kie bases and stateful kie sessions.",
+	"Method": "Collection<Object[]> getStreamKieBaseAndStatefulKieSessionConfigurations(){\r\n    final Collection<Object[]> parameters = new ArrayList();\r\n    final Collection<Object[]> kieBaseConfigurations = getKieBaseStreamConfigurations(true);\r\n    for (final Object[] kieBaseConfigWrapped : kieBaseConfigurations) {\r\n        parameters.add(new Object[] { kieBaseConfigWrapped[0], KieSessionTestConfiguration.STATEFUL_REALTIME });\r\n        parameters.add(new Object[] { kieBaseConfigWrapped[0], KieSessionTestConfiguration.STATEFUL_PSEUDO });\r\n    }\r\n    return parameters;\r\n}"
+}, {
+	"Path": "org.drools.model.bitmask.OpenBitSet.intersectionCount",
+	"Comment": "returns the popcount or cardinality of the intersection of the two sets.neither set is modified.",
+	"Method": "long intersectionCount(OpenBitSet a,OpenBitSet b){\r\n    return BitUtil.pop_intersect(a.bits, b.bits, 0, Math.min(a.wlen, b.wlen));\r\n}"
+}, {
+	"Path": "org.drools.core.util.asm.ClassFieldInspector.processClassWithByteCode",
+	"Comment": "walk up the inheritance hierarchy recursively, reading in fields",
+	"Method": "void processClassWithByteCode(Class<?> clazz,InputStream stream,boolean includeFinalMethods){\r\n    final ClassReader reader = new ClassReader(stream);\r\n    final ClassFieldVisitor visitor = new ClassFieldVisitor(clazz, includeFinalMethods, this);\r\n    reader.accept(visitor, 0);\r\n    if (clazz.getSuperclass() != null) {\r\n        final String name = getResourcePath(clazz.getSuperclass());\r\n        final InputStream parentStream = clazz.getResourceAsStream(name);\r\n        if (parentStream != null) {\r\n            try {\r\n                processClassWithByteCode(clazz.getSuperclass(), parentStream, includeFinalMethods);\r\n            } finally {\r\n                parentStream.close();\r\n            }\r\n        } else {\r\n            processClassWithoutByteCode(clazz.getSuperclass(), includeFinalMethods);\r\n        }\r\n    }\r\n    if (clazz.isInterface()) {\r\n        final Class<?>[] interfaces = clazz.getInterfaces();\r\n        for (Class<?> anInterface : interfaces) {\r\n            final String name = getResourcePath(anInterface);\r\n            final InputStream parentStream = clazz.getResourceAsStream(name);\r\n            if (parentStream != null) {\r\n                try {\r\n                    processClassWithByteCode(anInterface, parentStream, includeFinalMethods);\r\n                } finally {\r\n                    parentStream.close();\r\n                }\r\n            } else {\r\n                processClassWithoutByteCode(anInterface, includeFinalMethods);\r\n            }\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "org.drools.core.util.LinkedList.clear",
+	"Comment": "iterates the list removing all the nodes until there are no more nodes to remove.",
+	"Method": "void clear(){\r\n    while (removeFirst() != null) {\r\n    }\r\n}"
+}, {
+	"Path": "org.drools.core.reteoo.ReteTest.testRetractObject",
+	"Comment": "all objects deleted from a rootnode must be propagated to all childrenobjecttypenodes.",
+	"Method": "void testRetractObject(){\r\n    StatefulKnowledgeSessionImpl ksession = (StatefulKnowledgeSessionImpl) kBase.newKieSession();\r\n    final Rete rete = kBase.getRete();\r\n    final ObjectTypeNode objectTypeNode = new ObjectTypeNode(1, this.entryPoint, new ClassObjectType(List.class), buildContext);\r\n    objectTypeNode.attach(buildContext);\r\n    final MockObjectSink sink1 = new MockObjectSink();\r\n    objectTypeNode.addObjectSink(sink1);\r\n    final String string = \"String\";\r\n    final DefaultFactHandle h1 = new DefaultFactHandle(1, string);\r\n    rete.assertObject(h1, pctxFactory.createPropagationContext(0, PropagationContext.Type.INSERTION, null, null, null), ksession);\r\n    assertLength(0, sink1.getAsserted());\r\n    assertLength(0, sink1.getRetracted());\r\n    final List list = new ArrayList();\r\n    final DefaultFactHandle h2 = new DefaultFactHandle(1, list);\r\n    rete.assertObject(h2, pctxFactory.createPropagationContext(0, PropagationContext.Type.INSERTION, null, null, null), ksession);\r\n    rete.retractObject(h2, pctxFactory.createPropagationContext(0, PropagationContext.Type.INSERTION, null, null, null), ksession);\r\n    ksession.fireAllRules();\r\n    final List retracted = sink1.getRetracted();\r\n    assertLength(1, retracted);\r\n    final Object[] results = (Object[]) retracted.get(0);\r\n    assertSame(list, ((DefaultFactHandle) results[0]).getObject());\r\n}"
+}, {
+	"Path": "org.drools.core.util.bitmask.OpenBitSet.unionCount",
+	"Comment": "returns the popcount or cardinality of the union of the two sets.neither set is modified.",
+	"Method": "long unionCount(OpenBitSet a,OpenBitSet b){\r\n    long tot = BitUtil.pop_union(a.bits, b.bits, 0, Math.min(a.wlen, b.wlen));\r\n    if (a.wlen < b.wlen) {\r\n        tot += BitUtil.pop_array(b.bits, a.wlen, b.wlen - a.wlen);\r\n    } else if (a.wlen > b.wlen) {\r\n        tot += BitUtil.pop_array(a.bits, b.wlen, a.wlen - b.wlen);\r\n    }\r\n    return tot;\r\n}"
+}]

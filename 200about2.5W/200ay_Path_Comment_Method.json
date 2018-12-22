@@ -1,0 +1,621 @@
+[{
+	"Path": "com.hazelcast.internal.serialization.impl.PortableUtils.validateFactoryAndClass",
+	"Comment": "validates if the given factoryid and classid match the ones from the fielddefinition",
+	"Method": "void validateFactoryAndClass(FieldDefinition fd,int factoryId,int classId,String fullPath){\r\n    if (factoryId != fd.getFactoryId()) {\r\n        throw new IllegalArgumentException(\"Invalid factoryId! Expected: \" + fd.getFactoryId() + \", Current: \" + factoryId + \" in path \" + fullPath);\r\n    }\r\n    if (classId != fd.getClassId()) {\r\n        throw new IllegalArgumentException(\"Invalid classId! Expected: \" + fd.getClassId() + \", Current: \" + classId + \" in path \" + fullPath);\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.spi.impl.operationservice.impl.BackpressureRegulator.isSyncForced",
+	"Comment": "checks if a sync is forced for the given backupawareoperation.once and a while for every backupawareoperation with one or more async backups, these async backups are transformedinto a sync backup.",
+	"Method": "boolean isSyncForced(BackupAwareOperation backupAwareOp){\r\n    if (disabled) {\r\n        return false;\r\n    }\r\n    if (backupAwareOp.getAsyncBackupCount() == 0) {\r\n        return false;\r\n    }\r\n    if (backupAwareOp instanceof UrgentSystemOperation) {\r\n        return false;\r\n    }\r\n    for (; ; ) {\r\n        int current = syncCountdown.decrementAndGet();\r\n        if (current > 0) {\r\n            return false;\r\n        }\r\n        if (syncCountdown.compareAndSet(current, randomSyncDelay())) {\r\n            return true;\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.partition.operation.PartitionReplicaSyncRequest.preCheckReplicaSync",
+	"Comment": "checks if we can continue with the replication or not. can send a retry or empty response to the replica in some cases",
+	"Method": "boolean preCheckReplicaSync(NodeEngineImpl nodeEngine,int partitionId,int replicaIndex){\r\n    InternalPartitionServiceImpl partitionService = (InternalPartitionServiceImpl) nodeEngine.getPartitionService();\r\n    PartitionStateManager partitionStateManager = partitionService.getPartitionStateManager();\r\n    InternalPartitionImpl partition = partitionStateManager.getPartitionImpl(partitionId);\r\n    Address owner = partition.getOwnerOrNull();\r\n    ILogger logger = getLogger();\r\n    if (!nodeEngine.getThisAddress().equals(owner)) {\r\n        if (logger.isFinestEnabled()) {\r\n            logger.finest(\"Wrong target! \" + toString() + \" cannot be processed! Target should be: \" + owner);\r\n        }\r\n        sendRetryResponse();\r\n        return false;\r\n    }\r\n    if (!partitionService.getReplicaManager().tryToAcquireReplicaSyncPermit()) {\r\n        if (logger.isFinestEnabled()) {\r\n            logger.finest(\"Max parallel replication process limit exceeded! Could not run replica sync -> \" + toString());\r\n        }\r\n        sendRetryResponse();\r\n        return false;\r\n    }\r\n    return true;\r\n}"
+}, {
+	"Path": "com.hazelcast.memory.MemorySize.toPrettyString",
+	"Comment": "utility method to create a pretty format representation of given value in given unit.",
+	"Method": "String toPrettyString(String toPrettyString,long size,String toPrettyString,long size,MemoryUnit unit){\r\n    if (unit.toGigaBytes(size) >= PRETTY_FORMAT_LIMIT) {\r\n        return unit.toGigaBytes(size) + \" GB\";\r\n    }\r\n    if (unit.toMegaBytes(size) >= PRETTY_FORMAT_LIMIT) {\r\n        return unit.toMegaBytes(size) + \" MB\";\r\n    }\r\n    if (unit.toKiloBytes(size) >= PRETTY_FORMAT_LIMIT) {\r\n        return unit.toKiloBytes(size) + \" KB\";\r\n    }\r\n    if (size % MemoryUnit.K == 0) {\r\n        return unit.toKiloBytes(size) + \" KB\";\r\n    }\r\n    return size + \" bytes\";\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.partition.operation.FinalizeMigrationOperation.commitSource",
+	"Comment": "updates the replica versions on the migration source if the replica index has changed.",
+	"Method": "void commitSource(){\r\n    int partitionId = getPartitionId();\r\n    InternalPartitionServiceImpl partitionService = getService();\r\n    PartitionReplicaManager replicaManager = partitionService.getReplicaManager();\r\n    ILogger logger = getLogger();\r\n    int sourceNewReplicaIndex = migrationInfo.getSourceNewReplicaIndex();\r\n    if (sourceNewReplicaIndex < 0) {\r\n        clearPartitionReplicaVersions(partitionId);\r\n        if (logger.isFinestEnabled()) {\r\n            logger.finest(\"Replica versions are cleared in source after migration. partitionId=\" + partitionId);\r\n        }\r\n    } else if (migrationInfo.getSourceCurrentReplicaIndex() != sourceNewReplicaIndex && sourceNewReplicaIndex > 1) {\r\n        for (ServiceNamespace namespace : replicaManager.getNamespaces(partitionId)) {\r\n            long[] versions = updatePartitionReplicaVersions(replicaManager, partitionId, namespace, sourceNewReplicaIndex - 1);\r\n            if (logger.isFinestEnabled()) {\r\n                logger.finest(\"Replica versions are set after SHIFT DOWN migration. partitionId=\" + partitionId + \" namespace: \" + namespace + \" replica versions=\" + Arrays.toString(versions));\r\n            }\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.serialization.impl.PortableUtils.getStreamPositionOfTheField",
+	"Comment": "calculates the position of the given field in the portable byte stream",
+	"Method": "int getStreamPositionOfTheField(FieldDefinition fd,BufferObjectDataInput in,int offset){\r\n    int pos = in.readInt(offset + fd.getIndex() * Bits.INT_SIZE_IN_BYTES);\r\n    short len = in.readShort(pos);\r\n    return pos + Bits.SHORT_SIZE_IN_BYTES + len + 1;\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.util.concurrent.ConcurrentConveyor.checkDrainerGone",
+	"Comment": "checks whether the drainer thread has left and throws an exception if ithas. if the drainer thread has failed, its failure will be the cause ofthe exception thrown.",
+	"Method": "void checkDrainerGone(){\r\n    final Throwable cause = drainerDepartureCause;\r\n    if (cause == REGULAR_DEPARTURE) {\r\n        throw new ConcurrentConveyorException(\"Queue drainer has already left\");\r\n    }\r\n    propagateDrainerFailure(cause);\r\n}"
+}, {
+	"Path": "com.hazelcast.spi.impl.merge.AbstractContainerCollector.isMergeable",
+	"Comment": "determines if the container should be merged.can be overridden if there are additional restrictions beside the merge policy,if a container is mergeable or not.",
+	"Method": "boolean isMergeable(C container){\r\n    return true;\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.partition.operation.PartitionReplicaSyncRequest.sendResponse",
+	"Comment": "send a synchronization response to the caller replica containing the replication operations to be executed",
+	"Method": "void sendResponse(Collection<Operation> operations,ServiceNamespace ns){\r\n    NodeEngine nodeEngine = getNodeEngine();\r\n    PartitionReplicaSyncResponse syncResponse = createResponse(operations, ns);\r\n    Address target = getCallerAddress();\r\n    ILogger logger = getLogger();\r\n    if (logger.isFinestEnabled()) {\r\n        logger.finest(\"Sending sync response to -> \" + target + \" for partitionId=\" + getPartitionId() + \", replicaIndex=\" + getReplicaIndex() + \", namespaces=\" + ns);\r\n    }\r\n    syncResponse.setTarget(target);\r\n    OperationService operationService = nodeEngine.getOperationService();\r\n    operationService.send(syncResponse, target);\r\n}"
+}, {
+	"Path": "com.hazelcast.ringbuffer.impl.RingbufferContainer.readMany",
+	"Comment": "reads multiple items from the ring buffer and adds them to resultin the stored format. if an item is not available, it will try andload it from the ringbuffer store.",
+	"Method": "long readMany(long beginSequence,ReadResultSetImpl result){\r\n    checkReadSequence(beginSequence);\r\n    long seq = beginSequence;\r\n    while (seq <= ringbuffer.tailSequence()) {\r\n        result.addItem(seq, readOrLoadItem(seq));\r\n        seq++;\r\n        if (result.isMaxSizeReached()) {\r\n            break;\r\n        }\r\n    }\r\n    return seq;\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.partition.impl.AbstractPartitionPrimaryReplicaAntiEntropyTask.retainAndGetNamespaces",
+	"Comment": "works only on primary. backups are retained in partitionbackupreplicaantientropytask",
+	"Method": "Collection<ServiceNamespace> retainAndGetNamespaces(){\r\n    PartitionReplicationEvent event = new PartitionReplicationEvent(partitionId, 0);\r\n    Collection<FragmentedMigrationAwareService> services = nodeEngine.getServices(FragmentedMigrationAwareService.class);\r\n    Set<ServiceNamespace> namespaces = new HashSet<ServiceNamespace>();\r\n    for (FragmentedMigrationAwareService service : services) {\r\n        Collection<ServiceNamespace> serviceNamespaces = service.getAllServiceNamespaces(event);\r\n        if (serviceNamespaces != null) {\r\n            namespaces.addAll(serviceNamespaces);\r\n        }\r\n    }\r\n    namespaces.add(NonFragmentedServiceNamespace.INSTANCE);\r\n    PartitionReplicaManager replicaManager = partitionService.getReplicaManager();\r\n    replicaManager.retainNamespaces(partitionId, namespaces);\r\n    return replicaManager.getNamespaces(partitionId);\r\n}"
+}, {
+	"Path": "com.hazelcast.spi.impl.operationservice.impl.responses.NormalResponse.getBackupAcks",
+	"Comment": "returns the number of backups that needs to acknowledge before the invocation completes.",
+	"Method": "int getBackupAcks(){\r\n    return backupAcks;\r\n}"
+}, {
+	"Path": "com.hazelcast.spi.impl.operationservice.impl.OperationRunnerImpl.ensureQuorumPresent",
+	"Comment": "ensures that the quorum is present if the quorum is configured and the operation service is quorum aware.",
+	"Method": "void ensureQuorumPresent(Operation op){\r\n    QuorumServiceImpl quorumService = operationService.nodeEngine.getQuorumService();\r\n    quorumService.ensureQuorumPresent(op);\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.util.hashslot.impl.SlotAssignmentResultImpl.setNew",
+	"Comment": "sets if the last assignment invocation resulted in a new assignment orif there was an existing slot for the given parameters.",
+	"Method": "void setNew(boolean isNew){\r\n    this.isNew = isNew;\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.partition.impl.MigrationThread.stopNow",
+	"Comment": "interrupts the migration thread and joins on it.must not be called on the migration thread itself because it will result in infinite blocking.",
+	"Method": "void stopNow(){\r\n    assert currentThread() != this : \"stopNow must not be called on the migration thread\";\r\n    running = false;\r\n    queue.clear();\r\n    interrupt();\r\n    boolean currentThreadInterrupted = false;\r\n    while (true) {\r\n        try {\r\n            join();\r\n        } catch (InterruptedException e) {\r\n            currentThreadInterrupted = true;\r\n            continue;\r\n        }\r\n        break;\r\n    }\r\n    if (currentThreadInterrupted) {\r\n        currentThread().interrupt();\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.nio.Packet.setConn",
+	"Comment": "sets the connection this packet is send with.this is done on the reading side of the packet to make it possible to retrieve information aboutthe sender of the packet.",
+	"Method": "Packet setConn(Connection conn){\r\n    this.conn = conn;\r\n    return this;\r\n}"
+}, {
+	"Path": "com.hazelcast.ringbuffer.impl.RingbufferContainer.readOrLoadItem",
+	"Comment": "reads the item at the specified sequence or loads it from the ringbufferstore if one is enabled. the type of the returned object is equal to theringbuffer format.",
+	"Method": "Object readOrLoadItem(long sequence){\r\n    Object item;\r\n    if (sequence < ringbuffer.headSequence() && store.isEnabled()) {\r\n        item = store.load(sequence);\r\n    } else {\r\n        item = ringbuffer.read(sequence);\r\n    }\r\n    return item;\r\n}"
+}, {
+	"Path": "com.hazelcast.map.impl.recordstore.BasicRecordStoreLoader.doBatchLoad",
+	"Comment": "loads the values for the provided keys in batches and invokespartition operations to put the loaded entry batches into therecord store.",
+	"Method": "List<Future> doBatchLoad(List<Data> keys){\r\n    Queue<List<Data>> batchChunks = createBatchChunks(keys);\r\n    int size = batchChunks.size();\r\n    List<Future> futures = new ArrayList<Future>(size);\r\n    while (!batchChunks.isEmpty()) {\r\n        List<Data> chunk = batchChunks.poll();\r\n        List<Data> keyValueSequence = loadAndGet(chunk);\r\n        if (keyValueSequence.isEmpty()) {\r\n            continue;\r\n        }\r\n        futures.add(sendOperation(keyValueSequence));\r\n    }\r\n    return futures;\r\n}"
+}, {
+	"Path": "com.hazelcast.spi.impl.eventservice.impl.EventEnvelope.getEventId",
+	"Comment": "the event id. this corresponds to the listener registration id.",
+	"Method": "String getEventId(){\r\n    return id;\r\n}"
+}, {
+	"Path": "com.hazelcast.map.impl.MapKeyLoader.sendKeysInBatches",
+	"Comment": "loads keys from the map loader and sends them to the partition owners in batchesfor value loading. this method will return after all keys have been dispatchedto the partition owners for value loading and all partitions have been notifiedthat the key loading has completed.the values will still be loaded asynchronously and can be put into the recordstores after this method has returned.if there is a configured max size policy per node, the keys will be loaded until thismany keys have been loaded from the map loader. if the keys returned from themap loader are not equally distributed over all partitions, this may cause some nodesto load more entries than others and exceed the configured policy.",
+	"Method": "void sendKeysInBatches(MapStoreContext mapStoreContext,boolean replaceExistingValues){\r\n    if (logger.isFinestEnabled()) {\r\n        logger.finest(\"sendKeysInBatches invoked \" + getStateMessage());\r\n    }\r\n    int clusterSize = partitionService.getMemberPartitionsMap().size();\r\n    Iterator<Object> keys = null;\r\n    Throwable loadError = null;\r\n    try {\r\n        Iterable<Object> allKeys = mapStoreContext.loadAllKeys();\r\n        keys = allKeys.iterator();\r\n        Iterator<Data> dataKeys = map(keys, toData);\r\n        int mapMaxSize = clusterSize * maxSizePerNode;\r\n        if (mapMaxSize > 0) {\r\n            dataKeys = limit(dataKeys, mapMaxSize);\r\n        }\r\n        Iterator<Entry<Integer, Data>> partitionsAndKeys = map(dataKeys, toPartition(partitionService));\r\n        Iterator<Map<Integer, List<Data>>> batches = toBatches(partitionsAndKeys, maxBatch);\r\n        List<Future> futures = new ArrayList<Future>();\r\n        while (batches.hasNext()) {\r\n            Map<Integer, List<Data>> batch = batches.next();\r\n            futures.addAll(sendBatch(batch, replaceExistingValues));\r\n        }\r\n        FutureUtil.waitForever(futures);\r\n    } catch (Exception caught) {\r\n        loadError = caught;\r\n    } finally {\r\n        sendKeyLoadCompleted(clusterSize, loadError);\r\n        if (keys instanceof Closeable) {\r\n            closeResource((Closeable) keys);\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.query.impl.QueryContext.getIndex",
+	"Comment": "obtains the index available for the given attribute in this querycontext.",
+	"Method": "Index getIndex(String attributeName){\r\n    if (indexes == null) {\r\n        return null;\r\n    } else {\r\n        return indexes.getIndex(attributeName);\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.map.impl.MapKeyLoader.updateLocalKeyLoadStatus",
+	"Comment": "notifies the record store of this map key loader that key loading hascompleted.",
+	"Method": "void updateLocalKeyLoadStatus(Throwable t){\r\n    Operation op = new KeyLoadStatusOperation(mapName, t);\r\n    if (hasBackup && role.is(Role.SENDER_BACKUP)) {\r\n        opService.createInvocationBuilder(SERVICE_NAME, op, partitionId).setReplicaIndex(1).invoke();\r\n    } else {\r\n        opService.createInvocationBuilder(SERVICE_NAME, op, partitionId).invoke();\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.map.impl.querycache.publisher.DefaultPublisherContext.handleConnectedSubscriber",
+	"Comment": "todo handling client reconnection seems not straightforward with clientawareservice",
+	"Method": "void handleConnectedSubscriber(String uuid){\r\n    cancelRemovalTask(uuid);\r\n}"
+}, {
+	"Path": "com.hazelcast.nio.tcp.ProtocolEncoder.isProtocolBufferDrained",
+	"Comment": "checks if the protocol bytes have been drained.the protocol buffer is in write mode, so if position is 0, the protocolbuffer has been drained.",
+	"Method": "boolean isProtocolBufferDrained(){\r\n    return dst.position() == 0;\r\n}"
+}, {
+	"Path": "com.hazelcast.ringbuffer.impl.operations.ReplicationOperation.getRingbufferConfig",
+	"Comment": "returns the ringbuffer config for the provided namespace. the namespaceprovides information whether the requested ringbuffer is a ringbufferthat the user is directly interacting with through a ringbuffer proxyor if this is a backing ringbuffer for an event journal.if a ringbuffer configuration for an event journal is requested, thismethod will expect the configuration for the relevant map or cacheto be available.",
+	"Method": "RingbufferConfig getRingbufferConfig(RingbufferService service,ObjectNamespace ns){\r\n    final String serviceName = ns.getServiceName();\r\n    if (RingbufferService.SERVICE_NAME.equals(serviceName)) {\r\n        return service.getRingbufferConfig(ns.getObjectName());\r\n    } else if (MapService.SERVICE_NAME.equals(serviceName)) {\r\n        final MapService mapService = getNodeEngine().getService(MapService.SERVICE_NAME);\r\n        final MapEventJournal journal = mapService.getMapServiceContext().getEventJournal();\r\n        final EventJournalConfig journalConfig = journal.getEventJournalConfig(ns);\r\n        return journal.toRingbufferConfig(journalConfig, ns);\r\n    } else if (CacheService.SERVICE_NAME.equals(serviceName)) {\r\n        final CacheService cacheService = getNodeEngine().getService(CacheService.SERVICE_NAME);\r\n        final CacheEventJournal journal = cacheService.getEventJournal();\r\n        final EventJournalConfig journalConfig = journal.getEventJournalConfig(ns);\r\n        return journal.toRingbufferConfig(journalConfig, ns);\r\n    } else {\r\n        throw new IllegalArgumentException(\"Unsupported ringbuffer service name \" + serviceName);\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.map.impl.querycache.subscriber.operation.PublisherCreateOperation.readAndResetAccumulator",
+	"Comment": "read and reset the accumulator of query cache inside the given partition.",
+	"Method": "Future<Object> readAndResetAccumulator(String mapName,String cacheId,Integer partitionId){\r\n    Operation operation = new ReadAndResetAccumulatorOperation(mapName, cacheId);\r\n    OperationService operationService = getNodeEngine().getOperationService();\r\n    return operationService.invokeOnPartition(MapService.SERVICE_NAME, operation, partitionId);\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.util.concurrent.ConcurrentConveyor.offer",
+	"Comment": "offers an item to the given queue. no check is performed that the queueactually belongs to this conveyor.",
+	"Method": "boolean offer(int queueIndex,E item,boolean offer,Queue<E> queue,E item){\r\n    if (queue.offer(item)) {\r\n        return true;\r\n    } else {\r\n        checkDrainerGone();\r\n        unparkDrainer();\r\n        return false;\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.query.impl.getters.Getter.getValue",
+	"Comment": "method for generic getters that are not bound to a specific path only, but can get any attributepathand extract from it.",
+	"Method": "Object getValue(Object obj,Object getValue,Object obj,String attributePath){\r\n    return getValue(obj);\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.serialization.impl.ObjectDataInputStream.readDataAsObject",
+	"Comment": "a future optimization would be to skip the construction of the data object.",
+	"Method": "T readDataAsObject(){\r\n    Data data = readData();\r\n    return data == null ? null : (T) serializationService.toObject(data);\r\n}"
+}, {
+	"Path": "com.hazelcast.nio.IOUtil.copyFile",
+	"Comment": "copies source file to target and creates the target if necessary. the target can be a directory or file. if the targetis a file, nests the new file under the target directory, otherwise copies to the given target.",
+	"Method": "void copyFile(File source,File target,long sourceCount){\r\n    if (!source.exists()) {\r\n        throw new IllegalArgumentException(\"Source does not exist \" + source.getAbsolutePath());\r\n    }\r\n    if (!source.isFile()) {\r\n        throw new IllegalArgumentException(\"Source is not a file \" + source.getAbsolutePath());\r\n    }\r\n    if (!target.exists() && !target.mkdirs()) {\r\n        throw new HazelcastException(\"Could not create the target directory \" + target.getAbsolutePath());\r\n    }\r\n    final File destination = target.isDirectory() ? new File(target, source.getName()) : target;\r\n    FileInputStream in = null;\r\n    FileOutputStream out = null;\r\n    try {\r\n        in = new FileInputStream(source);\r\n        out = new FileOutputStream(destination);\r\n        final FileChannel inChannel = in.getChannel();\r\n        final FileChannel outChannel = out.getChannel();\r\n        final long transferCount = sourceCount > 0 ? sourceCount : inChannel.size();\r\n        inChannel.transferTo(0, transferCount, outChannel);\r\n    } catch (Exception e) {\r\n        throw new HazelcastException(\"Error occurred while copying file\", e);\r\n    } finally {\r\n        closeResource(in);\r\n        closeResource(out);\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.map.impl.MapSplitBrainHandlerService.onStoreCollection",
+	"Comment": "clears indexes inside partition thread while collecting mergetasks. otherwise, if we do this cleanup upon join of merging node,concurrently running merge and migration operations can causeinconsistency over shared index objects between record stores.",
+	"Method": "void onStoreCollection(RecordStore recordStore){\r\n    assertRunningOnPartitionThread();\r\n    ((DefaultRecordStore) recordStore).clearOtherDataThanStorage(true);\r\n}"
+}, {
+	"Path": "com.hazelcast.query.impl.Indexes.destroyIndexes",
+	"Comment": "destroys and then removes all the indexes from this indexes instance.",
+	"Method": "void destroyIndexes(){\r\n    for (InternalIndex index : getIndexes()) {\r\n        index.destroy();\r\n    }\r\n    indexes.set(EMPTY_INDEX);\r\n    mapIndexes.clear();\r\n    hasIndex = false;\r\n}"
+}, {
+	"Path": "com.hazelcast.query.impl.predicates.AndPredicate.setPredicates",
+	"Comment": "visitable predicates are treated as effectively immutable, therefore callers should not make any changes tothe array passed as argument after is has been set.",
+	"Method": "void setPredicates(Predicate<K, V>[] predicates){\r\n    if (this.predicates == null) {\r\n        this.predicates = predicates;\r\n    } else {\r\n        throw new IllegalStateException(\"Cannot reset predicates in an AndPredicate after they have been already set.\");\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.monitor.impl.LocalIndexStatsImpl.setTotalInsertLatency",
+	"Comment": "sets the total insert latency of this stats to the given total insertlatency.",
+	"Method": "void setTotalInsertLatency(long totalInsertLatency){\r\n    this.totalInsertLatency = totalInsertLatency;\r\n}"
+}, {
+	"Path": "com.hazelcast.query.impl.predicates.BetweenVisitor.findCandidatesAndGroupByAttribute",
+	"Comment": "find greaterlesspredicates with equal flag set to true and group them by attribute name",
+	"Method": "InternalListMultiMap<String, GreaterLessPredicate> findCandidatesAndGroupByAttribute(Predicate[] predicates,Indexes indexService){\r\n    InternalListMultiMap<String, GreaterLessPredicate> candidates = null;\r\n    for (Predicate predicate : predicates) {\r\n        if (!(predicate instanceof GreaterLessPredicate)) {\r\n            continue;\r\n        }\r\n        GreaterLessPredicate greaterLessPredicate = (GreaterLessPredicate) predicate;\r\n        if (!(greaterLessPredicate.equal)) {\r\n            continue;\r\n        }\r\n        String attributeName = greaterLessPredicate.attributeName;\r\n        Index index = indexService.getIndex(attributeName);\r\n        if (index == null || index.getConverter() == null) {\r\n            continue;\r\n        }\r\n        candidates = addIntoCandidates(greaterLessPredicate, candidates);\r\n    }\r\n    return candidates;\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.util.concurrent.ConcurrentConveyor.drainerArrived",
+	"Comment": "called by the drainer thread to signal that it has started draining thequeue.",
+	"Method": "void drainerArrived(){\r\n    drainerDepartureCause = null;\r\n    drainer = currentThread();\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.partition.impl.MigrationManager.triggerControlTask",
+	"Comment": "clears the migration queue and triggers the control task. called on the master node.",
+	"Method": "void triggerControlTask(){\r\n    migrationQueue.clear();\r\n    if (!node.getClusterService().isJoined()) {\r\n        logger.fine(\"Node is not joined, will not trigger ControlTask\");\r\n        return;\r\n    }\r\n    if (!node.isMaster()) {\r\n        logger.fine(\"Node is not master, will not trigger ControlTask\");\r\n        return;\r\n    }\r\n    migrationQueue.add(new ControlTask());\r\n    if (logger.isFinestEnabled()) {\r\n        logger.finest(\"Migration queue is cleared and control task is scheduled\");\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.ringbuffer.impl.RingbufferContainer.addAll",
+	"Comment": "adds all items to the ring buffer. sets the expiration time if ttl is configured and also attempts to store the itemsin the data store if one is configured.",
+	"Method": "long addAll(T[] items){\r\n    long firstSequence = ringbuffer.peekNextTailSequence();\r\n    long lastSequence = ringbuffer.peekNextTailSequence();\r\n    if (store.isEnabled() && items.length != 0) {\r\n        try {\r\n            store.storeAll(firstSequence, convertToData(items));\r\n        } catch (Exception e) {\r\n            throw new HazelcastException(e);\r\n        }\r\n    }\r\n    for (int i = 0; i < items.length; i++) {\r\n        lastSequence = addInternal(items[i]);\r\n    }\r\n    return lastSequence;\r\n}"
+}, {
+	"Path": "com.hazelcast.nio.tcp.ProtocolEncoder.signalProtocolEstablished",
+	"Comment": "signals the protocolencoder that the protocol is known. this call will bemade by the protocoldecoder as soon as it knows the inbound protocol.",
+	"Method": "void signalProtocolEstablished(String inboundProtocol){\r\n    assert !channel.isClientMode() : \"Signal protocol should only be made on channel in serverMode\";\r\n    this.inboundProtocol = inboundProtocol;\r\n    channel.outboundPipeline().wakeup();\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.partition.impl.PartitionReplicaFragmentVersions.isStale",
+	"Comment": "returns whether given replica version is behind the current version or not.",
+	"Method": "boolean isStale(long[] newVersions,int replicaIndex){\r\n    int index = replicaIndex - 1;\r\n    long currentVersion = versions[index];\r\n    long newVersion = newVersions[index];\r\n    return currentVersion > newVersion;\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.partition.impl.MigrationManager.addCompletedMigration",
+	"Comment": "adds the migration to the set of completed migrations and increases the completed migration counter.acquires the partition service lock to update the migrations.",
+	"Method": "boolean addCompletedMigration(MigrationInfo migrationInfo){\r\n    if (migrationInfo.getStatus() != MigrationStatus.SUCCESS && migrationInfo.getStatus() != MigrationStatus.FAILED) {\r\n        throw new IllegalArgumentException(\"Migration doesn't seem completed: \" + migrationInfo);\r\n    }\r\n    partitionServiceLock.lock();\r\n    try {\r\n        boolean added = completedMigrations.add(migrationInfo);\r\n        if (added) {\r\n            completedMigrationCounter.incrementAndGet();\r\n        }\r\n        return added;\r\n    } finally {\r\n        partitionServiceLock.unlock();\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.map.impl.recordstore.DefaultRecordStore.readBackupData",
+	"Comment": "this method is called directly by user threads, in other wordsit is called outside of the partition threads.",
+	"Method": "Data readBackupData(Data key){\r\n    Record record = getRecord(key);\r\n    if (record == null) {\r\n        return null;\r\n    } else {\r\n        if (partitionService.isPartitionOwner(partitionId)) {\r\n            record.setLastAccessTime(Clock.currentTimeMillis());\r\n        }\r\n    }\r\n    Object value = record.getValue();\r\n    mapServiceContext.interceptAfterGet(name, value);\r\n    return mapServiceContext.toData(value);\r\n}"
+}, {
+	"Path": "com.hazelcast.monitor.impl.LocalIndexStatsImpl.setTotalUpdateLatency",
+	"Comment": "sets the total update latency of this stats to the given total updatelatency.",
+	"Method": "void setTotalUpdateLatency(long totalUpdateLatency){\r\n    this.totalUpdateLatency = totalUpdateLatency;\r\n}"
+}, {
+	"Path": "com.hazelcast.map.impl.querycache.subscriber.SubscriberAccumulator.isApplicable",
+	"Comment": "checks whether the event data is applicable to the query cache.",
+	"Method": "boolean isApplicable(QueryCacheEventData event){\r\n    if (!getInfo().isPublishable()) {\r\n        return false;\r\n    }\r\n    final int partitionId = event.getPartitionId();\r\n    if (isEndEvent(event)) {\r\n        sequenceProvider.reset(partitionId);\r\n        removeFromBrokenSequences(event);\r\n        return false;\r\n    }\r\n    if (isNextEvent(event)) {\r\n        long currentSequence = sequenceProvider.getSequence(partitionId);\r\n        sequenceProvider.compareAndSetSequence(currentSequence, event.getSequence(), partitionId);\r\n        removeFromBrokenSequences(event);\r\n        return true;\r\n    }\r\n    handleUnexpectedEvent(event);\r\n    return false;\r\n}"
+}, {
+	"Path": "com.hazelcast.ringbuffer.impl.operations.MergeOperation.getRingbufferConfig",
+	"Comment": "returns the ringbuffer config for the provided namespace. the namespaceprovides information whether the requested ringbuffer is a ringbufferthat the user is directly interacting with through a ringbuffer proxyor if this is a backing ringbuffer for an event journal.if a ringbuffer configuration for an event journal is requested, thismethod will expect the configuration for the relevant map or cacheto be available.",
+	"Method": "RingbufferConfig getRingbufferConfig(RingbufferService service,ObjectNamespace ns){\r\n    final String serviceName = ns.getServiceName();\r\n    if (RingbufferService.SERVICE_NAME.equals(serviceName)) {\r\n        return service.getRingbufferConfig(ns.getObjectName());\r\n    } else if (MapService.SERVICE_NAME.equals(serviceName)) {\r\n        MapService mapService = getNodeEngine().getService(MapService.SERVICE_NAME);\r\n        MapEventJournal journal = mapService.getMapServiceContext().getEventJournal();\r\n        EventJournalConfig journalConfig = journal.getEventJournalConfig(ns);\r\n        return journal.toRingbufferConfig(journalConfig, namespace);\r\n    } else if (CacheService.SERVICE_NAME.equals(serviceName)) {\r\n        CacheService cacheService = getNodeEngine().getService(CacheService.SERVICE_NAME);\r\n        CacheEventJournal journal = cacheService.getEventJournal();\r\n        EventJournalConfig journalConfig = journal.getEventJournalConfig(ns);\r\n        return journal.toRingbufferConfig(journalConfig, namespace);\r\n    } else {\r\n        throw new IllegalArgumentException(\"Unsupported ringbuffer service name: \" + serviceName);\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.map.impl.mapstore.writebehind.BoundedWriteBehindQueue.removeFirstOccurrence",
+	"Comment": "removes the first occurrence of the specified element in this queuewhen searching it by starting from the head of this queue.",
+	"Method": "boolean removeFirstOccurrence(E e){\r\n    boolean result = queue.removeFirstOccurrence(e);\r\n    if (result) {\r\n        addCapacity(-1);\r\n    }\r\n    return result;\r\n}"
+}, {
+	"Path": "com.hazelcast.map.impl.querycache.subscriber.operation.PublisherCreateOperation.replayEventsOverResultSet",
+	"Comment": "replay events over the result set of initial query. these events arereceived events during execution of the initial query.",
+	"Method": "void replayEventsOverResultSet(QueryResult queryResult){\r\n    Map<Integer, Future<Object>> future = readAccumulators();\r\n    for (Map.Entry<Integer, Future<Object>> entry : future.entrySet()) {\r\n        int partitionId = entry.getKey();\r\n        Object eventsInOneAcc = entry.getValue().get();\r\n        if (eventsInOneAcc == null) {\r\n            continue;\r\n        }\r\n        eventsInOneAcc = mapServiceContext.toObject(eventsInOneAcc);\r\n        List<QueryCacheEventData> eventDataList = (List<QueryCacheEventData>) eventsInOneAcc;\r\n        for (QueryCacheEventData eventData : eventDataList) {\r\n            if (eventData.getDataKey() == null) {\r\n                removePartitionResults(queryResult, partitionId);\r\n            } else {\r\n                add(queryResult, newQueryResultRow(eventData));\r\n            }\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.map.impl.recordstore.AbstractEvictableRecordStore.getOrNullIfExpired",
+	"Comment": "check if record is reachable according to ttl or idle times.if not reachable return null.",
+	"Method": "Record getOrNullIfExpired(Record record,long now,boolean backup){\r\n    if (!isRecordStoreExpirable()) {\r\n        return record;\r\n    }\r\n    if (record == null) {\r\n        return null;\r\n    }\r\n    Data key = record.getKey();\r\n    if (isLocked(key)) {\r\n        return record;\r\n    }\r\n    if (!isExpired(record, now, backup)) {\r\n        return record;\r\n    }\r\n    evict(key, backup);\r\n    if (!backup) {\r\n        doPostEvictionOperations(record);\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "com.hazelcast.query.impl.Indexes.saveEntryIndex",
+	"Comment": "inserts a new queryable entry into this indexes instance or updates theexisting one.",
+	"Method": "void saveEntryIndex(QueryableEntry queryableEntry,Object oldValue,Index.OperationSource operationSource){\r\n    InternalIndex[] indexes = getIndexes();\r\n    for (InternalIndex index : indexes) {\r\n        index.saveEntryIndex(queryableEntry, oldValue, operationSource);\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.util.hashslot.impl.HashSlotArrayBase.move",
+	"Comment": "copies a block from one allocator to another, then frees the source block.",
+	"Method": "long move(long fromBaseAddress,long capacity,MemoryAllocator fromMalloc,MemoryAllocator toMalloc){\r\n    final long allocatedSize = HEADER_SIZE + capacity * slotLength;\r\n    final long toBaseAddress = toMalloc.allocate(allocatedSize) + HEADER_SIZE;\r\n    mem.copyMemory(fromBaseAddress - HEADER_SIZE, toBaseAddress - HEADER_SIZE, allocatedSize);\r\n    fromMalloc.free(fromBaseAddress - HEADER_SIZE, allocatedSize);\r\n    return toBaseAddress;\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.partition.operation.MigrationRequestOperation.verifyMasterOnMigrationSource",
+	"Comment": "verifies that the local master is equal to the migration master.",
+	"Method": "void verifyMasterOnMigrationSource(){\r\n    NodeEngine nodeEngine = getNodeEngine();\r\n    Address masterAddress = nodeEngine.getMasterAddress();\r\n    if (!migrationInfo.getMaster().equals(masterAddress)) {\r\n        throw new IllegalStateException(\"Migration initiator is not master node! => \" + toString());\r\n    }\r\n    if (!masterAddress.equals(getCallerAddress())) {\r\n        throw new IllegalStateException(\"Caller is not master node! => \" + toString());\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.query.PagingPredicate.setAnchor",
+	"Comment": "after each query, an anchor entry is set for that page.the anchor entry is the last entry of the query.",
+	"Method": "void setAnchor(int page,Map.Entry anchor){\r\n    SimpleImmutableEntry anchorEntry = new SimpleImmutableEntry(page, anchor);\r\n    int anchorCount = anchorList.size();\r\n    if (page < anchorCount) {\r\n        anchorList.set(page, anchorEntry);\r\n    } else if (page == anchorCount) {\r\n        anchorList.add(anchorEntry);\r\n    } else {\r\n        throw new IllegalArgumentException(\"Anchor index is not correct, expected: \" + page + \" found: \" + anchorCount);\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.util.concurrent.MPSCQueue.setConsumerThread",
+	"Comment": "sets the consumer thread.the consumer thread is needed for blocking, so that an offering known which threadto wakeup. there can only be a single consumerthread and this method should be calledbefore the queue is safely published. it will not provide a happens before relation onits own.",
+	"Method": "void setConsumerThread(Thread consumerThread){\r\n    this.consumerThread = checkNotNull(consumerThread, \"consumerThread can't be null\");\r\n}"
+}, {
+	"Path": "com.hazelcast.spi.impl.AbstractInvocationFuture.warnIfSuspiciousDoubleCompletion",
+	"Comment": "received a response, but before it cleans up itself, it receives a hazelcastinstancenotactiveexception",
+	"Method": "void warnIfSuspiciousDoubleCompletion(Object s0,Object s1){\r\n    if (s0 != s1 && !(s0 instanceof CancellationException) && !(s1 instanceof CancellationException)) {\r\n        logger.warning(String.format(\"Future.complete(Object) on completed future. \" + \"Request: %s, current value: %s, offered value: %s\", invocationToString(), s0, s1));\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.map.impl.mapstore.writebehind.entry.AddedDelayedEntry.equals",
+	"Comment": "this method is used when we are cleaning processed instances of this class.caring only reference equality of objects because wanting exactly remove the same instanceotherwise this method should not cause any remove from staging area.",
+	"Method": "boolean equals(Object o){\r\n    return this == o;\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.serialization.impl.PortableUtils.validateAndGetArrayQuantifierFromCurrentToken",
+	"Comment": "extracts and validates the quantifier from the given path token",
+	"Method": "int validateAndGetArrayQuantifierFromCurrentToken(String token,String fullPath){\r\n    String quantifier = extractArgumentsFromAttributeName(token);\r\n    if (quantifier == null) {\r\n        throw new IllegalArgumentException(\"Malformed quantifier in \" + fullPath);\r\n    }\r\n    int index = Integer.parseInt(quantifier);\r\n    if (index < 0) {\r\n        throw new IllegalArgumentException(\"Array index \" + index + \" cannot be negative in \" + fullPath);\r\n    }\r\n    return index;\r\n}"
+}, {
+	"Path": "com.hazelcast.monitor.impl.LocalMapStatsImpl.setIndexedQueryCount",
+	"Comment": "sets the indexed query count of this stats to the given indexed querycount value.",
+	"Method": "void setIndexedQueryCount(long indexedQueryCount){\r\n    this.indexedQueryCount = indexedQueryCount;\r\n}"
+}, {
+	"Path": "com.hazelcast.nio.tcp.TcpIpConnectionManager.transmit",
+	"Comment": "retries sending packet maximum 5 times until connection to target becomes available.",
+	"Method": "boolean transmit(Packet packet,Connection connection,boolean transmit,Packet packet,Address target){\r\n    checkNotNull(packet, \"Packet can't be null\");\r\n    checkNotNull(target, \"target can't be null\");\r\n    return send(packet, target, null);\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.partition.impl.PartitionReplicaFragmentVersions.update",
+	"Comment": "updates replica version if it is newer than current version. otherwise has no effect.marks versions as dirty if version increase is not incremental.",
+	"Method": "boolean update(long[] newVersions,int replicaIndex){\r\n    int index = replicaIndex - 1;\r\n    long currentVersion = versions[index];\r\n    long nextVersion = newVersions[index];\r\n    if (currentVersion < nextVersion) {\r\n        setVersions(newVersions, replicaIndex);\r\n        dirty = dirty || (nextVersion - currentVersion > 1);\r\n    }\r\n    return !dirty;\r\n}"
+}, {
+	"Path": "com.hazelcast.monitor.impl.LocalIndexStatsImpl.setAverageHitLatency",
+	"Comment": "sets the average hit latency of this stats to the given average hitlatency.",
+	"Method": "void setAverageHitLatency(long averageHitLatency){\r\n    this.averageHitLatency = averageHitLatency;\r\n}"
+}, {
+	"Path": "com.hazelcast.map.impl.LocalMapStatsProvider.addStatsOfNoDataIncludedMaps",
+	"Comment": "some maps may have a proxy but no data has been put yet. think of one created a proxy but not put any data in it.by calling this method we are returning an empty stats object for those maps. this is helpful to monitor those kindof maps.",
+	"Method": "void addStatsOfNoDataIncludedMaps(Map statsPerMap){\r\n    ProxyService proxyService = nodeEngine.getProxyService();\r\n    Collection<String> mapNames = proxyService.getDistributedObjectNames(SERVICE_NAME);\r\n    for (String mapName : mapNames) {\r\n        if (!statsPerMap.containsKey(mapName)) {\r\n            statsPerMap.put(mapName, EMPTY_LOCAL_MAP_STATS);\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.serialization.impl.PortableNavigatorContext.initFinalPositionAndOffset",
+	"Comment": "initialises the finalposition and offset and validates the fieldcount against the given class definition",
+	"Method": "void initFinalPositionAndOffset(BufferObjectDataInput in,ClassDefinition cd){\r\n    int fieldCount;\r\n    try {\r\n        finalPosition = in.readInt();\r\n        fieldCount = in.readInt();\r\n    } catch (IOException e) {\r\n        throw new HazelcastSerializationException(e);\r\n    }\r\n    if (fieldCount != cd.getFieldCount()) {\r\n        throw new IllegalStateException(\"Field count[\" + fieldCount + \"] in stream does not match \" + cd);\r\n    }\r\n    offset = in.position();\r\n}"
+}, {
+	"Path": "com.hazelcast.spi.impl.eventservice.impl.EventServiceSegment.removeRegistrations",
+	"Comment": "removes all registrations for the specified topic and notifies the listeners andservice of the listener deregistrations.",
+	"Method": "void removeRegistrations(String topic){\r\n    Collection<Registration> all = registrations.remove(topic);\r\n    if (all == null) {\r\n        return;\r\n    }\r\n    for (Registration reg : all) {\r\n        registrationIdMap.remove(reg.getId());\r\n        pingNotifiableEventListener(topic, reg, false);\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.util.concurrent.ConcurrentConveyor.drainTo",
+	"Comment": "drains a batch of items from the queue at the supplied index into thesupplied collection.",
+	"Method": "int drainTo(Collection<? super E> drain,int drainTo,int queueIndex,Collection<? super E> drain,int drainTo,Collection<? super E> drain,int limit,int drainTo,int queueIndex,Collection<? super E> drain,int limit){\r\n    return drain(queues[queueIndex], drain, limit);\r\n}"
+}, {
+	"Path": "com.hazelcast.map.impl.querycache.subscriber.DefaultQueryCache.isTryRecoverSucceeded",
+	"Comment": "this tries to reset cursor position of the accumulator to the supplied sequence,if that sequence is still there, it will be succeeded, otherwise query cache content stays inconsistent.",
+	"Method": "boolean isTryRecoverSucceeded(ConcurrentMap<Integer, Long> brokenSequences){\r\n    int numberOfBrokenSequences = brokenSequences.size();\r\n    InvokerWrapper invokerWrapper = context.getInvokerWrapper();\r\n    SubscriberContext subscriberContext = context.getSubscriberContext();\r\n    SubscriberContextSupport subscriberContextSupport = subscriberContext.getSubscriberContextSupport();\r\n    List<Future<Object>> futures = new ArrayList<Future<Object>>(numberOfBrokenSequences);\r\n    for (Map.Entry<Integer, Long> entry : brokenSequences.entrySet()) {\r\n        Integer partitionId = entry.getKey();\r\n        Long sequence = entry.getValue();\r\n        Object recoveryOperation = subscriberContextSupport.createRecoveryOperation(mapName, cacheId, sequence, partitionId);\r\n        Future<Object> future = (Future<Object>) invokerWrapper.invokeOnPartitionOwner(recoveryOperation, partitionId);\r\n        futures.add(future);\r\n    }\r\n    Collection<Object> results = FutureUtil.returnWithDeadline(futures, 1, MINUTES);\r\n    int successCount = 0;\r\n    for (Object object : results) {\r\n        Boolean resolvedResponse = subscriberContextSupport.resolveResponseForRecoveryOperation(object);\r\n        if (TRUE.equals(resolvedResponse)) {\r\n            successCount++;\r\n        }\r\n    }\r\n    return successCount == numberOfBrokenSequences;\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.util.concurrent.ConcurrentConveyor.drainerFailed",
+	"Comment": "called by the drainer thread to signal that it has failed and will drainno more items from the queue.",
+	"Method": "void drainerFailed(Throwable t){\r\n    if (t == null) {\r\n        throw new NullPointerException(\"ConcurrentConveyor.drainerFailed(null)\");\r\n    }\r\n    drainer = null;\r\n    drainerDepartureCause = t;\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.serialization.impl.VersionedObjectDataInput.getVersion",
+	"Comment": "if the serializer supports versioning it may set the version to use for the serialization on this object.this method makes the version available for the user.",
+	"Method": "Version getVersion(){\r\n    return version;\r\n}"
+}, {
+	"Path": "com.hazelcast.monitor.impl.LocalIndexStatsImpl.setTotalRemoveLatency",
+	"Comment": "sets the total remove latency of this stats to the given total removelatency.",
+	"Method": "void setTotalRemoveLatency(long totalRemoveLatency){\r\n    this.totalRemoveLatency = totalRemoveLatency;\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.serialization.impl.VersionedObjectDataOutput.getVersion",
+	"Comment": "if the serializer supports versioning it may set the version to use for the serialization on this object.this method makes the version available for the user.",
+	"Method": "Version getVersion(){\r\n    return version;\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.partition.impl.PartitionStateManager.removeUnknownAddresses",
+	"Comment": "checks all replicas for all partitions. if the cluster service does not contain the member for anyaddress in the partition table, it will remove the address from the partition.",
+	"Method": "void removeUnknownAddresses(){\r\n    ClusterServiceImpl clusterService = node.getClusterService();\r\n    for (InternalPartitionImpl partition : partitions) {\r\n        for (int i = 0; i < InternalPartition.MAX_REPLICA_COUNT; i++) {\r\n            Address address = partition.getReplicaAddress(i);\r\n            if (address == null) {\r\n                continue;\r\n            }\r\n            MemberImpl member = clusterService.getMember(address);\r\n            if (member == null) {\r\n                partition.setReplicaAddress(i, null);\r\n                if (logger.isFinestEnabled()) {\r\n                    logger.finest(\"PartitionId=\" + partition.getPartitionId() + \" \" + address + \" is removed from replica index: \" + i + \", partition: \" + partition);\r\n                }\r\n            }\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.map.impl.recordstore.BasicRecordStoreLoader.getLoadBatchSize",
+	"Comment": "returns the size of the key batch for which values are loaded.each partition may load this many values at any moment independentlyof other value loading tasks on other partitions.",
+	"Method": "int getLoadBatchSize(){\r\n    return mapServiceContext.getNodeEngine().getProperties().getInteger(GroupProperty.MAP_LOAD_CHUNK_SIZE);\r\n}"
+}, {
+	"Path": "com.hazelcast.query.impl.QueryableEntry.extractAttributeType",
+	"Comment": "optimization of the extractattributetype that accepts extracted attribute value to skip double extraction.",
+	"Method": "AttributeType extractAttributeType(String attributeName,AttributeType extractAttributeType,String attributeName,Object attributeValue,AttributeType extractAttributeType,Object attributeValue){\r\n    if (attributeValue instanceof MultiResult) {\r\n        return extractAttributeTypeFromMultiResult((MultiResult) attributeValue);\r\n    } else {\r\n        return extractAttributeTypeFromSingleResult(attributeValue);\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.map.impl.recordstore.AbstractEvictableRecordStore.getMaxIterationCount",
+	"Comment": "intended to put an upper bound to iterations. used in evictions.",
+	"Method": "int getMaxIterationCount(int size,int percentage){\r\n    final int defaultMaxIterationCount = 100;\r\n    final float oneHundred = 100F;\r\n    float maxIterationCount = size * (percentage / oneHundred);\r\n    if (maxIterationCount <= defaultMaxIterationCount) {\r\n        return defaultMaxIterationCount;\r\n    }\r\n    return Math.round(maxIterationCount);\r\n}"
+}, {
+	"Path": "com.hazelcast.map.impl.MapKeyLoader.sendBatch",
+	"Comment": "sends the key batches to the partition owners for value loading.the returned futures represent pending offloading of the value loading on thepartition owner. this means that once the partition owner receives the keys,it will offload the value loading task and return immediately, thus completingthe future. the future does not mean the value loading tasks have been completedor that the entries have been loaded and put into the record store.",
+	"Method": "List<Future> sendBatch(Map<Integer, List<Data>> batch,boolean replaceExistingValues){\r\n    Set<Entry<Integer, List<Data>>> entries = batch.entrySet();\r\n    List<Future> futures = new ArrayList<Future>(entries.size());\r\n    for (Entry<Integer, List<Data>> e : entries) {\r\n        int partitionId = e.getKey();\r\n        List<Data> keys = e.getValue();\r\n        MapOperation op = operationProvider.createLoadAllOperation(mapName, keys, replaceExistingValues);\r\n        InternalCompletableFuture<Object> future = opService.invokeOnPartition(SERVICE_NAME, op, partitionId);\r\n        futures.add(future);\r\n    }\r\n    return futures;\r\n}"
+}, {
+	"Path": "com.hazelcast.spi.impl.operationservice.impl.OperationServiceImpl.shutdownInvocations",
+	"Comment": "shuts down invocation infrastructure.new invocation requests will be rejected after shutdown and all pending invocationswill be notified with a failure response.",
+	"Method": "void shutdownInvocations(){\r\n    logger.finest(\"Shutting down invocations\");\r\n    invocationRegistry.shutdown();\r\n    invocationMonitor.shutdown();\r\n    inboundResponseHandlerSupplier.shutdown();\r\n    try {\r\n        invocationMonitor.awaitTermination(TERMINATION_TIMEOUT_MILLIS);\r\n    } catch (InterruptedException e) {\r\n        Thread.currentThread().interrupt();\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.serialization.impl.PortablePositionFactory.nilNotLeafPosition",
+	"Comment": "convenience for reusing practically immutable nil or positions without extra allocation",
+	"Method": "PortablePosition nilNotLeafPosition(){\r\n    return NIL_NOT_LEAF;\r\n}"
+}, {
+	"Path": "com.hazelcast.map.impl.mapstore.writebehind.SynchronizedWriteBehindQueue.removeFirstOccurrence",
+	"Comment": "removes the first occurrence of the specified element in this queuewhen searching it by starting from the head of this queue.",
+	"Method": "boolean removeFirstOccurrence(E e){\r\n    synchronized (mutex) {\r\n        return queue.removeFirstOccurrence(e);\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.partition.operation.BaseMigrationOperation.verifyPartitionStateVersion",
+	"Comment": "verifies that the sent partition state version matches the local version or this node is master.",
+	"Method": "void verifyPartitionStateVersion(){\r\n    InternalPartitionService partitionService = getService();\r\n    int localPartitionStateVersion = partitionService.getPartitionStateVersion();\r\n    if (partitionStateVersion != localPartitionStateVersion) {\r\n        if (getNodeEngine().getThisAddress().equals(migrationInfo.getMaster())) {\r\n            return;\r\n        }\r\n        throw new PartitionStateVersionMismatchException(partitionStateVersion, localPartitionStateVersion);\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.map.impl.mapstore.writebehind.CoalescedWriteBehindQueue.removeFirstOccurrence",
+	"Comment": "removes the first occurrence of the specified element in this queuewhen searching it by starting from the head of this queue.",
+	"Method": "boolean removeFirstOccurrence(DelayedEntry incoming){\r\n    Data incomingKey = (Data) incoming.getKey();\r\n    Object incomingValue = incoming.getValue();\r\n    DelayedEntry current = map.get(incomingKey);\r\n    if (current == null) {\r\n        return false;\r\n    }\r\n    Object currentValue = current.getValue();\r\n    if (incomingValue == null && currentValue == null || incomingValue != null && currentValue != null && incomingValue.equals(currentValue)) {\r\n        map.remove(incomingKey);\r\n        return true;\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "com.hazelcast.monitor.impl.LocalMapStatsImpl.setQueryCount",
+	"Comment": "sets the query count of this stats to the given query count value.",
+	"Method": "void setQueryCount(long queryCount){\r\n    this.queryCount = queryCount;\r\n}"
+}, {
+	"Path": "com.hazelcast.ringbuffer.impl.RingbufferContainer.remainingCapacity",
+	"Comment": "returns the remaining capacity of the ring buffer. if ttl is enabled, then the returned capacity is equal to thetotal capacity of the ringbuffer minus the number of used slots in the ringbuffer which have not yet been marked asexpired and cleaned up. keep in mind that some slots could have expired items that have not yet been cleaned up andthat the returned value could be stale as soon as it is returned.if ttl is disabled, the remaining capacity is equal to the total ringbuffer capacity.",
+	"Method": "long remainingCapacity(){\r\n    if (expirationPolicy != null) {\r\n        return ringbuffer.getCapacity() - size();\r\n    }\r\n    return ringbuffer.getCapacity();\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.serialization.impl.VersionedObjectDataOutput.setVersion",
+	"Comment": "if the serializer supports versioning it may set the version to use for the serialization on this object.",
+	"Method": "void setVersion(Version version){\r\n    this.version = version;\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.serialization.impl.PortablePositionNavigator.navigateContextToNextPortableTokenFromPortableArrayCell",
+	"Comment": "this navigation always succeeds since the caller validates if the index is inbound",
+	"Method": "void navigateContextToNextPortableTokenFromPortableArrayCell(PortableNavigatorContext ctx,PortablePathCursor path,int index){\r\n    BufferObjectDataInput in = ctx.getIn();\r\n    int pos = getStreamPositionOfTheField(ctx);\r\n    in.position(pos);\r\n    in.readInt();\r\n    int factoryId = in.readInt();\r\n    int classId = in.readInt();\r\n    validateFactoryAndClass(ctx.getCurrentFieldDefinition(), factoryId, classId, path.path());\r\n    final int cellOffset = in.position() + index * Bits.INT_SIZE_IN_BYTES;\r\n    in.position(cellOffset);\r\n    int portablePosition = in.readInt();\r\n    in.position(portablePosition);\r\n    int versionId = in.readInt();\r\n    ctx.advanceContextToNextPortableToken(factoryId, classId, versionId);\r\n}"
+}, {
+	"Path": "com.hazelcast.monitor.impl.LocalIndexStatsImpl.setRemoveCount",
+	"Comment": "sets the remove count of this stats to the given remove count.",
+	"Method": "void setRemoveCount(long removeCount){\r\n    this.removeCount = removeCount;\r\n}"
+}, {
+	"Path": "com.hazelcast.query.Predicates.alwaysFalse",
+	"Comment": "creates an always false predicate that will filter out all items.",
+	"Method": "Predicate<K, V> alwaysFalse(){\r\n    return new FalsePredicate();\r\n}"
+}, {
+	"Path": "com.hazelcast.quorum.QuorumEvent.getCurrentMembers",
+	"Comment": "returns the snapshot of member list at the time quorum happened",
+	"Method": "Collection<Member> getCurrentMembers(){\r\n    return currentMembers;\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.serialization.impl.PortablePositionFactory.emptyAnyPosition",
+	"Comment": "convenience for reusing practically immutable nil or positions without extra allocation",
+	"Method": "PortablePosition emptyAnyPosition(boolean lastToken){\r\n    return lastToken ? EMPTY_LEAF_ANY : EMPTY_NOT_LEAF_ANY;\r\n}"
+}, {
+	"Path": "com.hazelcast.map.impl.operation.EvictBatchBackupOperation.equalizeEntryCountWithPrimary",
+	"Comment": "equalizes backup entry count with primary in order to have identicalmemory occupancy.if eviction configured for this map, equalize entry count by usingevictor, otherwise, sample entries and evict them from this backupreplica.",
+	"Method": "void equalizeEntryCountWithPrimary(){\r\n    int diff = recordStore.size() - primaryEntryCount;\r\n    if (diff <= 0) {\r\n        return;\r\n    }\r\n    Evictor evictor = mapContainer.getEvictor();\r\n    if (evictor != Evictor.NULL_EVICTOR) {\r\n        for (int i = 0; i < diff; i++) {\r\n            evictor.evict(recordStore, null);\r\n        }\r\n    } else {\r\n        Queue<Data> keysToRemove = new LinkedList<Data>();\r\n        Iterable<LazyEntryViewFromRecord> sample = recordStore.getStorage().getRandomSamples(diff);\r\n        for (LazyEntryViewFromRecord entryViewFromRecord : sample) {\r\n            Data dataKey = entryViewFromRecord.getRecord().getKey();\r\n            keysToRemove.add(dataKey);\r\n        }\r\n        Data dataKey;\r\n        while ((dataKey = keysToRemove.poll()) != null) {\r\n            recordStore.evict(dataKey, true);\r\n        }\r\n    }\r\n    assert recordStore.size() == primaryEntryCount : String.format(\"Failed\" + \" to remove %d entries while attempting to match\" + \" primary entry count %d,\" + \" recordStore size is now %d\", diff, primaryEntryCount, recordStore.size());\r\n}"
+}, {
+	"Path": "com.hazelcast.monitor.impl.LocalIndexStatsImpl.setAverageHitSelectivity",
+	"Comment": "sets the average hit selectivity of this stats to the given average hitselectivity.",
+	"Method": "void setAverageHitSelectivity(double averageHitSelectivity){\r\n    this.averageHitSelectivity = averageHitSelectivity;\r\n}"
+}, {
+	"Path": "com.hazelcast.ringbuffer.impl.RingbufferContainer.set",
+	"Comment": "sets the item at the given sequence id and updates the expiration time if ttl is configured.unlike other methods for adding items into the ring buffer, does not attempt to store theitem in the data store. this method expands the ring buffer tail and head sequence toaccommodate for the sequence. this means that it will move the head or tail sequence tothe target sequence if the target sequence is less than the head sequence or greater than the tail sequence.",
+	"Method": "void set(long sequenceId,T item){\r\n    final E rbItem = convertToRingbufferFormat(item);\r\n    ringbuffer.set(sequenceId, rbItem);\r\n    if (sequenceId > tailSequence()) {\r\n        ringbuffer.setTailSequence(sequenceId);\r\n        if (ringbuffer.size() > ringbuffer.getCapacity()) {\r\n            ringbuffer.setHeadSequence(ringbuffer.tailSequence() - ringbuffer.getCapacity() + 1);\r\n        }\r\n    }\r\n    if (sequenceId < headSequence()) {\r\n        ringbuffer.setHeadSequence(sequenceId);\r\n    }\r\n    if (expirationPolicy != null) {\r\n        expirationPolicy.setExpirationAt(sequenceId);\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.ringbuffer.impl.RingbufferContainer.readAsData",
+	"Comment": "reads one item from the ring buffer and returns the serialized format.if the item is not available, it will try and load it from the ringbuffer store.if the stored format is already serialized, there is no serialization.",
+	"Method": "Data readAsData(long sequence){\r\n    checkReadSequence(sequence);\r\n    Object rbItem = readOrLoadItem(sequence);\r\n    return serializationService.toData(rbItem);\r\n}"
+}, {
+	"Path": "com.hazelcast.map.impl.recordstore.DefaultRecordStore.replace",
+	"Comment": "todo why does not replace method load data from map store if currently not available in memory.",
+	"Method": "Object replace(Data key,Object update,boolean replace,Data key,Object expect,Object update){\r\n    checkIfLoaded();\r\n    long now = getNow();\r\n    Record record = getRecordOrNull(key, now, false);\r\n    if (record == null) {\r\n        return false;\r\n    }\r\n    Object current = record.getValue();\r\n    if (!valueComparator.isEqual(expect, current, serializationService)) {\r\n        return false;\r\n    }\r\n    update = mapServiceContext.interceptPut(name, current, update);\r\n    update = mapDataStore.add(key, update, now);\r\n    onStore(record);\r\n    updateRecord(key, record, update, now, true);\r\n    setExpirationTimes(record.getTtl(), record.getMaxIdle(), record, mapContainer.getMapConfig(), false);\r\n    saveIndex(record, current);\r\n    return true;\r\n}"
+}, {
+	"Path": "com.hazelcast.spi.impl.operationexecutor.OperationRunner.getPartitionId",
+	"Comment": "returns the partitionid this operationrunner is responsible for. ifthe partition id is smaller than 0, it is either a generic or ad hocoperationrunner.the value will never change for this operationrunner instance.",
+	"Method": "int getPartitionId(){\r\n    return partitionId;\r\n}"
+}, {
+	"Path": "com.hazelcast.nio.tcp.TcpIpConnectionManager.bind",
+	"Comment": "binding completes the connection and makes it available to be used with the connectionmanager.",
+	"Method": "boolean bind(TcpIpConnection connection,Address remoteEndPoint,Address localEndpoint,boolean reply){\r\n    if (logger.isFinestEnabled()) {\r\n        logger.finest(\"Binding \" + connection + \" to \" + remoteEndPoint + \", reply is \" + reply);\r\n    }\r\n    final Address thisAddress = ioService.getThisAddress();\r\n    if (spoofingChecks && (!ensureValidBindSource(connection, remoteEndPoint) || !ensureBindNotFromSelf(connection, remoteEndPoint, thisAddress))) {\r\n        return false;\r\n    }\r\n    if (!ensureValidBindTarget(connection, remoteEndPoint, localEndpoint, thisAddress)) {\r\n        return false;\r\n    }\r\n    connection.setEndPoint(remoteEndPoint);\r\n    ioService.onSuccessfulConnection(remoteEndPoint);\r\n    if (reply) {\r\n        sendBindRequest(connection, remoteEndPoint, false);\r\n    }\r\n    if (checkAlreadyConnected(connection, remoteEndPoint)) {\r\n        return false;\r\n    }\r\n    return registerConnection(remoteEndPoint, connection);\r\n}"
+}, {
+	"Path": "com.hazelcast.query.impl.predicates.OrPredicate.setPredicates",
+	"Comment": "visitable predicates are treated as effectively immutable, therefore callers should not make any changes tothe array passed as argument after is has been set.",
+	"Method": "void setPredicates(Predicate<K, V>[] predicates){\r\n    if (this.predicates == null) {\r\n        this.predicates = predicates;\r\n    } else {\r\n        throw new IllegalStateException(\"Cannot reset predicates in an OrPredicate after they have been already set.\");\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.nio.Packet.raiseFlags",
+	"Comment": "raises all the flags raised in the argument. does not lower any flags.",
+	"Method": "Packet raiseFlags(int flagsToRaise){\r\n    flags |= flagsToRaise;\r\n    return this;\r\n}"
+}, {
+	"Path": "com.hazelcast.monitor.impl.LocalIndexStatsImpl.setInsertCount",
+	"Comment": "sets the insert count of this stats to the given insert count.",
+	"Method": "void setInsertCount(long insertCount){\r\n    this.insertCount = insertCount;\r\n}"
+}, {
+	"Path": "com.hazelcast.monitor.impl.LocalIndexStatsImpl.setMemoryCost",
+	"Comment": "sets the memory cost of this stats to the given memory cost value.",
+	"Method": "void setMemoryCost(long memoryCost){\r\n    this.memoryCost = memoryCost;\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.util.hashslot.impl.HashSlotArrayBase.resizeTo",
+	"Comment": "allocates a new slot array with the requested size and moves all theassigned slots from the current array into the new one.",
+	"Method": "void resizeTo(long newCapacity){\r\n    final long oldCapacity = capacity();\r\n    final long oldAllocatedSize = HEADER_SIZE + oldCapacity * slotLength;\r\n    final MemoryAllocator oldMalloc;\r\n    final long oldAddress;\r\n    if (auxMalloc != null) {\r\n        final long size = size();\r\n        oldAddress = move(baseAddress, oldCapacity, malloc, auxMalloc);\r\n        oldMalloc = auxMalloc;\r\n        auxAllocateAndAdjustFields(oldAddress, size, oldCapacity, newCapacity);\r\n    } else {\r\n        oldMalloc = malloc;\r\n        oldAddress = baseAddress;\r\n        allocateArrayAndAdjustFields(size(), newCapacity);\r\n    }\r\n    rehash(oldCapacity, oldAddress);\r\n    oldMalloc.free(oldAddress - HEADER_SIZE, oldAllocatedSize);\r\n}"
+}, {
+	"Path": "com.hazelcast.query.impl.predicates.OrPredicate.getPredicates",
+	"Comment": "visitable predicates are treated as effectively immutable, therefore callers should not make any changes tothe returned array.",
+	"Method": "Predicate<K, V>[] getPredicates(){\r\n    return predicates;\r\n}"
+}, {
+	"Path": "com.hazelcast.monitor.impl.LocalIndexStatsImpl.setUpdateCount",
+	"Comment": "sets the update count of this stats to the given update count.",
+	"Method": "void setUpdateCount(long updateCount){\r\n    this.updateCount = updateCount;\r\n}"
+}, {
+	"Path": "com.hazelcast.map.impl.querycache.subscriber.operation.PublisherCreateOperation.removePartitionResults",
+	"Comment": "remove matching entries from given result set with the givenpartition id.",
+	"Method": "void removePartitionResults(QueryResult queryResult,int partitionId){\r\n    List<QueryResultRow> rows = queryResult.getRows();\r\n    Iterator<QueryResultRow> iterator = rows.iterator();\r\n    while (iterator.hasNext()) {\r\n        QueryResultRow resultRow = iterator.next();\r\n        if (getPartitionId(resultRow) == partitionId) {\r\n            iterator.remove();\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.networking.nio.NioThread.addTaskAndWakeup",
+	"Comment": "adds a task to be executed by the niothread and wakes up the selector so that it willeventually pick up the task.",
+	"Method": "void addTaskAndWakeup(Runnable task){\r\n    taskQueue.add(task);\r\n    if (selectMode != SELECT_NOW) {\r\n        selector.wakeup();\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.map.impl.operation.RemoveFromLoadAllOperation.removeExistingKeys",
+	"Comment": "removes keys from the provided collection whichare contained in the partition record store.",
+	"Method": "void removeExistingKeys(Collection<Data> keys){\r\n    if (keys == null || keys.isEmpty()) {\r\n        return;\r\n    }\r\n    Storage storage = recordStore.getStorage();\r\n    Iterator<Data> iterator = keys.iterator();\r\n    while (iterator.hasNext()) {\r\n        Data key = iterator.next();\r\n        if (storage.containsKey(key)) {\r\n            iterator.remove();\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.partition.impl.MigrationManager.getCompletedMigrationsCopy",
+	"Comment": "returns a copy of the list of completed migrations. runs under the partition service lock.",
+	"Method": "List<MigrationInfo> getCompletedMigrationsCopy(){\r\n    partitionServiceLock.lock();\r\n    try {\r\n        return new ArrayList<MigrationInfo>(completedMigrations);\r\n    } finally {\r\n        partitionServiceLock.unlock();\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.map.impl.MapContainer.checkWanReplicationQueues",
+	"Comment": "checks if wan replication is enabled and if the wan queues have reached their capacity.",
+	"Method": "void checkWanReplicationQueues(){\r\n    if (isWanReplicationEnabled()) {\r\n        wanReplicationPublisher.checkWanReplicationQueues();\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.partition.PartitionRuntimeState.createAddressToIndexMap",
+	"Comment": "create a map from address to the replica index on the first partition where the address is a replica",
+	"Method": "Map<Address, Integer> createAddressToIndexMap(InternalPartition[] partitions){\r\n    Map<Address, Integer> map = new HashMap<Address, Integer>();\r\n    int addressIndex = 0;\r\n    for (InternalPartition partition : partitions) {\r\n        for (int i = 0; i < MAX_REPLICA_COUNT; i++) {\r\n            Address address = partition.getReplicaAddress(i);\r\n            if (address == null) {\r\n                continue;\r\n            }\r\n            if (map.containsKey(address)) {\r\n                continue;\r\n            }\r\n            map.put(address, addressIndex++);\r\n        }\r\n    }\r\n    return map;\r\n}"
+}, {
+	"Path": "com.hazelcast.map.impl.proxy.MapProxySupport.loadInternal",
+	"Comment": "maps keys to corresponding partitions and sends operations to them.",
+	"Method": "void loadInternal(Set<K> keys,Iterable<Data> dataKeys,boolean replaceExistingValues){\r\n    if (dataKeys == null) {\r\n        dataKeys = convertToData(keys);\r\n    }\r\n    Map<Integer, List<Data>> partitionIdToKeys = getPartitionIdToKeysMap(dataKeys);\r\n    Iterable<Entry<Integer, List<Data>>> entries = partitionIdToKeys.entrySet();\r\n    for (Entry<Integer, List<Data>> entry : entries) {\r\n        Integer partitionId = entry.getKey();\r\n        List<Data> correspondingKeys = entry.getValue();\r\n        Operation operation = createLoadAllOperation(correspondingKeys, replaceExistingValues);\r\n        operationService.invokeOnPartition(SERVICE_NAME, operation, partitionId);\r\n    }\r\n    waitUntilLoaded();\r\n}"
+}, {
+	"Path": "com.hazelcast.map.impl.MapKeyLoader.loadingFinishedCallback",
+	"Comment": "returns an execution callback to notify the record store for this mapkey loader that the key loading has finished.",
+	"Method": "ExecutionCallback<Boolean> loadingFinishedCallback(){\r\n    return new ExecutionCallback<Boolean>() {\r\n        @Override\r\n        public void onResponse(Boolean loadingFinished) {\r\n            if (loadingFinished) {\r\n                updateLocalKeyLoadStatus(null);\r\n            }\r\n        }\r\n        @Override\r\n        public void onFailure(Throwable t) {\r\n            updateLocalKeyLoadStatus(t);\r\n        }\r\n    };\r\n}"
+}, {
+	"Path": "com.hazelcast.map.impl.MapKeyLoader.loadingFinishedCallback",
+	"Comment": "returns an execution callback to notify the record store for this mapkey loader that the key loading has finished.",
+	"Method": "ExecutionCallback<Boolean> loadingFinishedCallback(){\r\n    if (loadingFinished) {\r\n        updateLocalKeyLoadStatus(null);\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.map.impl.MapKeyLoader.loadingFinishedCallback",
+	"Comment": "returns an execution callback to notify the record store for this mapkey loader that the key loading has finished.",
+	"Method": "ExecutionCallback<Boolean> loadingFinishedCallback(){\r\n    updateLocalKeyLoadStatus(t);\r\n}"
+}, {
+	"Path": "com.hazelcast.spi.impl.CountingMigrationAwareService.isPrimaryReplicaMigrationEvent",
+	"Comment": "returns whether event involves primary replica migration.",
+	"Method": "boolean isPrimaryReplicaMigrationEvent(PartitionMigrationEvent event){\r\n    return (event.getCurrentReplicaIndex() == PRIMARY_REPLICA_INDEX || event.getNewReplicaIndex() == PRIMARY_REPLICA_INDEX);\r\n}"
+}, {
+	"Path": "com.hazelcast.map.impl.mapstore.writebehind.CyclicWriteBehindQueue.drainTo",
+	"Comment": "removes all available elements from this queue and adds themto the given collection.",
+	"Method": "int drainTo(Collection<DelayedEntry> collection){\r\n    checkNotNull(collection, \"collection can not be null\");\r\n    Iterator<DelayedEntry> iterator = deque.iterator();\r\n    while (iterator.hasNext()) {\r\n        DelayedEntry e = iterator.next();\r\n        collection.add(e);\r\n        iterator.remove();\r\n    }\r\n    resetCountIndex();\r\n    return collection.size();\r\n}"
+}, {
+	"Path": "com.hazelcast.map.impl.event.DefaultEntryEventFilteringStrategy.doFilter",
+	"Comment": "provides the default backwards compatible filtering strategy implementation.",
+	"Method": "int doFilter(EventFilter filter,Data dataKey,Object dataOldValue,Object dataValue,EntryEventType eventType,String mapNameOrNull){\r\n    if (filter instanceof MapPartitionLostEventFilter) {\r\n        return FILTER_DOES_NOT_MATCH;\r\n    }\r\n    if (filter instanceof EventListenerFilter) {\r\n        if (!filter.eval(eventType.getType())) {\r\n            return FILTER_DOES_NOT_MATCH;\r\n        } else {\r\n            filter = ((EventListenerFilter) filter).getEventFilter();\r\n        }\r\n    }\r\n    if (filter instanceof TrueEventFilter) {\r\n        return eventType.getType();\r\n    }\r\n    if (filter instanceof QueryEventFilter) {\r\n        return processQueryEventFilter(filter, eventType, dataKey, dataOldValue, dataValue, mapNameOrNull) ? eventType.getType() : FILTER_DOES_NOT_MATCH;\r\n    }\r\n    if (filter instanceof EntryEventFilter) {\r\n        return processEntryEventFilter(filter, dataKey) ? eventType.getType() : FILTER_DOES_NOT_MATCH;\r\n    }\r\n    throw new IllegalArgumentException(\"Unknown EventFilter type = [\" + filter.getClass().getCanonicalName() + \"]\");\r\n}"
+}, {
+	"Path": "com.hazelcast.map.impl.record.ObjectRecord.getCost",
+	"Comment": "as there is no easy way to calculate the size of object cost is not implemented for objectrecord",
+	"Method": "long getCost(){\r\n    return 0L;\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.serialization.impl.PortableNavigatorContext.advanceContextToGivenFrame",
+	"Comment": "sets up the stream for the given frame which contains all info required to change to context for a given field.",
+	"Method": "void advanceContextToGivenFrame(NavigationFrame frame){\r\n    in.position(frame.streamPosition);\r\n    offset = frame.streamOffset;\r\n    cd = frame.cd;\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.partition.impl.InternalPartitionServiceImpl.publishPartitionRuntimeState",
+	"Comment": "called on the master node to publish the current partition state to all cluster nodes. it will not publish the partitionstate if the partitions have not yet been initialized, there is ongoing repartitioning or a node is joining the cluster.",
+	"Method": "void publishPartitionRuntimeState(){\r\n    if (!partitionStateManager.isInitialized()) {\r\n        return;\r\n    }\r\n    if (!node.isMaster()) {\r\n        return;\r\n    }\r\n    if (!areMigrationTasksAllowed()) {\r\n        return;\r\n    }\r\n    PartitionRuntimeState partitionState = createPartitionStateInternal();\r\n    if (partitionState == null) {\r\n        return;\r\n    }\r\n    if (logger.isFineEnabled()) {\r\n        logger.fine(\"Publishing partition state, version: \" + partitionState.getVersion());\r\n    }\r\n    PartitionStateOperation op = new PartitionStateOperation(partitionState);\r\n    OperationService operationService = nodeEngine.getOperationService();\r\n    Collection<MemberImpl> members = node.clusterService.getMemberImpls();\r\n    for (MemberImpl member : members) {\r\n        if (!member.localMember()) {\r\n            try {\r\n                operationService.send(op, member.getAddress());\r\n            } catch (Exception e) {\r\n                logger.finest(e);\r\n            }\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.map.impl.recordstore.DefaultRecordStore.size",
+	"Comment": "size may not give precise size at a specific momentdue to the expiration logic. but eventually, it should be correct.",
+	"Method": "int size(){\r\n    return storage.size();\r\n}"
+}, {
+	"Path": "com.hazelcast.query.impl.Indexes.getIndex",
+	"Comment": "get index for a given attribute. if the index does not exist then returns null.",
+	"Method": "InternalIndex getIndex(String attribute){\r\n    return mapIndexes.get(attribute);\r\n}"
+}, {
+	"Path": "com.hazelcast.spi.impl.operationservice.impl.responses.Response.getCallId",
+	"Comment": "returns the call id of the operation this response belongs to.",
+	"Method": "long getCallId(){\r\n    return callId;\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.serialization.impl.PortablePositionFactory.nilAnyPosition",
+	"Comment": "convenience for reusing practically immutable nil or positions without extra allocation",
+	"Method": "PortablePosition nilAnyPosition(boolean lastToken){\r\n    return lastToken ? NIL_LEAF_ANY : NIL_NOT_LEAF_ANY;\r\n}"
+}, {
+	"Path": "com.hazelcast.query.impl.predicates.AndPredicate.getPredicates",
+	"Comment": "visitable predicates are treated as effectively immutable, therefore callers should not make any changes tothe returned array.",
+	"Method": "Predicate<K, V>[] getPredicates(){\r\n    return predicates;\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.networking.nio.NioThread.idleTimeMs",
+	"Comment": "a probe that measure how long this niothread has not received any events.",
+	"Method": "long idleTimeMs(){\r\n    return max(currentTimeMillis() - lastSelectTimeMs, 0);\r\n}"
+}, {
+	"Path": "com.hazelcast.map.impl.MapKeyLoader.setMaxBatch",
+	"Comment": "sets the maximum size of a batch of loaded keys sentto the partition owner for value loading.",
+	"Method": "void setMaxBatch(int maxBatch){\r\n    this.maxBatch = maxBatch;\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.partition.operation.PartitionReplicaSyncResponse.nodeNotOwnsBackup",
+	"Comment": "fail all replication operations with the exception that this node is no longer the replica with the sent index",
+	"Method": "void nodeNotOwnsBackup(InternalPartitionImpl partition){\r\n    int partitionId = getPartitionId();\r\n    int replicaIndex = getReplicaIndex();\r\n    Address thisAddress = getNodeEngine().getThisAddress();\r\n    int currentReplicaIndex = partition.getReplicaIndex(thisAddress);\r\n    ILogger logger = getLogger();\r\n    if (logger.isFinestEnabled()) {\r\n        logger.finest(\"This node is not backup replica of partitionId=\" + partitionId + \", replicaIndex=\" + replicaIndex + \" anymore. current replicaIndex=\" + currentReplicaIndex);\r\n    }\r\n    if (operations != null) {\r\n        Throwable throwable = new WrongTargetException(thisAddress, partition.getReplicaAddress(replicaIndex), partitionId, replicaIndex, getClass().getName());\r\n        for (Operation op : operations) {\r\n            prepareOperation(op);\r\n            onOperationFailure(op, throwable);\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.map.impl.mapstore.AbstractMapDataStore.convertToObjectKeys",
+	"Comment": "deserialises all of the items in the provided collection if theyare not deserialised already.",
+	"Method": "List<Object> convertToObjectKeys(Collection keys){\r\n    if (keys == null || keys.isEmpty()) {\r\n        return Collections.emptyList();\r\n    }\r\n    final List<Object> objectKeys = new ArrayList<Object>(keys.size());\r\n    for (Object key : keys) {\r\n        objectKeys.add(toObject(key));\r\n    }\r\n    return objectKeys;\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.partition.operation.MigrationOperation.doRun",
+	"Comment": "notifies services that migration started, invokes all sent migration tasks and updates the replica versions.",
+	"Method": "void doRun(){\r\n    if (migrationInfo.startProcessing()) {\r\n        try {\r\n            if (firstFragment) {\r\n                executeBeforeMigrations();\r\n            }\r\n            for (Operation migrationOperation : fragmentMigrationState.getMigrationOperations()) {\r\n                runMigrationOperation(migrationOperation);\r\n            }\r\n            success = true;\r\n        } catch (Throwable e) {\r\n            failureReason = e;\r\n            getLogger().severe(\"Error while executing replication operations \" + migrationInfo, e);\r\n        } finally {\r\n            afterMigrate();\r\n        }\r\n    } else {\r\n        logMigrationCancelled();\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.map.impl.mapstore.writebehind.BoundedWriteBehindQueue.drainTo",
+	"Comment": "removes all elements from this queue and adds themto the given collection.",
+	"Method": "int drainTo(Collection<E> collection){\r\n    int size = queue.drainTo(collection);\r\n    addCapacity(-size);\r\n    return size;\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.serialization.impl.PortablePositionNavigator.navigateContextToNextPortableTokenFromPortableField",
+	"Comment": "returns true if managed to advance, false if advance failed due to null field",
+	"Method": "boolean navigateContextToNextPortableTokenFromPortableField(PortableNavigatorContext ctx){\r\n    BufferObjectDataInput in = ctx.getIn();\r\n    int pos = getStreamPositionOfTheField(ctx);\r\n    in.position(pos);\r\n    boolean isNull = in.readBoolean();\r\n    if (isNull) {\r\n        return false;\r\n    }\r\n    int factoryId = in.readInt();\r\n    int classId = in.readInt();\r\n    int versionId = in.readInt();\r\n    ctx.advanceContextToNextPortableToken(factoryId, classId, versionId);\r\n    return true;\r\n}"
+}, {
+	"Path": "com.hazelcast.map.impl.MapKeyLoader.startLoading",
+	"Comment": "triggers key and value loading if there is no ongoing or completedkey loading task, otherwise does nothing.the actual loading is done on a separate thread.",
+	"Method": "Future<?> startLoading(MapStoreContext mapStoreContext,boolean replaceExistingValues){\r\n    role.nextOrStay(Role.SENDER);\r\n    if (state.is(State.LOADING)) {\r\n        return keyLoadFinished;\r\n    }\r\n    state.next(State.LOADING);\r\n    return sendKeys(mapStoreContext, replaceExistingValues);\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.serialization.impl.PortablePathCursor.init",
+	"Comment": "inits the cursor with the given path and sets the current position to the first token.",
+	"Method": "void init(String path){\r\n    this.path = checkHasText(path, \"path cannot be null or empty\");\r\n    this.index = 0;\r\n    this.offset = 0;\r\n    this.nextSplit = StringUtil.indexOf(path, '.', 0);\r\n    this.token = null;\r\n    if (nextSplit == 0) {\r\n        throw new IllegalArgumentException(\"The path cannot begin with a dot: \" + path);\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.map.impl.eviction.MapClearExpiredRecordsTask.notHaveAnyExpirableRecord",
+	"Comment": "here we check if that partition has any expirable record or not,if no expirable record exists in that partition no need to firean expiration operation.",
+	"Method": "boolean notHaveAnyExpirableRecord(PartitionContainer partitionContainer){\r\n    boolean notExist = true;\r\n    final ConcurrentMap<String, RecordStore> maps = partitionContainer.getMaps();\r\n    for (RecordStore store : maps.values()) {\r\n        if (store.isExpirable()) {\r\n            notExist = false;\r\n            break;\r\n        }\r\n    }\r\n    return notExist;\r\n}"
+}, {
+	"Path": "com.hazelcast.spi.impl.operationparker.impl.OperationParkerImpl.onMemberLeft",
+	"Comment": "invalidated waiting ops will removed from queue eventually by notifiers.",
+	"Method": "void onMemberLeft(MemberImpl leftMember){\r\n    for (WaitSet waitSet : waitSetMap.values()) {\r\n        waitSet.invalidateAll(leftMember.getUuid());\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.map.impl.LocalMapStatsProvider.waitForReplicaAddress",
+	"Comment": "waits partition table update to get replica address if current replica address is null.",
+	"Method": "Address waitForReplicaAddress(int replica,IPartition partition,int backupCount){\r\n    int tryCount = RETRY_COUNT;\r\n    Address replicaAddress = null;\r\n    while (replicaAddress == null && partitionService.getMaxAllowedBackupCount() >= backupCount && tryCount-- > 0) {\r\n        sleep();\r\n        replicaAddress = partition.getReplicaAddress(replica);\r\n    }\r\n    return replicaAddress;\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.partition.operation.BaseMigrationOperation.verifyMemberUuid",
+	"Comment": "checks if the local uuid matches the migration source or destination uuid if this node is the migration source ordestination.",
+	"Method": "void verifyMemberUuid(){\r\n    Member localMember = getNodeEngine().getLocalMember();\r\n    if (localMember.getAddress().equals(migrationInfo.getSource())) {\r\n        if (!localMember.getUuid().equals(migrationInfo.getSourceUuid())) {\r\n            throw new IllegalStateException(localMember + \" is the migration source but has a different UUID! Migration: \" + migrationInfo);\r\n        }\r\n    } else if (localMember.getAddress().equals(migrationInfo.getDestination())) {\r\n        if (!localMember.getUuid().equals(migrationInfo.getDestinationUuid())) {\r\n            throw new IllegalStateException(localMember + \" is the migration destination but has a different UUID! Migration: \" + migrationInfo);\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.partition.operation.BaseMigrationOperation.setActiveMigration",
+	"Comment": "sets the active migration and the partition migration flag.",
+	"Method": "void setActiveMigration(){\r\n    InternalPartitionServiceImpl partitionService = getService();\r\n    MigrationManager migrationManager = partitionService.getMigrationManager();\r\n    MigrationInfo currentActiveMigration = migrationManager.setActiveMigration(migrationInfo);\r\n    if (currentActiveMigration != null) {\r\n        if (migrationInfo.equals(currentActiveMigration)) {\r\n            migrationInfo = currentActiveMigration;\r\n            return;\r\n        }\r\n        throw new RetryableHazelcastException(\"Cannot set active migration to \" + migrationInfo + \". Current active migration is \" + currentActiveMigration);\r\n    }\r\n    PartitionStateManager partitionStateManager = partitionService.getPartitionStateManager();\r\n    partitionStateManager.setMigratingFlag(migrationInfo.getPartitionId());\r\n}"
+}, {
+	"Path": "com.hazelcast.map.impl.MapKeyLoaderUtil.assignRole",
+	"Comment": "returns the role for the map key loader based on the passed parameters.the partition owner of the map name partition is the sender.the first replica of the map name partition is the sender backup.other partition owners are receivers and other partition replicas donot have a role.",
+	"Method": "MapKeyLoader.Role assignRole(boolean isPartitionOwner,boolean isMapNamePartition,boolean isMapNamePartitionFirstReplica){\r\n    if (isMapNamePartition) {\r\n        if (isPartitionOwner) {\r\n            return MapKeyLoader.Role.SENDER;\r\n        } else {\r\n            if (isMapNamePartitionFirstReplica) {\r\n                return MapKeyLoader.Role.SENDER_BACKUP;\r\n            } else {\r\n                return MapKeyLoader.Role.NONE;\r\n            }\r\n        }\r\n    } else {\r\n        return isPartitionOwner ? MapKeyLoader.Role.RECEIVER : MapKeyLoader.Role.NONE;\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.scheduledexecutor.impl.ScheduledExecutorContainer.publishTaskState",
+	"Comment": "state is published after every run.when replicas get promoted, they start with the latest state.",
+	"Method": "void publishTaskState(String taskName,Map stateSnapshot,ScheduledTaskStatisticsImpl statsSnapshot,ScheduledTaskResult result){\r\n    if (logger.isFinestEnabled()) {\r\n        log(FINEST, \"Publishing state, to replicas. State: \" + stateSnapshot);\r\n    }\r\n    Operation op = new SyncStateOperation(getName(), taskName, stateSnapshot, statsSnapshot, result);\r\n    createInvocationBuilder(op).invoke().join();\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.partition.impl.PartitionReplicaVersions.update",
+	"Comment": "updates replica version if it is newer than current version. otherwise has no effect.marks versions as dirty if version increase is not incremental.",
+	"Method": "boolean update(ServiceNamespace namespace,long[] newVersions,int replicaIndex){\r\n    return getFragmentVersions(namespace).update(newVersions, replicaIndex);\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.partition.operation.FinalizeMigrationOperation.rollbackDestination",
+	"Comment": "updates the replica versions on the migration destination.",
+	"Method": "void rollbackDestination(){\r\n    int partitionId = getPartitionId();\r\n    InternalPartitionServiceImpl partitionService = getService();\r\n    PartitionReplicaManager replicaManager = partitionService.getReplicaManager();\r\n    ILogger logger = getLogger();\r\n    int destinationCurrentReplicaIndex = migrationInfo.getDestinationCurrentReplicaIndex();\r\n    if (destinationCurrentReplicaIndex == -1) {\r\n        clearPartitionReplicaVersions(partitionId);\r\n        if (logger.isFinestEnabled()) {\r\n            logger.finest(\"Replica versions are cleared in destination after failed migration. partitionId=\" + partitionId);\r\n        }\r\n    } else {\r\n        int replicaOffset = migrationInfo.getDestinationCurrentReplicaIndex() <= 1 ? 1 : migrationInfo.getDestinationCurrentReplicaIndex();\r\n        for (ServiceNamespace namespace : replicaManager.getNamespaces(partitionId)) {\r\n            long[] versions = updatePartitionReplicaVersions(replicaManager, partitionId, namespace, replicaOffset - 1);\r\n            if (logger.isFinestEnabled()) {\r\n                logger.finest(\"Replica versions are rolled back in destination after failed migration. partitionId=\" + partitionId + \" namespace: \" + namespace + \" replica versions=\" + Arrays.toString(versions));\r\n            }\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.projection.Projections.identity",
+	"Comment": "returns a projection that does no transformation.if you use the returned projection in a 3.9 cluster it may cause a serialization exception.",
+	"Method": "Projection<T, T> identity(){\r\n    return (IdentityProjection<T>) IdentityProjection.INSTANCE;\r\n}"
+}, {
+	"Path": "com.hazelcast.query.impl.Indexes.query",
+	"Comment": "performs a query on this indexes instance using the given predicate.",
+	"Method": "Set<QueryableEntry> query(Predicate predicate){\r\n    stats.incrementQueryCount();\r\n    if (!hasIndex || !(predicate instanceof IndexAwarePredicate)) {\r\n        return null;\r\n    }\r\n    IndexAwarePredicate indexAwarePredicate = (IndexAwarePredicate) predicate;\r\n    QueryContext queryContext = queryContextProvider.obtainContextFor(this);\r\n    if (!indexAwarePredicate.isIndexed(queryContext)) {\r\n        return null;\r\n    }\r\n    Set<QueryableEntry> result = indexAwarePredicate.filter(queryContext);\r\n    if (result != null) {\r\n        stats.incrementIndexedQueryCount();\r\n        queryContext.applyPerQueryStats();\r\n    }\r\n    return result;\r\n}"
+}, {
+	"Path": "com.hazelcast.map.impl.LazyMapEntry.hasNullValue",
+	"Comment": "checks if this entry has null value without any deserialization.",
+	"Method": "boolean hasNullValue(){\r\n    return valueObject == null && valueData == null;\r\n}"
+}, {
+	"Path": "com.hazelcast.map.impl.tx.TransactionalMapProxySupport.lockAndGet",
+	"Comment": "locks the key on the partition owner and returns the value with the version. does not invokes maploader ifthe key is missing in memory",
+	"Method": "VersionedValue lockAndGet(Data key,long timeout,VersionedValue lockAndGet,Data key,long timeout,boolean shouldLoad){\r\n    VersionedValue versionedValue = valueMap.get(key);\r\n    if (versionedValue != null) {\r\n        return versionedValue;\r\n    }\r\n    boolean blockReads = tx.getTransactionType() == TransactionType.ONE_PHASE;\r\n    MapOperation operation = operationProvider.createTxnLockAndGetOperation(name, key, timeout, timeout, tx.getOwnerUuid(), shouldLoad, blockReads);\r\n    operation.setThreadId(ThreadUtil.getThreadId());\r\n    try {\r\n        int partitionId = partitionService.getPartitionId(key);\r\n        Future<VersionedValue> future = operationService.invokeOnPartition(SERVICE_NAME, operation, partitionId);\r\n        versionedValue = future.get();\r\n        if (versionedValue == null) {\r\n            throw new TransactionTimedOutException(\"Transaction couldn't obtain lock for the key: \" + toObjectIfNeeded(key));\r\n        }\r\n        valueMap.put(key, versionedValue);\r\n        return versionedValue;\r\n    } catch (Throwable t) {\r\n        throw rethrow(t);\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.mapreduce.aggregation.Supplier.all",
+	"Comment": "the predefined supplier selects all values and does not perform any kind of datatransformation. input value types need to match the aggregations expected valuetype to make this supplier work.",
+	"Method": "Supplier<KeyIn, ValueIn, ValueOut> all(Supplier<KeyIn, ValueIn, ValueOut> all,PropertyExtractor<ValueIn, ValueOut> propertyExtractor){\r\n    return new AcceptAllSupplier(propertyExtractor);\r\n}"
+}, {
+	"Path": "com.hazelcast.spi.impl.AbstractInvocationFuture.complete",
+	"Comment": "can be called multiple times, but only the first answer will lead to thefuture getting triggered. all subsequent complete calls are ignored.",
+	"Method": "boolean complete(Object value){\r\n    for (; ; ) {\r\n        final Object oldState = state;\r\n        if (isDone(oldState)) {\r\n            warnIfSuspiciousDoubleCompletion(oldState, value);\r\n            return false;\r\n        }\r\n        if (compareAndSetState(oldState, value)) {\r\n            onComplete();\r\n            unblockAll(oldState, defaultExecutor);\r\n            return true;\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.serialization.impl.PortableUtils.getPortableArrayCellPosition",
+	"Comment": "calculates and reads the position of the portable object stored in a portable array under the given index.",
+	"Method": "int getPortableArrayCellPosition(BufferObjectDataInput in,int streamPosition,int cellIndex){\r\n    return in.readInt(streamPosition + cellIndex * Bits.INT_SIZE_IN_BYTES);\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.util.concurrent.ConcurrentConveyor.drainerDone",
+	"Comment": "called by the drainer thread to signal that it is done draining the queue.",
+	"Method": "void drainerDone(){\r\n    drainer = null;\r\n    drainerDepartureCause = REGULAR_DEPARTURE;\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.partition.impl.PartitionReplicaVersions.isStale",
+	"Comment": "returns whether given replica version is behind the current version or not.",
+	"Method": "boolean isStale(ServiceNamespace namespace,long[] newVersions,int replicaIndex){\r\n    return getFragmentVersions(namespace).isStale(newVersions, replicaIndex);\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.util.sort.QuickSorter.sort",
+	"Comment": "sort the part of the array that starts at the supplied index and has the supplied length.",
+	"Method": "void sort(long startIndex,long length){\r\n    quickSort(startIndex, length - 1);\r\n}"
+}, {
+	"Path": "com.hazelcast.query.impl.Indexes.removeEntryIndex",
+	"Comment": "removes the entry from this indexes instance identified by the given keyand value.",
+	"Method": "void removeEntryIndex(Data key,Object value,Index.OperationSource operationSource){\r\n    InternalIndex[] indexes = getIndexes();\r\n    for (InternalIndex index : indexes) {\r\n        index.removeEntryIndex(key, value, operationSource);\r\n    }\r\n}"
+}, {
+	"Path": "com.hazelcast.spi.impl.eventservice.impl.EventServiceSegment.getRegistrationIdMap",
+	"Comment": "returns the map from registration id to the listener registration.",
+	"Method": "ConcurrentMap<String, Registration> getRegistrationIdMap(){\r\n    return registrationIdMap;\r\n}"
+}, {
+	"Path": "com.hazelcast.internal.serialization.impl.VersionedObjectDataInput.setVersion",
+	"Comment": "if the serializer supports versioning it may set the version to use for the serialization on this object.",
+	"Method": "void setVersion(Version version){\r\n    this.version = version;\r\n}"
+}, {
+	"Path": "com.hazelcast.spi.discovery.AbstractDiscoveryStrategy.getProperties",
+	"Comment": "returns an immutable copy of the configuration properties.",
+	"Method": "Map<String, Comparable> getProperties(){\r\n    return properties;\r\n}"
+}, {
+	"Path": "com.hazelcast.spi.impl.operationservice.impl.OperationRunnerImpl.extractOperationCallId",
+	"Comment": "this method has a direct dependency on how objects are serialized.if the stream format is changed, this extraction method must be changed as well.it makes an assumption that the callid is the first long field in the serialized operation.",
+	"Method": "long extractOperationCallId(Data data){\r\n    ObjectDataInput input = ((SerializationServiceV1) node.getSerializationService()).initDataSerializableInputAndSkipTheHeader(data);\r\n    return input.readLong();\r\n}"
+}]

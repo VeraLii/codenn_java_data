@@ -1,0 +1,1237 @@
+[{
+	"Path": "org.graalvm.visualvm.lib.jfluid.results.threads.ThreadsDataManager.resetStates",
+	"Comment": "resets the collected data during a running profiling session.",
+	"Method": "void resetStates(){\r\n    if (threadData != null) {\r\n        startTime = 0;\r\n        endTime = 0;\r\n        for (ThreadData data : threadData) data.clearStates();\r\n        fireDataReset();\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.properties.PropertiesProvider.getPropertiesDescription",
+	"Comment": "returns description of the provided properties or null for no description.",
+	"Method": "String getPropertiesDescription(){\r\n    return propertiesDescription;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.api.ProfilerStorage.getProjectFolder",
+	"Comment": "returns fileobject which can be used as a settings storage for the provided project, or global storage for null project.",
+	"Method": "FileObject getProjectFolder(Lookup.Provider project,boolean create){\r\n    if (project == null)\r\n        return getGlobalFolder(create);\r\n    ProfilerStorageProvider p = provider();\r\n    if (p != null)\r\n        return p.getProjectFolder(project, create);\r\n    else\r\n        return null;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.snaptracer.ProbeItemDescriptor.continuousFillItem",
+	"Comment": "creates descriptor for a continuous item created by filled segments.",
+	"Method": "ProbeItemDescriptor continuousFillItem(String name,String description,ItemValueFormatter formatter,ProbeItemDescriptor continuousFillItem,String name,String description,ItemValueFormatter formatter,double dataFactor,long minValue,long maxValue){\r\n    return continuousItem(name, description, formatter, dataFactor, minValue, maxValue, DEFAULT_LINE_WIDTH, null, DEFAULT_COLOR);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.heapwalk.details.jdk.ui.PaneBuilders.getBuilder",
+	"Comment": "make sure subclasses are listed before base class if using issubclassof",
+	"Method": "ComponentBuilder getBuilder(Instance instance,Heap heap){\r\n    if (DetailsUtils.isSubclassOf(instance, JViewport.class.getName())) {\r\n        return new JViewportBuilder(instance, heap);\r\n    } else if (DetailsUtils.isSubclassOf(instance, JScrollPane.class.getName())) {\r\n        return new JScrollPaneBuilder(instance, heap);\r\n    } else if (DetailsUtils.isSubclassOf(instance, JSplitPane.class.getName())) {\r\n        return new JSplitPaneBuilder(instance, heap);\r\n    } else if (DetailsUtils.isSubclassOf(instance, BasicSplitPaneDivider.class.getName())) {\r\n        return new BasicSplitPaneDividerBuilder(instance, heap);\r\n    } else if (DetailsUtils.isSubclassOf(instance, JTabbedPane.class.getName())) {\r\n        return new JTabbedPaneBuilder(instance, heap);\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.explorer.ExplorerSupport.expandDataSource",
+	"Comment": "expands datasource if displayed and collapsed in explorer tree.",
+	"Method": "void expandDataSource(DataSource dataSource){\r\n    expandNode(getNode(dataSource));\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.ui.components.tree.EnhancedTreeCellRenderer.getTreeCellRendererComponent",
+	"Comment": "configures the renderer based on the passed in components.the value is set from messaging the tree withconvertvaluetotext, which ultimately invokestostring on value.the foreground color is set based on the selection and the iconis set based on on leaf and expanded.",
+	"Method": "Component getTreeCellRendererComponent(JTree tree,Object value,boolean sel,boolean expanded,boolean leaf,int row,boolean hasFocus){\r\n    String stringValue = value != null ? value.toString() : \"\";\r\n    this.tree = tree;\r\n    this.hasFocus = hasFocus;\r\n    label1.setText(getLabel1Text(value, stringValue));\r\n    label2.setText(getLabel2Text(value, stringValue));\r\n    label3.setText(getLabel3Text(value, stringValue));\r\n    if (sel) {\r\n        label1.setForeground(getTextSelectionColor());\r\n        label2.setForeground(getTextSelectionColor());\r\n        Color c = getTextSelectionColor();\r\n        label3.setForeground(UIUtils.getDisabledForeground(c));\r\n    } else {\r\n        label1.setForeground(getTextNonSelectionColor());\r\n        label2.setForeground(getTextNonSelectionColor());\r\n        Color c = getTextNonSelectionColor();\r\n        label3.setForeground(UIUtils.getDisabledForeground(c));\r\n    }\r\n    if (!tree.isEnabled()) {\r\n        label1.setEnabled(false);\r\n        label2.setEnabled(false);\r\n        label3.setEnabled(false);\r\n        if (leaf) {\r\n            label1.setDisabledIcon(getLeafIcon(value));\r\n        } else if (expanded) {\r\n            label1.setDisabledIcon(getOpenIcon(value));\r\n        } else {\r\n            label1.setDisabledIcon(getClosedIcon(value));\r\n        }\r\n    } else {\r\n        label1.setEnabled(true);\r\n        label2.setEnabled(true);\r\n        label3.setEnabled(true);\r\n        if (leaf) {\r\n            label1.setIcon(getLeafIcon(value));\r\n        } else if (expanded) {\r\n            label1.setIcon(getOpenIcon(value));\r\n        } else {\r\n            label1.setIcon(getClosedIcon(value));\r\n        }\r\n    }\r\n    label1.setComponentOrientation(tree.getComponentOrientation());\r\n    selected = sel;\r\n    return this;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.ui.actions.DataSourceAction.notifyCannotPerform",
+	"Comment": "displays a dialog that the action cannot be invoked in current context.",
+	"Method": "void notifyCannotPerform(){\r\n    DialogDisplayer.getDefault().notifyLater(new NotifyDescriptor.Message(// NOI18N\r\n    NbBundle.getMessage(DataSourceAction.class, \"MSG_Cannot_perform_action_in_this_context\"), NotifyDescriptor.ERROR_MESSAGE));\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.classfile.ClassRepository.cleanup",
+	"Comment": "should be called after profiling finishes to cleanup any static data, close opened files, etc.",
+	"Method": "void cleanup(){\r\n    clearCache();\r\n    if (classPath != null) {\r\n        classPath.close();\r\n        classPath = null;\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.snapshot.RegisteredSnapshotCategories.getVisibleCategories",
+	"Comment": "returns list of registered snapshotcategory instances to be shown in ui.",
+	"Method": "List<SnapshotCategory> getVisibleCategories(){\r\n    List<SnapshotCategory> allCategories = new ArrayList(categories);\r\n    List<SnapshotCategory> visibleCategories = new ArrayList();\r\n    for (SnapshotCategory category : allCategories) if (category.getPreferredPosition() != SnapshotCategory.POSITION_NONE)\r\n        visibleCategories.add(category);\r\n    Collections.sort(visibleCategories, Positionable.COMPARATOR);\r\n    return visibleCategories;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.host.HostsSupport.createHost",
+	"Comment": "creates new host from provided hostname and display name. displays a popupdialog if wrong hostname is provided or the host has already been defined.",
+	"Method": "Host createHost(String hostname,Host createHost,String hostname,String displayname,Host createHost,HostProperties properties,boolean createOnly,boolean interactive){\r\n    return hostProvider.createHost(properties, createOnly, interactive);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.jmx.JmxApplicationsSupport.storageDirectoryExists",
+	"Comment": "returns true if the storage directory for defined jmx applications already exists, false otherwise.",
+	"Method": "boolean storageDirectoryExists(){\r\n    return new File(getStorageDirectoryString()).isDirectory();\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.results.cpu.StackTraceSnapshotBuilderTest.testCreateSnapshotEmpty",
+	"Comment": "test of createsnapshot method, of class stacktracesnapshotbuilder.empty data",
+	"Method": "void testCreateSnapshotEmpty(){\r\n    System.out.println(\"create snapshot : empty\");\r\n    try {\r\n        instance.createSnapshot(System.currentTimeMillis());\r\n        fail(\"Attempt to create an empty snapshot should throw NoDataAvailableException\");\r\n    } catch (CPUResultsSnapshot.NoDataAvailableException ex) {\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.api.ProfilerStorage.getGlobalFolder",
+	"Comment": "returns fileobject which can be used as a general settings storage.",
+	"Method": "FileObject getGlobalFolder(boolean create){\r\n    ProfilerStorageProvider p = provider();\r\n    if (p != null)\r\n        return p.getGlobalFolder(create);\r\n    else\r\n        return null;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.charts.ChartFactory.createSimpleXYChart",
+	"Comment": "creates an instance of simplexychartsupport representing a simple xy chart.",
+	"Method": "SimpleXYChartSupport createSimpleXYChart(SimpleXYChartDescriptor descriptor){\r\n    return new SimpleXYChartSupport(descriptor.getChartTitle(), descriptor.getXAxisDescription(), descriptor.getYAxisDescription(), descriptor.getChartType(), descriptor.getInitialYMargin(), descriptor.getItemNames(), descriptor.getItemColors(), descriptor.getLineWidths(), descriptor.getLineColors(), descriptor.getFillColors1(), descriptor.getFillColors2(), descriptor.getMinValue(), descriptor.getMaxValue(), descriptor.getChartFactor(), descriptor.getCustomFormat(), descriptor.areItemsHideable(), descriptor.getValuesBuffer(), descriptor.getDetailsItems());\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.application.type.ApplicationType.removePropertyChangeListener",
+	"Comment": "remove a propertychangelistener from the listener list.this removes a propertychangelistener that was registeredfor all properties.if listener was added more than once to the same eventsource, it will be notified one less time after being removed.if listener is null, or was never added, no exception isthrown and no action is taken.",
+	"Method": "void removePropertyChangeListener(PropertyChangeListener listener){\r\n    pcs.removePropertyChangeListener(listener);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.heap.LongHashMap.containsKey",
+	"Comment": "tests whether the specified object reference is a key in this identityhash map.",
+	"Method": "boolean containsKey(long key){\r\n    long k = key;\r\n    long[] tab = table;\r\n    int len = tab.length;\r\n    int i = hash(k, len);\r\n    while (true) {\r\n        long item = tab[i];\r\n        if (item == k)\r\n            return true;\r\n        if (item == 0)\r\n            return false;\r\n        i = nextKeyIndex(i, len);\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.application.jvm.MonitoredData.getSharedUnloadedClasses",
+	"Comment": "returns the total number of shared classes unloaded since the java virtual machinehas started execution.",
+	"Method": "long getSharedUnloadedClasses(){\r\n    return sharedUnloadedClasses;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.NetBeansProfiler.isProfilingRunningOnPort",
+	"Comment": "checks if there is a profiling session currently in progress communicating over specified port",
+	"Method": "boolean isProfilingRunningOnPort(int port){\r\n    return (profilingState == PROFILING_RUNNING) && (port == getTargetAppRunner().getProfilerEngineSettings().getPortNo());\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.utils.LongSorter.med3",
+	"Comment": "returns the index of the median of the three indexed integers.",
+	"Method": "int med3(int a,int b,int c){\r\n    return ((x[a] < x[b]) ? ((x[b] < x[c]) ? b : ((x[a] < x[c]) ? c : a)) : ((x[b] > x[c]) ? b : ((x[a] > x[c]) ? c : a)));\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.threaddump.ThreadDumpSupport.getThreadDumpView",
+	"Comment": "returns pluggabledatasourceviewprovider for thread dumps.",
+	"Method": "PluggableDataSourceViewProvider<ThreadDump> getThreadDumpView(){\r\n    return threadDumpViewProvider;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.application.type.JavaWebStartApplicationType.getVersion",
+	"Comment": "gets the version of the java web start.the version is the same as java.version of the jvm",
+	"Method": "String getVersion(){\r\n    return version;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.ui.components.tree.EnhancedTreeCellRenderer.setTextSelectionColor",
+	"Comment": "sets the color the text is drawn with when the node is selected.",
+	"Method": "void setTextSelectionColor(Color newColor){\r\n    textSelectionColor = newColor;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.datasource.DataSourceProvider.getDataSources",
+	"Comment": "returns datasources of a certain type managed by this provider.",
+	"Method": "Set<DataSource> getDataSources(Set<Y> getDataSources,Class<Y> scope){\r\n    return Utils.getFilteredSet(getDataSources(), scope);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.classfile.ClassInfo.overridesVirtualMethod",
+	"Comment": "speedup, since we call it only in the context when it is already known that the above is true.",
+	"Method": "int overridesVirtualMethod(ClassInfo superClass,int superMethodIdx){\r\n    int idx = getMethodIndex(superClass.methodNames[superMethodIdx], superClass.methodSignatures[superMethodIdx]);\r\n    if (idx == -1) {\r\n        return -1;\r\n    }\r\n    if (superClass.isMethodPublic(superMethodIdx) || superClass.isMethodProtected(superMethodIdx)) {\r\n        return idx;\r\n    } else if (superClass.packageName == this.packageName) {\r\n        return idx;\r\n    } else {\r\n        return -1;\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.ui.components.treetable.AbstractTreeTableModel.fireTreeNodesInserted",
+	"Comment": "notify all listeners that have registered interest for notification onthis event type. the event instance is lazily created using theparameters passed into the fire method.",
+	"Method": "void fireTreeNodesInserted(Object source,Object[] path,int[] childIndices,Object[] children){\r\n    Object[] listeners = listenerList.getListenerList();\r\n    TreeModelEvent e = null;\r\n    for (int i = listeners.length - 2; i >= 0; i -= 2) {\r\n        if (listeners[i] == TreeModelListener.class) {\r\n            if (e == null) {\r\n                e = new TreeModelEvent(source, path, childIndices, children);\r\n            }\r\n            ((TreeModelListener) listeners[i + 1]).treeNodesInserted(e);\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.api.JavaPlatform.getPlatformJavaFile",
+	"Comment": "gets a path to java executable for specified platform. the platform passed cannot be null.errors when obtaining the java executable will be reported to the user and null will be returned.",
+	"Method": "String getPlatformJavaFile(){\r\n    return provider.getPlatformJavaFile();\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.utils.formatting.PlainFormattableMethodNameTest.testFormatting",
+	"Comment": "test to ensure that the formatting of test methods is as expected.",
+	"Method": "void testFormatting(){\r\n    PlainFormattableMethodName mnf;\r\n    int count = 0;\r\n    for (int i = 0; (i + 2) < patternSources.length; i += 3) {\r\n        mnf = new PlainFormattableMethodName(patternSources[i], patternSources[i + 1], patternSources[i + 2], 0);\r\n        assertEquals(\"Wrong results for getFormattedClass \" + mnf, patternResults[count++], mnf.getFormattedClass());\r\n        assertEquals(\"Wrong results for getFormattedClassAndMethod \" + mnf, patternResults[count++], mnf.getFormattedClassAndMethod());\r\n        assertEquals(\"Wrong results for getFormattedMethod \" + mnf, patternResults[count++], mnf.getFormattedMethod());\r\n        assertEquals(\"Wrong results for getFullFormattedClassAndMethod \" + mnf, patternResults[count++], mnf.getFullFormattedClassAndMethod());\r\n        assertEquals(\"Wrong results for getFullFormattedMethod \" + mnf, patternResults[count++], mnf.getFullFormattedMethod());\r\n        assertEquals(\"Wrong results for getParamsString \" + mnf, patternResults[count++], mnf.getParamsString());\r\n        assertEquals(\"Wrong results for getReturnType \" + mnf, patternResults[count++], mnf.getReturnTypeX());\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.snapshot.RegisteredSnapshotCategories.getAllCategories",
+	"Comment": "returns list of all registered snapshotcategory instances.",
+	"Method": "List<SnapshotCategory> getAllCategories(){\r\n    List<SnapshotCategory> allCategories = new ArrayList(categories);\r\n    Collections.sort(allCategories, Positionable.COMPARATOR);\r\n    return allCategories;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.common.integration.IntegrationUtils.getRemoteProfilerAgentCommandLineArgsWithoutQuotes",
+	"Comment": "returns extra command line arguments without additional quotes required when attaching on startup",
+	"Method": "String getRemoteProfilerAgentCommandLineArgsWithoutQuotes(String prefix,String targetPlatform,String targetJVM,int portNumber){\r\n    final StringBuilder args = new StringBuilder();\r\n    if ((targetJVM.equals(PLATFORM_JAVA_60) || targetJVM.equals(PLATFORM_JAVA_70) || targetJVM.equals(PLATFORM_JAVA_80) || targetJVM.equals(PLATFORM_JAVA_90)) && isLinuxPlatform(targetPlatform)) {\r\n        args.append(\" -XX:+UseLinuxPosixThreadCPUClocks \");\r\n    }\r\n    // NOI18N\r\n    args.append(\"-agentpath:\").append(getRemoteNativeLibrariesPath(prefix, targetPlatform, targetJVM)).append(getDirectorySeparator(targetPlatform)).append(getProfilerAgentLibraryFile(targetPlatform)).append(\"=\").append(getRemoteLibsDir(prefix, targetPlatform)).append(// NOI18N\r\n    \",\").append(portNumber);\r\n    return args.toString();\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.api.ProjectUtilities.getIcon",
+	"Comment": "gets icon for given project.usually determined by the project type.",
+	"Method": "Icon getIcon(Provider project){\r\n    return provider().getIcon(project);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.snaptracer.ProbeItemDescriptor.continuousLineItem",
+	"Comment": "creates descriptor for a continuous item created by line segments.",
+	"Method": "ProbeItemDescriptor continuousLineItem(String name,String description,ItemValueFormatter formatter,ProbeItemDescriptor continuousLineItem,String name,String description,ItemValueFormatter formatter,double dataFactor,long minValue,long maxValue){\r\n    return continuousItem(name, description, formatter, dataFactor, minValue, maxValue, DEFAULT_LINE_WIDTH, DEFAULT_COLOR, null);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.api.project.ProjectProfilingSupport.getProjectJavaPlatform",
+	"Comment": "returns the java platform configured for running the project.",
+	"Method": "JavaPlatform getProjectJavaPlatform(){\r\n    return provider.getProjectJavaPlatform();\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.jvmstat.JvmstatModelImpl.monitorsUpdated",
+	"Comment": "invoked when instrumentation objects are updated. this event isgenerated at a fixed interval as determined by the polling rateof the monitoredvm that the vmlistener is registered with.",
+	"Method": "void monitorsUpdated(VmEvent event){\r\n    assert event.getMonitoredVm().equals(monitoredVm);\r\n    try {\r\n        if (monitoredHost.activeVms().contains(pid)) {\r\n            List<JvmstatListener> listenersCopy;\r\n            synchronized (listeners) {\r\n                listenersCopy = new ArrayList(listeners);\r\n            }\r\n            for (JvmstatListener listener : listenersCopy) {\r\n                listener.dataChanged(this);\r\n            }\r\n        } else {\r\n            disableListeners();\r\n            monitoredVm.detach();\r\n        }\r\n    } catch (MonitorException ex) {\r\n        ErrorManager.getDefault().notify(ErrorManager.WARNING, ex);\r\n        disableListeners();\r\n        monitoredVm.detach();\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.api.project.ProjectContentsSupport.get",
+	"Comment": "returns projectcontentssupport instance for the provided project.",
+	"Method": "ProjectContentsSupport get(Lookup.Provider project){\r\n    Collection<? extends ProjectContentsSupportProvider> providers = project != null ? project.getLookup().lookupAll(ProjectContentsSupportProvider.class) : null;\r\n    if (providers == null || providers.isEmpty())\r\n        return defaultImpl();\r\n    else\r\n        return new ProjectContentsSupport(providers);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.ui.components.EqualFlowLayout.moveComponents2",
+	"Comment": "centers the elements in the specified row, if there is any slack.",
+	"Method": "void moveComponents2(Container target,int x,int y,int width,int height,int rowStart,int rowEnd){\r\n    synchronized (target.getTreeLock()) {\r\n        switch(getAlignment()) {\r\n            case LEFT:\r\n                break;\r\n            case CENTER:\r\n                x += (width / 2);\r\n                break;\r\n            case RIGHT:\r\n                x += width;\r\n                break;\r\n        }\r\n        for (int i = rowStart; i < rowEnd; i++) {\r\n            Component m = target.getComponent(i);\r\n            if (m.isVisible()) {\r\n                m.setLocation(x, y + ((height - m.getSize().height) / 2));\r\n                x += (getHgap() + m.getSize().width);\r\n            }\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.application.jvm.MonitoredData.getGenCapacity",
+	"Comment": "returns the amount of memory in bytes that is available forthe java virtual machine to use.",
+	"Method": "long[] getGenCapacity(){\r\n    return genCapacity.clone();\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.ui.DataSourceView.getPreferredPosition",
+	"Comment": "returns preferred position of the view among all other views for the datasource.",
+	"Method": "int getPreferredPosition(){\r\n    return preferredPosition;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.application.views.ApplicationViewsSupport.getThreadsView",
+	"Comment": "returns pluggabledatasourceviewprovider for threads application subtab.",
+	"Method": "PluggableDataSourceViewProvider getThreadsView(){\r\n    return threadsPluggableView;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.datasource.DataSource.isVisible",
+	"Comment": "returns true if the datasource is visible, false otherwise.",
+	"Method": "boolean isVisible(){\r\n    return visible;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.application.views.ApplicationViewsSupport.getMonitorView",
+	"Comment": "returns pluggabledatasourceviewprovider for monitor application subtab.",
+	"Method": "PluggableDataSourceViewProvider getMonitorView(){\r\n    return monitorPluggableView;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.ui.components.JTreeTable.updateUI",
+	"Comment": "overridden to message super and forward the method to the tree. sincethe tree is not actually in the component hieachy it will never receivethis unless we forward it in this manner.",
+	"Method": "void updateUI(){\r\n    super.updateUI();\r\n    if (tree != null) {\r\n        tree.updateUI();\r\n        setTreeUIVariables();\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.api.java.JavaProfilerSource.hasAnnotation",
+	"Comment": "checks whether the source contains the provided annotation",
+	"Method": "boolean hasAnnotation(String[] annotationNames,boolean allRequired,boolean hasAnnotation,String annotation){\r\n    return impl.hasAnnotation(getFile(), annotation);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.datasource.descriptor.DataSourceDescriptor.supportsRename",
+	"Comment": "returns true if the datasource can be renamed using the rename action, false otherwise.",
+	"Method": "boolean supportsRename(){\r\n    return false;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.host.HostsSupport.getHostByAddress",
+	"Comment": "returns already known host instance with the same inetaddress or null.",
+	"Method": "Host getHostByAddress(InetAddress inetAddress){\r\n    return hostProvider.getHostByAddress(inetAddress);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.datasupport.Utils.getFilteredSet",
+	"Comment": "returns filtered set containing only instances of the given class.",
+	"Method": "Set<Z> getFilteredSet(Set<Y> set,Class<Z> filter){\r\n    Set<Z> filteredSet = new HashSet();\r\n    for (Y item : set) if (filter.isInstance(item))\r\n        filteredSet.add((Z) item);\r\n    return filteredSet;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.api.project.ProjectContentsSupport.reset",
+	"Comment": "resets the projectcontentssupport instance after submitting or cancelling the select profiling task dialog.",
+	"Method": "void reset(){\r\n    if (providers != null)\r\n        for (ProjectContentsSupportProvider provider : providers) provider.reset();\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.results.cpu.CPUCallGraphBuilder.timeAdjust",
+	"Comment": "called when the ta is suspended waiting for the tool to process the buffer",
+	"Method": "void timeAdjust(int threadId,long timeDiff0,long timeDiff1){\r\n    if (!isReady() || (threadInfos.threadInfos == null)) {\r\n        return;\r\n    }\r\n    final ProfilingPointsProcessor ppp = TargetAppRunner.getDefault().getProfilingPointsProcessor();\r\n    ThreadInfo ti = threadInfos.threadInfos[threadId];\r\n    ti.rootMethodEntryTimeAbs += timeDiff0;\r\n    ti.rootMethodEntryTimeThreadCPU += timeDiff1;\r\n    ti.topMethodEntryTime0 += timeDiff0;\r\n    if (isCollectingTwoTimeStamps()) {\r\n        ti.topMethodEntryTime1 += timeDiff1;\r\n    }\r\n    if (ppp != null) {\r\n        afterBatchCommands.add(new Runnable() {\r\n            public void run() {\r\n                ppp.timeAdjust(threadId, timeDiff0, timeDiff1);\r\n            }\r\n        });\r\n    }\r\n    batchNotEmpty = true;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.results.cpu.CPUCallGraphBuilder.timeAdjust",
+	"Comment": "called when the ta is suspended waiting for the tool to process the buffer",
+	"Method": "void timeAdjust(int threadId,long timeDiff0,long timeDiff1){\r\n    ppp.timeAdjust(threadId, timeDiff0, timeDiff1);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.api.ProfilerIDESettings.setDoNotShowAgain",
+	"Comment": "used by the dnsaconfirmation.allows to set or clear persistent do not show again value associated with given notification identified by theprovided key.",
+	"Method": "void setDoNotShowAgain(String key,String value){\r\n    if (value != null) {\r\n        getDNSAMap().put(key, value);\r\n    } else {\r\n        getDNSAMap().remove(key);\r\n    }\r\n    storeDNSAMap();\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.heapwalk.model.AbstractHeapWalkerNode.currentlyHasChildren",
+	"Comment": "note that if false, it means that chilren are not yet computed or this node is leaf!",
+	"Method": "boolean currentlyHasChildren(){\r\n    return children != null;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.ui.graphs.ColorFactory.getPredefinedGradient",
+	"Comment": "returns a color pair predefined for visualvm charts gradients.",
+	"Method": "Color[] getPredefinedGradient(int index){\r\n    return PREDEFINED_GRADIENTS[index];\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.api.ProfilerIDESettings.getDoNotShowAgain",
+	"Comment": "used by the dnsaconfirmation.allows to get persistent do not show again value associated with given notification identified by the provided key.",
+	"Method": "String getDoNotShowAgain(String key){\r\n    return getDNSAMap().get(key);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.heapwalk.memorylint.Utils.isReachableFrom",
+	"Comment": "performs a check whether target object is strongly referenced from source.",
+	"Method": "boolean isReachableFrom(Instance source,Instance target){\r\n    if ((source == null) || (target == null)) {\r\n        return false;\r\n    }\r\n    Logger.getLogger(Utils.class.getName()).log(Level.FINE, \"Utils.isReachableFrom {0}, {1}\", new Object[] { source, target });\r\n    Set<Instance> processed = new HashSet<Instance>();\r\n    Deque<Instance> fifo = new ArrayDeque<Instance>();\r\n    fifo.add(source);\r\n    while (!fifo.isEmpty()) {\r\n        if (fifo.size() > 200) {\r\n            Logger.getLogger(Utils.class.getName()).log(Level.FINE, \"overflow in isReachableFrom {0}, {1}\", new Object[] { source, target });\r\n            break;\r\n        }\r\n        Instance act = fifo.removeFirst();\r\n        if (act.equals(target)) {\r\n            return true;\r\n        }\r\n        @SuppressWarnings(\"unchecked\")\r\n        List<FieldValue> outgoing = act.getFieldValues();\r\n        for (FieldValue v : outgoing) {\r\n            Instance neu = null;\r\n            if (v instanceof ObjectFieldValue) {\r\n                Field fld = ((ObjectFieldValue) v).getField();\r\n                if (\"referent\".equals(fld.getName()) && \"java.lang.ref.Reference\".equals(fld.getDeclaringClass().getName())) {\r\n                    continue;\r\n                }\r\n                neu = ((ObjectFieldValue) v).getInstance();\r\n            }\r\n            if (v instanceof ArrayItemValue) {\r\n                neu = ((ArrayItemValue) v).getInstance();\r\n            }\r\n            if (neu == null) {\r\n                continue;\r\n            }\r\n            if (processed.add(neu)) {\r\n                fifo.add(neu);\r\n            }\r\n        }\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.options.GlobalPreferences.watchMonitoredHostPoll",
+	"Comment": "registers a listener for changes of polling interval for monitored host.",
+	"Method": "void watchMonitoredHostPoll(PreferenceChangeListener pcl){\r\n    addListener(INT_KEY_MONHOST_POLL, pcl);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.options.GlobalPreferences.watchMonitoredHostCache",
+	"Comment": "registers a listener for changes of size of cache for monitored host data.",
+	"Method": "void watchMonitoredHostCache(PreferenceChangeListener pcl){\r\n    addListener(INT_KEY_MONHOST_CACHE, pcl);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.ui.components.tree.EnhancedTreeCellRenderer.getBackgroundSelectionColor",
+	"Comment": "returns the color to use for the background if node is selected.",
+	"Method": "Color getBackgroundSelectionColor(){\r\n    return backgroundSelectionColor;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.instrumentation.RecursiveMethodInstrumentor.initInstrMethodData",
+	"Comment": "called every time before a new round of instrumentation, caused by class load, method invoke, etc.",
+	"Method": "void initInstrMethodData(){\r\n    instrClasses.clear();\r\n    nInstrClasses = nInstrMethods = 0;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.heapwalk.memorylint.MemoryLint.getRootIncommingString",
+	"Comment": "perform bfs of incomming references and find shortest one not from sdk",
+	"Method": "String getRootIncommingString(Instance in){\r\n    String temp = null;\r\n    for (; ; ) {\r\n        Instance from = in.getNearestGCRootPointer();\r\n        if (from == null) {\r\n            break;\r\n        }\r\n        String rName = getFullName(in, from);\r\n        if (temp == null) {\r\n            temp = \"<< \" + rName;\r\n        }\r\n        if (!rName.startsWith(\"java.\") && !rName.startsWith(\"javax.\")) {\r\n            return rName;\r\n        }\r\n        if (from.isGCRoot()) {\r\n            break;\r\n        }\r\n        in = from;\r\n    }\r\n    return (temp == null) ? \"unknown\" : temp;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.snapshot.RegisteredSnapshotCategories.removeCategoriesListener",
+	"Comment": "removes a listener for changes of registered snapshot categories.",
+	"Method": "void removeCategoriesListener(SnapshotCategoriesListener listener){\r\n    listeners.remove(listener);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.jmx.JmxConnectionCustomizer.supportsDataSource",
+	"Comment": "default implementation of the propertiesprovider.supportsdatasource method,cannot be further overriden. jmxconnectioncustomizer always supports providinginitial properties for a jmx application being created. use the providespropertiesmethod to control whether to provide a properties category for an existingapplication or not.",
+	"Method": "boolean supportsDataSource(Application application){\r\n    return application == null ? true : providesProperties(application);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.heap.LongSet.putAll",
+	"Comment": "copies all of the mappings from the specified map to this map.these mappings will replace any mappings that this map had forany of the keys currently in the specified map.",
+	"Method": "void putAll(Set<Long> m){\r\n    int n = m.size();\r\n    if (n == 0)\r\n        return;\r\n    if (n > threshold)\r\n        resize(capacity(n));\r\n    for (Long e : m) {\r\n        add(e);\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.ui.cpu.LiveFlatProfileCollectorPanel.showReverseCallGraph",
+	"Comment": "default implementation throwing illegalstateexception, needs to be overridden by classes that do support showreversecallgraph",
+	"Method": "void showReverseCallGraph(int threadId,int methodId,int currentView,int sortingColumn,boolean sortingOrder){\r\n    throw new IllegalStateException();\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.datasupport.DataChangeEvent.getRemoved",
+	"Comment": "returns items recently removed from a monitored repository.",
+	"Method": "Set<X> getRemoved(){\r\n    return removed;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.instrumentation.CPExtensionsRepository.initCommonAddedContents",
+	"Comment": "create standard added cpool contents for each injection kind defined by jfluid.",
+	"Method": "void initCommonAddedContents(){\r\n    standardCPFragments = new PackedCPFragment[INJ_MAXNUMBER];\r\n    CPEntry[] entries = new CPEntry[12];\r\n    int i = 0;\r\n    int methodEntryMethodRefIdx = i;\r\n    i = addMethod(PROFRUNTIME_CPUFULL_CLASS_NAME, METHOD_ENTRY_METHOD_NAME, CHAR_VOID_SIGNATURE, entries, i);\r\n    int methodExitMethodRefIdx = i;\r\n    i = addMethod(PROFRUNTIME_CPUFULL_CLASS_NAME, METHOD_EXIT_METHOD_NAME, CHAR_VOID_SIGNATURE, entries, i);\r\n    int profilePointHitMethodRefIdx = i;\r\n    addMethod(PROFRUNTIME_CPUFULL_CLASS_NAME, PROFILE_POINT_HIT, CHAR_VOID_SIGNATURE, entries, i);\r\n    int profilerRuntimeClassRefIdx = getClassCPEntryIndex(PROFRUNTIME_CPUFULL_CLASS_NAME, entries);\r\n    int charVoidSignatureIdx = getUtf8CPEntryIndex(CHAR_VOID_SIGNATURE, entries);\r\n    standardCPFragments[INJ_RECURSIVE_NORMAL_METHOD] = new PackedCPFragment(entries);\r\n    normalContents_ProfilePointHitMethodIdx = profilePointHitMethodRefIdx;\r\n    normalContents_MethodEntryMethodIdx = methodEntryMethodRefIdx;\r\n    normalContents_MethodExitMethodIdx = methodExitMethodRefIdx;\r\n    entries[getUtf8CPEntryIndex(PROFRUNTIME_CPUFULL_CLASS_NAME, entries)] = new CPEntry(PROFRUNTIME_CPUSAMPLED_CLASS_NAME);\r\n    standardCPFragments[INJ_RECURSIVE_SAMPLED_NORMAL_METHOD] = new PackedCPFragment(entries);\r\n    entries = new CPEntry[3];\r\n    addMethod(profilerRuntimeClassRefIdx + 0x10000, ROOT_ENTRY_METHOD_NAME, charVoidSignatureIdx + 0x10000, entries, 0);\r\n    standardCPFragments[INJ_RECURSIVE_ROOT_METHOD] = new PackedCPFragment(entries);\r\n    rootContents_RootEntryMethodIdx = 0;\r\n    standardCPFragments[INJ_RECURSIVE_SAMPLED_ROOT_METHOD] = new PackedCPFragment(entries);\r\n    entries = new CPEntry[39];\r\n    i = 0;\r\n    int markerEntryMethodRefIdx = i;\r\n    i = addMethod(profilerRuntimeClassRefIdx + 0x10000, MARKER_ENTRY_METHOD_NAME, charVoidSignatureIdx + 0x10000, entries, i);\r\n    int markerExitMethodRefIdx = i;\r\n    i = addMethod(profilerRuntimeClassRefIdx + 0x10000, MARKER_EXIT_METHOD_NAME, charVoidSignatureIdx + 0x10000, entries, i);\r\n    rootContents_MarkerExitParMethodIdx = i;\r\n    i = addMethod(profilerRuntimeClassRefIdx + 0x10000, MARKER_EXIT_METHOD_NAME, OBJECT_CHAR_VOID_SIGNATURE, entries, i);\r\n    miContents_AddParCharMethodIdx = i;\r\n    i = addMethod(PROFRUNTIME_CPU_CLASS_NAME, ADD_PARAMETER, CHAR_VOID_SIGNATURE, entries, i);\r\n    miContents_AddParByteMethodIdx = i;\r\n    i = addMethod(PROFRUNTIME_CPU_CLASS_NAME, ADD_PARAMETER, BYTE_VOID_SIGNATURE, entries, i);\r\n    miContents_AddParIntMethodIdx = i;\r\n    i = addMethod(PROFRUNTIME_CPU_CLASS_NAME, ADD_PARAMETER, INT_VOID_SIGNATURE, entries, i);\r\n    miContents_AddParBooleanMethodIdx = i;\r\n    i = addMethod(PROFRUNTIME_CPU_CLASS_NAME, ADD_PARAMETER, BOOLEAN_VOID_SIGNATURE, entries, i);\r\n    miContents_AddParFloatMethodIdx = i;\r\n    i = addMethod(PROFRUNTIME_CPU_CLASS_NAME, ADD_PARAMETER, FLOAT_VOID_SIGNATURE, entries, i);\r\n    miContents_AddParDoubleMethodIdx = i;\r\n    i = addMethod(PROFRUNTIME_CPU_CLASS_NAME, ADD_PARAMETER, DOUBLE_VOID_SIGNATURE, entries, i);\r\n    miContents_AddParShortMethodIdx = i;\r\n    i = addMethod(PROFRUNTIME_CPU_CLASS_NAME, ADD_PARAMETER, SHORT_VOID_SIGNATURE, entries, i);\r\n    miContents_AddParLongMethodIdx = i;\r\n    i = addMethod(PROFRUNTIME_CPU_CLASS_NAME, ADD_PARAMETER, LONG_VOID_SIGNATURE, entries, i);\r\n    miContents_AddParObjectMethodIdx = i;\r\n    addMethod(PROFRUNTIME_CPU_CLASS_NAME, ADD_PARAMETER, OBJECT_VOID_SIGNATURE, entries, i);\r\n    standardCPFragments[INJ_RECURSIVE_MARKER_METHOD] = new PackedCPFragment(entries);\r\n    rootContents_MarkerEntryMethodIdx = markerEntryMethodRefIdx;\r\n    rootContents_MarkerExitMethodIdx = markerExitMethodRefIdx;\r\n    standardCPFragments[INJ_RECURSIVE_SAMPLED_MARKER_METHOD] = new PackedCPFragment(entries);\r\n    entries = new CPEntry[6];\r\n    addMethod(PROFRUNTIME_CPU_CLASS_NAME, HANDLE_REFLECT_INVOKE_METHOD_NAME, REFLECT_METHOD_VOID_SIGNATURE, entries, 0);\r\n    standardCPFragments[INJ_REFLECT_METHOD_INVOKE] = new PackedCPFragment(entries);\r\n    miContents_HandleReflectInvokeMethodIdx = 0;\r\n    entries = new CPEntry[6];\r\n    addMethod(PROFRUNTIME_CPU_CLASS_NAME, HANDLE_SERVLET_DO_METHOD_NAME, OBJECT_VOID_SIGNATURE, entries, 0);\r\n    standardCPFragments[INJ_SERVLET_DO_METHOD] = new PackedCPFragment(entries);\r\n    miContents_HandleServletDoMethodIdx = 0;\r\n    entries = new CPEntry[9];\r\n    i = 0;\r\n    int codeRegionEntryMethodRefIdx = i;\r\n    i = addMethod(PROFRUNTIME_CPUCODEREGION_CLASS_NAME, CODE_REGION_ENTRY_METHOD_NAME, VOID_VOID_SIGNATURE, entries, i);\r\n    int codeRegionExitMethodRefIdx = i;\r\n    addMethod(PROFRUNTIME_CPUCODEREGION_CLASS_NAME, CODE_REGION_EXIT_METHOD_NAME, VOID_VOID_SIGNATURE, entries, i);\r\n    standardCPFragments[INJ_CODE_REGION] = new PackedCPFragment(entries);\r\n    codeRegionContents_CodeRegionEntryMethodIdx = codeRegionEntryMethodRefIdx;\r\n    codeRegionContents_CodeRegionExitMethodIdx = codeRegionExitMethodRefIdx;\r\n    entries = new CPEntry[10];\r\n    i = 0;\r\n    int objAllocTraceMethodRefIdx = i;\r\n    i = addMethod(PROFRUNTIME_OBJALLOC_CLASS_NAME, TRACE_OBJ_ALLOC_METHOD_NAME, OBJECT_CHAR_VOID_SIGNATURE, entries, i);\r\n    int memPprofilePointHitMethodRefIdx = i;\r\n    addMethod(PROFRUNTIME_OBJALLOC_CLASS_NAME, PROFILE_POINT_HIT, CHAR_VOID_SIGNATURE, entries, i);\r\n    standardCPFragments[INJ_OBJECT_ALLOCATIONS] = new PackedCPFragment(entries);\r\n    memoryProfContents_TraceObjAllocMethodIdx = objAllocTraceMethodRefIdx;\r\n    memoryProfContents_ProfilePointHitMethodIdx = memPprofilePointHitMethodRefIdx;\r\n    entries[getUtf8CPEntryIndex(PROFRUNTIME_OBJALLOC_CLASS_NAME, entries)] = new CPEntry(PROFRUNTIME_OBJLIVENESS_CLASS_NAME);\r\n    standardCPFragments[INJ_OBJECT_LIVENESS] = new PackedCPFragment(entries);\r\n    entries = new CPEntry[1];\r\n    entries[0] = new CPEntry(STACK_MAP_TABLE_ATTRIBUTE);\r\n    standardCPFragments[INJ_STACKMAP] = new PackedCPFragment(entries);\r\n    entries = new CPEntry[2];\r\n    addClass(JAVA_LANG_THROWABLE_NAME, entries, 0);\r\n    standardCPFragments[INJ_THROWABLE] = new PackedCPFragment(entries);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.ui.components.EqualFlowLayout.preferredLayoutSize",
+	"Comment": "returns the preferred dimensions for this layout given the componentsin the specified target container.",
+	"Method": "Dimension preferredLayoutSize(Container target){\r\n    int maxWidth = getMaximumWidth(target);\r\n    synchronized (target.getTreeLock()) {\r\n        Dimension dim = new Dimension(0, 0);\r\n        int nmembers = target.getComponentCount();\r\n        for (int i = 0; i < nmembers; i++) {\r\n            Component m = target.getComponent(i);\r\n            if (m.isVisible()) {\r\n                Dimension d = m.getPreferredSize();\r\n                dim.height = Math.max(dim.height, d.height);\r\n                if (i > 0) {\r\n                    dim.width += getHgap();\r\n                }\r\n                dim.width += maxWidth;\r\n            }\r\n        }\r\n        Insets insets = target.getInsets();\r\n        dim.width += (insets.left + insets.right + (getHgap() * 2));\r\n        dim.height += (insets.top + insets.bottom + (getVgap() * 2));\r\n        return dim;\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.heapwalk.details.jdk.ui.DataViewBuilders.getBuilder",
+	"Comment": "make sure subclasses are listed before base class if using issubclassof",
+	"Method": "ComponentBuilder getBuilder(Instance instance,Heap heap){\r\n    if (DetailsUtils.isSubclassOf(instance, JComboBox.class.getName())) {\r\n        return new JComboBoxBuilder(instance, heap);\r\n    } else if (DetailsUtils.isSubclassOf(instance, JList.class.getName())) {\r\n        return new JListBuilder(instance, heap);\r\n    } else if (DetailsUtils.isSubclassOf(instance, JTree.class.getName())) {\r\n        return new JTreeBuilder(instance, heap);\r\n    } else if (DetailsUtils.isSubclassOf(instance, JTable.class.getName())) {\r\n        return new JTableBuilder(instance, heap);\r\n    } else if (DetailsUtils.isSubclassOf(instance, JTableHeader.class.getName())) {\r\n        return new JTableHeaderBuilder(instance, heap);\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.heapwalk.memorylint.Utils.getRootIncommingString",
+	"Comment": "perform bfs of incomming references and find shortest one not from sdk",
+	"Method": "String getRootIncommingString(Instance in){\r\n    String temp = null;\r\n    for (; ; ) {\r\n        in = in.getNearestGCRootPointer();\r\n        if (in == null) {\r\n            break;\r\n        }\r\n        String rName = in.getJavaClass().getName();\r\n        if (temp == null) {\r\n            temp = \"<< \" + rName;\r\n        }\r\n        if (!rName.startsWith(\"java.\") && !rName.startsWith(\"javax.\")) {\r\n            return rName;\r\n        }\r\n        if (in.isGCRoot()) {\r\n            break;\r\n        }\r\n    }\r\n    return (temp == null) ? \"unknown\" : temp;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.api.EditorSupport.currentlyInJavaEditor",
+	"Comment": "returns true if currently focused ide component is java editor.",
+	"Method": "boolean currentlyInJavaEditor(){\r\n    return getSupport().currentlyInJavaEditor();\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.ui.DataSourceWindowManager.canOpenDataSource",
+	"Comment": "returns true if there is at least one provider providing at least one view for given datasource, false otherwise.",
+	"Method": "boolean canOpenDataSource(DataSource dataSource){\r\n    return DataSourceViewsManager.sharedInstance().hasViewsFor(dataSource);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.ProfilerClient.executeInSeparateThread",
+	"Comment": "some commands, e.g. those related to instrumentation, are executed in a separate thread, since they may in turnsend requests and await response from the server. thus the listener thread, that calls this method, should be madeavailable quickly so that it can listen for the server again.",
+	"Method": "void executeInSeparateThread(Command cmd){\r\n    synchronized (execInSeparateThreadLock) {\r\n        execInSeparateThreadCmd = cmd;\r\n        try {\r\n            execInSeparateThreadLock.notify();\r\n        } catch (IllegalMonitorStateException ex) {\r\n            MiscUtils.internalError(\"ProfilerClient.executeInSeparateThread()\");\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.api.JavaPlatform.getPlatforms",
+	"Comment": "gets an list of javaplatfrom objects suitable for profiling.",
+	"Method": "List<JavaPlatform> getPlatforms(){\r\n    List<JavaPlatformProvider> platformProviders = provider().getPlatforms();\r\n    List<JavaPlatform> platforms = new ArrayList(platformProviders.size());\r\n    for (JavaPlatformProvider p : platformProviders) {\r\n        if (p.getPlatformJavaFile() != null && MiscUtils.isSupportedJVM(p.getSystemProperties())) {\r\n            platforms.add(new JavaPlatform(p));\r\n        }\r\n    }\r\n    return Collections.unmodifiableList(platforms);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.datasource.Storage.setCustomProperty",
+	"Comment": "sets persistent custom property.since visualvm 1.2 clears the property for null value.",
+	"Method": "void setCustomProperty(String key,String value){\r\n    setCustomProperties(new String[] { key }, new String[] { value });\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.options.UISupport.createSectionSeparator",
+	"Comment": "creates preformated instance of sectionseparator to be used in optionsdialog.",
+	"Method": "SectionSeparator createSectionSeparator(String caption){\r\n    return new SectionSeparator(caption);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.ui.components.table.EnhancedTableCellRenderer.setSupportsFocusBorder",
+	"Comment": "sets whether or not the renderer supports drawing border around the focused cell",
+	"Method": "void setSupportsFocusBorder(boolean supportsFocusBorder){\r\n    this.supportsFocusBorder = supportsFocusBorder;\r\n    if ((supportsFocusBorder) && (originalBorder == null)) {\r\n        setBorder(BorderFactory.createEmptyBorder());\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.host.model.HostOverviewFactory.getDefault",
+	"Comment": "getter for the default version of the hostoverviewfactory.",
+	"Method": "HostOverviewFactory getDefault(){\r\n    if (overviewFactory == null) {\r\n        overviewFactory = new HostOverviewFactory();\r\n        overviewFactory.registerProvider(overviewFactory);\r\n    }\r\n    return overviewFactory;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.api.ProjectUtilities.getProjectDirectory",
+	"Comment": "gets an associated directory where the project metadata and possibly sources live.in the case of a typical ant project, this is the top directory, not theproject metadata subdirectory.",
+	"Method": "FileObject getProjectDirectory(Lookup.Provider project){\r\n    return provider().getProjectDirectory(project);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.classfile.ClassPath.getClassInfoForClass",
+	"Comment": "searches for the class on this class path, reads it if found, and returns the dynamicclassinfo for it.if class is not found, returns null. exceptions are thrown if class file is found but something goes wrong when reading it.",
+	"Method": "DynamicClassInfo getClassInfoForClass(String className,int classLoaderId){\r\n    String slashedClassName = className.replace('.', '/');\r\n    String dirOrJar = getLocationForClass(slashedClassName);\r\n    if (dirOrJar == null) {\r\n        return null;\r\n    }\r\n    return new DynamicClassInfo(slashedClassName, classLoaderId, dirOrJar);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.datasupport.Utils.prepareDirectory",
+	"Comment": "tries to create the directory incl. all super directories, returns true if at the end of the operation the directory exists.",
+	"Method": "boolean prepareDirectory(File directory){\r\n    if (directory.exists())\r\n        return true;\r\n    directory.mkdirs();\r\n    return directory.exists();\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.heapdump.HeapDumpSupport.getHeapDumpView",
+	"Comment": "returns pluggabledatasourceviewprovider for heap dumps.",
+	"Method": "PluggableDataSourceViewProvider<HeapDump> getHeapDumpView(){\r\n    return heapDumpViewProvider;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.ui.Formatters.numberFormat",
+	"Comment": "returns format instance for formatting numbers according to current locale.",
+	"Method": "Format numberFormat(){\r\n    if (NUMBER_FORMAT == null) {\r\n        NUMBER_FORMAT = NumberFormat.getNumberInstance();\r\n        NUMBER_FORMAT.setGroupingUsed(true);\r\n    }\r\n    return NUMBER_FORMAT;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.heap.HeapTest.testGetBiggestObjectsByRetainedSize",
+	"Comment": "test of getbiggestobjectsbyretainedsize method, of class heap.",
+	"Method": "void testGetBiggestObjectsByRetainedSize(){\r\n    System.out.println(\"getBiggestObjectsByRetainedSize\");\r\n    List result = heap.getBiggestObjectsByRetainedSize(2);\r\n    Instance i1 = (Instance) result.get(0);\r\n    Instance i2 = (Instance) result.get(1);\r\n    assertEquals(66596, i1.getRetainedSize());\r\n    assertEquals(25056, i2.getRetainedSize());\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.api.project.ProjectProfilingSupport.startProfilingSession",
+	"Comment": "allows to start a profiling session directly by the projectprofilingsupport instance.",
+	"Method": "boolean startProfilingSession(FileObject profiledClassFile,boolean isTest){\r\n    return provider.startProfilingSession(profiledClassFile, isTest);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.instrumentation.Injector.insertProfilingPoints",
+	"Comment": "profiling points must be already sorted by bci in ascending order and only relevant to this method.",
+	"Method": "void insertProfilingPoints(RuntimeProfilingPoint[] points,int ppHitCPMethodIdx){\r\n    for (int i = 0; i < points.length; i++) {\r\n        RuntimeProfilingPoint point = points[i];\r\n        assert (i == 0) || (point.getBci() >= points[i - 1].getBci());\r\n        int ppbci = point.getBci() + (i * injProfilePointHitCode.length);\r\n        injectProfilePointHit(point, ppbci, ppHitCPMethodIdx);\r\n        maxStack = Math.max(maxStack, 4);\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.jmx.CredentialsProvider.getId",
+	"Comment": "returns an unique string identifying the credentialsprovider. must beoverridden to return a different identificator when subclassing thecredentialsprovider.",
+	"Method": "String getId(){\r\n    return CredentialsProvider.class.getName();\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.application.snapshot.ApplicationSnapshotsSupport.getInstance",
+	"Comment": "returns singleton instance of applicationsnapshotssupport.",
+	"Method": "ApplicationSnapshotsSupport getInstance(){\r\n    if (instance == null)\r\n        instance = new ApplicationSnapshotsSupport();\r\n    return instance;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.api.EditorSupport.getCurrentLine",
+	"Comment": "returns the caret position within the active editor documentconverted into line number",
+	"Method": "int getCurrentLine(){\r\n    return getLineForOffset(getCurrentFile(), getCurrentOffset());\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.ui.components.AnimatedContainer.setTargetContent",
+	"Comment": "sets target content component reference. this method does not place any component into container.",
+	"Method": "void setTargetContent(JComponent targetContent){\r\n    this.targetContent = targetContent;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.results.memory.MemoryResultsSnapshot.createPresentationCCT",
+	"Comment": "will create presentation cct for call stacks for given root node.",
+	"Method": "PresoObjAllocCCTNode createPresentationCCT(int classId,boolean dontShowZeroLiveObjAllocPaths,PresoObjAllocCCTNode createPresentationCCT,RuntimeMemoryCCTNode rootNode,int classId,boolean dontShowZeroLiveObjAllocPaths){\r\n    if (stacksForClasses == null) {\r\n        return null;\r\n    }\r\n    RuntimeMemoryCCTNode rootNode = stacksForClasses[classId];\r\n    if (rootNode == null) {\r\n        return null;\r\n    }\r\n    return createPresentationCCT(rootNode, classId, dontShowZeroLiveObjAllocPaths);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.api.EditorSupport.getCurrentProject",
+	"Comment": "returns the project the currently activated document belongs to",
+	"Method": "Lookup.Provider getCurrentProject(){\r\n    return getSupport().getCurrentProject();\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.explorer.ExplorerContextMenuFactory.instance",
+	"Comment": "returns singleton instance of explorercontextmenufactory.",
+	"Method": "ExplorerContextMenuFactory instance(){\r\n    if (sharedInstance == null)\r\n        sharedInstance = new ExplorerContextMenuFactory();\r\n    return sharedInstance;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.datasupport.Utils.delete",
+	"Comment": "deletes file or folder.optionally invokes deleteonexit if necessary.",
+	"Method": "boolean delete(File file,boolean deleteOnExit){\r\n    if (file == null)\r\n        throw new NullPointerException(\"File cannot be null\");\r\n    if (!file.exists())\r\n        return true;\r\n    if (file.isDirectory()) {\r\n        File[] files = file.listFiles();\r\n        for (int i = 0; i < files.length; i++) delete(files[i], deleteOnExit);\r\n    }\r\n    if (!file.delete()) {\r\n        if (Utilities.isWindows() && file.isFile()) {\r\n            for (int i = 0; i < 5; i++) {\r\n                System.gc();\r\n                if (file.delete())\r\n                    return true;\r\n            }\r\n        }\r\n        if (deleteOnExit)\r\n            file.deleteOnExit();\r\n        return false;\r\n    }\r\n    return true;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.snaptracer.TracerPackage.getStateHandler",
+	"Comment": "optionally returns packagestatehandler instance which obtains notificationsabout the tracer session status in context of tracerprobes provided by thistracerpackage. default implementation returns null. you may use stateawaresubclass instead of implementing this method to obtain the notifications.",
+	"Method": "PackageStateHandler getStateHandler(PackageStateHandler getStateHandler){\r\n    return null;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.snaptracer.ProbeItemDescriptor.discreteFillItem",
+	"Comment": "creates descriptor of a discrete item created by filled segments.",
+	"Method": "ProbeItemDescriptor discreteFillItem(String name,String description,ItemValueFormatter formatter,ProbeItemDescriptor discreteFillItem,String name,String description,ItemValueFormatter formatter,double dataFactor,long minValue,long maxValue){\r\n    return discreteOutlineItem(name, description, formatter, dataFactor, minValue, maxValue, DEFAULT_LINE_WIDTH, null, DEFAULT_COLOR);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.heapdump.HeapDumpSupport.supportsHeapDump",
+	"Comment": "returns true if taking heap dumps is supported for the application, false otherwise.",
+	"Method": "boolean supportsHeapDump(Application application){\r\n    if (application.getState() != Stateful.STATE_AVAILABLE)\r\n        return false;\r\n    return JvmFactory.getJVMFor(application).isTakeHeapDumpSupported();\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.heapwalk.details.jdk.image.InstanceBuilderRegistry.getBuilder",
+	"Comment": "returns builder which creates object of giventype. first registered builder matching given type and registered for given instance is returned. nobest match is performed.",
+	"Method": "InstanceBuilder<? extends T> getBuilder(Instance instance,Class<T> type){\r\n    for (RegisteredBuilder builder : builders) {\r\n        if (FieldAccessor.matchClassMask(instance, builder.mask)) {\r\n            if (type.isAssignableFrom(builder.builder.getType())) {\r\n                return (InstanceBuilder<? extends T>) builder.builder;\r\n            }\r\n        }\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.options.GlobalPreferences.getDoNotShowAgain",
+	"Comment": "allows to get persistent do not show again value associated with given notification identified by the provided key.",
+	"Method": "String getDoNotShowAgain(String key){\r\n    return ProfilerIDESettings.getInstance().getDoNotShowAgain(key);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.server.ClassLoaderManager.getLoadedClass",
+	"Comment": "get a class with the given name, if it is loaded by the given class loader or one of its parent loaders",
+	"Method": "Class getLoadedClass(String name,int loaderIdx,Class getLoadedClass,String className){\r\n    try {\r\n        Object[] args = new Object[] { className };\r\n        ClassLoader loader = (ClassLoader) targetLdrWeakRef.get();\r\n        while (loader != null) {\r\n            Class res = getLoadedClassInThisLoaderOnly(className);\r\n            if (res != null) {\r\n                return res;\r\n            } else {\r\n                loader = loader.getParent();\r\n            }\r\n        }\r\n        if (findBootstrapClassMethod != null) {\r\n            try {\r\n                return (Class) findBootstrapClassMethod.invoke(ClassLoader.getSystemClassLoader(), args);\r\n            } catch (Exception ex) {\r\n                System.err.println(\"Profiler Agent Error: internal error in ClassLoaderManager 1\");\r\n                ex.printStackTrace(System.err);\r\n                return null;\r\n            }\r\n        } else {\r\n            return ClassLoader.getSystemClassLoader().loadClass(className);\r\n        }\r\n    } catch (ClassNotFoundException ex) {\r\n        System.err.println(ENGINE_WARNING + \"CNFE for \" + className + \" in ClassLoaderManager \");\r\n        if (DEBUG)\r\n            ex.printStackTrace(System.err);\r\n    } catch (Exception ex) {\r\n        System.err.println(\"Profiler Agent Error: internal error in ClassLoaderManager 1\");\r\n        ex.printStackTrace(System.err);\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.options.GlobalPreferences.setDoNotShowAgain",
+	"Comment": "allows to set or clear persistent do not show again value associated with given notification identified by theprovided key.",
+	"Method": "void setDoNotShowAgain(String key,String value){\r\n    ProfilerIDESettings.getInstance().setDoNotShowAgain(key, value);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.heap.LongSet.clear",
+	"Comment": "removes all of the mappings from this map.the map will be empty after this call returns.",
+	"Method": "void clear(){\r\n    modCount++;\r\n    long[] tab = table;\r\n    Arrays.fill(tab, 0);\r\n    size = 0;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.application.jvm.MonitoredData.getUnloadedClasses",
+	"Comment": "returns the total number of classes unloaded since the java virtual machinehas started execution.",
+	"Method": "long getUnloadedClasses(){\r\n    return unloadedClasses;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.datasource.descriptor.DataSourceDescriptorFactory.getDescriptor",
+	"Comment": "returns datasourcedescriptor for given datasource.use this method to get for example a datasource name or icon.",
+	"Method": "DataSourceDescriptor getDescriptor(DataSource ds){\r\n    return getDefault().getModel(ds);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.scheduler.DefaultScheduledTaskTest.setInterval",
+	"Comment": "test of setinterval method, of class defaultscheduledtask.",
+	"Method": "void setInterval(){\r\n    System.out.println(\"setInterval\");\r\n    Quantum interval = Quantum.SUSPENDED;\r\n    assertEquals(DEFAULT_INTERVAL, instance.getInterval());\r\n    instance.setInterval(interval);\r\n    assertEquals(interval, instance.getInterval());\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.ui.components.DataViewComponent.containsDetailsView",
+	"Comment": "returns true if dataviewcomponent contains the detailsview, false otherwise.",
+	"Method": "boolean containsDetailsView(DetailsView detailsView){\r\n    return getDisplayArea(detailsView.getTab()) != null;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.global.Platform.isLinuxArmVfpHflt",
+	"Comment": "test whether we are running on linux on arm processor with hard float abi",
+	"Method": "boolean isLinuxArmVfpHflt(){\r\n    String procArch = System.getProperty(\"sun.arch.abi\");\r\n    return isLinux() && isLinuxArm() && \"gnueabihf\".equals(procArch);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.api.java.JavaProfilerSource.resolveMethodAtPosition",
+	"Comment": "resolves a method at the given positionin order to resolve the method there must be the method definition or invocationat the given position.",
+	"Method": "SourceMethodInfo resolveMethodAtPosition(int position){\r\n    return impl.resolveMethodAtPosition(getFile(), position);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.api.icons.Icons.getImageIcon",
+	"Comment": "returns an imageicon instance according to the provided key.",
+	"Method": "ImageIcon getImageIcon(String key){\r\n    Image image = getImage(key);\r\n    if (image == null)\r\n        return null;\r\n    else\r\n        return new ImageIcon(image);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.ui.cpu.SnapshotCPUResultsPanel.isCloseable",
+	"Comment": "gives a hint whether a tab panel is explicitly closeablesubclasses should override the default implementation",
+	"Method": "boolean isCloseable(){\r\n    return false;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.application.jvm.MonitoredData.getGenMaxCapacity",
+	"Comment": "returns the maximum amount of memory in bytes that is available forthe java virtual machine to use.",
+	"Method": "long[] getGenMaxCapacity(){\r\n    return genMaxCapacity.clone();\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.datasource.Storage.persistentStorageDirectoryExists",
+	"Comment": "returns true if persistent storage directory exists, false otherwise.",
+	"Method": "boolean persistentStorageDirectoryExists(){\r\n    return new File(getPersistentStorageDirectoryString()).isDirectory();\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.host.HostsSupport.storageDirectoryExists",
+	"Comment": "returns true if the storage directory for defined hosts already exists, false otherwise.",
+	"Method": "boolean storageDirectoryExists(){\r\n    return new File(HostsSupportImpl.getStorageDirectoryString()).isDirectory();\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.ui.graphs.ColorFactory.getPredefinedGradientsCount",
+	"Comment": "returns number of color pairs predefined for visualvm charts gradients.always contains at least 4 color pairs.",
+	"Method": "int getPredefinedGradientsCount(){\r\n    return PREDEFINED_GRADIENTS.length;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.snapshot.RegisteredSnapshotCategories.sharedInstance",
+	"Comment": "returns singleton instance of registeredsnapshotcategories.",
+	"Method": "RegisteredSnapshotCategories sharedInstance(){\r\n    if (sharedInstance == null)\r\n        sharedInstance = new RegisteredSnapshotCategories();\r\n    return sharedInstance;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.classfile.ClassLoaderTable.initTable",
+	"Comment": "will perform initial initialization of the classloader table with data provided from the profiler vm.",
+	"Method": "void initTable(int[] inParentLoaderIds){\r\n    if (DEBUG) {\r\n        System.err.println(\"ClassLoaderTable.DEBUG: init patent loader ids: \" + inParentLoaderIds.length);\r\n        for (int i = 0; i < inParentLoaderIds.length; i++) {\r\n            System.err.println(\"ClassLoaderTable.DEBUG: inParentLoaderIds[\" + i + \"]=\" + inParentLoaderIds[i]);\r\n        }\r\n    }\r\n    parentLoaderIds = inParentLoaderIds;\r\n    for (int i = 0; i < parentLoaderIds.length; i++) {\r\n        if (parentLoaderIds[i] == -1) {\r\n            parentLoaderIds[i] = 0;\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.classfile.ClassInfo.intAt",
+	"Comment": "given the table at the specified index, return the specified entry",
+	"Method": "long intAt(byte[] codeBytes,int tbl,int entry){\r\n    int base = tbl + (entry << 2);\r\n    return (codeBytes[base] << 24) | ((codeBytes[base + 1] & 0xFF) << 16) | ((codeBytes[base + 2] & 0xFF) << 8) | (codeBytes[base + 3] & 0xFF);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.snapshot.RegisteredSnapshotCategories.addCategoriesListener",
+	"Comment": "adds a listener for changes of registered snapshot categories.",
+	"Method": "void addCategoriesListener(SnapshotCategoriesListener listener){\r\n    listeners.add(listener);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.ui.DataSourceViewPluginProvider.supportsSavePluginFor",
+	"Comment": "returns true if the plugin provider supports saving datasourceviewplugin for the datasource intothe snapshot type.",
+	"Method": "boolean supportsSavePluginFor(X dataSource,Class<? extends Snapshot> snapshotClass){\r\n    return false;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.explorer.ExplorerSupport.addSelectionListener",
+	"Comment": "adds a listener to receive notifications about explorer tree selection change.",
+	"Method": "void addSelectionListener(ExplorerSelectionListener listener){\r\n    selectionListeners.add(listener);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.snaptracer.TracerProbeDescriptor.isProbeAvailable",
+	"Comment": "returns true if the probe is available in current context, false otherwise.",
+	"Method": "boolean isProbeAvailable(){\r\n    return available;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.ui.actions.ActionUtils.getSelectedDataSources",
+	"Comment": "returns set of selected datasources of a certain type in applications window or empty set if no datasource of this type is selected.",
+	"Method": "Set<DataSource> getSelectedDataSources(Set<X> getSelectedDataSources,Class<X> scope){\r\n    Set<DataSource> selectedDataSources = getSelectedDataSources();\r\n    Set<X> filteredSelectedDataSources = Utils.getFilteredSet(selectedDataSources, scope);\r\n    return selectedDataSources.size() == filteredSelectedDataSources.size() ? filteredSelectedDataSources : Collections.EMPTY_SET;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.NetBeansProfiler.profileClass",
+	"Comment": "starts the ta described via sessionsettings, using profiling mode specified in profilingsettings.",
+	"Method": "boolean profileClass(ProfilingSettings profilingSettings,SessionSettings sessionSettings){\r\n    profilingMode = MODE_PROFILE;\r\n    lastProfilingSettings = profilingSettings;\r\n    lastSessionSettings = sessionSettings;\r\n    lastMode = MODE_PROFILE;\r\n    if (getTargetAppRunner().targetJVMIsAlive()) {\r\n        getTargetAppRunner().terminateTargetJVM();\r\n    }\r\n    final ProfilerEngineSettings sSettings = getTargetAppRunner().getProfilerEngineSettings();\r\n    sessionSettings.applySettings(sSettings);\r\n    profilingSettings.applySettings(sSettings);\r\n    sSettings.setRemoteHost(\"\");\r\n    sSettings.setInstrumentObjectInit(false);\r\n    logActionConfig(\"profileClass\", profilingSettings, sessionSettings, null, sSettings.getInstrumentationFilter());\r\n    changeStateTo(PROFILING_STARTED);\r\n    cleanupBeforeProfiling(sSettings);\r\n    setThreadsMonitoringEnabled(profilingSettings.getThreadsMonitoringEnabled());\r\n    setLockContentionMonitoringEnabled(profilingSettings.getLockContentionMonitoringEnabled());\r\n    if (shouldOpenWindowsOnProfilingStart()) {\r\n        openWindowsOnProfilingStart();\r\n    }\r\n    final Window mainWindow = WindowManager.getDefault().getMainWindow();\r\n    ProfilerUtils.runInProfilerRequestProcessor(new Runnable() {\r\n        public void run() {\r\n            final Cursor cursor = mainWindow.getCursor();\r\n            mainWindow.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));\r\n            try {\r\n                if (!runCalibration(true, sessionSettings.getJavaExecutable(), sessionSettings.getJavaVersionString(), sessionSettings.getSystemArchitecture())) {\r\n                    ProfilerDialogs.displayError(Bundle.ProfilerModule_CalibrationFailedMessage());\r\n                    changeStateTo(PROFILING_INACTIVE);\r\n                    return;\r\n                }\r\n                boolean success = prepareInstrumentation(profilingSettings);\r\n                success = success && getTargetAppRunner().startTargetVM() && getTargetAppRunner().initiateSession(0, false) && getTargetAppRunner().connectToStartedVMAndStartTA();\r\n                if (!success) {\r\n                    changeStateTo(PROFILING_INACTIVE);\r\n                    return;\r\n                }\r\n                if (getTargetAppRunner().targetAppIsRunning()) {\r\n                    getThreadsManager().setSupportsSleepingStateMonitoring(Platform.supportsThreadSleepingStateMonitoring(sSettings.getTargetJDKVersionString()));\r\n                    CommonUtils.runInEventDispatchThread(new Runnable() {\r\n                        public void run() {\r\n                            getMonitor().monitorVM(getTargetAppRunner());\r\n                        }\r\n                    });\r\n                } else {\r\n                    changeStateTo(PROFILING_INACTIVE);\r\n                }\r\n            } finally {\r\n                mainWindow.setCursor(cursor);\r\n            }\r\n        }\r\n    });\r\n    return true;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.NetBeansProfiler.profileClass",
+	"Comment": "starts the ta described via sessionsettings, using profiling mode specified in profilingsettings.",
+	"Method": "boolean profileClass(ProfilingSettings profilingSettings,SessionSettings sessionSettings){\r\n    final Cursor cursor = mainWindow.getCursor();\r\n    mainWindow.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));\r\n    try {\r\n        if (!runCalibration(true, sessionSettings.getJavaExecutable(), sessionSettings.getJavaVersionString(), sessionSettings.getSystemArchitecture())) {\r\n            ProfilerDialogs.displayError(Bundle.ProfilerModule_CalibrationFailedMessage());\r\n            changeStateTo(PROFILING_INACTIVE);\r\n            return;\r\n        }\r\n        boolean success = prepareInstrumentation(profilingSettings);\r\n        success = success && getTargetAppRunner().startTargetVM() && getTargetAppRunner().initiateSession(0, false) && getTargetAppRunner().connectToStartedVMAndStartTA();\r\n        if (!success) {\r\n            changeStateTo(PROFILING_INACTIVE);\r\n            return;\r\n        }\r\n        if (getTargetAppRunner().targetAppIsRunning()) {\r\n            getThreadsManager().setSupportsSleepingStateMonitoring(Platform.supportsThreadSleepingStateMonitoring(sSettings.getTargetJDKVersionString()));\r\n            CommonUtils.runInEventDispatchThread(new Runnable() {\r\n                public void run() {\r\n                    getMonitor().monitorVM(getTargetAppRunner());\r\n                }\r\n            });\r\n        } else {\r\n            changeStateTo(PROFILING_INACTIVE);\r\n        }\r\n    } finally {\r\n        mainWindow.setCursor(cursor);\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.NetBeansProfiler.profileClass",
+	"Comment": "starts the ta described via sessionsettings, using profiling mode specified in profilingsettings.",
+	"Method": "boolean profileClass(ProfilingSettings profilingSettings,SessionSettings sessionSettings){\r\n    getMonitor().monitorVM(getTargetAppRunner());\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.options.UISupport.createScrollableContainer",
+	"Comment": "creates preformatted instance of scrollablecontainer to be used in optionsdialog. all insets are already initialized to defaults, the client componentsshould have zero outer insets.",
+	"Method": "ScrollableContainer createScrollableContainer(JComponent contents){\r\n    ScrollableContainer container = new ScrollableContainer(contents, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);\r\n    container.setViewportBorder(BorderFactory.createEmptyBorder(0, 0, 0, 5));\r\n    container.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 5));\r\n    return container;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.server.ProfilerInterface.deactivateInjectedCode",
+	"Comment": "deactivate the injected code for the current instrumentation type, and clean up all the supporting data structuresmaintained by the corresponding profilerruntimexxx class.",
+	"Method": "void deactivateInjectedCode(){\r\n    disableProfilerHooks();\r\n    disableProfiling();\r\n    status.resetInstrClassAndMethodInfo();\r\n    setCurrentInstrType(INSTR_NONE);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.common.integration.IntegrationUtils.getAddProfilerLibrariesToPathString",
+	"Comment": "returns command for adding profiler native libraries to path",
+	"Method": "String getAddProfilerLibrariesToPathString(String targetPlatform,String targetJVM,boolean isRemote,boolean formatAsHTML){\r\n    return getExportEnvVariableValueString(targetPlatform, getNativePathEnvVariableString(targetPlatform), getNativeLibrariesPath(targetPlatform, targetJVM, isRemote) + getClassPathSeparator(targetPlatform) + getEnvVariableReference(getNativePathEnvVariableString(targetPlatform), targetPlatform), formatAsHTML);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.api.project.ProjectProfilingSupport.isAttachSupported",
+	"Comment": "returns true if attaching to a running project is supported.",
+	"Method": "boolean isAttachSupported(){\r\n    return provider.isAttachSupported();\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.snapshot.SnapshotCategory.getPreferredPosition",
+	"Comment": "returns preferred position of this category within other categories when presented in ui.",
+	"Method": "int getPreferredPosition(){\r\n    return preferredPosition;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.heapwalk.memorylint.IteratingRule.setClassNamePattern",
+	"Comment": "configures the rule to be applied on all instances of classesmatching to given pattern.",
+	"Method": "void setClassNamePattern(String classNamePattern){\r\n    this.classNamePattern = Pattern.compile(classNamePattern);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.ui.DesktopUtils.isDesktopSupported",
+	"Comment": "returns true if java.awt.desktop is supported on host platform.",
+	"Method": "boolean isDesktopSupported(){\r\n    if (!desktopSupportedInitialized) {\r\n        desktopSupported = Desktop.isDesktopSupported();\r\n        desktopSupportedInitialized = true;\r\n    }\r\n    return desktopSupported;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.ui.components.LevelIndicator.getPeakMarkSize",
+	"Comment": "returns the peak mark size in pixelsthe peak mark is rendered in the indicator at the place of peak value",
+	"Method": "int getPeakMarkSize(){\r\n    return peakMarkSize;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.datasupport.Utils.copyFile",
+	"Comment": "copies source file to the destination file, returns true if the file was successfully copied.",
+	"Method": "boolean copyFile(File file,File copy){\r\n    if (file == null || copy == null)\r\n        throw new NullPointerException(\"File cannot be null\");\r\n    if (!file.isFile() || copy.isDirectory())\r\n        throw new IllegalArgumentException(\"Not a valid file\");\r\n    FileInputStream fis = null;\r\n    FileOutputStream fos = null;\r\n    try {\r\n        fis = new FileInputStream(file);\r\n        fos = new FileOutputStream(copy);\r\n        int bytes;\r\n        byte[] packet = new byte[COPY_PACKET_SIZE];\r\n        while ((bytes = fis.read(packet, 0, COPY_PACKET_SIZE)) != -1) fos.write(packet, 0, bytes);\r\n        return true;\r\n    } catch (Exception e) {\r\n        LOGGER.log(Level.SEVERE, \"Error copying file\", e);\r\n        return false;\r\n    } finally {\r\n        try {\r\n            if (fos != null)\r\n                fos.close();\r\n        } catch (Exception e) {\r\n            LOGGER.log(Level.SEVERE, \"Problem closing target stream\", e);\r\n        }\r\n        try {\r\n            if (fis != null)\r\n                fis.close();\r\n        } catch (Exception e) {\r\n            LOGGER.log(Level.SEVERE, \"Problem closing source stream\", e);\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.properties.PropertiesCustomizer.propertiesDefined",
+	"Comment": "invokes propertiesprovider.propertiesdefined method for everypropertiesprovider supporting the provided datasource. to be called bydatasource providers when the new datasource dialog displaying editableproperties has been accepted by the user and new datasource has beencreated.",
+	"Method": "void propertiesDefined(X dataSource){\r\n    unregisterListeners();\r\n    for (int i = 0; i < groups.size(); i++) {\r\n        List<PropertiesProvider<X>> providers = groups.get(i);\r\n        List<PropertiesPanel> categoriesPanels = new ArrayList();\r\n        if (providers.size() == 1) {\r\n            categoriesPanels.add(panels.get(i));\r\n        } else {\r\n            MultiPropertiesPanel multiPanel = (MultiPropertiesPanel) panels.get(i);\r\n            categoriesPanels.addAll(multiPanel.getPanels());\r\n        }\r\n        for (int j = 0; j < providers.size(); j++) providers.get(j).propertiesDefined(categoriesPanels.get(j), dataSource);\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.snapshot.SnapshotsSupport.createSnapshotIcon",
+	"Comment": "creates icon for a snapshot by adding a snapshot badge to the provided image.",
+	"Method": "Image createSnapshotIcon(Image icon){\r\n    return ImageUtilities.mergeImages(icon, SNAPSHOT_BADGE, 0, 0);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.ui.components.AnimationLayout.minimumLayoutSize",
+	"Comment": "returns the minimum dimensions needed to layout the visiblecomponents contained in the specified target container.",
+	"Method": "Dimension minimumLayoutSize(Container target){\r\n    synchronized (target.getTreeLock()) {\r\n        Dimension dim = new Dimension(0, 0);\r\n        if (target.getComponentCount() > 0) {\r\n            Component m = target.getComponent(0);\r\n            if (m.isVisible()) {\r\n                dim = m.getMinimumSize();\r\n            }\r\n        }\r\n        return dim;\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.heap.LongHashMap.putAll",
+	"Comment": "copies all of the mappings from the specified map to this map.these mappings will replace any mappings that this map had forany of the keys currently in the specified map.",
+	"Method": "void putAll(Map<Long, Long> m){\r\n    int n = m.size();\r\n    if (n == 0)\r\n        return;\r\n    if (n > threshold)\r\n        resize(capacity(n));\r\n    for (Map.Entry<Long, Long> e : m.entrySet()) put(e.getKey(), e.getValue());\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.results.cpu.CPUResultsSnapshot.fixNCalls",
+	"Comment": "workaround to display sum of invocations of all children for thread nodes",
+	"Method": "PrestimeCPUCCTNode fixNCalls(PrestimeCPUCCTNode root){\r\n    CCTNode[] children = root == null ? null : root.getChildren();\r\n    if (children != null)\r\n        for (CCTNode node : children) {\r\n            PrestimeCPUCCTNode _root = (PrestimeCPUCCTNode) node;\r\n            _root.nCalls = 0;\r\n            CCTNode[] _children = _root.getChildren();\r\n            if (_children != null)\r\n                for (CCTNode child : _children) _root.addNCalls(((PrestimeCPUCCTNode) child).getNCalls());\r\n        }\r\n    return root;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.charts.ColorFactory.getPredefinedColorsCount",
+	"Comment": "returns number of colors predefined for visualvm charts.always contains at least 4 colors.",
+	"Method": "int getPredefinedColorsCount(){\r\n    return PREDEFINED_COLORS.length;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.ProfilerClient.getMethodNamesForJMethodIds",
+	"Comment": "called to obtain method names for jmethodids, that we do not know method names of.this method is typically called when results are to be displayed, but also in case some classes are unloadedin the profiled application, as in this case we would lost method names for already accumulated results.assumption is that jmethodid is never reused inside the jvm.",
+	"Method": "String[][] getMethodNamesForJMethodIds(int[] methodIds){\r\n    final int PACKEDARR_ITEMS = 4;\r\n    checkForTargetVMAlive();\r\n    GetMethodNamesForJMethodIdsCommand cmd = new GetMethodNamesForJMethodIdsCommand(methodIds);\r\n    sendComplexCmdToServer(cmd);\r\n    MethodNamesResponse resp = (MethodNamesResponse) getAndCheckLastResponse(\"Unknown problem when trying to get method names for jmethodIds\");\r\n    return StringUtils.convertPackedStringsIntoStringArrays(resp.getPackedData(), resp.getPackedArrayOffsets(), PACKEDARR_ITEMS);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.application.type.MainClassApplicationTypeFactory.createApplicationTypeFor",
+	"Comment": "creates applicationtype for application, jvm and mainclass. can overriden by sublasses, which relies on mainclass name",
+	"Method": "ApplicationType createApplicationTypeFor(Application app,Jvm jvm,String mainClass){\r\n    String[] appDesc = map.get(mainClass);\r\n    if (appDesc != null) {\r\n        return new MainClassApplicationType(app, appDesc[NAME], appDesc[DESCRIPTION], appDesc[ICON_PATH]);\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.ui.components.treetable.AbstractTreeTableModel.fireTreeNodesRemoved",
+	"Comment": "notify all listeners that have registered interest for notification onthis event type. the event instance is lazily created using theparameters passed into the fire method.",
+	"Method": "void fireTreeNodesRemoved(Object source,Object[] path,int[] childIndices,Object[] children){\r\n    Object[] listeners = listenerList.getListenerList();\r\n    TreeModelEvent e = null;\r\n    for (int i = listeners.length - 2; i >= 0; i -= 2) {\r\n        if (listeners[i] == TreeModelListener.class) {\r\n            if (e == null) {\r\n                e = new TreeModelEvent(source, path, childIndices, children);\r\n            }\r\n            ((TreeModelListener) listeners[i + 1]).treeNodesRemoved(e);\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.application.jvm.MonitoredData.getThreadsLivePeak",
+	"Comment": "returns the peak live thread count since the java virtual machinestarted",
+	"Method": "long getThreadsLivePeak(){\r\n    return threadsLivePeak;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.application.views.ApplicationViewsSupport.getOverviewView",
+	"Comment": "returns pluggabledatasourceviewprovider for overview application subtab.",
+	"Method": "PluggableDataSourceViewProvider<Application> getOverviewView(){\r\n    return overviewPluggableView;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.datasource.DataSource.checkRemove",
+	"Comment": "returns true if the datasource can be removed in context of removeroot.the check is blocking, this is a chance for example to warn the user aboutpossible data loss when removing the datasource representing an unsaved snapshot.",
+	"Method": "boolean checkRemove(DataSource removeRoot){\r\n    return true;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.datasource.Storage.getPersistentStorageDirectoryString",
+	"Comment": "returns default storage directory for persistent datasource data",
+	"Method": "String getPersistentStorageDirectoryString(){\r\n    synchronized (persistentStorageDirectoryStringLock) {\r\n        if (persistentStorageDirectoryString == null)\r\n            persistentStorageDirectoryString = new File(System.getProperty(\"netbeans.user\")).getAbsolutePath() + File.separator + PERSISTENT_STORAGE_DIRNAME;\r\n        return persistentStorageDirectoryString;\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.explorer.ExplorerSupport.collapseDataSource",
+	"Comment": "collapses datasource if displayed and expanded in explorer tree.",
+	"Method": "void collapseDataSource(DataSource dataSource){\r\n    collapseNode(getNode(dataSource));\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.tools.jvmstat.JvmstatModelFactory.getDefault",
+	"Comment": "getter for the default version of the jvmstatmodelfactory.",
+	"Method": "JvmstatModelFactory getDefault(){\r\n    if (jvmstatFactory == null) {\r\n        jvmstatFactory = new JvmstatModelFactory();\r\n    }\r\n    return jvmstatFactory;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.ui.components.AnimatedContainer.setTransContent",
+	"Comment": "sets transient content component reference. this method does not place any component into container.",
+	"Method": "void setTransContent(JComponent transContent){\r\n    this.transContent = transContent;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.ui.components.AnimationLayout.toString",
+	"Comment": "returns a string representation of this animationlayoutobject and its values.",
+	"Method": "String toString(){\r\n    return getClass().getName() + \", lockedSize: \" + lockedSize;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.heap.LongSet.contains",
+	"Comment": "tests whether the specified object reference is a key in this identityhash map.",
+	"Method": "boolean contains(long key){\r\n    assert key != 0;\r\n    long[] tab = table;\r\n    int len = tab.length;\r\n    int i = hash(key, len);\r\n    while (true) {\r\n        long item = tab[i];\r\n        if (item == key)\r\n            return true;\r\n        if (item == 0)\r\n            return false;\r\n        i = nextKeyIndex(i, len);\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.modules.appui.options.NetworkOptionsModel.testProxy",
+	"Comment": "private helper methods ..................................................",
+	"Method": "void testProxy(NetworkOptionsPanel panel,int proxyType,String proxyHost,String proxyPortString,String nonProxyHosts){\r\n    panel.updateTestConnectionStatus(TestingStatus.WAITING, null);\r\n    TestingStatus status = TestingStatus.FAILED;\r\n    String message = null;\r\n    String testingUrlHost;\r\n    URL testingUrl;\r\n    Proxy testingProxy;\r\n    try {\r\n        testingUrl = new URL(ProxySettings.HTTP_CONNECTION_TEST_URL);\r\n        testingUrlHost = testingUrl.getHost();\r\n    } catch (MalformedURLException ex) {\r\n        LOGGER.log(Level.SEVERE, \"Cannot create url from string.\", ex);\r\n        panel.updateTestConnectionStatus(status, message);\r\n        return;\r\n    }\r\n    switch(proxyType) {\r\n        case ProxySettings.DIRECT_CONNECTION:\r\n            testingProxy = Proxy.NO_PROXY;\r\n            break;\r\n        case ProxySettings.AUTO_DETECT_PROXY:\r\n        case ProxySettings.AUTO_DETECT_PAC:\r\n            nonProxyHosts = ProxySettings.getSystemNonProxyHosts();\r\n            if (isNonProxy(testingUrlHost, nonProxyHosts)) {\r\n                testingProxy = Proxy.NO_PROXY;\r\n            } else {\r\n                String host = ProxySettings.getTestSystemHttpHost();\r\n                int port = 0;\r\n                try {\r\n                    port = Integer.valueOf(ProxySettings.getTestSystemHttpPort());\r\n                } catch (NumberFormatException ex) {\r\n                    LOGGER.log(Level.INFO, \"Cannot parse port number\", ex);\r\n                }\r\n                testingProxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(host, port));\r\n            }\r\n            break;\r\n        case ProxySettings.MANUAL_SET_PROXY:\r\n            nonProxyHosts = view2code(nonProxyHosts);\r\n            if (isNonProxy(testingUrl.getHost(), nonProxyHosts)) {\r\n                testingProxy = Proxy.NO_PROXY;\r\n            } else {\r\n                try {\r\n                    int proxyPort = Integer.valueOf(proxyPortString);\r\n                    testingProxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyHost, proxyPort));\r\n                } catch (NumberFormatException ex) {\r\n                    LOGGER.log(Level.INFO, \"Cannot parse port number\", ex);\r\n                    status = TestingStatus.FAILED;\r\n                    message = NbBundle.getMessage(NetworkOptionsModel.class, \"NetworkOptionsModel_PortError\");\r\n                    panel.updateTestConnectionStatus(status, message);\r\n                    return;\r\n                }\r\n            }\r\n            break;\r\n        case ProxySettings.MANUAL_SET_PAC:\r\n        default:\r\n            testingProxy = Proxy.NO_PROXY;\r\n    }\r\n    try {\r\n        status = testHttpConnection(testingUrl, testingProxy) ? TestingStatus.OK : TestingStatus.FAILED;\r\n    } catch (IOException ex) {\r\n        LOGGER.log(Level.INFO, \"Cannot connect via http protocol.\", ex);\r\n        message = ex.getLocalizedMessage();\r\n    }\r\n    panel.updateTestConnectionStatus(status, message);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.snapshot.SnapshotCategory.supportsOpenSnapshot",
+	"Comment": "returns true if the category can restore snapshot from a saved file, false otherwise.",
+	"Method": "boolean supportsOpenSnapshot(){\r\n    return false;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.heapwalk.memorylint.Utils.getSignificantIncommingString",
+	"Comment": "perform bfs of incomming references and find shortest one not from sdk",
+	"Method": "String getSignificantIncommingString(Instance in){\r\n    Set<Instance> processed = new HashSet<Instance>();\r\n    String temp = null;\r\n    Deque<Instance> fifo = new ArrayDeque<Instance>();\r\n    fifo.add(in);\r\n    while (!fifo.isEmpty()) {\r\n        if (fifo.size() > 10) {\r\n            Logger.getLogger(Utils.class.getName()).log(Level.FINE, \"overflow in getSignificantIncommingString({0})\", new Object[] { in });\r\n            break;\r\n        }\r\n        Instance act = fifo.removeFirst();\r\n        @SuppressWarnings(\"unchecked\")\r\n        List<Value> incoming = act.getReferences();\r\n        for (Value v : incoming) {\r\n            String rName = v.getDefiningInstance().getJavaClass().getName();\r\n            if (temp == null) {\r\n                temp = \"<< \" + rName;\r\n            }\r\n            if (rName.startsWith(\"java.\") || rName.startsWith(\"javax.\")) {\r\n                Instance i = v.getDefiningInstance();\r\n                if (processed.add(i)) {\r\n                    fifo.add(i);\r\n                }\r\n            } else {\r\n                return rName;\r\n            }\r\n        }\r\n    }\r\n    return (temp == null) ? \"unknown\" : temp;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.api.java.JavaProfilerSource.resolveClassAtPosition",
+	"Comment": "resolves a class at the given positionin order to resolve the class there must be the class definition or referenceat the given position.",
+	"Method": "SourceClassInfo resolveClassAtPosition(int position,boolean resolveField){\r\n    return impl.resolveClassAtPosition(getFile(), position, resolveField);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.snaptracer.ProbeItemDescriptor.discreteLineItem",
+	"Comment": "creates descriptor for a discrete item created by line segments representing the outline.",
+	"Method": "ProbeItemDescriptor discreteLineItem(String name,String description,ItemValueFormatter formatter,ProbeItemDescriptor discreteLineItem,String name,String description,ItemValueFormatter formatter,double dataFactor,long minValue,long maxValue){\r\n    return discreteOutlineItem(name, description, formatter, dataFactor, minValue, maxValue, DEFAULT_LINE_WIDTH, DEFAULT_COLOR, null);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.host.HostsSupport.getOrCreateHost",
+	"Comment": "returns an existing host instance or creates a new host if needed.",
+	"Method": "Host getOrCreateHost(String hostname,boolean interactive){\r\n    return createHost(new HostProperties(hostname, hostname, null), false, interactive);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.server.ProfilerServer.sendEventBufferDumpedCommand",
+	"Comment": "several methods to send commands specific for modules that use wireprotocol just occasionally",
+	"Method": "boolean sendEventBufferDumpedCommand(int length,String bufferName,boolean sendEventBufferDumpedCommand,int length,byte[] buffer,int startPos){\r\n    EventBufferDumpedCommand cmd = new EventBufferDumpedCommand(length, buffer, startPos);\r\n    sendComplexCmdToClient(cmd);\r\n    return getAndCheckLastResponse();\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.application.jvm.MonitoredData.getSharedLoadedClasses",
+	"Comment": "returns the total number of shared classes that have been loaded sincethe java virtual machine has started execution.",
+	"Method": "long getSharedLoadedClasses(){\r\n    return sharedLoadedClasses;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.snaptracer.impl.timeline.TimelineColorFactory.getPredefinedGradient",
+	"Comment": "returns a color pair predefined for visualvm charts gradients.",
+	"Method": "Color[] getPredefinedGradient(int index){\r\n    return PREDEFINED_GRADIENTS[index];\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.classfile.ClassInfo.findPreviousBCI",
+	"Comment": "for given bytecode offset bci, return the offset of the bytecode before the one at bci",
+	"Method": "int findPreviousBCI(byte[] codeBytes,int bci){\r\n    int prev_offset = 0;\r\n    for (int offset = 0; offset < bci; ) {\r\n        prev_offset = offset;\r\n        int opcode = codeBytes[offset] & 0xFF;\r\n        if (opcode == opc_wide) {\r\n            opcode = codeBytes[offset + 1] & 0xFF;\r\n            if (((opcode >= opc_iload) && (opcode <= opc_aload)) || ((opcode >= opc_istore) && (opcode <= opc_astore)) || (opcode == opc_ret)) {\r\n                offset += 4;\r\n            } else if (opcode == opc_iinc) {\r\n                offset += 6;\r\n            } else {\r\n                offset++;\r\n            }\r\n        } else {\r\n            switch(opcode) {\r\n                case opc_tableswitch:\r\n                    {\r\n                        int tbl = (offset + 1 + 3) & (~3);\r\n                        long default_skip = intAt(codeBytes, tbl, 0);\r\n                        long low = intAt(codeBytes, tbl, 1);\r\n                        long high = intAt(codeBytes, tbl, 2);\r\n                        tbl += (3 << 2);\r\n                        offset = tbl + (int) ((high - low + 1) << 2);\r\n                        break;\r\n                    }\r\n                case opc_lookupswitch:\r\n                    {\r\n                        int tbl = (offset + 1 + 3) & (~3);\r\n                        long default_skip = intAt(codeBytes, tbl, 0);\r\n                        int npairs = (int) intAt(codeBytes, tbl, 1);\r\n                        int nints = npairs * 2;\r\n                        tbl += (2 << 2);\r\n                        offset = tbl + (nints << 2);\r\n                        break;\r\n                    }\r\n                default:\r\n                    offset += opc_length[opcode];\r\n                    break;\r\n            }\r\n        }\r\n    }\r\n    return prev_offset;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.charts.ColorFactory.getPredefinedGradientsCount",
+	"Comment": "returns number of color pairs predefined for visualvm charts gradients.always contains at least 4 color pairs.",
+	"Method": "int getPredefinedGradientsCount(){\r\n    return PREDEFINED_GRADIENTS.length;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.charts.SimpleXYChartSupport.loadValues",
+	"Comment": "loads chart values from the provided inputstream. this method should notbe called in the event dispatch thread.",
+	"Method": "void loadValues(InputStream is){\r\n    storage.loadValues(is);\r\n    SwingUtilities.invokeLater(new Runnable() {\r\n        public void run() {\r\n            itemsModel.valuesAdded();\r\n        }\r\n    });\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.charts.SimpleXYChartSupport.loadValues",
+	"Comment": "loads chart values from the provided inputstream. this method should notbe called in the event dispatch thread.",
+	"Method": "void loadValues(InputStream is){\r\n    itemsModel.valuesAdded();\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.heapdump.HeapDumpSupport.supportsRemoteHeapDump",
+	"Comment": "returns true if taking heap dumps is supported for the remote application.",
+	"Method": "boolean supportsRemoteHeapDump(Application application){\r\n    if (application.getState() != Stateful.STATE_AVAILABLE)\r\n        return false;\r\n    if (application.isLocalApplication())\r\n        return false;\r\n    JmxModel jmxModel = JmxModelFactory.getJmxModelFor(application);\r\n    return jmxModel == null ? false : jmxModel.isTakeHeapDumpSupported();\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.coredump.CoreDump.getExecutable",
+	"Comment": "returns the java executable of the jdk which was running the original application.",
+	"Method": "String getExecutable(){\r\n    String home = getJDKHome();\r\n    String exec = home + File.separatorChar + \"bin\" + File.separatorChar + \"java\";\r\n    if (Utilities.isWindows()) {\r\n        exec += \".exe\";\r\n    }\r\n    return exec;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.heapwalk.details.jdk.ui.JComponentBuilders.getBuilder",
+	"Comment": "make sure subclasses are listed before base class if using issubclassof",
+	"Method": "ComponentBuilder getBuilder(Instance instance,Heap heap){\r\n    if (DetailsUtils.isSubclassOf(instance, JLabel.class.getName())) {\r\n        return new JLabelBuilder(instance, heap);\r\n    } else if (DetailsUtils.isSubclassOf(instance, JPanel.class.getName())) {\r\n        return new JPanelBuilder(instance, heap);\r\n    } else if (DetailsUtils.isSubclassOf(instance, JToolBar.class.getName())) {\r\n        return new JToolBarBuilder(instance, heap);\r\n    } else if (DetailsUtils.isSubclassOf(instance, Box.Filler.class.getName())) {\r\n        return new BoxFillerBuilder(instance, heap);\r\n    } else if (DetailsUtils.isSubclassOf(instance, Box.class.getName())) {\r\n        return new BoxBuilder(instance, heap);\r\n    } else if (DetailsUtils.isSubclassOf(instance, JScrollBar.class.getName())) {\r\n        return new JScrollBarBuilder(instance, heap);\r\n    } else if (DetailsUtils.isSubclassOf(instance, JToolBar.Separator.class.getName())) {\r\n        return new JToolBarSeparatorBuilder(instance, heap);\r\n    } else if (DetailsUtils.isSubclassOf(instance, JPopupMenu.Separator.class.getName())) {\r\n        return new JPopupMenuSeparatorBuilder(instance, heap);\r\n    } else if (DetailsUtils.isSubclassOf(instance, JSeparator.class.getName())) {\r\n        return new JSeparatorBuilder(instance, heap);\r\n    } else if (DetailsUtils.isSubclassOf(instance, JProgressBar.class.getName())) {\r\n        return new JProgressBarBuilder(instance, heap);\r\n    } else if (DetailsUtils.isSubclassOf(instance, JSlider.class.getName())) {\r\n        return new JSliderBuilder(instance, heap);\r\n    } else if (DetailsUtils.isSubclassOf(instance, JSpinner.class.getName())) {\r\n        return new JSpinnerBuilder(instance, heap);\r\n    } else if (DetailsUtils.isSubclassOf(instance, JPopupMenu.class.getName())) {\r\n        return new JPopupMenuBuilder(instance, heap);\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.ui.components.tree.EnhancedTreeCellRenderer.getTextSelectionColor",
+	"Comment": "returns the color the text is drawn with when the node is selected.",
+	"Method": "Color getTextSelectionColor(){\r\n    return textSelectionColor;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.classfile.ClassRepository.lookupLoadedClass",
+	"Comment": "lookup a class in the class repository, only among those currently loaded by the vm.if there is no loaded class and allowexistingplaceholder is true, also check for an existing placeholders.returns either a loaded class, or if allowed an existing placeholder, or null, but not a new placeholder.",
+	"Method": "BaseClassInfo lookupLoadedClass(String className,int classLoaderId,boolean allowExistingPlaceholder){\r\n    BaseClassInfo singleExistingClazzOrPCI = null;\r\n    BaseClassInfo clazzOrPCI = null;\r\n    className = className.replace('.', '/').intern();\r\n    Object entry = classes.get(className);\r\n    if (entry != null) {\r\n        if (entry instanceof BaseClassInfo) {\r\n            singleExistingClazzOrPCI = (BaseClassInfo) entry;\r\n            clazzOrPCI = SameNameClassGroup.checkForCompatibility(singleExistingClazzOrPCI, classLoaderId);\r\n        } else {\r\n            SameNameClassGroup classGroup = (SameNameClassGroup) entry;\r\n            clazzOrPCI = classGroup.findCompatibleClass(classLoaderId);\r\n        }\r\n        if (clazzOrPCI != null) {\r\n            if (!(clazzOrPCI instanceof PlaceholderClassInfo)) {\r\n                return clazzOrPCI;\r\n            } else if (allowExistingPlaceholder) {\r\n                return clazzOrPCI;\r\n            }\r\n        }\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.application.jvm.Jvm.addPropertyChangeListener",
+	"Comment": "add a propertychangelistener to the listener list.the listener is registered for all properties.the same listener object may be added more than once, and will be calledas many times as it is added.if listener is null, no exception is thrown and no actionis taken.",
+	"Method": "void addPropertyChangeListener(PropertyChangeListener listener){\r\n    changeSupport.addPropertyChangeListener(listener);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.charts.SimpleXYChartSupport.saveValues",
+	"Comment": "saves chart values into the provided outputstream. this method should notbe called in the event dispatch thread.",
+	"Method": "void saveValues(OutputStream os){\r\n    storage.saveValues(os);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.heap.LongHashMap.put",
+	"Comment": "associates the specified value with the specified key in this identityhash map.if the map previously contained a mapping for the key, theold value is replaced.",
+	"Method": "long put(long key,long value){\r\n    assert key != 0;\r\n    assert value != -1;\r\n    long k = key;\r\n    long[] tab = table;\r\n    int len = tab.length;\r\n    int i = hash(k, len);\r\n    long item;\r\n    while ((item = tab[i]) != 0) {\r\n        if (item == k) {\r\n            long oldValue = tab[i + 1];\r\n            tab[i + 1] = value;\r\n            return oldValue;\r\n        }\r\n        i = nextKeyIndex(i, len);\r\n    }\r\n    modCount++;\r\n    tab[i] = k;\r\n    tab[i + 1] = value;\r\n    if (++size >= threshold)\r\n        resize(len);\r\n    return -1;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.ui.components.AnimatedContainer.setContent",
+	"Comment": "sets content component reference. this method does not place any component into container.",
+	"Method": "void setContent(JComponent content){\r\n    this.content = content;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.ui.components.table.SortableTableModel.setInitialSorting",
+	"Comment": "after the table to which this model belongs has been set, this method allows to set the initial sorting column and sorting order.",
+	"Method": "void setInitialSorting(int sortingColumn,boolean sortingOrder){\r\n    if (headerRenderer != null) {\r\n        headerRenderer.setSortingColumn(sortingColumn);\r\n        headerRenderer.setSortingOrder(sortingOrder);\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.api.icons.Icons.getResource",
+	"Comment": "returns path to image resource without leading slash according to the provided key.",
+	"Method": "String getResource(String key){\r\n    Collection<? extends IconsProvider> ps = providers();\r\n    for (IconsProvider p : ps) {\r\n        String resource = p.getResource(key);\r\n        if (resource != null)\r\n            return resource;\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.results.threads.ThreadsDataManager.processData",
+	"Comment": "convert the data received from the server on this iteration into the internal compressed format,and notify listeners",
+	"Method": "void processData(MonitoredData monitoredData){\r\n    int max = threadData.length;\r\n    int newThreadsNum = monitoredData.getNNewThreads();\r\n    if (newThreadsNum > 0) {\r\n        addNewThreads(monitoredData.getNewThreadNames(), monitoredData.getNewThreadClassNames());\r\n        int[] newIds = monitoredData.getNewThreadIds();\r\n        for (int i = 0; i < newThreadsNum; i++) {\r\n            idToIndex.put(Integer.valueOf(newIds[i]), Integer.valueOf(i + max));\r\n        }\r\n    }\r\n    if (threadsMonitoringEnabled) {\r\n        if (monitoredData.getThreadsDataMode() == CommonConstants.MODE_THREADS_EXACT) {\r\n            int[] exThreadIds = monitoredData.getExplicitThreadIds();\r\n            long[] exTimestamps = monitoredData.getExplicitStateTimestamps();\r\n            byte[] exStates = monitoredData.getExplicitThreadStates();\r\n            if (exTimestamps.length == 0) {\r\n                return;\r\n            }\r\n            if (startTime == 0) {\r\n                startTime = exTimestamps[0];\r\n            }\r\n            for (int i = 0; i < exThreadIds.length; i++) {\r\n                Integer intIndex = (Integer) idToIndex.get(Integer.valueOf(exThreadIds[i]));\r\n                int index = intIndex.intValue();\r\n                ThreadData tData = threadData[index];\r\n                tData.add(exTimestamps[i], exStates[i]);\r\n            }\r\n            endTime = exTimestamps[exTimestamps.length - 1];\r\n            fireDataChanged();\r\n        } else if (monitoredData.getThreadsDataMode() == CommonConstants.MODE_THREADS_SAMPLING) {\r\n            int[] threadIds = monitoredData.getThreadIds();\r\n            long[] timestamps = monitoredData.getStateTimestamps();\r\n            byte[][] states = monitoredData.getThreadStates();\r\n            int nThreads = monitoredData.getNThreads();\r\n            int nStates = monitoredData.getNThreadStates();\r\n            if (nStates == 0 || nThreads == 0) {\r\n                return;\r\n            }\r\n            if (startTime == 0) {\r\n                startTime = monitoredData.getStateTimestamps()[0];\r\n            }\r\n            for (int threadIdx = 0; threadIdx < nThreads; threadIdx++) {\r\n                Integer intIndex = (Integer) idToIndex.get(Integer.valueOf(threadIds[threadIdx]));\r\n                int index = intIndex.intValue();\r\n                byte[] threadStates = states[threadIdx];\r\n                ThreadData tData = threadData[index];\r\n                for (int stampIdx = 0; stampIdx < nStates; stampIdx++) {\r\n                    long timeStamp = timestamps[stampIdx];\r\n                    byte state = threadStates[stampIdx];\r\n                    byte lastState = tData.getLastState();\r\n                    if ((lastState == ThreadData.NO_STATE) || (lastState != state)) {\r\n                        tData.add(timeStamp, state);\r\n                    }\r\n                }\r\n            }\r\n            endTime = timestamps[nStates - 1];\r\n            fireDataChanged();\r\n        }\r\n    } else {\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.server.ProfilerInterface.hasAnyCoreClassNames",
+	"Comment": "support for multiple roots needed by ejb work will check each class to see if it is a candidate to be a core class",
+	"Method": "boolean hasAnyCoreClassNames(String[] classes){\r\n    if (!(classes.length > 0)) {\r\n        return false;\r\n    }\r\n    for (int i = 0; i < classes.length; i++) {\r\n        if (isCoreClassName(classes[i])) {\r\n            return true;\r\n        }\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.charts.swing.Utils.getStrokeWidth",
+	"Comment": "returns width of the stroke. note that this only works correctly for instancesof basicstroke, for other strokes it always returns 1. returns zero widthfor null stroke.",
+	"Method": "float getStrokeWidth(Stroke stroke){\r\n    if (stroke == null)\r\n        return 0f;\r\n    if (!(stroke instanceof BasicStroke))\r\n        return 1f;\r\n    return ((BasicStroke) stroke).getLineWidth();\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.datasource.Storage.setCustomProperties",
+	"Comment": "sets persistent custom properties.since visualvm 1.2 a property is cleared for null value.",
+	"Method": "void setCustomProperties(String[] keys,String[] values){\r\n    Properties prop = getCustomProperties(true);\r\n    for (int i = 0; i < keys.length; i++) if (values[i] != null)\r\n        prop.put(keys[i], values[i]);\r\n    else\r\n        prop.remove(keys[i]);\r\n    storeCustomProperties();\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.properties.PropertiesCustomizer.propertiesCancelled",
+	"Comment": "invokes propertiesprovider.propertiescancelled method for everypropertiesprovider supporting the datasource type defined for thispropertiescustomizer. to be called by datasource providers when the newdatasource dialog displaying editable properites has been cancelled andno datasource has been created.",
+	"Method": "void propertiesCancelled(){\r\n    unregisterListeners();\r\n    for (int i = 0; i < groups.size(); i++) {\r\n        List<PropertiesProvider<X>> providers = groups.get(i);\r\n        List<PropertiesPanel> categoriesPanels = new ArrayList();\r\n        if (providers.size() == 1) {\r\n            categoriesPanels.add(panels.get(i));\r\n        } else {\r\n            MultiPropertiesPanel multiPanel = (MultiPropertiesPanel) panels.get(i);\r\n            categoriesPanels.addAll(multiPanel.getPanels());\r\n        }\r\n        for (int j = 0; j < providers.size(); j++) providers.get(j).propertiesCancelled(categoriesPanels.get(j), dataSource);\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.application.views.ApplicationViewsSupport.getSnapshotMonitorView",
+	"Comment": "returns pluggabledatasourceviewprovider for monitor application snapshot subtab.",
+	"Method": "PluggableDataSourceViewProvider<ApplicationSnapshot> getSnapshotMonitorView(){\r\n    return applicationSnapshotMonitorView;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.oql.repository.api.OQLQueryRepository.listCategories",
+	"Comment": "retrieves the list of all query categories registered in the system",
+	"Method": "List<? extends OQLQueryCategory> listCategories(List<? extends OQLQueryCategory> listCategories,String pattern){\r\n    FileObject root = getRepositoryRoot();\r\n    Pattern p = Pattern.compile(pattern);\r\n    List<OQLQueryCategory> catList = new ArrayList<OQLQueryCategory>();\r\n    List<FileObject> categories = sortedFOs(root.getFolders(false));\r\n    for (FileObject categoryFO : categories) {\r\n        String displayName = getDisplayName(categoryFO);\r\n        if (p.matcher(displayName).matches()) {\r\n            catList.add(new OQLQueryCategory(this, categoryFO.getName(), displayName, getDescription(categoryFO)));\r\n        }\r\n    }\r\n    return catList;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.application.views.ApplicationViewsSupport.getSnapshotOverviewView",
+	"Comment": "returns pluggabledatasourceviewprovider for overview application snapshot subtab.",
+	"Method": "PluggableDataSourceViewProvider<ApplicationSnapshot> getSnapshotOverviewView(){\r\n    return applicationSnapshotOverviewView;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.ProfilerClient.establishConnectionWithServer",
+	"Comment": "this is called in all modes, direct invoke or attachment, to establish connection with the target vm",
+	"Method": "boolean establishConnectionWithServer(int attachMode,boolean calibrationOnlyRun,AtomicBoolean cancel){\r\n    status.targetJDKVersionString = settings.getTargetJDKVersionString();\r\n    return connectToServer(attachMode, calibrationOnlyRun, cancel);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.snapshot.SnapshotDescriptor.supportsRename",
+	"Comment": "returns true if the snapshot can be renamed from ui, false otherwise.",
+	"Method": "boolean supportsRename(){\r\n    return true;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.ProfilerClient.getAllocatedObjectsCountResults",
+	"Comment": "returns the array where element at index i is the total number of allocated objects for the class with i id.the relevant counters are kept at the server side and returned to the tool on demand, here.",
+	"Method": "int[] getAllocatedObjectsCountResults(){\r\n    if (!targetVMAlive) {\r\n        if (savedAllocatedObjectsCountResults != null) {\r\n            return savedAllocatedObjectsCountResults;\r\n        } else {\r\n            throw new ClientUtils.TargetAppOrVMTerminated(ClientUtils.TargetAppOrVMTerminated.VM);\r\n        }\r\n    }\r\n    savedAllocatedObjectsCountResults = null;\r\n    checkForTargetVMAlive();\r\n    sendSimpleCmdToServer(Command.GET_OBJECT_ALLOCATION_RESULTS);\r\n    ObjectAllocationResultsResponse resp = (ObjectAllocationResultsResponse) getAndCheckLastResponse(\"Unknown problem when trying to get allocated object count results.\");\r\n    return resp.getResults();\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.datasource.DataSource.getRepository",
+	"Comment": "returns repository of the datasource.repository is a container for other datasources, virtually building a treestructure of datasources.",
+	"Method": "DataSourceContainer getRepository(){\r\n    if (repository == null)\r\n        repository = new DataSourceContainer(this);\r\n    return repository;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.application.type.ApplicationTypeFactory.getDefault",
+	"Comment": "getter for the default version of the applicationtypefactory.",
+	"Method": "ApplicationTypeFactory getDefault(){\r\n    if (appTypeFactory == null) {\r\n        appTypeFactory = new ApplicationTypeFactory();\r\n        appTypeFactory.registerProvider(appTypeFactory);\r\n        appTypeFactory.registerProvider(new MainClassApplicationTypeFactory());\r\n        appTypeFactory.registerProvider(new NetBeansApplicationTypeFactory());\r\n        appTypeFactory.registerProvider(new JavaPluginApplicationTypeFactory());\r\n        appTypeFactory.registerProvider(new JavaWebStartApplicationTypeFactory());\r\n        appTypeFactory.registerProvider(new JDeveloperApplicationTypeFactory());\r\n        appTypeFactory.registerProvider(new MavenApplicationTypeFactory());\r\n        appTypeFactory.registerProvider(new IntellijApplicationTypeFactory());\r\n        appTypeFactory.registerProvider(new EclipseApplicationTypeFactory());\r\n    }\r\n    return appTypeFactory;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.api.project.ProjectProfilingSupport.get",
+	"Comment": "returns projectprofilingsupport instance for the provided project.",
+	"Method": "ProjectProfilingSupport get(Lookup.Provider project){\r\n    ProjectProfilingSupportProvider provider = project != null ? project.getLookup().lookup(ProjectProfilingSupportProvider.class) : null;\r\n    if (provider == null)\r\n        return defaultImpl();\r\n    else\r\n        return new ProjectProfilingSupport(provider);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.classfile.ClassRepository.clearCache",
+	"Comment": "will reset any cached data, will not reset data pertinent to session in progress",
+	"Method": "void clearCache(){\r\n    classes = new Hashtable();\r\n    ClassFileCache.resetDefaultCache();\r\n    notFoundClasses = new HashSet();\r\n    definingClassLoaderMap = new HashMap();\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.datasource.DataSource.isRemoved",
+	"Comment": "returns true if the datasource has already been removed from datasources tree, false otherwise.",
+	"Method": "boolean isRemoved(){\r\n    return isRemoved;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.application.jvm.Jvm.removePropertyChangeListener",
+	"Comment": "remove a propertychangelistener from the listener list.this removes a propertychangelistener that was registeredfor all properties.if listener was added more than once to the same eventsource, it will be notified one less time after being removed.if listener is null, or was never added, no exception isthrown and no action is taken.",
+	"Method": "void removePropertyChangeListener(PropertyChangeListener listener){\r\n    changeSupport.removePropertyChangeListener(listener);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.options.GlobalPreferences.watchThreadsPoll",
+	"Comment": "registers a listener for changes of polling interval for threads.",
+	"Method": "void watchThreadsPoll(PreferenceChangeListener pcl){\r\n    addListener(INT_KEY_THREADS_POLL, pcl);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.datasource.DataSource.supportsUserRemove",
+	"Comment": "returns true if the datasource can be removed using remove action, false otherwise.",
+	"Method": "boolean supportsUserRemove(){\r\n    return false;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.application.jvm.MonitoredData.getLoadedClasses",
+	"Comment": "returns the total number of classes that have been loaded sincethe java virtual machine has started execution.",
+	"Method": "long getLoadedClasses(){\r\n    return loadedClasses;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.ProfilerClient.initiateCodeRegionInstrumentation",
+	"Comment": "this should be called to initiate code region instrumentation for specified code region.the data is remembered or sent to the server immediately if ta is already running. the actual instrumentationstarts when server informs the tool that the class to be instrumented is loaded.",
+	"Method": "void initiateCodeRegionInstrumentation(ClientUtils.SourceCodeSelection[] s){\r\n    synchronized (instrumentationLock) {\r\n        removeAllInstrumentation();\r\n        if (status.targetAppRunning && status.remoteProfiling) {\r\n            if (!getCalibrationData(true)) {\r\n                return;\r\n            }\r\n        }\r\n        instrumentor.setStatusInfoFromSourceCodeSelection(s);\r\n        instrumentor.setSavedSourceCodeSelection(s);\r\n        String className = instrumentor.getRootClassNames()[ProfilingSessionStatus.CODE_REGION_CLASS_IDX].replace('/', '.');\r\n        InitiateProfilingCommand cmd = new InitiateProfilingCommand(INSTR_CODE_REGION, className, false, status.startProfilingPointsActive);\r\n        commandOnStartup = cmd;\r\n        setCurrentInstrType(INSTR_CODE_REGION);\r\n        if (status.targetAppRunning) {\r\n            sendSetInstrumentationParamsCmd(false);\r\n            String errorMessage = sendCommandAndGetResponse(commandOnStartup);\r\n            if (errorMessage != null) {\r\n                appStatusHandler.displayWarning(errorMessage);\r\n            }\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.ui.components.LevelIndicator.setPeakMarkSize",
+	"Comment": "sets the peak mark size in pixelsthe peak mark is rendered in the indicator at the place of peak value",
+	"Method": "void setPeakMarkSize(int peakMarkSize){\r\n    this.peakMarkSize = peakMarkSize;\r\n    if (autoRepaint) {\r\n        repaint();\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.datasource.descriptor.DataSourceDescriptor.providesProperties",
+	"Comment": "returns true if the general properties section should be available forthe datasource, false otherwise.",
+	"Method": "boolean providesProperties(){\r\n    return false;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.heap.HeapTest.testGetRetainedSizeByClass",
+	"Comment": "test of getretainedsizebyclass method, of class javaclass.",
+	"Method": "void testGetRetainedSizeByClass(){\r\n    System.out.println(\"getRetainedSizeByClass\");\r\n    JavaClass string = heap.getJavaClassByName(String.class.getName());\r\n    JavaClass hashMap = heap.getJavaClassByName(HashMap.class.getName());\r\n    JavaClass array = heap.getJavaClassByName(ArrayList.class.getName());\r\n    assertEquals(18044, string.getRetainedSizeByClass());\r\n    assertEquals(11315, hashMap.getRetainedSizeByClass());\r\n    assertEquals(566, array.getRetainedSizeByClass());\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.snaptracer.TracerProbe.getItemDescriptors",
+	"Comment": "returns descriptors of ui appearance of items provided by the probe.",
+	"Method": "ProbeItemDescriptor[] getItemDescriptors(){\r\n    return itemDescriptors;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.datasupport.Utils.containsSubclass",
+	"Comment": "returns true if given set contains at least one subclass of provided instance.",
+	"Method": "boolean containsSubclass(Set<? extends Class<? extends Y>> classes,X superclassInstance){\r\n    for (Class<? extends Y> classs : classes) if (classs.isInstance(superclassInstance))\r\n        return true;\r\n    return false;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.ProfilerModule.closing",
+	"Comment": "called when the ide is about to exit. the default implementation returns true.the module may cancel the exit if it is not prepared to be shut down.",
+	"Method": "boolean closing(){\r\n    if (!NetBeansProfiler.isInitialized())\r\n        return true;\r\n    final int state = Profiler.getDefault().getProfilingState();\r\n    final int mode = Profiler.getDefault().getProfilingMode();\r\n    if ((state == Profiler.PROFILING_PAUSED) || (state == Profiler.PROFILING_RUNNING)) {\r\n        if (mode == Profiler.MODE_PROFILE) {\r\n            if (!ProfilerDialogs.displayConfirmation(Bundle.ProfilerModule_ExitingFromProfileMessage(), Bundle.ProfilerModule_QuestionDialogCaption())) {\r\n                return false;\r\n            }\r\n            Profiler.getDefault().stopApp();\r\n        } else {\r\n            if (!ProfilerDialogs.displayConfirmation(Bundle.ProfilerModule_ExitingFromAttachMessage(), Bundle.ProfilerModule_QuestionDialogCaption())) {\r\n                return false;\r\n            }\r\n            Profiler.getDefault().detachFromApp();\r\n        }\r\n    }\r\n    return true;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.application.snapshot.ApplicationSnapshotsSupport.getCategory",
+	"Comment": "returns snapshotcategory instance for application snapshots.",
+	"Method": "SnapshotCategory getCategory(){\r\n    return snapshotCategory;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.jmx.DefaultCustomizer.isValidConnectionString",
+	"Comment": "returns true if the provided string represents a valid jmx url, false otherwise.",
+	"Method": "boolean isValidConnectionString(String jmxurl){\r\n    boolean valid = false;\r\n    if (jmxurl != null) {\r\n        jmxurl = jmxurl.trim();\r\n        if (jmxurl.startsWith(\"service:jmx:\")) {\r\n            if (jmxurl.length() > \"service:jmx:\".length()) {\r\n                valid = true;\r\n            }\r\n        } else {\r\n            try {\r\n                new URL(\"http://\" + jmxurl);\r\n            } catch (MalformedURLException ex) {\r\n                return false;\r\n            }\r\n            if (jmxurl.startsWith(\"[\")) {\r\n                int index = jmxurl.indexOf(\"]:\");\r\n                if (index != -1) {\r\n                    try {\r\n                        String portStr = jmxurl.substring(index + 2);\r\n                        int port = Integer.parseInt(portStr);\r\n                        if (port >= 0 && port <= 0xFFFF) {\r\n                            valid = true;\r\n                        }\r\n                    } catch (NumberFormatException ex) {\r\n                        valid = false;\r\n                    }\r\n                }\r\n            } else {\r\n                String[] s = jmxurl.split(\":\");\r\n                if (s.length == 2) {\r\n                    try {\r\n                        int port = Integer.parseInt(s[1]);\r\n                        if (port >= 0 && port <= 0xFFFF) {\r\n                            valid = true;\r\n                        }\r\n                    } catch (NumberFormatException ex) {\r\n                        valid = false;\r\n                    }\r\n                }\r\n            }\r\n        }\r\n    }\r\n    return valid;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.heapwalk.details.jdk.ui.ComponentBuilders.getBuilder",
+	"Comment": "make sure subclasses are listed before base class if using issubclassof",
+	"Method": "ComponentBuilder getBuilder(Instance instance,Heap heap){\r\n    if (Thread.interrupted())\r\n        return null;\r\n    ComponentBuilder jcomponent = JComponentBuilders.getBuilder(instance, heap);\r\n    if (jcomponent != null)\r\n        return jcomponent;\r\n    ComponentBuilder button = ButtonBuilders.getBuilder(instance, heap);\r\n    if (button != null)\r\n        return button;\r\n    ComponentBuilder textComponent = TextComponentBuilders.getBuilder(instance, heap);\r\n    if (textComponent != null)\r\n        return textComponent;\r\n    ComponentBuilder pane = PaneBuilders.getBuilder(instance, heap);\r\n    if (pane != null)\r\n        return pane;\r\n    ComponentBuilder dataView = DataViewBuilders.getBuilder(instance, heap);\r\n    if (dataView != null)\r\n        return dataView;\r\n    ComponentBuilder window = WindowBuilders.getBuilder(instance, heap);\r\n    if (window != null)\r\n        return window;\r\n    if (DetailsUtils.isSubclassOf(instance, JComponent.class.getName())) {\r\n        return new JComponentBuilder(instance, heap);\r\n    } else if (DetailsUtils.isSubclassOf(instance, Container.class.getName())) {\r\n        return new ContainerBuilder(instance, heap);\r\n    } else if (DetailsUtils.isSubclassOf(instance, Component.class.getName())) {\r\n        return new ComponentBuilder(instance, heap);\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.snaptracer.TracerProgressObject.finish",
+	"Comment": "adds all remaining steps to finish the initialization progress.",
+	"Method": "void finish(){\r\n    if (isFinished())\r\n        return;\r\n    currentStep = steps;\r\n    fireChange();\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.application.jvm.MonitoredData.getUpTime",
+	"Comment": "returns the uptime of the java virtual machine in milliseconds.",
+	"Method": "long getUpTime(){\r\n    return upTime;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.threaddump.ThreadDumpSupport.supportsThreadDump",
+	"Comment": "returns true if taking thread dumps is supported for the application, false otherwise.",
+	"Method": "boolean supportsThreadDump(Application application){\r\n    if (application.getState() != Stateful.STATE_AVAILABLE)\r\n        return false;\r\n    return JvmFactory.getJVMFor(application).isTakeThreadDumpSupported();\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.ui.components.treetable.TreeTableModelAdapter.delayedFireTableDataChanged",
+	"Comment": "invokes firetabledatachanged after all the pending events have beenprocessed. swingutilities.invokelater is used to handle this.",
+	"Method": "void delayedFireTableDataChanged(){\r\n    SwingUtilities.invokeLater(new Runnable() {\r\n        public void run() {\r\n            TreePath[] selectedPaths = tree.getSelectionPaths();\r\n            firingChange = true;\r\n            try {\r\n                fireTableDataChanged();\r\n            } finally {\r\n                firingChange = false;\r\n            }\r\n            tree.setSelectionPaths(selectedPaths);\r\n        }\r\n    });\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.ui.components.treetable.TreeTableModelAdapter.delayedFireTableDataChanged",
+	"Comment": "invokes firetabledatachanged after all the pending events have beenprocessed. swingutilities.invokelater is used to handle this.",
+	"Method": "void delayedFireTableDataChanged(){\r\n    TreePath[] selectedPaths = tree.getSelectionPaths();\r\n    firingChange = true;\r\n    try {\r\n        fireTableDataChanged();\r\n    } finally {\r\n        firingChange = false;\r\n    }\r\n    tree.setSelectionPaths(selectedPaths);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.datasource.DataSource.createStorage",
+	"Comment": "creates storage instance for this datasource.this method should never return null.",
+	"Method": "Storage createStorage(){\r\n    return new Storage();\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.ui.components.AnimationLayout.layoutContainer",
+	"Comment": "lays out the container. this method lets each component takeits preferred size by reshaping the components in thetarget container in order to satisfy the alignment ofthis animationlayout object.",
+	"Method": "void layoutContainer(Container target){\r\n    synchronized (target.getTreeLock()) {\r\n        Insets insets = target.getInsets();\r\n        if (target.getComponentCount() > 0) {\r\n            Component m = target.getComponent(0);\r\n            if (m.isVisible()) {\r\n                Dimension d = lockedSize;\r\n                if (d == null) {\r\n                    d = target.getSize();\r\n                    d.width -= insets.left;\r\n                    d.width -= insets.right;\r\n                    d.height -= insets.top;\r\n                    d.height -= insets.bottom;\r\n                }\r\n                m.setLocation(insets.left, insets.top);\r\n                m.setSize(d.width, d.height);\r\n            }\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.api.ProfilerStorage.saveGlobalProperties",
+	"Comment": "saves the provided properties to a global storage directory.",
+	"Method": "void saveGlobalProperties(Properties properties,String filename){\r\n    ProfilerStorageProvider p = provider();\r\n    if (p != null)\r\n        p.saveGlobalProperties(properties, filename);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.application.jvm.MonitoredData.getThreadsStarted",
+	"Comment": "returns the total number of threads created and also startedsince the java virtual machine started.",
+	"Method": "long getThreadsStarted(){\r\n    return threadsStarted;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.heapviewer.java.impl.JavaThreadsProvider.toThreadState",
+	"Comment": "taken from sun.misc.vmreturns thread.state for the given threadstatus",
+	"Method": "Thread.State toThreadState(int threadStatus){\r\n    if ((threadStatus & JVMTI_THREAD_STATE_RUNNABLE) != 0) {\r\n        return Thread.State.RUNNABLE;\r\n    } else if ((threadStatus & JVMTI_THREAD_STATE_BLOCKED_ON_MONITOR_ENTER) != 0) {\r\n        return Thread.State.BLOCKED;\r\n    } else if ((threadStatus & JVMTI_THREAD_STATE_WAITING_INDEFINITELY) != 0) {\r\n        return Thread.State.WAITING;\r\n    } else if ((threadStatus & JVMTI_THREAD_STATE_WAITING_WITH_TIMEOUT) != 0) {\r\n        return Thread.State.TIMED_WAITING;\r\n    } else if ((threadStatus & JVMTI_THREAD_STATE_TERMINATED) != 0) {\r\n        return Thread.State.TERMINATED;\r\n    } else if ((threadStatus & JVMTI_THREAD_STATE_ALIVE) == 0) {\r\n        return Thread.State.NEW;\r\n    } else {\r\n        return Thread.State.RUNNABLE;\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.heapwalk.OverviewController.toThreadState",
+	"Comment": "taken from sun.misc.vmreturns thread.state for the given threadstatus",
+	"Method": "Thread.State toThreadState(int threadStatus){\r\n    if ((threadStatus & JVMTI_THREAD_STATE_RUNNABLE) != 0) {\r\n        return State.RUNNABLE;\r\n    } else if ((threadStatus & JVMTI_THREAD_STATE_BLOCKED_ON_MONITOR_ENTER) != 0) {\r\n        return State.BLOCKED;\r\n    } else if ((threadStatus & JVMTI_THREAD_STATE_WAITING_INDEFINITELY) != 0) {\r\n        return State.WAITING;\r\n    } else if ((threadStatus & JVMTI_THREAD_STATE_WAITING_WITH_TIMEOUT) != 0) {\r\n        return State.TIMED_WAITING;\r\n    } else if ((threadStatus & JVMTI_THREAD_STATE_TERMINATED) != 0) {\r\n        return State.TERMINATED;\r\n    } else if ((threadStatus & JVMTI_THREAD_STATE_ALIVE) == 0) {\r\n        return State.NEW;\r\n    } else {\r\n        return State.RUNNABLE;\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.global.Platform.supportsDynamicAttach",
+	"Comment": "returns true if the given jvm version supports dynamic attach",
+	"Method": "boolean supportsDynamicAttach(String jdkVersionString){\r\n    return CommonConstants.JDK_16_STRING.equals(jdkVersionString) || CommonConstants.JDK_17_STRING.equals(jdkVersionString) || CommonConstants.JDK_18_STRING.equals(jdkVersionString) || CommonConstants.JDK_19_STRING.equals(jdkVersionString) || CommonConstants.JDK_100_STRING.equals(jdkVersionString) || CommonConstants.JDK_110_STRING.equals(jdkVersionString);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.datasource.descriptor.DataSourceDescriptorFactory.getDefault",
+	"Comment": "returns the singleton instance of datasourcedescriptorfactory.",
+	"Method": "DataSourceDescriptorFactory getDefault(){\r\n    if (dsDescFactory == null) {\r\n        dsDescFactory = new DataSourceDescriptorFactory();\r\n        dsDescFactory.registerProvider(dsDescFactory);\r\n        PropertiesSupport.sharedInstance().registerPropertiesProvider(new GeneralPropertiesProvider(), DataSource.class);\r\n    }\r\n    return dsDescFactory;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.ui.DataSourceView.isClosable",
+	"Comment": "returns true if the user is allowed to close the view, false otherwise.",
+	"Method": "boolean isClosable(){\r\n    return isClosable;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.global.ProfilingSessionStatus.updateAllocatedInstancesCountInfoInServer",
+	"Comment": "same as above, but takes the total number of classes, and should be used only at server side.",
+	"Method": "void updateAllocatedInstancesCountInfoInServer(int nTotalClasses){\r\n    beginTrans(true);\r\n    try {\r\n        boolean firstTime = (nInstrClasses == 0);\r\n        int oldSize = firstTime ? 0 : allocatedInstancesCount.length;\r\n        int newLen = nTotalClasses;\r\n        if (oldSize < newLen) {\r\n            int newSize = newLen * 2;\r\n            int[] newAllocInstCount = new int[newSize];\r\n            if (!firstTime) {\r\n                System.arraycopy(allocatedInstancesCount, 0, newAllocInstCount, 0, nInstrClasses);\r\n            }\r\n            allocatedInstancesCount = newAllocInstCount;\r\n        }\r\n        nInstrClasses = nTotalClasses;\r\n    } finally {\r\n        endTrans();\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.ui.components.table.SortableTableModel.setTable",
+	"Comment": "assigns this sortabletablemodel to the jtable and sets the custom renderer for the selectable table header.",
+	"Method": "void setTable(JTable table){\r\n    TableColumnModel tableModel = table.getColumnModel();\r\n    int n = tableModel.getColumnCount();\r\n    for (int i = 0; i < n; i++) {\r\n        tableModel.getColumn(i).setHeaderRenderer(headerRenderer);\r\n    }\r\n    if (tableHeader != table.getTableHeader()) {\r\n        if (tableHeader != null) {\r\n            tableHeader.removeMouseListener(headerListener);\r\n            tableHeader.removeMouseMotionListener(headerListener);\r\n            lastFocusedColumn = -1;\r\n        }\r\n        tableHeader = table.getTableHeader();\r\n        tableHeader.setReorderingAllowed(false);\r\n        tableHeader.addMouseListener(headerListener);\r\n        tableHeader.addMouseMotionListener(headerListener);\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.server.ProfilerRuntimeCPU.getAbsTimeStampInCollectedFormat",
+	"Comment": "to take measures here to return time in the same format as used for collected data.",
+	"Method": "long getAbsTimeStampInCollectedFormat(){\r\n    return Timers.getCurrentTimeInCounts() & 72057594037927935L;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.ui.components.AnimatedContainer.setFinishState",
+	"Comment": "sets the state of the container to finish statewith target size and content",
+	"Method": "void setFinishState(){\r\n    removeAll();\r\n    if (targetContent != null) {\r\n        add(targetContent);\r\n        setPreferredSize(new Dimension(targetWidth, targetHeight));\r\n        setMinimumSize(new Dimension(targetWidth, targetHeight));\r\n    } else if (transContent != null) {\r\n        add(transContent);\r\n        setPreferredSize(transContent.getPreferredSize());\r\n        setMinimumSize(transContent.getPreferredSize());\r\n    }\r\n    setPreferredSize(content.getPreferredSize());\r\n    setMinimumSize(content.getPreferredSize());\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.utils.StringUtils.floatPerCentToString",
+	"Comment": "used to print per cent figures with one digit after decimal point",
+	"Method": "String floatPerCentToString(float t){\r\n    return percentage.format(t);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.heapwalk.InstancesListController.scheduleContainerSelection",
+	"Comment": "used for scheduling selection of new data to be created & displayed",
+	"Method": "void scheduleContainerSelection(int containerIndex){\r\n    containerToSelectIndex = containerIndex;\r\n    instanceToSelect = null;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.application.type.ApplicationType.addPropertyChangeListener",
+	"Comment": "add a propertychangelistener to the listener list.the listener is registered for all properties.the same listener object may be added more than once, and will be calledas many times as it is added.if listener is null, no exception is thrown and no actionis taken.",
+	"Method": "void addPropertyChangeListener(PropertyChangeListener listener){\r\n    pcs.addPropertyChangeListener(listener);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.ui.components.table.EnhancedTableCellRenderer.setRowBackground",
+	"Comment": "called each time this renderer is to be used to render a specific row, with the colorto be used for painting background of this row. the default implementation sets thebackground of the panel to this color, so this method does not need to be overridden unlessthe subclass has any opaque components placed into the panel that should alternate their backgroundon each line and change on selected lines.",
+	"Method": "void setRowBackground(Color c){\r\n    setBackground(c);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.coredump.CoreDumpSupport.getOverviewView",
+	"Comment": "returns pluggabledatasourceviewprovider for overview coredump subtab.",
+	"Method": "PluggableDataSourceViewProvider<CoreDump> getOverviewView(){\r\n    return viewProvider;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.ui.components.treetable.AbstractTreeTableModel.addTreeModelListener",
+	"Comment": "adds a listener for the treemodelevent posted after the tree changes.",
+	"Method": "void addTreeModelListener(TreeModelListener l){\r\n    listenerList.add(TreeModelListener.class, l);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.ui.components.DataViewComponent.isDetailsAreaShown",
+	"Comment": "returns true if the details area on provided location is currently shown, false otherwise.",
+	"Method": "boolean isDetailsAreaShown(int location){\r\n    DisplayArea displayArea = getDisplayArea(location);\r\n    return displayArea != null ? displayArea.isVisible() : false;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.results.jdbc.JdbcResultsSnapshot.createPresentationCCT",
+	"Comment": "will create presentation cct for call stacks for given root node.",
+	"Method": "PresoObjAllocCCTNode createPresentationCCT(int selectId,boolean dontShowZeroLiveObjAllocPaths,PresoObjAllocCCTNode createPresentationCCT,RuntimeMemoryCCTNode rootNode,int selectId,boolean dontShowZeroLiveObjAllocPaths){\r\n    return PresoObjAllocCCTNode.createPresentationCCTFromSnapshot(getJMethodIdTable(), rootNode, getSelectName(selectId));\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.global.Platform.isUnix",
+	"Comment": "test whether we are running on some variant of unix. linux is included as well as the commercial vendors.",
+	"Method": "boolean isUnix(){\r\n    return (getOperatingSystem() & OS_UNIX_MASK) != 0;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.charts.ColorFactory.getPredefinedGradient",
+	"Comment": "returns a color pair predefined for visualvm charts gradients.",
+	"Method": "Color[] getPredefinedGradient(int index){\r\n    return PREDEFINED_GRADIENTS[index];\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.snaptracer.TracerProgressObject.isFinished",
+	"Comment": "returns true for a finished tracerprogressobject, false otherwise.",
+	"Method": "boolean isFinished(){\r\n    return currentStep == steps;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.datasupport.Utils.containsSuperclass",
+	"Comment": "returns true if given set contains at least one superclass of provided instance.",
+	"Method": "boolean containsSuperclass(Set<? extends Class<? extends Y>> classes,X subclassInstance){\r\n    Class subclass = subclassInstance.getClass();\r\n    for (Class<? extends Y> classs : classes) if (classs.isAssignableFrom(subclass))\r\n        return true;\r\n    return false;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.server.ClassLoaderManager.getParentLoaderIdTable",
+	"Comment": "creates a table that maps loader id to its parent class loader.",
+	"Method": "int[] getParentLoaderIdTable(){\r\n    int size = manVec.size();\r\n    int[] ret = new int[size];\r\n    for (int i = 0; i < size; i++) {\r\n        ret[i] = ((ClassLoaderManager) manVec.get(i)).parentLoaderId;\r\n    }\r\n    return ret;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.ui.actions.ActionUtils.getSelectedDataSource",
+	"Comment": "returns selected datasource is exactly one datasource of a certain type is selected in applications window, null otherwise.",
+	"Method": "DataSource getSelectedDataSource(X getSelectedDataSource,Class<X> scope){\r\n    Set<X> selectedDataSources = getSelectedDataSources(scope);\r\n    return (selectedDataSources.size() == 1 ? selectedDataSources.iterator().next() : null);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.ProfilerClient.getCodeRegionProfilingResultsSnapshot",
+	"Comment": "returns the snapshot of current code region profiling results",
+	"Method": "CodeRegionResultsSnapshot getCodeRegionProfilingResultsSnapshot(){\r\n    checkForTargetVMAlive();\r\n    sendSimpleCmdToServer(Command.GET_CODE_REGION_CPU_RESULTS);\r\n    CodeRegionCPUResultsResponse resp = (CodeRegionCPUResultsResponse) getAndCheckLastResponse(\"Unknown problem when trying to get code region CPU results.\");\r\n    return new CodeRegionResultsSnapshot(resultsStart, System.currentTimeMillis(), resp.getResults(), status.timerCountsInSecond[0]);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.heapwalk.details.jdk.ui.ButtonBuilders.getBuilder",
+	"Comment": "make sure subclasses are listed before base class if using issubclassof",
+	"Method": "ComponentBuilder getBuilder(Instance instance,Heap heap){\r\n    if (DetailsUtils.isSubclassOf(instance, JButton.class.getName())) {\r\n        return new JButtonBuilder(instance, heap);\r\n    } else if (DetailsUtils.isSubclassOf(instance, JCheckBox.class.getName())) {\r\n        return new JCheckBoxBuilder(instance, heap);\r\n    } else if (DetailsUtils.isSubclassOf(instance, JRadioButton.class.getName())) {\r\n        return new JRadioButtonBuilder(instance, heap);\r\n    } else if (DetailsUtils.isSubclassOf(instance, JToggleButton.class.getName())) {\r\n        return new JToggleButtonBuilder(instance, heap);\r\n    } else if (DetailsUtils.isSubclassOf(instance, JCheckBoxMenuItem.class.getName())) {\r\n        return new JCheckBoxMenuItemBuilder(instance, heap);\r\n    } else if (DetailsUtils.isSubclassOf(instance, JRadioButtonMenuItem.class.getName())) {\r\n        return new JRadioButtonMenuItemBuilder(instance, heap);\r\n    } else if (DetailsUtils.isSubclassOf(instance, JMenu.class.getName())) {\r\n        return new JMenuBuilder(instance, heap);\r\n    } else if (DetailsUtils.isSubclassOf(instance, JMenuBar.class.getName())) {\r\n        return new JMenuBarBuilder(instance, heap);\r\n    } else if (DetailsUtils.isSubclassOf(instance, JMenuItem.class.getName())) {\r\n        return new JMenuItemBuilder(instance, heap);\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.jmx.JmxApplicationsSupport.createJmxApplication",
+	"Comment": "creates new application defined by jmx connection and adds it to theapplications tree. throws a jmxapplicationexception if the applicationcannot be created.",
+	"Method": "Application createJmxApplication(String connectionString,String displayName,String username,String password,Application createJmxApplication,String connectionString,String displayName,String username,String password,boolean saveCredentials,boolean persistent,Application createJmxApplication,String connectionString,String displayName,EnvironmentProvider provider,boolean persistent){\r\n    String username = getUsername(provider);\r\n    String suggestedName = JmxApplicationProvider.getSuggestedName(displayName, connectionString, username);\r\n    return createJmxApplicationImpl(connectionString, displayName, suggestedName, provider, persistent, false);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.utils.VMUtilsTest.testFormatting",
+	"Comment": "test to ensure that the formatting of test methods is as expected.",
+	"Method": "void testFormatting(){\r\n    for (int i = 0; i < patternSourcesAndResults.length; i += 2) {\r\n        assertEquals(\"Wrong results for \" + i, patternSourcesAndResults[i + 1], VMUtils.typeToVMSignature(patternSourcesAndResults[i]));\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.instrumentation.Injector.rcInstrLen",
+	"Comment": "we need a special instruction size method, since lookupswitches and tableswitches might not beproperly aligned during relocation",
+	"Method": "int rcInstrLen(int bci){\r\n    int bc = bytecodes[bci] & 0xFF;\r\n    switch(bc) {\r\n        case opc_tableswitch:\r\n        case opc_lookupswitch:\r\n            {\r\n                int pad = getOrigSwitchPadding(bci, (bc == opc_lookupswitch));\r\n                if (pad == -1) {\r\n                    return opcodeLength(bci);\r\n                }\r\n                switch(bc) {\r\n                    case opc_tableswitch:\r\n                        {\r\n                            int lo = getInt(bci + 1 + pad + (4 * 1));\r\n                            int hi = getInt(bci + 1 + pad + (4 * 2));\r\n                            int n = hi - lo + 1;\r\n                            return 1 + pad + (4 * (3 + n));\r\n                        }\r\n                    case opc_lookupswitch:\r\n                        {\r\n                            int npairs = getInt(bci + 1 + pad + (4 * 1));\r\n                            return 1 + pad + (4 * (2 + (2 * npairs)));\r\n                        }\r\n                }\r\n            }\r\n    }\r\n    return opcodeLength(bci);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.api.ProjectUtilities.addOpenProjectsListener",
+	"Comment": "adds a listener to be notified when set of open projects changes.",
+	"Method": "void addOpenProjectsListener(ChangeListener listener){\r\n    provider().addOpenProjectsListener(listener);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.options.GlobalPreferences.watchMonitoredDataCache",
+	"Comment": "registers a listener for changes of size of cache for monitored data.",
+	"Method": "void watchMonitoredDataCache(PreferenceChangeListener pcl){\r\n    addListener(INT_KEY_MONDATA_CACHE, pcl);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.scheduler.DefaultScheduledTaskTest.isSuspended",
+	"Comment": "test of issuspended method, of class defaultscheduledtask.",
+	"Method": "void isSuspended(){\r\n    System.out.println(\"isSuspended\");\r\n    assertFalse(instance.isSuspended());\r\n    instance.suspend();\r\n    assertTrue(instance.isSuspended());\r\n    instance.resume();\r\n    assertFalse(instance.isSuspended());\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.snapshot.RegisteredSnapshotCategories.getOpenSnapshotCategories",
+	"Comment": "returns list of registered snapshotcategory instances capable of opening snapshot files.",
+	"Method": "List<SnapshotCategory> getOpenSnapshotCategories(){\r\n    List<SnapshotCategory> allCategories = new ArrayList(categories);\r\n    List<SnapshotCategory> openSnapshotCategories = new ArrayList();\r\n    for (SnapshotCategory category : allCategories) if (category.supportsOpenSnapshot())\r\n        openSnapshotCategories.add(category);\r\n    Collections.sort(openSnapshotCategories, Positionable.COMPARATOR);\r\n    return openSnapshotCategories;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.ui.components.treetable.AbstractTreeTableModel.fireTreeStructureChanged",
+	"Comment": "notify all listeners that have registered interest for notification onthis event type. the event instance is lazily created using theparameters passed into the fire method.",
+	"Method": "void fireTreeStructureChanged(Object source,Object[] path,int[] childIndices,Object[] children){\r\n    Object[] listeners = listenerList.getListenerList();\r\n    TreeModelEvent e = null;\r\n    for (int i = listeners.length - 2; i >= 0; i -= 2) {\r\n        if (listeners[i] == TreeModelListener.class) {\r\n            if (e == null) {\r\n                e = new TreeModelEvent(source, path, childIndices, children);\r\n            }\r\n            ((TreeModelListener) listeners[i + 1]).treeStructureChanged(e);\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.modules.startup.Utils.setLocalizedText",
+	"Comment": "actual setter of the text & mnemonics for the abstractbutton ortheir subclasses. we must copy necessary code from org.openide.awt.mnemonicsbecause org.openide.awt module is not available yet when this code is called.",
+	"Method": "void setLocalizedText(AbstractButton button,String text){\r\n    if (text == null) {\r\n        button.setText(null);\r\n        return;\r\n    }\r\n    int i = findMnemonicAmpersand(text);\r\n    if (i < 0) {\r\n        button.setText(text);\r\n        button.setMnemonic(0);\r\n    } else {\r\n        button.setText(text.substring(0, i) + text.substring(i + 1));\r\n        if (Utilities.isMac()) {\r\n            return;\r\n        }\r\n        char ch = text.charAt(i + 1);\r\n        button.setMnemonic(ch);\r\n        button.setDisplayedMnemonicIndex(i);\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.jmx.JmxConnectionCustomizer.hidesDefault",
+	"Comment": "returns true if the default connection type should be hidden by this customizer, false otherwise.",
+	"Method": "boolean hidesDefault(){\r\n    return hidesDefault;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.api.ProjectUtilities.removeOpenProjectsListener",
+	"Comment": "removes a listener to be notified when set of open projects changes.",
+	"Method": "void removeOpenProjectsListener(ChangeListener listener){\r\n    provider().removeOpenProjectsListener(listener);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.heap.LongHashMap.containsValue",
+	"Comment": "tests whether the specified object reference is a value in this identityhash map.",
+	"Method": "boolean containsValue(long value){\r\n    long[] tab = table;\r\n    for (int i = 1; i < tab.length; i += 2) if (tab[i] == value && tab[i - 1] != 0)\r\n        return true;\r\n    return false;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.scheduler.SchedulerTest.scheduleImmediateBlocking",
+	"Comment": "test of schedule method, immediate execution, blocking in the scheduled task, of class scheduler.",
+	"Method": "void scheduleImmediateBlocking(){\r\n    System.out.println(\"schedule, immediate, blocking\");\r\n    final CountDownLatch barrier = new CountDownLatch(1);\r\n    SchedulerTask task = new SchedulerTask() {\r\n        public void onSchedule(long timeStamp) {\r\n            try {\r\n                barrier.countDown();\r\n                Thread.sleep(10000000);\r\n            } catch (InterruptedException e) {\r\n                Thread.currentThread().interrupt();\r\n            }\r\n        }\r\n    };\r\n    Quantum interval = Quantum.seconds(2000);\r\n    Scheduler instance = Scheduler.sharedInstance();\r\n    ScheduledTask scheduled = instance.schedule(task, interval, true);\r\n    stasks.add(scheduled);\r\n    try {\r\n        boolean executed = barrier.await(1000, TimeUnit.SECONDS);\r\n        assertTrue(executed);\r\n    } catch (InterruptedException e) {\r\n        fail(e.getMessage());\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.scheduler.SchedulerTest.scheduleImmediateBlocking",
+	"Comment": "test of schedule method, immediate execution, blocking in the scheduled task, of class scheduler.",
+	"Method": "void scheduleImmediateBlocking(){\r\n    try {\r\n        barrier.countDown();\r\n        Thread.sleep(10000000);\r\n    } catch (InterruptedException e) {\r\n        Thread.currentThread().interrupt();\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.ProfilerClient.resetClientData",
+	"Comment": "if the target vm is terminated, cleans up all locally cached data so that they can begcd from the memory. if the ta is running, this method does nothing.",
+	"Method": "void resetClientData(){\r\n    if (targetJVMIsAlive()) {\r\n        return;\r\n    }\r\n    status.resetInstrClassAndMethodInfo();\r\n    instrumentor.resetPerVMInstanceData();\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.tools.jvmstat.JvmJvmstatModelFactory.getDefault",
+	"Comment": "getter for the default version of the jvmjvmstatmodelfactory.",
+	"Method": "JvmJvmstatModelFactory getDefault(){\r\n    if (jvmstatModelFactory == null) {\r\n        jvmstatModelFactory = new JvmJvmstatModelFactory();\r\n    }\r\n    return jvmstatModelFactory;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.model.ModelFactory.getModel",
+	"Comment": "returns model for datasource. if model is in the cachereturn it, otherwise consult registered modelproviders.",
+	"Method": "M getModel(D dataSource){\r\n    Lock rlock = providersLock.readLock();\r\n    rlock.lock();\r\n    try {\r\n        synchronized (dataSource) {\r\n            DataSourceKey<D> key = new DataSourceKey(dataSource);\r\n            Reference<M> modelRef = modelCache.get(key);\r\n            M model = null;\r\n            if (modelRef != null) {\r\n                if (modelRef == NULL_MODEL) {\r\n                    return null;\r\n                }\r\n                model = modelRef.get();\r\n                if (model != null) {\r\n                    return model;\r\n                }\r\n            }\r\n            for (ModelProvider<M, D> factory : providers) {\r\n                model = factory.createModelFor(dataSource);\r\n                if (model != null) {\r\n                    modelCache.put(key, new SoftReference(model));\r\n                    break;\r\n                }\r\n            }\r\n            if (model == null) {\r\n                modelCache.put(key, NULL_MODEL);\r\n            }\r\n            return model;\r\n        }\r\n    } finally {\r\n        rlock.unlock();\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.datasource.DataSourceProvider.changeDataSources",
+	"Comment": "registers added datasources into this provider and unregisters removed datasources from this provider.",
+	"Method": "void changeDataSources(Set<? extends DataSource> added,Set<? extends DataSource> removed){\r\n    DataSource.EVENT_QUEUE.post(new Runnable() {\r\n        public void run() {\r\n            if (!removed.isEmpty())\r\n                unregisterDataSourcesImpl(checkRemoved(removed));\r\n            if (!added.isEmpty())\r\n                registerDataSourcesImpl(checkAdded(added));\r\n        }\r\n    });\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.datasource.DataSourceProvider.changeDataSources",
+	"Comment": "registers added datasources into this provider and unregisters removed datasources from this provider.",
+	"Method": "void changeDataSources(Set<? extends DataSource> added,Set<? extends DataSource> removed){\r\n    if (!removed.isEmpty())\r\n        unregisterDataSourcesImpl(checkRemoved(removed));\r\n    if (!added.isEmpty())\r\n        registerDataSourcesImpl(checkAdded(added));\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.options.GlobalPreferences.watchMonitoredDataPoll",
+	"Comment": "registerz a listener for changes of polling interval for monitored data.",
+	"Method": "void watchMonitoredDataPoll(PreferenceChangeListener pcl){\r\n    addListener(INT_KEY_MONDATA_POLL, pcl);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.ui.DataSourceWindowManager.selectView",
+	"Comment": "opens the datasource if needed and selects the datasourceview.",
+	"Method": "void selectView(DataSourceView view){\r\n    processor.post(new Runnable() {\r\n        public void run() {\r\n            openWindowAndAddView(view.getDataSource(), view, 0, true, true, true);\r\n        }\r\n    });\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.ui.DataSourceWindowManager.selectView",
+	"Comment": "opens the datasource if needed and selects the datasourceview.",
+	"Method": "void selectView(DataSourceView view){\r\n    openWindowAndAddView(view.getDataSource(), view, 0, true, true, true);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.results.cpu.CPUCCTContainer.generateMirrorNode",
+	"Comment": "generates an equivalent of rtnode in the compact data. returns the offset right after the last generated node, whichis this node if it has no children, or the last recursive child of this node.",
+	"Method": "int generateMirrorNode(GenerateMirrorNodeLocalVars locals){\r\n    if (LOGGER.isLoggable(Level.FINEST)) {\r\n        LOGGER.log(Level.FINEST, \"Generate mirror node for ofs: {0}, node: {1}\", new Object[] { locals.dataOfs, locals.rtNode });\r\n    }\r\n    generateNodeBase(locals.rtNode, locals.dataOfs);\r\n    totalInvNo += locals.rtNode.getNCalls();\r\n    locals.nodeChildren = locals.rtNode.getChildren();\r\n    locals.nChildren = (locals.nodeChildren != null) ? locals.nodeChildren.length : 0;\r\n    locals.nextNodeOfs = locals.dataOfs + nodeSize + (locals.nChildren * childOfsSize);\r\n    locals.nCallsFromThisNode += locals.rtNode.getNCallsDiff();\r\n    if (locals.nChildren > 0) {\r\n        locals.childCounter = 0;\r\n        for (locals.i = 0; locals.i < locals.nChildren; locals.i++) {\r\n            locals.aNode = (RuntimeCPUCCTNode) locals.nodeChildren[locals.i];\r\n            if (locals.aNode instanceof MethodCPUCCTNode) {\r\n                setChildOfsForNodeOfs(locals.dataOfs, locals.childCounter, locals.nextNodeOfs);\r\n                locals.nextNodeOfs = generateMirrorNode(new GenerateMirrorNodeLocalVars((MethodCPUCCTNode) locals.aNode, locals.nextNodeOfs));\r\n                locals.thisNodeTotalTime0InTimerUnits += childTotalTime0InTimerUnits;\r\n                if (collectingTwoTimeStamps) {\r\n                    locals.thisNodeTotalTime1InTimerUnits += childTotalTime1InTimerUnits;\r\n                }\r\n                locals.nCallsFromThisNode += ((MethodCPUCCTNode) locals.aNode).getNCalls();\r\n                locals.totalNCallsFromThisNode += childTotalNCalls;\r\n                locals.childCounter++;\r\n            }\r\n        }\r\n    }\r\n    locals.time = (long) timingAdjuster.adjustTime(locals.rtNode.getNetTime0(), locals.rtNode.getNCalls() + locals.rtNode.getNCallsDiff(), locals.nCallsFromThisNode, false);\r\n    if (locals.time < 0) {\r\n        locals.time = 0;\r\n    }\r\n    setSelfTime0ForNodeOfs(locals.dataOfs, locals.time);\r\n    setWaitTime0ForNodeOfs(locals.dataOfs, locals.rtNode.getWaitTime0());\r\n    setSleepTime0ForNodeOfs(locals.dataOfs, locals.rtNode.getSleepTime0());\r\n    locals.thisNodeTotalTime0InTimerUnits += locals.rtNode.getNetTime0();\r\n    childTotalTime0InTimerUnits = locals.thisNodeTotalTime0InTimerUnits;\r\n    locals.time = (long) timingAdjuster.adjustTime(locals.thisNodeTotalTime0InTimerUnits, locals.rtNode.getNCalls() + locals.totalNCallsFromThisNode, locals.totalNCallsFromThisNode, false);\r\n    if (locals.time < 0) {\r\n        locals.time = 0;\r\n    }\r\n    setTotalTime0ForNodeOfs(locals.dataOfs, locals.time);\r\n    if (collectingTwoTimeStamps) {\r\n        locals.time = (long) timingAdjuster.adjustTime(locals.rtNode.getNetTime1(), locals.rtNode.getNCalls() + locals.rtNode.getNCallsDiff(), locals.nCallsFromThisNode, true);\r\n        if (locals.time < 0) {\r\n            locals.time = 0;\r\n        }\r\n        setSelfTime1ForNodeOfs(locals.dataOfs, locals.time);\r\n        locals.thisNodeTotalTime1InTimerUnits += locals.rtNode.getNetTime1();\r\n        childTotalTime1InTimerUnits = locals.thisNodeTotalTime1InTimerUnits;\r\n        locals.time = (long) timingAdjuster.adjustTime(locals.thisNodeTotalTime1InTimerUnits, locals.rtNode.getNCalls() + locals.totalNCallsFromThisNode, locals.totalNCallsFromThisNode, true);\r\n        if (locals.time < 0) {\r\n            locals.time = 0;\r\n        }\r\n        setTotalTime1ForNodeOfs(locals.dataOfs, locals.time);\r\n    }\r\n    childTotalNCalls = locals.totalNCallsFromThisNode + locals.rtNode.getNCalls();\r\n    return locals.nextNodeOfs;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.snaptracer.TracerProgressObject.setText",
+	"Comment": "updates text describing the current state without adding any steps to thecurrent initialization progress.",
+	"Method": "void setText(String text){\r\n    this.text = text;\r\n    fireChange();\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.ui.components.EqualFlowLayout.layoutContainer",
+	"Comment": "lays out the container. this method lets each component takeits preferred size by reshaping the components in thetarget container in order to satisfy the constraints ofthis flowlayout object.",
+	"Method": "void layoutContainer(Container target){\r\n    int maxWidth = getMaximumWidth(target);\r\n    synchronized (target.getTreeLock()) {\r\n        Insets insets = target.getInsets();\r\n        int maxwidth = target.getSize().width - (insets.left + insets.right + (getHgap() * 2));\r\n        int nmembers = target.getComponentCount();\r\n        int x = 0;\r\n        int y = insets.top + getVgap();\r\n        int rowh = 0;\r\n        int start = 0;\r\n        for (int i = 0; i < nmembers; i++) {\r\n            Component m = target.getComponent(i);\r\n            if (m.isVisible()) {\r\n                Dimension d = m.getPreferredSize();\r\n                d.width = maxWidth;\r\n                m.setSize(d.width, d.height);\r\n                if ((x == 0) || ((x + d.width) <= maxwidth)) {\r\n                    if (x > 0) {\r\n                        x += getHgap();\r\n                    }\r\n                    x += d.width;\r\n                    rowh = Math.max(rowh, d.height);\r\n                } else {\r\n                    moveComponents2(target, insets.left + getHgap(), y, maxwidth - x, rowh, start, i);\r\n                    x = d.width;\r\n                    y += (getVgap() + rowh);\r\n                    rowh = d.height;\r\n                    start = i;\r\n                }\r\n            }\r\n        }\r\n        moveComponents2(target, insets.left + getHgap(), y, maxwidth - x, rowh, start, nmembers);\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.api.EditorSupport.getCurrentOffset",
+	"Comment": "returns the caret position within the active editor document",
+	"Method": "int getCurrentOffset(){\r\n    return getSupport().getCurrentOffset();\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.v2.ProfilerSession.getAttachSettings",
+	"Comment": "set when starting profiling session, not a persistent storage!",
+	"Method": "AttachSettings getAttachSettings(){\r\n    return attachSettings;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.ui.components.treetable.AbstractTreeTableModel.getInitialSorting",
+	"Comment": "this method should be overridden for treetablemodel descendant which supports sorting.",
+	"Method": "boolean getInitialSorting(int column){\r\n    return false;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.datasupport.Utils.getSortedDataSources",
+	"Comment": "returns list of given datasources sorted by distance from datasource.root.",
+	"Method": "List<X> getSortedDataSources(Set<X> dataSources){\r\n    List<DataSourcePath<X>> dataSourcePaths = getSortedDataSourcePaths(dataSources);\r\n    List<X> sortedDataSources = new ArrayList();\r\n    for (DataSourcePath<X> dataSourcePath : dataSourcePaths) sortedDataSources.add(dataSourcePath.getDataSource());\r\n    return sortedDataSources;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.charts.canvas.BufferedCanvasComponent.shown",
+	"Comment": "called when the component has been shown. default implementation doesnothing.",
+	"Method": "void shown(){\r\n    invalidateImage();\r\n    repaintDirty();\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.snaptracer.ProbeItemDescriptor.discreteLineFillItem",
+	"Comment": "creates descriptor for a discrete item created by line segments representing the outline and filled segments.",
+	"Method": "ProbeItemDescriptor discreteLineFillItem(String name,String description,ItemValueFormatter formatter,ProbeItemDescriptor discreteLineFillItem,String name,String description,ItemValueFormatter formatter,double dataFactor,long minValue,long maxValue){\r\n    return discreteOutlineItem(name, description, formatter, dataFactor, minValue, maxValue, DEFAULT_LINE_WIDTH, DEFAULT_COLOR, DEFAULT_COLOR);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.heap.LongSet.add",
+	"Comment": "associates the specified value with the specified key in this identityhash map.if the map previously contained a mapping for the key, theold value is replaced.",
+	"Method": "boolean add(long key){\r\n    assert key != 0;\r\n    long[] tab = table;\r\n    int len = tab.length;\r\n    int i = hash(key, len);\r\n    long item;\r\n    while ((item = tab[i]) != 0) {\r\n        if (item == key) {\r\n            return true;\r\n        }\r\n        i = nextKeyIndex(i, len);\r\n    }\r\n    modCount++;\r\n    tab[i] = key;\r\n    if (++size >= threshold)\r\n        resize(2 * len);\r\n    return false;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.heapwalk.details.jdk.ui.TextComponentBuilders.getBuilder",
+	"Comment": "make sure subclasses are listed before base class if using issubclassof",
+	"Method": "ComponentBuilders.ComponentBuilder getBuilder(Instance instance,Heap heap){\r\n    if (DetailsUtils.isSubclassOf(instance, JTextField.class.getName())) {\r\n        return new JTextFieldBuilder(instance, heap);\r\n    } else if (DetailsUtils.isSubclassOf(instance, JTextArea.class.getName())) {\r\n        return new JTextAreaBuilder(instance, heap);\r\n    } else if (DetailsUtils.isSubclassOf(instance, JEditorPane.class.getName())) {\r\n        return new JEditorPaneBuilder(instance, heap);\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.classfile.ClassPath.getZipFileForName",
+	"Comment": "this is used to avoid repetitive creation of zipfiles in the code that reads files from jars given just the name of the latter",
+	"Method": "ZipFile getZipFileForName(String zipFileName){\r\n    ZipFile zip = (ZipFile) zipFileNameToFile.get(zipFileName);\r\n    if (zip == null) {\r\n        zip = new ZipFile(zipFileName);\r\n        zipFileNameToFile.put(zipFileName, zip);\r\n    }\r\n    return zip;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.application.views.ApplicationViewsSupport.getSnapshotThreadsView",
+	"Comment": "returns pluggabledatasourceviewprovider for threads application snapshot subtab.",
+	"Method": "PluggableDataSourceViewProvider<ApplicationSnapshot> getSnapshotThreadsView(){\r\n    return applicationSnapshotThreadsView;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.properties.PropertiesSupport.registerPropertiesProvider",
+	"Comment": "registers a propertiesprovider for a concrete datasource type.",
+	"Method": "void registerPropertiesProvider(PropertiesProvider<X> provider,Class<X> scope){\r\n    providers.put(provider, scope);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.host.views.HostViewsSupport.getOverviewView",
+	"Comment": "returns pluggabledatasourceviewprovider for overview host subtab.",
+	"Method": "PluggableDataSourceViewProvider<Host> getOverviewView(){\r\n    return viewProvider;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.ui.components.treetable.AbstractTreeTableModel.isCellEditable",
+	"Comment": "returns true if there is a setter method name for column column.this is set in the constructor.",
+	"Method": "boolean isCellEditable(Object node,int column){\r\n    return false;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.TargetAppRunner.attachToTargetVM",
+	"Comment": "attaches to a running application. it is expected that prepareforattach method is called before this oneto prepare the target app environment for attaching.",
+	"Method": "boolean attachToTargetVM(){\r\n    if (connectToStartedVMAndStartTA(1, false)) {\r\n        status.runningInAttachedMode = true;\r\n        notifyListeners(EVENT_ATTACHED);\r\n        return true;\r\n    } else {\r\n        return false;\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.ui.DesktopUtils.isOpenAvailable",
+	"Comment": "returns true if opening a file in native displayer is supported on host platform.",
+	"Method": "boolean isOpenAvailable(){\r\n    if (!openAvailableInitialized) {\r\n        if (\"true\".equals(allowDesktopOpen) && isDesktopSupported())\r\n            openAvailable = Desktop.getDesktop().isSupported(Desktop.Action.OPEN);\r\n        else\r\n            openAvailable = false;\r\n        openAvailableInitialized = true;\r\n    }\r\n    return openAvailable;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.ui.components.treetable.AbstractTreeTableModel.fireTreeNodesChanged",
+	"Comment": "notify all listeners that have registered interest for notification onthis event type. the event instance is lazily created using theparameters passed into the fire method.",
+	"Method": "void fireTreeNodesChanged(Object source,Object[] path,int[] childIndices,Object[] children){\r\n    Object[] listeners = listenerList.getListenerList();\r\n    TreeModelEvent e = null;\r\n    for (int i = listeners.length - 2; i >= 0; i -= 2) {\r\n        if (listeners[i] == TreeModelListener.class) {\r\n            if (e == null) {\r\n                e = new TreeModelEvent(source, path, childIndices, children);\r\n            }\r\n            ((TreeModelListener) listeners[i + 1]).treeNodesChanged(e);\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.NetBeansProfiler.connectToStartedApp",
+	"Comment": "connects to an application started using the specified sessionsettings, and will start its profilingwith the provided profilingsettings.",
+	"Method": "boolean connectToStartedApp(ProfilingSettings profilingSettings,SessionSettings sessionSettings,boolean connectToStartedApp,ProfilingSettings profilingSettings,SessionSettings sessionSettings,AtomicBoolean cancel){\r\n    profilingMode = MODE_PROFILE;\r\n    lastProfilingSettings = profilingSettings;\r\n    lastSessionSettings = sessionSettings;\r\n    lastMode = MODE_PROFILE;\r\n    ProgressHandle ph = ProgressHandle.createHandle(Bundle.NetBeansProfiler_StartingSession());\r\n    try {\r\n        ph.setInitialDelay(500);\r\n        ph.start();\r\n        if (getTargetAppRunner().targetJVMIsAlive()) {\r\n            getTargetAppRunner().terminateTargetJVM();\r\n        }\r\n        final ProfilerEngineSettings sSettings = getTargetAppRunner().getProfilerEngineSettings();\r\n        sessionSettings.applySettings(sSettings);\r\n        profilingSettings.applySettings(sSettings);\r\n        sSettings.setInstrumentObjectInit(false);\r\n        logActionConfig(\"connectToStartedApp\", profilingSettings, sessionSettings, null, sSettings.getInstrumentationFilter());\r\n        if (prepareProfilingSession(profilingSettings, sessionSettings)) {\r\n            RequestProcessor.getDefault().post(new Runnable() {\r\n                @Override\r\n                public void run() {\r\n                    if (tryInitiateSession(sessionSettings, cancel)) {\r\n                        connectToApp();\r\n                    }\r\n                }\r\n            });\r\n            return true;\r\n        }\r\n        return false;\r\n    } finally {\r\n        ph.finish();\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.NetBeansProfiler.connectToStartedApp",
+	"Comment": "connects to an application started using the specified sessionsettings, and will start its profilingwith the provided profilingsettings.",
+	"Method": "boolean connectToStartedApp(ProfilingSettings profilingSettings,SessionSettings sessionSettings,boolean connectToStartedApp,ProfilingSettings profilingSettings,SessionSettings sessionSettings,AtomicBoolean cancel){\r\n    if (tryInitiateSession(sessionSettings, cancel)) {\r\n        connectToApp();\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.jvmstat.JvmstatModelImpl.disconnected",
+	"Comment": "invoked when the connection to the monitoredvm has disconnecteddue to communication errors.",
+	"Method": "void disconnected(VmEvent event){\r\n    ErrorManager.getDefault().log(\"Disconnect \" + event.getMonitoredVm().getVmIdentifier());\r\n    disableListeners();\r\n    monitoredVm.detach();\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.instrumentation.Injector.changeJumps",
+	"Comment": "changes all jumps crossing breakbci by delta.may enqueue things on the changes stack",
+	"Method": "void changeJumps(int breakBCI,int delta){\r\n    int bci = 0;\r\n    int bc;\r\n    while (bci < bytecodesLength) {\r\n        bc = (bytecodes[bci] & 0xFF);\r\n        if (((bc >= opc_ifeq) && (bc <= opc_if_acmpne)) || (bc == opc_ifnull) || (bc == opc_ifnonnull) || (bc == opc_goto) || (bc == opc_jsr)) {\r\n            changeJump(bci, bci + 1, true, breakBCI, delta);\r\n        } else {\r\n            switch(bc) {\r\n                case opc_goto_w:\r\n                case opc_jsr_w:\r\n                    changeJump(bci, bci + 1, false, breakBCI, delta);\r\n                    break;\r\n                case opc_tableswitch:\r\n                case opc_lookupswitch:\r\n                    {\r\n                        int recPad = getOrigSwitchPadding(bci, (bc != opc_tableswitch));\r\n                        int oldPad = (recPad != -1) ? recPad : (align(bci + 1) - (bci + 1));\r\n                        if (bci > breakBCI) {\r\n                            int new_bci = bci + delta;\r\n                            int newPad = align(new_bci + 1) - (new_bci + 1);\r\n                            if (newPad != oldPad) {\r\n                                if (recPad == -1) {\r\n                                    changes.push(new ChangeSwitchPadding(bci, oldPad, (bc != opc_tableswitch)));\r\n                                }\r\n                            }\r\n                        }\r\n                        if (bc == opc_tableswitch) {\r\n                            changeJump(bci, bci + 1 + oldPad, false, breakBCI, delta);\r\n                            int lo = getInt(bci + 1 + oldPad + (4 * 1));\r\n                            int hi = getInt(bci + 1 + oldPad + (4 * 2));\r\n                            int n = hi - lo + 1;\r\n                            for (int k = 0; k < n; k++) {\r\n                                changeJump(bci, bci + 1 + oldPad + (4 * (k + 3)), false, breakBCI, delta);\r\n                            }\r\n                            bci += (1 + oldPad + ((n + 3) * 4));\r\n                            continue;\r\n                        } else {\r\n                            changeJump(bci, bci + 1 + oldPad, false, breakBCI, delta);\r\n                            int npairs = getInt(bci + 1 + oldPad + (4 * 1));\r\n                            for (int k = 0; k < npairs; k++) {\r\n                                changeJump(bci, bci + 1 + oldPad + (4 * (2 + (2 * k) + 1)), false, breakBCI, delta);\r\n                            }\r\n                            bci += (1 + oldPad + ((2 + (npairs * 2)) * 4));\r\n                            continue;\r\n                        }\r\n                    }\r\n                default:\r\n                    break;\r\n            }\r\n        }\r\n        bci += opcodeLength(bci);\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.heapwalk.details.jdk.ui.WindowBuilders.getBuilder",
+	"Comment": "make sure subclasses are listed before base class if using issubclassof",
+	"Method": "ComponentBuilder getBuilder(Instance instance,Heap heap){\r\n    if (DetailsUtils.isSubclassOf(instance, JRootPane.class.getName())) {\r\n        return new JRootPaneBuilder(instance, heap);\r\n    } else if (DetailsUtils.isSubclassOf(instance, JDesktopPane.class.getName())) {\r\n        return new JDesktopPaneBuilder(instance, heap);\r\n    } else if (DetailsUtils.isSubclassOf(instance, JLayeredPane.class.getName())) {\r\n        return new JLayeredPaneBuilder(instance, heap);\r\n    } else if (DetailsUtils.isSubclassOf(instance, Frame.class.getName())) {\r\n        return new FrameBuilder(instance, heap);\r\n    } else if (DetailsUtils.isSubclassOf(instance, Dialog.class.getName())) {\r\n        return new DialogBuilder(instance, heap);\r\n    } else if (DetailsUtils.isSubclassOf(instance, JInternalFrame.class.getName())) {\r\n        return new JInternalFrameBuilder(instance, heap);\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.ui.components.treetable.AbstractTreeTableModel.getIndexOfChild",
+	"Comment": "returns the index of the child node in the parent node.although the method expects objects because of the treemodel contract,it assumes both parent and child are treetablenodes.",
+	"Method": "int getIndexOfChild(Object parent,Object child){\r\n    if ((parent == null) || (child == null)) {\r\n        return -1;\r\n    }\r\n    return ((CCTNode) parent).getIndexOfChild(child);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.NetBeansProfiler.shutdownBlockedAgent",
+	"Comment": "returns true if the agent was correctly finished from blocked state, false otherwise",
+	"Method": "boolean shutdownBlockedAgent(String host,int port,int agentId){\r\n    int state = getAgentState(host, port, agentId);\r\n    if (state == CommonConstants.AGENT_STATE_READY_DIRECT) {\r\n        Socket clientSocket = null;\r\n        ObjectOutputStream socketOut = null;\r\n        ObjectInputStream socketIn = null;\r\n        try {\r\n            clientSocket = new Socket(host, port);\r\n            clientSocket.setSoTimeout(100);\r\n            clientSocket.setTcpNoDelay(true);\r\n            socketOut = new ObjectOutputStream(clientSocket.getOutputStream());\r\n            socketIn = new ObjectInputStream(clientSocket.getInputStream());\r\n            WireIO wio = new WireIO(socketOut, socketIn);\r\n            wio.sendSimpleCommand(Command.TERMINATE_TARGET_JVM);\r\n            Object o = wio.receiveCommandOrResponse();\r\n            if (o instanceof Response && ((Response) o).isOK()) {\r\n                return true;\r\n            } else {\r\n                return false;\r\n            }\r\n        } catch (IOException e) {\r\n            return false;\r\n        } finally {\r\n            try {\r\n                if (socketIn != null) {\r\n                    socketIn.close();\r\n                }\r\n                if (socketOut != null) {\r\n                    socketOut.close();\r\n                }\r\n                if (clientSocket != null) {\r\n                    clientSocket.close();\r\n                }\r\n            } catch (IOException e) {\r\n                ProfilerLogger.log(e);\r\n            }\r\n        }\r\n    } else {\r\n        return false;\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.ui.components.treetable.TreeTableModelAdapter.setValueAt",
+	"Comment": "tablemodel wrapper, passes it through to the model afterfetching the right treetablenode for the given row.",
+	"Method": "void setValueAt(Object value,int row,int column){\r\n    treeTableModel.setValueAt(value, nodeForRow(row), column);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.scheduler.SchedulerTest.scheduleImmediate",
+	"Comment": "test of schedule method, immediate execution, of class scheduler.",
+	"Method": "void scheduleImmediate(){\r\n    System.out.println(\"schedule, immediate\");\r\n    final CountDownLatch barrier = new CountDownLatch(1);\r\n    SchedulerTask task = new SchedulerTask() {\r\n        public void onSchedule(long timeStamp) {\r\n            barrier.countDown();\r\n        }\r\n    };\r\n    Quantum interval = Quantum.seconds(2000);\r\n    Scheduler instance = Scheduler.sharedInstance();\r\n    ScheduledTask scheduled = instance.schedule(task, interval, true);\r\n    stasks.add(scheduled);\r\n    try {\r\n        boolean executed = barrier.await(1000, TimeUnit.SECONDS);\r\n        assertTrue(executed);\r\n    } catch (InterruptedException e) {\r\n        fail(e.getMessage());\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.scheduler.SchedulerTest.scheduleImmediate",
+	"Comment": "test of schedule method, immediate execution, of class scheduler.",
+	"Method": "void scheduleImmediate(){\r\n    barrier.countDown();\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.snaptracer.ProbeItemDescriptor.continuousLineFillItem",
+	"Comment": "creates descriptor for a continuous item created by line and filled segments.",
+	"Method": "ProbeItemDescriptor continuousLineFillItem(String name,String description,ItemValueFormatter formatter,ProbeItemDescriptor continuousLineFillItem,String name,String description,ItemValueFormatter formatter,double dataFactor,long minValue,long maxValue){\r\n    return continuousItem(name, description, formatter, dataFactor, minValue, maxValue, DEFAULT_LINE_WIDTH, DEFAULT_COLOR, DEFAULT_COLOR);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.heapwalk.details.jdk.image.FieldAccessor.buildArray",
+	"Comment": "convert filed of the instance to the array of represented objects. use given builder to convert the array items.",
+	"Method": "T[] buildArray(Instance instance,String field,Class<T> type,boolean allowNull,boolean allowNullValues,T[] buildArray,Instance instance,String field,InstanceBuilder<T> builder,boolean allowNull,boolean allowNullValues,T[] buildArray,Instance instance,String field,Class<T> type,InstanceBuilder<? extends T> builder,boolean allowNull,boolean allowNullValues){\r\n    ObjectArrayInstance array = get(instance, field, ObjectArrayInstance.class, allowNull);\r\n    if (array == null) {\r\n        return null;\r\n    }\r\n    List<?> list = array.getValues();\r\n    T[] result = (T[]) Array.newInstance(builder.getType(), list.size());\r\n    for (int i = 0; i < result.length; i++) {\r\n        try {\r\n            InstanceBuilder<? extends T> itemBuilder = builder == null ? registry.getBuilder(instance, type) : builder;\r\n            result[i] = itemBuilder.convert(this, castValue(notNullCheck(list.get(i), allowNullValues), Instance.class));\r\n        } catch (InvalidFieldException ex) {\r\n            throw new InvalidFieldException(instance, field, \"Invalid value at index %d: %s\", i, ex.getMessage()).initCause(ex);\r\n        }\r\n    }\r\n    return result;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.modules.startup.AcceptLicense.showLicensePanel",
+	"Comment": "if license was not accepted during installation user must accept it here.",
+	"Method": "void showLicensePanel(){\r\n    Utils.setSystemLaF();\r\n    if (!VisualVMStartup.checkEnv())\r\n        throw new org.openide.util.UserCancelException();\r\n    URL url = AcceptLicense.class.getResource(\"LICENSE.txt\");\r\n    LicensePanel licensePanel = new LicensePanel(url);\r\n    ResourceBundle bundle = NbBundle.getBundle(AcceptLicense.class);\r\n    String yesLabel = bundle.getString(\"MSG_LicenseYesButton\");\r\n    String noLabel = bundle.getString(\"MSG_LicenseNoButton\");\r\n    JButton yesButton = new JButton();\r\n    JButton noButton = new JButton();\r\n    Utils.setLocalizedText(yesButton, yesLabel);\r\n    Utils.setLocalizedText(noButton, noLabel);\r\n    ActionListener listener = new ActionListener() {\r\n        public void actionPerformed(ActionEvent e) {\r\n            command = e.getActionCommand();\r\n            d.setVisible(false);\r\n            d.dispose();\r\n            d = null;\r\n        }\r\n    };\r\n    yesButton.addActionListener(listener);\r\n    noButton.addActionListener(listener);\r\n    yesButton.setActionCommand(YES_AC);\r\n    noButton.setActionCommand(NO_AC);\r\n    yesButton.getAccessibleContext().setAccessibleName(bundle.getString(\"ACSN_AcceptButton\"));\r\n    yesButton.getAccessibleContext().setAccessibleName(bundle.getString(\"ACSD_AcceptButton\"));\r\n    noButton.getAccessibleContext().setAccessibleName(bundle.getString(\"ACSN_RejectButton\"));\r\n    noButton.getAccessibleContext().setAccessibleName(bundle.getString(\"ACSD_RejectButton\"));\r\n    Dimension yesPF = yesButton.getPreferredSize();\r\n    Dimension noPF = noButton.getPreferredSize();\r\n    int maxWidth = Math.max(yesPF.width, noPF.width);\r\n    int maxHeight = Math.max(yesPF.height, noPF.height);\r\n    yesButton.setPreferredSize(new Dimension(maxWidth, maxHeight));\r\n    noButton.setPreferredSize(new Dimension(maxWidth, maxHeight));\r\n    d = StartupDialog.create(bundle.getString(\"MSG_LicenseDlgTitle\"), null, -1);\r\n    d.getAccessibleContext().setAccessibleName(bundle.getString(\"ACSN_LicenseDlg\"));\r\n    d.getAccessibleContext().setAccessibleDescription(bundle.getString(\"ACSD_LicenseDlg\"));\r\n    d.getContentPane().add(licensePanel, BorderLayout.CENTER);\r\n    JPanel buttonPanel = new JPanel();\r\n    buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));\r\n    buttonPanel.setBorder(BorderFactory.createEmptyBorder(17, 12, 11, 11));\r\n    buttonPanel.add(yesButton);\r\n    buttonPanel.add(noButton);\r\n    d.getContentPane().add(buttonPanel, BorderLayout.SOUTH);\r\n    d.setSize(new Dimension(600, 600));\r\n    d.setResizable(true);\r\n    d.setLocationRelativeTo(null);\r\n    d.setVisible(true);\r\n    if (!YES_AC.equals(command))\r\n        throw new UserCancelException();\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.modules.startup.AcceptLicense.showLicensePanel",
+	"Comment": "if license was not accepted during installation user must accept it here.",
+	"Method": "void showLicensePanel(){\r\n    command = e.getActionCommand();\r\n    d.setVisible(false);\r\n    d.dispose();\r\n    d = null;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.utils.IntSorter.med3",
+	"Comment": "returns the index of the median of the three indexed integers.",
+	"Method": "int med3(int a,int b,int c){\r\n    return ((x[a] < x[b]) ? ((x[b] < x[c]) ? b : ((x[a] < x[c]) ? c : a)) : ((x[b] > x[c]) ? b : ((x[a] > x[c]) ? c : a)));\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.tools.jvmstat.JvmJvmstatModel.isAttachable",
+	"Comment": "tests if target jvm supportsattach apiand that support is enabled in target jvm.",
+	"Method": "boolean isAttachable(){\r\n    String jvmCapabilities = jvmstat.findByName(\"sun.rt.jvmCapabilities\");\r\n    if (jvmCapabilities == null) {\r\n        return false;\r\n    }\r\n    return jvmCapabilities.charAt(0) == '1';\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.application.views.threads.ThreadMXBeanDataManager.refreshThreadsSync",
+	"Comment": "blocking call used to save application snapshot for not opened application",
+	"Method": "void refreshThreadsSync(){\r\n    try {\r\n        ThreadMonitoredDataResponse resp = new ThreadMonitoredDataResponse();\r\n        resp.fillInThreadData();\r\n        final MonitoredData monitoredData = MonitoredData.getMonitoredData(resp);\r\n        SwingUtilities.invokeLater(new Runnable() {\r\n            public void run() {\r\n                processData(monitoredData);\r\n            }\r\n        });\r\n    } catch (Exception ex) {\r\n        LOGGER.throwing(ThreadMXBeanDataManager.class.getName(), \"refreshThreads\", ex);\r\n    }\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.application.views.threads.ThreadMXBeanDataManager.refreshThreadsSync",
+	"Comment": "blocking call used to save application snapshot for not opened application",
+	"Method": "void refreshThreadsSync(){\r\n    processData(monitoredData);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.jmx.JmxConnectionCustomizer.providesProperties",
+	"Comment": "returns true if the jmxconnectioncustomizer works as a propertiesproviderfor the provided application, false otherwise.",
+	"Method": "boolean providesProperties(Application application){\r\n    return true;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.datasource.DataSource.getChangeSupport",
+	"Comment": "returns instance of propertychangesupport used for processing property changes.",
+	"Method": "PropertyChangeSupport getChangeSupport(){\r\n    if (changeSupport == null)\r\n        changeSupport = new PropertyChangeSupport(this);\r\n    return changeSupport;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.jfluid.classfile.ClassRepository.getClassesOnClasspath",
+	"Comment": "returns names of all classes that can be located on the given classpath.since this method performs directory scanning, it is recommended to call it once and cache the results.",
+	"Method": "List getClassesOnClasspath(List classPathElementList){\r\n    List list = new ArrayList();\r\n    list.addAll(classPathElementList);\r\n    List res = new ArrayList();\r\n    for (Iterator e = list.iterator(); e.hasNext(); ) {\r\n        String dirOrJar = (String) e.next();\r\n        if (!(dirOrJar.endsWith(\".jar\") || dirOrJar.endsWith(\".zip\"))) {\r\n            MiscUtils.getAllClassesInDir(dirOrJar, \"\", true, res);\r\n        } else {\r\n            MiscUtils.getAllClassesInJar(dirOrJar, true, res);\r\n        }\r\n    }\r\n    return res;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.api.ProfilerIDESettings.clearDoNotShowAgainMap",
+	"Comment": "used by the dnsaconfirmation.clears the do not show again, so that all confirmations are displayed again.",
+	"Method": "void clearDoNotShowAgainMap(){\r\n    getDNSAMap().clear();\r\n    storeDNSAMap();\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.ui.components.treetable.TreeTableModelAdapter.isCellEditable",
+	"Comment": "tablemodel wrapper, passes it through to the model afterfetching the right treetablenode for the given row.",
+	"Method": "boolean isCellEditable(int row,int column){\r\n    return treeTableModel.isCellEditable(nodeForRow(row), column);\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.datasource.DataSource.remove",
+	"Comment": "persistent datasources can remove appropriate entries from their storage",
+	"Method": "void remove(){\r\n    getStorage().deleteCustomPropertiesStorage();\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.snapshot.Snapshot.supportsDelete",
+	"Comment": "returns true if the snapshot can be deleted by the user from ui, false otherwise.",
+	"Method": "boolean supportsDelete(){\r\n    return true;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.datasource.Storage.hasCustomProperties",
+	"Comment": "returns true if the storage contains any custom properties, false otherwise.",
+	"Method": "boolean hasCustomProperties(){\r\n    Properties prop = getCustomProperties(false);\r\n    return prop != null && !prop.isEmpty();\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.common.AttachSettings.setPort",
+	"Comment": "this is only intended to be used to handle attachsettings defined via ant.",
+	"Method": "void setPort(int port){\r\n    this.transientPort = port;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.ui.ResultsPanel.createScrollPane",
+	"Comment": "creates instance of jscrollpane and adds it to the borderlayout.center of the resultspanel.",
+	"Method": "JScrollPane createScrollPane(){\r\n    JScrollPane jScrollPane = new JScrollPane();\r\n    add(jScrollPane, BorderLayout.CENTER);\r\n    return jScrollPane;\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.core.datasource.Storage.directoryExists",
+	"Comment": "returns true if storage directory exists, false otherwise.",
+	"Method": "boolean directoryExists(){\r\n    return directory.exists();\r\n}"
+}, {
+	"Path": "org.graalvm.visualvm.lib.profiler.v2.ProfilerSession.isAttach",
+	"Comment": "set when configuring profiling session, not a persistent storage!",
+	"Method": "boolean isAttach(){\r\n    return isAttach;\r\n}"
+}]

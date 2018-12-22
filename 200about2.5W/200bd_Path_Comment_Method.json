@@ -1,0 +1,393 @@
+[{
+	"Path": "org.parboiled.support.MatcherPath.contains",
+	"Comment": "determines whether the given matcher is contained in this path.",
+	"Method": "boolean contains(Matcher matcher){\r\n    return element.matcher == matcher || (parent != null && parent.contains(matcher));\r\n}"
+}, {
+	"Path": "org.parboiled.support.MatcherPath.commonPrefix",
+	"Comment": "returns the common prefix of this matcherpath and the given other one.",
+	"Method": "MatcherPath commonPrefix(MatcherPath that){\r\n    checkArgNotNull(that, \"that\");\r\n    if (element.level > that.element.level)\r\n        return parent.commonPrefix(that);\r\n    if (element.level < that.element.level)\r\n        return commonPrefix(that.parent);\r\n    if (this == that)\r\n        return this;\r\n    return (parent != null && that.parent != null) ? parent.commonPrefix(that.parent) : null;\r\n}"
+}, {
+	"Path": "org.parboiled.errors.ErrorUtils.printParseErrors",
+	"Comment": "pretty prints the given parse errors showing their location in the given input buffer.",
+	"Method": "String printParseErrors(ParsingResult<?> parsingResult,String printParseErrors,List<ParseError> errors){\r\n    checkArgNotNull(errors, \"errors\");\r\n    StringBuilder sb = new StringBuilder();\r\n    for (ParseError error : errors) {\r\n        if (sb.length() > 0)\r\n            sb.append(\"---\\n\");\r\n        sb.append(printParseError(error));\r\n    }\r\n    return sb.toString();\r\n}"
+}, {
+	"Path": "org.parboiled.BaseActions.match",
+	"Comment": "returns the input text matched by the rule immediately preceding the action expression that is currentlybeing evaluated. this call can only be used in actions that are part of a sequence rule and are not at firstposition in this sequence.",
+	"Method": "String match(){\r\n    check();\r\n    return context.getMatch();\r\n}"
+}, {
+	"Path": "org.parboiled.BaseActions.pop",
+	"Comment": "removes the value the given number of elements below the top of the value stack.",
+	"Method": "V pop(V pop,int down){\r\n    check();\r\n    return context.getValueStack().pop(down);\r\n}"
+}, {
+	"Path": "org.parboiled.BaseParser.fromStringLiteral",
+	"Comment": "used internally to convert the given string literal to a parser rule.you can override this method, e.g. for specifying a sequence that automatically matches all trailingwhitespace after the string.",
+	"Method": "Rule fromStringLiteral(String string){\r\n    checkArgNotNull(string, \"string\");\r\n    return fromCharArray(string.toCharArray());\r\n}"
+}, {
+	"Path": "com.pi4j.io.gpio.GpioProviderBase.isShutdown",
+	"Comment": "this method returns true if the gpio provider has been shutdown.",
+	"Method": "boolean isShutdown(){\r\n    return isshutdown;\r\n}"
+}, {
+	"Path": "com.pi4j.io.serial.impl.SerialImpl.removeListener",
+	"Comment": "remove serial event listener java consumer code can call this method to unregister itself as a listener for serial dataevents.",
+	"Method": "void removeListener(SerialDataEventListener listener){\r\n    for (SerialDataEventListener lsnr : listener) {\r\n        listeners.remove(lsnr);\r\n    }\r\n}"
+}, {
+	"Path": "org.parboiled.support.Characters.allBut",
+	"Comment": "creates a new characters instance containing all characters minus the given ones.",
+	"Method": "Characters allBut(char c,Characters allBut,char chars,Characters allBut,String chars){\r\n    return StringUtils.isEmpty(chars) ? Characters.ALL : new Characters(true, chars.toCharArray());\r\n}"
+}, {
+	"Path": "com.pi4j.jni.AnalogInputMonitor.addListener",
+	"Comment": "java consumer code can all this method to register itself as a listener for pin analoginput value changes.",
+	"Method": "void addListener(AnalogInputListener listener){\r\n    if (!listeners.contains(listener)) {\r\n        listeners.addElement(listener);\r\n    }\r\n}"
+}, {
+	"Path": "org.parboiled.support.IndexRange.overlapsWith",
+	"Comment": "determines whether this range overlaps with the given other one.",
+	"Method": "boolean overlapsWith(IndexRange other){\r\n    checkArgNotNull(other, \"other\");\r\n    return end > other.start && other.end > start;\r\n}"
+}, {
+	"Path": "org.parboiled.support.Characters.of",
+	"Comment": "creates a new characters instance containing only the given chars.",
+	"Method": "Characters of(char c,Characters of,char chars,Characters of,String chars){\r\n    return StringUtils.isEmpty(chars) ? Characters.NONE : new Characters(false, chars.toCharArray());\r\n}"
+}, {
+	"Path": "org.parboiled.BaseActions.poke",
+	"Comment": "replaces the element the given number of elements below the current top of the value stack.",
+	"Method": "boolean poke(V value,boolean poke,int down,V value){\r\n    check();\r\n    context.getValueStack().poke(down, value);\r\n    return true;\r\n}"
+}, {
+	"Path": "com.pi4j.io.gpio.PinProvider.allPins",
+	"Comment": "get all pin instances from this provider that support one of the provided pin modes.",
+	"Method": "Pin[] allPins(Pin[] allPins,PinMode mode){\r\n    List<Pin> results = new ArrayList();\r\n    for (Pin p : pins.values()) {\r\n        EnumSet<PinMode> supported_modes = p.getSupportedPinModes();\r\n        for (PinMode m : mode) {\r\n            if (supported_modes.contains(m)) {\r\n                results.add(p);\r\n                continue;\r\n            }\r\n        }\r\n    }\r\n    return results.toArray(new Pin[0]);\r\n}"
+}, {
+	"Path": "com.pi4j.io.serial.SerialDataEvent.getString",
+	"Comment": "get a string representation of the bytes available in the serial data receive buffer",
+	"Method": "String getString(Charset charset){\r\n    return getCharBuffer(charset).toString();\r\n}"
+}, {
+	"Path": "org.parboiled.support.Characters.remove",
+	"Comment": "returns a new characters object containing all the characters of this instance minus all characters of thegiven instance.",
+	"Method": "Characters remove(char c,Characters remove,Characters other){\r\n    checkArgNotNull(other, \"other\");\r\n    if (!subtractive && !other.subtractive) {\r\n        return removeFromChars(other.chars);\r\n    }\r\n    if (subtractive && other.subtractive) {\r\n        return new Characters(false, other.removeFromChars(chars).chars);\r\n    }\r\n    return subtractive ? addToChars(other.chars) : retainAllChars(other.chars);\r\n}"
+}, {
+	"Path": "com.pi4j.io.serial.impl.SerialImpl.isClosed",
+	"Comment": "this method is called to determine if the serial port is already closed.",
+	"Method": "boolean isClosed(){\r\n    return !(isOpen());\r\n}"
+}, {
+	"Path": "org.parboiled.trees.GraphUtils.getLastChild",
+	"Comment": "returns the last child node of the given node or null if node is null or does not have any children.",
+	"Method": "T getLastChild(T node){\r\n    return hasChildren(node) ? node.getChildren().get(node.getChildren().size() - 1) : null;\r\n}"
+}, {
+	"Path": "org.parboiled.BaseActions.matchOrDefault",
+	"Comment": "returns the input text matched by the rule immediately preceding the action expression that is currentlybeing evaluated. if the matched input text is empty the given default string is returned.this call can only be used in actions that are part of a sequence rule and are not at firstposition in this sequence.",
+	"Method": "String matchOrDefault(String defaultString){\r\n    check();\r\n    String match = context.getMatch();\r\n    return match.length() == 0 ? defaultString : match;\r\n}"
+}, {
+	"Path": "org.parboiled.support.IndexRange.touches",
+	"Comment": "determines whether this range immediated follows or precedes the given other one.",
+	"Method": "boolean touches(IndexRange other){\r\n    checkArgNotNull(other, \"other\");\r\n    return other.end == start || end == other.start;\r\n}"
+}, {
+	"Path": "org.parboiled.trees.GraphUtils.getFirstChild",
+	"Comment": "returns the first child node of the given node or null if node is null or does not have any children.",
+	"Method": "T getFirstChild(T node){\r\n    return hasChildren(node) ? node.getChildren().get(0) : null;\r\n}"
+}, {
+	"Path": "org.parboiled.examples.java.JavaParser.ArrayCreatorRest",
+	"Comment": "basictype must be followed by at least one dimexpr or by arrayinitializer.",
+	"Method": "Rule ArrayCreatorRest(){\r\n    return Sequence(LBRK, FirstOf(Sequence(RBRK, ZeroOrMore(Dim()), ArrayInitializer()), Sequence(Expression(), RBRK, ZeroOrMore(DimExpr()), ZeroOrMore(Dim()))));\r\n}"
+}, {
+	"Path": "org.parboiled.matchers.AbstractMatcher.getSubContext",
+	"Comment": "default implementation is to simply delegate to the context",
+	"Method": "MatcherContext getSubContext(MatcherContext context){\r\n    return context.getSubContext(this);\r\n}"
+}, {
+	"Path": "org.parboiled.parserunners.TracingParseRunner.withLog",
+	"Comment": "attaches the given log to this tracingparserunner instance.",
+	"Method": "TracingParseRunner<V> withLog(Sink<String> log){\r\n    this.log = log;\r\n    return this;\r\n}"
+}, {
+	"Path": "org.parboiled.support.StringBuilderVar.append",
+	"Comment": "appends the given char.if this instance is currently uninitialized the given char is used for initialization.",
+	"Method": "boolean append(String text,boolean append,char c){\r\n    if (get() == null)\r\n        return set(new StringBuilder().append(c));\r\n    get().append(c);\r\n    return true;\r\n}"
+}, {
+	"Path": "com.pi4j.concurrent.DefaultExecutorServiceFactory.getThreadFactory",
+	"Comment": "return an instance to the thread factory used to create new executor services",
+	"Method": "ThreadFactory getThreadFactory(String nameFormat){\r\n    final ThreadFactory defaultThreadFactory = Executors.privilegedThreadFactory();\r\n    return new ThreadFactory() {\r\n        final AtomicLong count = (nameFormat != null) ? new AtomicLong(0) : null;\r\n        @Override\r\n        public Thread newThread(Runnable runnable) {\r\n            Thread thread = defaultThreadFactory.newThread(runnable);\r\n            if (nameFormat != null) {\r\n                thread.setName(String.format(nameFormat, count.getAndIncrement()));\r\n            }\r\n            return thread;\r\n        }\r\n    };\r\n}"
+}, {
+	"Path": "com.pi4j.concurrent.DefaultExecutorServiceFactory.getThreadFactory",
+	"Comment": "return an instance to the thread factory used to create new executor services",
+	"Method": "ThreadFactory getThreadFactory(String nameFormat){\r\n    Thread thread = defaultThreadFactory.newThread(runnable);\r\n    if (nameFormat != null) {\r\n        thread.setName(String.format(nameFormat, count.getAndIncrement()));\r\n    }\r\n    return thread;\r\n}"
+}, {
+	"Path": "com.pi4j.jni.SerialInterrupt.addListener",
+	"Comment": "java consumer code can all this method to register itself as a listener for pin statechanges.",
+	"Method": "void addListener(int fileDescriptor,SerialInterruptListener listener){\r\n    if (!listeners.containsKey(fileDescriptor)) {\r\n        listeners.put(fileDescriptor, listener);\r\n        enableSerialDataReceiveCallback(fileDescriptor);\r\n    }\r\n}"
+}, {
+	"Path": "org.parboiled.transform.AsmUtils.isAssignableTo",
+	"Comment": "determines whether the class with the given descriptor is assignable to the given type.",
+	"Method": "boolean isAssignableTo(String classInternalName,Class<?> type){\r\n    checkArgNotNull(classInternalName, \"classInternalName\");\r\n    checkArgNotNull(type, \"type\");\r\n    return type.isAssignableFrom(getClassForInternalName(classInternalName));\r\n}"
+}, {
+	"Path": "org.parboiled.common.Base64.decode",
+	"Comment": "decodes a base64 encoded byte array. all illegal characters will be ignored and can handle both arrays withand without line separators.",
+	"Method": "byte[] decode(char[] sArr,byte[] decode,byte[] sArr,byte[] decode,String str){\r\n    int sLen = str != null ? str.length() : 0;\r\n    if (sLen == 0) {\r\n        return new byte[0];\r\n    }\r\n    int sepCnt = 0;\r\n    for (int i = 0; i < sLen; i++) {\r\n        if (IA[str.charAt(i)] < 0) {\r\n            sepCnt++;\r\n        }\r\n    }\r\n    if ((sLen - sepCnt) % 4 != 0) {\r\n        return null;\r\n    }\r\n    int pad = 0;\r\n    for (int i = sLen; i > 1 && IA[str.charAt(--i)] <= 0; ) {\r\n        if (str.charAt(i) == fillChar) {\r\n            pad++;\r\n        }\r\n    }\r\n    int len = ((sLen - sepCnt) * 6 >> 3) - pad;\r\n    byte[] dArr = new byte[len];\r\n    for (int s = 0, d = 0; d < len; ) {\r\n        int i = 0;\r\n        for (int j = 0; j < 4; j++) {\r\n            int c = IA[str.charAt(s++)];\r\n            if (c >= 0) {\r\n                i |= c << (18 - j * 6);\r\n            } else {\r\n                j--;\r\n            }\r\n        }\r\n        dArr[d++] = (byte) (i >> 16);\r\n        if (d < len) {\r\n            dArr[d++] = (byte) (i >> 8);\r\n            if (d < len) {\r\n                dArr[d++] = (byte) i;\r\n            }\r\n        }\r\n    }\r\n    return dArr;\r\n}"
+}, {
+	"Path": "org.parboiled.errors.ErrorUtils.printErrorMessage",
+	"Comment": "prints an error message showing a location in the given inputbuffer.",
+	"Method": "String printErrorMessage(String format,String errorMessage,int errorIndex,InputBuffer inputBuffer,String printErrorMessage,String format,String errorMessage,int startIndex,int endIndex,InputBuffer inputBuffer){\r\n    checkArgNotNull(inputBuffer, \"inputBuffer\");\r\n    checkArgument(startIndex <= endIndex);\r\n    Position pos = inputBuffer.getPosition(startIndex);\r\n    StringBuilder sb = new StringBuilder(String.format(format, errorMessage, pos.line, pos.column));\r\n    sb.append('\\n');\r\n    String line = inputBuffer.extractLine(pos.line);\r\n    sb.append(line);\r\n    sb.append('\\n');\r\n    int charCount = Math.max(Math.min(endIndex - startIndex, StringUtils.length(line) - pos.column + 2), 1);\r\n    for (int i = 0; i < pos.column - 1; i++) sb.append(' ');\r\n    for (int i = 0; i < charCount; i++) sb.append('^');\r\n    sb.append(\"\\n\");\r\n    return sb.toString();\r\n}"
+}, {
+	"Path": "org.parboiled.support.MatcherPath.isPrefixOf",
+	"Comment": "determines whether this path is a prefix of the given other path.",
+	"Method": "boolean isPrefixOf(MatcherPath that){\r\n    checkArgNotNull(that, \"that\");\r\n    return element.level <= that.element.level && (this == that || (that.parent != null && isPrefixOf(that.parent)));\r\n}"
+}, {
+	"Path": "org.parboiled.support.StringBuilderVar.contentsCleared",
+	"Comment": "clears the contents of the wrapped stringbuilder.if the instance is currently unintialized this method does nothing.",
+	"Method": "StringBuilderVar contentsCleared(){\r\n    if (get() != null)\r\n        get().setLength(0);\r\n    return this;\r\n}"
+}, {
+	"Path": "org.parboiled.transform.InstructionGroupCreator.sort",
+	"Comment": "sort the group instructions according to their method index",
+	"Method": "void sort(InstructionGroup group){\r\n    final InsnList instructions = method.instructions;\r\n    Collections.sort(group.getNodes(), new Comparator<InstructionGraphNode>() {\r\n        public int compare(InstructionGraphNode a, InstructionGraphNode b) {\r\n            return Integer.valueOf(instructions.indexOf(a.getInstruction())).compareTo(instructions.indexOf(b.getInstruction()));\r\n        }\r\n    });\r\n}"
+}, {
+	"Path": "org.parboiled.transform.InstructionGroupCreator.sort",
+	"Comment": "sort the group instructions according to their method index",
+	"Method": "void sort(InstructionGroup group){\r\n    return Integer.valueOf(instructions.indexOf(a.getInstruction())).compareTo(instructions.indexOf(b.getInstruction()));\r\n}"
+}, {
+	"Path": "com.pi4j.io.serial.impl.SerialImpl.close",
+	"Comment": "this method is called to close a currently open open serial port.",
+	"Method": "void close(){\r\n    if (isClosed())\r\n        throw new IllegalStateException(\"Serial connection is not open; cannot 'close()'.\");\r\n    SerialInterrupt.removeListener(fileDescriptor);\r\n    com.pi4j.jni.Serial.close(fileDescriptor);\r\n    fileDescriptor = -1;\r\n}"
+}, {
+	"Path": "org.parboiled.matchers.VarFramingMatcher.unwrap",
+	"Comment": "retrieves the innermost matcher that is not a varframingmatcher.",
+	"Method": "Matcher unwrap(Matcher matcher){\r\n    if (matcher instanceof VarFramingMatcher) {\r\n        VarFramingMatcher varFramingMatcher = (VarFramingMatcher) matcher;\r\n        return unwrap(varFramingMatcher.inner);\r\n    }\r\n    return matcher;\r\n}"
+}, {
+	"Path": "org.parboiled.support.StringVar.append",
+	"Comment": "appends the given char.if this instance is currently uninitialized the given char is used for initialization.",
+	"Method": "boolean append(String text,boolean append,char c){\r\n    return set(get() == null ? String.valueOf(c) : get() + c);\r\n}"
+}, {
+	"Path": "com.pi4j.io.serial.impl.SerialImpl.isOpen",
+	"Comment": "this method is called to determine if the serial port is already open.",
+	"Method": "boolean isOpen(){\r\n    return (fileDescriptor >= 0);\r\n}"
+}, {
+	"Path": "org.parboiled.BaseActions.peek",
+	"Comment": "returns the value the given number of elements below the top of the value stack without removing it.",
+	"Method": "V peek(V peek,int down){\r\n    check();\r\n    return context.getValueStack().peek(down);\r\n}"
+}, {
+	"Path": "org.parboiled.support.ParseTreeUtils.getNodeText",
+	"Comment": "returns the input text matched by the given node, with error correction.",
+	"Method": "String getNodeText(Node<?> node,InputBuffer inputBuffer){\r\n    checkArgNotNull(node, \"node\");\r\n    checkArgNotNull(inputBuffer, \"inputBuffer\");\r\n    if (node.hasError()) {\r\n        StringBuilder sb = new StringBuilder();\r\n        for (int i = node.getStartIndex(); i < node.getEndIndex(); i++) {\r\n            char c = inputBuffer.charAt(i);\r\n            switch(c) {\r\n                case Chars.DEL_ERROR:\r\n                    i++;\r\n                    break;\r\n                case Chars.INS_ERROR:\r\n                case Chars.EOI:\r\n                    break;\r\n                case Chars.RESYNC_START:\r\n                    i++;\r\n                    while (inputBuffer.charAt(i) != Chars.RESYNC_END) i++;\r\n                    break;\r\n                case Chars.RESYNC_END:\r\n                case Chars.RESYNC_EOI:\r\n                case Chars.RESYNC:\r\n                    throw new IllegalStateException();\r\n                default:\r\n                    sb.append(c);\r\n            }\r\n        }\r\n        return sb.toString();\r\n    }\r\n    return inputBuffer.extract(node.getStartIndex(), node.getEndIndex());\r\n}"
+}, {
+	"Path": "org.parboiled.common.Preconditions.checkArgNotNull",
+	"Comment": "ensures that an object reference passed as a parameter to the callingmethod is not null.",
+	"Method": "T checkArgNotNull(T reference,String parameterName){\r\n    if (reference == null) {\r\n        throw new NullPointerException(format(\"Argument '%s' must not be null\", parameterName));\r\n    }\r\n    return reference;\r\n}"
+}, {
+	"Path": "org.parboiled.support.StringBuilderVar.appended",
+	"Comment": "appends the given char.if this instance is currently uninitialized the given char is used for initialization.",
+	"Method": "StringBuilderVar appended(String text,StringBuilderVar appended,char c){\r\n    append(c);\r\n    return this;\r\n}"
+}, {
+	"Path": "com.pi4j.io.serial.SerialDataEvent.getAsciiString",
+	"Comment": "get an ascii string representation of the bytes available in the serial data receive buffer",
+	"Method": "String getAsciiString(){\r\n    return getCharBuffer(StandardCharsets.US_ASCII).toString();\r\n}"
+}, {
+	"Path": "org.parboiled.support.IndexRange.isPrecededBy",
+	"Comment": "determines whether this range immediated follows the given other one.",
+	"Method": "boolean isPrecededBy(IndexRange other){\r\n    checkArgNotNull(other, \"other\");\r\n    return other.end == start;\r\n}"
+}, {
+	"Path": "com.pi4j.io.serial.impl.SerialImpl.discardAll",
+	"Comment": "discards any data inboth the serial receive and transmit buffers.please note that this does not force the transmission of data, it discards it!",
+	"Method": "void discardAll(){\r\n    if (isClosed())\r\n        throw new IllegalStateException(\"Serial connection is not open; cannot 'discardAll()'.\");\r\n    com.pi4j.jni.Serial.discardAll(fileDescriptor);\r\n}"
+}, {
+	"Path": "org.parboiled.support.ParseTreeUtils.findNodeByLabel",
+	"Comment": "returns the first node underneath the given parents which matches the given label prefix.if parents is null or empty or no node is found the method returns null.",
+	"Method": "Node<V> findNodeByLabel(Node<V> parent,String labelPrefix,Node<V> findNodeByLabel,List<Node<V>> parents,String labelPrefix){\r\n    return findNode(parents, new LabelPrefixPredicate<V>(labelPrefix));\r\n}"
+}, {
+	"Path": "org.parboiled.support.ParseTreeUtils.collectNodes",
+	"Comment": "collects all nodes underneath the given parents for which the given predicate evaluates to true.",
+	"Method": "C collectNodes(Node<V> parent,Predicate<Node<V>> predicate,C collection,C collectNodes,List<Node<V>> parents,Predicate<Node<V>> predicate,C collection){\r\n    checkArgNotNull(predicate, \"predicate\");\r\n    checkArgNotNull(collection, \"collection\");\r\n    if (parents != null && !parents.isEmpty()) {\r\n        for (Node<V> child : parents) {\r\n            if (predicate.apply(child)) {\r\n                collection.add(child);\r\n            }\r\n            collectNodes(child, predicate, collection);\r\n        }\r\n    }\r\n    return collection;\r\n}"
+}, {
+	"Path": "org.parboiled.examples.java.JavaParser.Modifier",
+	"Comment": "different lists of modifiers for different language elements.",
+	"Method": "Rule Modifier(){\r\n    return FirstOf(Annotation(), Sequence(FirstOf(\"public\", \"protected\", \"private\", \"static\", \"abstract\", \"final\", \"native\", \"synchronized\", \"transient\", \"volatile\", \"strictfp\"), TestNot(LetterOrDigit()), Spacing()));\r\n}"
+}, {
+	"Path": "org.parboiled.matchervisitors.DefaultMatcherVisitor.defaultValue",
+	"Comment": "returns the default value for all visiting methods that have not been overridden.",
+	"Method": "R defaultValue(AbstractMatcher matcher){\r\n    return null;\r\n}"
+}, {
+	"Path": "org.parboiled.support.StringBuilderVar.clearContents",
+	"Comment": "clears the contents of the wrapped stringbuilder.if the instance is currently unintialized this method does nothing.",
+	"Method": "boolean clearContents(){\r\n    if (get() != null)\r\n        get().setLength(0);\r\n    return true;\r\n}"
+}, {
+	"Path": "org.parboiled.matchers.MemoMismatchesMatcher.unwrap",
+	"Comment": "retrieves the innermost matcher that is not a memomismatchesmatcher.",
+	"Method": "Matcher unwrap(Matcher matcher){\r\n    if (matcher instanceof MemoMismatchesMatcher) {\r\n        MemoMismatchesMatcher memoMismatchesMatcher = (MemoMismatchesMatcher) matcher;\r\n        return unwrap(memoMismatchesMatcher.inner);\r\n    }\r\n    return matcher;\r\n}"
+}, {
+	"Path": "com.pi4j.jni.AnalogInputMonitor.hasListener",
+	"Comment": "returns true if the listener is already registered for event callbacks.",
+	"Method": "boolean hasListener(AnalogInputListener listener){\r\n    return listeners.contains(listener);\r\n}"
+}, {
+	"Path": "org.parboiled.BaseParser.toRule",
+	"Comment": "converts the given object to a rule.this method can be overriden to enable the use of custom objects directly in rule specifications.",
+	"Method": "Rule toRule(Object obj){\r\n    if (obj instanceof Rule)\r\n        return (Rule) obj;\r\n    if (obj instanceof Character)\r\n        return fromCharLiteral((Character) obj);\r\n    if (obj instanceof String)\r\n        return fromStringLiteral((String) obj);\r\n    if (obj instanceof char[])\r\n        return fromCharArray((char[]) obj);\r\n    if (obj instanceof Action) {\r\n        Action action = (Action) obj;\r\n        return new ActionMatcher(action);\r\n    }\r\n    Checks.ensure(!(obj instanceof Boolean), \"Rule specification contains an unwrapped Boolean value, \" + \"if you were trying to specify a parser action wrap the expression with ACTION(...)\");\r\n    throw new GrammarException(\"'\" + obj + \"' cannot be automatically converted to a parser Rule\");\r\n}"
+}, {
+	"Path": "org.parboiled.support.IndexRange.isFollowedBy",
+	"Comment": "determines whether this range is immediated followed by the given other one.",
+	"Method": "boolean isFollowedBy(IndexRange other){\r\n    checkArgNotNull(other, \"other\");\r\n    return end == other.start;\r\n}"
+}, {
+	"Path": "org.parboiled.support.Var.getLevel",
+	"Comment": "returns the current frame level of this variable, the very first level corresponding to zero.",
+	"Method": "int getLevel(){\r\n    return level;\r\n}"
+}, {
+	"Path": "org.parboiled.BaseActions.matchLength",
+	"Comment": "returns the number of characters matched by the rule immediately preceding the action expression that iscurrently being evaluated. this call can only be used in actions that are part of a sequence rule and are notat first position in this sequence.",
+	"Method": "int matchLength(){\r\n    check();\r\n    return context.getMatchLength();\r\n}"
+}, {
+	"Path": "org.parboiled.errors.InvalidInputError.getFailedMatchers",
+	"Comment": "gets the list of paths to the single character matchers that failed at the error location of this error.",
+	"Method": "List<MatcherPath> getFailedMatchers(){\r\n    return failedMatchers;\r\n}"
+}, {
+	"Path": "org.parboiled.common.Utils.humanize",
+	"Comment": "formats the given long value into a human readable notation using the kilo, mega, giga, etc. abbreviations.",
+	"Method": "String humanize(long value){\r\n    if (value < 0) {\r\n        return '-' + humanize(-value);\r\n    } else if (value > 1000000000000000000L) {\r\n        return Double.toString((value + 500000000000000L) / 1000000000000000L * 1000000000000000L / 1000000000000000000.0) + 'E';\r\n    } else if (value > 100000000000000000L) {\r\n        return Double.toString((value + 50000000000000L) / 100000000000000L * 100000000000000L / 1000000000000000.0) + 'P';\r\n    } else if (value > 10000000000000000L) {\r\n        return Double.toString((value + 5000000000000L) / 10000000000000L * 10000000000000L / 1000000000000000.0) + 'P';\r\n    } else if (value > 1000000000000000L) {\r\n        return Double.toString((value + 500000000000L) / 1000000000000L * 1000000000000L / 1000000000000000.0) + 'P';\r\n    } else if (value > 100000000000000L) {\r\n        return Double.toString((value + 50000000000L) / 100000000000L * 100000000000L / 1000000000000.0) + 'T';\r\n    } else if (value > 10000000000000L) {\r\n        return Double.toString((value + 5000000000L) / 10000000000L * 10000000000L / 1000000000000.0) + 'T';\r\n    } else if (value > 1000000000000L) {\r\n        return Double.toString((value + 500000000) / 1000000000 * 1000000000 / 1000000000000.0) + 'T';\r\n    } else if (value > 100000000000L) {\r\n        return Double.toString((value + 50000000) / 100000000 * 100000000 / 1000000000.0) + 'G';\r\n    } else if (value > 10000000000L) {\r\n        return Double.toString((value + 5000000) / 10000000 * 10000000 / 1000000000.0) + 'G';\r\n    } else if (value > 1000000000) {\r\n        return Double.toString((value + 500000) / 1000000 * 1000000 / 1000000000.0) + 'G';\r\n    } else if (value > 100000000) {\r\n        return Double.toString((value + 50000) / 100000 * 100000 / 1000000.0) + 'M';\r\n    } else if (value > 10000000) {\r\n        return Double.toString((value + 5000) / 10000 * 10000 / 1000000.0) + 'M';\r\n    } else if (value > 1000000) {\r\n        return Double.toString((value + 500) / 1000 * 1000 / 1000000.0) + 'M';\r\n    } else if (value > 100000) {\r\n        return Double.toString((value + 50) / 100 * 100 / 1000.0) + 'K';\r\n    } else if (value > 10000) {\r\n        return Double.toString((value + 5) / 10 * 10 / 1000.0) + 'K';\r\n    } else if (value > 1000) {\r\n        return Double.toString(value / 1000.0) + 'K';\r\n    } else {\r\n        return Long.toString(value) + ' ';\r\n    }\r\n}"
+}, {
+	"Path": "org.parboiled.transform.InstructionGroupPreparer.name",
+	"Comment": "set a group name base on the hash across all group instructions and fields",
+	"Method": "void name(InstructionGroup group,ParserClassNode classNode){\r\n    MD5Digester digester = new MD5Digester(classNode.name);\r\n    group.getInstructions().accept(digester);\r\n    for (FieldNode field : group.getFields()) digester.visitField(field);\r\n    byte[] hash = digester.getMD5Hash();\r\n    byte[] hash96 = new byte[12];\r\n    System.arraycopy(hash, 0, hash96, 0, 12);\r\n    String name = group.getRoot().isActionRoot() ? \"Action$\" : \"VarInit$\";\r\n    name += CUSTOM_BASE64.encodeToString(hash96, false);\r\n    group.setName(name);\r\n}"
+}, {
+	"Path": "org.parboiled.trees.GraphUtils.hasChildren",
+	"Comment": "returns true if this node is not null and has at least one child node.",
+	"Method": "boolean hasChildren(GraphNode<?> node){\r\n    return node != null && !node.getChildren().isEmpty();\r\n}"
+}, {
+	"Path": "org.parboiled.common.Utils.findConstructor",
+	"Comment": "finds the constructor of the given class that is compatible with the given arguments.",
+	"Method": "Constructor findConstructor(Class<?> type,Object[] args){\r\n    outer: for (Constructor constructor : type.getConstructors()) {\r\n        Class<?>[] paramTypes = constructor.getParameterTypes();\r\n        if (paramTypes.length != args.length)\r\n            continue;\r\n        for (int i = 0; i < args.length; i++) {\r\n            Object arg = args[i];\r\n            if (arg != null && !paramTypes[i].isAssignableFrom(arg.getClass()) && !isBoxedType(paramTypes[i], arg.getClass()))\r\n                continue outer;\r\n            if (arg == null && paramTypes[i].isPrimitive())\r\n                continue outer;\r\n        }\r\n        return constructor;\r\n    }\r\n    throw new GrammarException(\"No constructor found for %s and the given %s arguments\", type, args.length);\r\n}"
+}, {
+	"Path": "org.parboiled.BaseActions.push",
+	"Comment": "inserts the given value a given number of elements below the current top of the value stack.",
+	"Method": "boolean push(V value,boolean push,int down,V value){\r\n    check();\r\n    context.getValueStack().push(down, value);\r\n    return true;\r\n}"
+}, {
+	"Path": "org.parboiled.common.Base64.encodeToString",
+	"Comment": "encodes a raw byte array into a base64 string representation in accordance with rfc 2045.",
+	"Method": "String encodeToString(byte[] sArr,boolean lineSep){\r\n    return new String(encodeToChar(sArr, lineSep));\r\n}"
+}, {
+	"Path": "org.parboiled.buffers.DefaultInputBuffer.getLine0",
+	"Comment": "returns the zero based input line number the character with the given index is found in",
+	"Method": "int getLine0(int[] newlines,int index){\r\n    int j = Arrays.binarySearch(newlines, index);\r\n    return j >= 0 ? j : -(j + 1);\r\n}"
+}, {
+	"Path": "org.parboiled.BaseActions.matchStart",
+	"Comment": "returns the start index of the rule immediately preceding the action expression that is currentlybeing evaluated. this call can only be used in actions that are part of a sequence rule and are not at firstposition in this sequence.",
+	"Method": "int matchStart(){\r\n    check();\r\n    return context.getMatchStartIndex();\r\n}"
+}, {
+	"Path": "org.parboiled.common.IntArrayStack.getElements",
+	"Comment": "copies all elements currently on the stack into the given array.",
+	"Method": "void getElements(int[] destArray,int destStartIndex){\r\n    System.arraycopy(array, 0, destArray, destStartIndex, size());\r\n}"
+}, {
+	"Path": "org.parboiled.support.Characters.add",
+	"Comment": "returns a new characters object containing all the characters of this instance plus all characters of thegiven instance.",
+	"Method": "Characters add(char c,Characters add,Characters other){\r\n    checkArgNotNull(other, \"other\");\r\n    if (!subtractive && !other.subtractive) {\r\n        return addToChars(other.chars);\r\n    }\r\n    if (subtractive && other.subtractive) {\r\n        return retainAllChars(other.chars);\r\n    }\r\n    return subtractive ? removeFromChars(other.chars) : other.removeFromChars(chars);\r\n}"
+}, {
+	"Path": "org.parboiled.trees.GraphUtils.countAllDistinct",
+	"Comment": "counts all distinct nodes in the graph reachable from the given node.this method can properly deal with cycles in the graph.",
+	"Method": "int countAllDistinct(T node){\r\n    if (node == null)\r\n        return 0;\r\n    return collectAllNodes(node, new HashSet<T>()).size();\r\n}"
+}, {
+	"Path": "org.parboiled.errors.DefaultInvalidInputErrorFormatter.getLabels",
+	"Comment": "gets the labels corresponding to the given matcher, anyofmatchers are treated specially in that theirlabel is constructed as a list of their contents",
+	"Method": "String[] getLabels(Matcher matcher){\r\n    if ((matcher instanceof AnyOfMatcher) && ((AnyOfMatcher) matcher).characters.toString().equals(matcher.getLabel())) {\r\n        AnyOfMatcher cMatcher = (AnyOfMatcher) matcher;\r\n        if (!cMatcher.characters.isSubtractive()) {\r\n            String[] labels = new String[cMatcher.characters.getChars().length];\r\n            for (int i = 0; i < labels.length; i++) {\r\n                labels[i] = '\\'' + String.valueOf(cMatcher.characters.getChars()[i]) + '\\'';\r\n            }\r\n            return labels;\r\n        }\r\n    }\r\n    return new String[] { matcher.getLabel() };\r\n}"
+}, {
+	"Path": "org.parboiled.BaseParser.fromCharArray",
+	"Comment": "used internally to convert the given char array to a parser rule.you can override this method, e.g. for specifying a sequence that automatically matches all trailingwhitespace after the characters.",
+	"Method": "Rule fromCharArray(char[] array){\r\n    checkArgNotNull(array, \"array\");\r\n    return String(array);\r\n}"
+}, {
+	"Path": "com.pi4j.io.serial.SerialDataEvent.getHexByteString",
+	"Comment": "get a hex string representation of the bytes available in the serial data receive buffer",
+	"Method": "String getHexByteString(String getHexByteString,CharSequence prefix,CharSequence separator,CharSequence suffix){\r\n    byte[] data = getBytes();\r\n    StringBuilder sb = new StringBuilder();\r\n    for (int i = 0; i < data.length; i++) {\r\n        if (i > 0)\r\n            sb.append(separator);\r\n        int v = data[i] & 0xff;\r\n        if (prefix != null)\r\n            sb.append(prefix);\r\n        sb.append(hexArray[v >> 4]);\r\n        sb.append(hexArray[v & 0xf]);\r\n        if (suffix != null)\r\n            sb.append(suffix);\r\n    }\r\n    return sb.toString();\r\n}"
+}, {
+	"Path": "com.pi4j.jni.AnalogInputMonitor.removeListener",
+	"Comment": "java consumer code can all this method to unregister itself as a listener for pin analoginput value changes.",
+	"Method": "void removeListener(AnalogInputListener listener){\r\n    if (listeners.contains(listener)) {\r\n        listeners.removeElement(listener);\r\n    }\r\n}"
+}, {
+	"Path": "org.parboiled.transform.InstructionGroupPreparer.extractInstructions",
+	"Comment": "move all group instructions except for the root from the underlying method into the groups insnlist",
+	"Method": "void extractInstructions(InstructionGroup group){\r\n    for (InstructionGraphNode node : group.getNodes()) {\r\n        if (node != group.getRoot()) {\r\n            AbstractInsnNode insn = node.getInstruction();\r\n            method.instructions.remove(insn);\r\n            group.getInstructions().add(insn);\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "org.parboiled.support.IndexRange.mergedWith",
+	"Comment": "created a new indexrange that spans all characters between the smallest and the highest index of the two ranges.",
+	"Method": "IndexRange mergedWith(IndexRange other){\r\n    checkArgNotNull(other, \"other\");\r\n    return new IndexRange(Math.min(start, other.start), Math.max(end, other.end));\r\n}"
+}, {
+	"Path": "org.parboiled.BaseActions.matchEnd",
+	"Comment": "returns the end location of the rule immediately preceding the action expression that is currentlybeing evaluated. this call can only be used in actions that are part of a sequence rule and are not at firstposition in this sequence.",
+	"Method": "int matchEnd(){\r\n    check();\r\n    return context.getMatchEndIndex();\r\n}"
+}, {
+	"Path": "org.parboiled.support.Filters.preventLoops",
+	"Comment": "a predicate for rule tree printing. prevents soes by detecting and suppressing loops in the rule tree.",
+	"Method": "Predicate<Matcher> preventLoops(){\r\n    return new Predicate<Matcher>() {\r\n        private final Set<Matcher> visited = new HashSet<Matcher>();\r\n        public boolean apply(Matcher node) {\r\n            node = unwrap(node);\r\n            if (visited.contains(node)) {\r\n                return false;\r\n            }\r\n            visited.add(node);\r\n            return true;\r\n        }\r\n    };\r\n}"
+}, {
+	"Path": "org.parboiled.support.Filters.preventLoops",
+	"Comment": "a predicate for rule tree printing. prevents soes by detecting and suppressing loops in the rule tree.",
+	"Method": "Predicate<Matcher> preventLoops(){\r\n    node = unwrap(node);\r\n    if (visited.contains(node)) {\r\n        return false;\r\n    }\r\n    visited.add(node);\r\n    return true;\r\n}"
+}, {
+	"Path": "org.parboiled.support.Characters.contains",
+	"Comment": "determines whether this instance contains the given character.",
+	"Method": "boolean contains(char c){\r\n    return indexOf(chars, c) == -1 ? subtractive : !subtractive;\r\n}"
+}, {
+	"Path": "com.pi4j.io.file.LinuxFile.getFileDescriptor",
+	"Comment": "gets the real posix file descriptor for use by custom jni calls.",
+	"Method": "int getFileDescriptor(){\r\n    final int fd = SharedSecrets.getJavaIOFileDescriptorAccess().get(getFD());\r\n    if (fd < 1)\r\n        throw new IOException(\"failed to get POSIX file descriptor!\");\r\n    return fd;\r\n}"
+}, {
+	"Path": "com.pi4j.io.i2c.impl.I2CBusImpl.close",
+	"Comment": "closes this i2c bus. can be used in a thread safe way during bus operations.",
+	"Method": "void close(){\r\n    if (file != null) {\r\n        file.close();\r\n        file = null;\r\n    }\r\n}"
+}, {
+	"Path": "org.parboiled.support.ParseTreeUtils.findNode",
+	"Comment": "returns the first node underneath the given parents for which the given predicate evaluates to true.if parents is null or empty or no node is found the method returns null.",
+	"Method": "Node<V> findNode(Node<V> parent,Predicate<Node<V>> predicate,Node<V> findNode,List<Node<V>> parents,Predicate<Node<V>> predicate){\r\n    checkArgNotNull(predicate, \"predicate\");\r\n    if (parents != null && !parents.isEmpty()) {\r\n        for (Node<V> child : parents) {\r\n            Node<V> found = findNode(child, predicate);\r\n            if (found != null)\r\n                return found;\r\n        }\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "org.parboiled.support.Characters.getChars",
+	"Comment": "returns the characters in this set, if it is additive.if the set is subtractive the method returns the characters not in the set.",
+	"Method": "char[] getChars(){\r\n    return chars;\r\n}"
+}, {
+	"Path": "com.pi4j.io.i2c.impl.I2CDeviceImpl.read",
+	"Comment": "this method reads one byte from the i2c device. result is between 0 and 255 if read operation was successful, else a negative number for an error.",
+	"Method": "int read(int read,byte[] data,int offset,int size,int read,int address,int read,int address,byte[] data,int offset,int size,int read,byte[] writeData,int writeOffset,int writeSize,byte[] readData,int readOffset,int readSize){\r\n    return getBus().writeAndReadBytesDirect(this, writeSize, writeOffset, writeData, readSize, readOffset, readData);\r\n}"
+}, {
+	"Path": "org.parboiled.common.Preconditions.checkNotNull",
+	"Comment": "ensures that an object reference passed as a parameter to the callingmethod is not null.",
+	"Method": "T checkNotNull(T reference,T checkNotNull,T reference,Object errorMessage,T checkNotNull,T reference,String errorMessageTemplate,Object errorMessageArgs){\r\n    if (reference == null) {\r\n        throw new NullPointerException(format(errorMessageTemplate, errorMessageArgs));\r\n    }\r\n    return reference;\r\n}"
+}, {
+	"Path": "org.parboiled.BaseActions.getContext",
+	"Comment": "the current context for use with action methods. updated immediately before action calls.",
+	"Method": "Context<V> getContext(){\r\n    return context;\r\n}"
+}, {
+	"Path": "com.pi4j.io.i2c.I2CFactory.getBusIds",
+	"Comment": "fetch all available i2c bus numbers from sysfs.returns null, if nothing was found.",
+	"Method": "int[] getBusIds(){\r\n    Set<Integer> set = null;\r\n    for (Path device : Files.newDirectoryStream(Paths.get(\"/sys/bus/i2c/devices\"), \"*\")) {\r\n        String[] tokens = device.toString().split(\"-\");\r\n        if (tokens.length == 2) {\r\n            if (set == null) {\r\n                set = new HashSet<Integer>();\r\n            }\r\n            set.add(Integer.valueOf(tokens[1]));\r\n        }\r\n    }\r\n    int[] result = null;\r\n    if (set != null) {\r\n        int counter = 0;\r\n        result = new int[set.size()];\r\n        for (Integer value : set) {\r\n            result[counter] = value.intValue();\r\n            counter = counter + 1;\r\n        }\r\n    }\r\n    return result;\r\n}"
+}, {
+	"Path": "org.parboiled.support.StringVar.appended",
+	"Comment": "appends the given char.if this instance is currently uninitialized the given string is used for initialization.",
+	"Method": "StringVar appended(String text,StringVar appended,char c){\r\n    append(c);\r\n    return this;\r\n}"
+}, {
+	"Path": "org.parboiled.support.Var.enterFrame",
+	"Comment": "provides a new frame for the variable.potentially existing previous frames are saved.normally you do not have to call this method manually as parboiled provides for automatic var frame management.",
+	"Method": "boolean enterFrame(){\r\n    if (level++ > 0) {\r\n        if (stack == null)\r\n            stack = new LinkedList<T>();\r\n        stack.add(get());\r\n    }\r\n    return set(initialValueFactory.create());\r\n}"
+}, {
+	"Path": "org.parboiled.trees.GraphUtils.collectAllNodes",
+	"Comment": "collects all nodes from the graph reachable from the given node in the given collection.this method can properly deal with cycles in the graph.",
+	"Method": "C collectAllNodes(T node,C collection){\r\n    checkArgNotNull(collection, \"collection\");\r\n    if (node != null && !collection.contains(node)) {\r\n        collection.add(node);\r\n        for (T child : node.getChildren()) {\r\n            collectAllNodes(child, collection);\r\n        }\r\n    }\r\n    return collection;\r\n}"
+}, {
+	"Path": "org.parboiled.support.ParseTreeUtils.findLastNode",
+	"Comment": "returns the last node underneath the given parents for which the given predicate evaluates to true.if parents is null or empty or no node is found the method returns null.",
+	"Method": "Node<V> findLastNode(Node<V> parent,Predicate<Node<V>> predicate,Node<V> findLastNode,List<Node<V>> parents,Predicate<Node<V>> predicate){\r\n    checkArgNotNull(predicate, \"predicate\");\r\n    if (parents != null && !parents.isEmpty()) {\r\n        int parentsSize = parents.size();\r\n        for (int i = parentsSize - 1; i >= 0; i--) {\r\n            Node<V> found = findLastNode(parents.get(i), predicate);\r\n            if (found != null)\r\n                return found;\r\n        }\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "org.parboiled.trees.GraphUtils.printTree",
+	"Comment": "creates a string representation of the graph reachable from the given node using the given formatter.",
+	"Method": "String printTree(T node,Formatter<T> formatter,String printTree,T node,Formatter<T> formatter,Predicate<T> nodeFilter,Predicate<T> subTreeFilter,StringBuilder printTree,T node,Formatter<T> formatter,String indent,StringBuilder sb,Predicate<T> nodeFilter,Predicate<T> subTreeFilter){\r\n    if (nodeFilter.apply(node)) {\r\n        String line = formatter.format(node);\r\n        if (line != null) {\r\n            sb.append(indent).append(line).append(\"\\n\");\r\n            indent += \"  \";\r\n        }\r\n    }\r\n    if (subTreeFilter.apply(node)) {\r\n        for (T sub : node.getChildren()) {\r\n            printTree(sub, formatter, indent, sb, nodeFilter, subTreeFilter);\r\n        }\r\n    }\r\n    return sb;\r\n}"
+}, {
+	"Path": "org.parboiled.transform.AsmUtils.findLoadedClass",
+	"Comment": "returns the class with the given name if it has already been loaded by the given class loader.otherwise the method returns null.",
+	"Method": "Class<?> findLoadedClass(String className,ClassLoader classLoader){\r\n    checkArgNotNull(className, \"className\");\r\n    checkArgNotNull(classLoader, \"classLoader\");\r\n    try {\r\n        Class<?> classLoaderBaseClass = Class.forName(\"java.lang.ClassLoader\");\r\n        Method findLoadedClassMethod = classLoaderBaseClass.getDeclaredMethod(\"findLoadedClass\", String.class);\r\n        findLoadedClassMethod.setAccessible(true);\r\n        try {\r\n            return (Class<?>) findLoadedClassMethod.invoke(classLoader, className);\r\n        } finally {\r\n            findLoadedClassMethod.setAccessible(false);\r\n        }\r\n    } catch (Exception e) {\r\n        throw new RuntimeException(\"Could not determine whether class '\" + className + \"' has already been loaded\", e);\r\n    }\r\n}"
+}, {
+	"Path": "com.pi4j.io.serial.impl.SerialImpl.addListener",
+	"Comment": "add serial event listener java consumer code can call this method to register itself as a listener for serial dataevents.",
+	"Method": "void addListener(SerialDataEventListener listener){\r\n    Collections.addAll(listeners, listener);\r\n}"
+}, {
+	"Path": "com.pi4j.jni.SerialInterrupt.hasListener",
+	"Comment": "returns true if the listener is already registered for event callbacks.",
+	"Method": "boolean hasListener(int fileDescriptor){\r\n    return listeners.containsKey(fileDescriptor);\r\n}"
+}, {
+	"Path": "com.pi4j.io.spi.SpiFactory.getInstance",
+	"Comment": "create new spidevice instance with a default spi speed of 1 mhz.",
+	"Method": "SpiDevice getInstance(SpiChannel channel,SpiDevice getInstance,SpiChannel channel,SpiMode mode,SpiDevice getInstance,SpiChannel channel,int speed,SpiDevice getInstance,SpiChannel channel,int speed,SpiMode mode){\r\n    return new SpiDeviceImpl(channel, speed, mode);\r\n}"
+}, {
+	"Path": "com.pi4j.io.serial.SerialFactory.isShutdown",
+	"Comment": "this method returns true if the serial controller has been shutdown.",
+	"Method": "boolean isShutdown(){\r\n    return isshutdown;\r\n}"
+}, {
+	"Path": "org.parboiled.matchers.ProxyMatcher.unwrap",
+	"Comment": "retrieves the innermost matcher that is not a proxymatcher.",
+	"Method": "Matcher unwrap(Matcher matcher){\r\n    if (matcher instanceof ProxyMatcher) {\r\n        ProxyMatcher proxyMatcher = (ProxyMatcher) matcher;\r\n        if (proxyMatcher.dirty)\r\n            proxyMatcher.apply();\r\n        return proxyMatcher.target;\r\n    }\r\n    return matcher;\r\n}"
+}]
