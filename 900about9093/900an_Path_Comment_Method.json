@@ -1,0 +1,1245 @@
+[{
+	"Path": "uk.co.caprica.vlcj.test.basic.PlayerControlsPanel.setSliderBasedPosition",
+	"Comment": "broken out position setting, handles updating mediaplayer",
+	"Method": "void setSliderBasedPosition(){\r\n    if (!mediaPlayer.isSeekable()) {\r\n        return;\r\n    }\r\n    float positionValue = positionSlider.getValue() / 1000.0f;\r\n    if (positionValue > 0.99f) {\r\n        positionValue = 0.99f;\r\n    }\r\n    mediaPlayer.setPosition(positionValue);\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.runtime.streams.NativeStreams.redirectErrorTo",
+	"Comment": "redirect the native process standard error stream to a file.",
+	"Method": "boolean redirectErrorTo(String target){\r\n    errorStream = LibC.INSTANCE.fdopen(STDERR_FD, STREAM_MODE);\r\n    if (errorStream != null) {\r\n        redirectedErrorStream = LibC.INSTANCE.freopen(target, STREAM_MODE, errorStream);\r\n        return redirectedErrorStream != null;\r\n    } else {\r\n        return false;\r\n    }\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.processor.RowWriterProcessorSwitch.getMinimumRowLength",
+	"Comment": "returns the minimum row length based on the number of headers and index sizes",
+	"Method": "int getMinimumRowLength(){\r\n    if (minimumRowLength == Integer.MIN_VALUE) {\r\n        minimumRowLength = 0;\r\n        if (getHeaders() != null) {\r\n            minimumRowLength = getHeaders().length;\r\n        }\r\n        if (getIndexes() != null) {\r\n            for (int index : getIndexes()) {\r\n                if (index + 1 > minimumRowLength) {\r\n                    minimumRowLength = index + 1;\r\n                }\r\n            }\r\n        }\r\n    }\r\n    return minimumRowLength;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.fixed.FixedWidthParserSettings.addFormatForLookahead",
+	"Comment": "defines the format of records identified by a lookahead symbol.",
+	"Method": "void addFormatForLookahead(String lookahead,FixedWidthFields lengths){\r\n    Lookup.registerLookahead(lookahead, lengths, lookaheadFormats);\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.DocumentContextHelper.putTextStylingRegistry",
+	"Comment": "register the given text styling registry in the given context.",
+	"Method": "void putTextStylingRegistry(IContext context,TextStylingRegistry registry){\r\n    context.put(TemplateContextHelper.TEXT_STYLING_REGISTRY_KEY, registry);\r\n}"
+}, {
+	"Path": "com.keylesspalace.tusky.util.LinkHelper.openLink",
+	"Comment": "opens a link, depending on the settings, either in the browser or in a custom tab",
+	"Method": "void openLink(String url,Context context){\r\n    Uri uri = Uri.parse(url).normalizeScheme();\r\n    boolean useCustomTabs = PreferenceManager.getDefaultSharedPreferences(context).getBoolean(\"customTabs\", false);\r\n    if (useCustomTabs) {\r\n        openLinkInCustomTab(uri, context);\r\n    } else {\r\n        openLinkInBrowser(uri, context);\r\n    }\r\n}"
+}, {
+	"Path": "com.linkedin.urls.HostNormalizer.tryDecodeHostToIp",
+	"Comment": "checks if the host is an ip address. returns the byte representation of it",
+	"Method": "byte[] tryDecodeHostToIp(String host){\r\n    if (host.startsWith(\"[\") && host.endsWith(\"]\")) {\r\n        return tryDecodeHostToIPv6(host);\r\n    }\r\n    return tryDecodeHostToIPv4(host);\r\n}"
+}, {
+	"Path": "com.univocity.parsers.fixed.FixedWidthFormat.isPadding",
+	"Comment": "identifies whether or not a given character represents a padding character",
+	"Method": "boolean isPadding(char padding){\r\n    return this.padding == padding;\r\n}"
+}, {
+	"Path": "com.keylesspalace.tusky.util.LinkHelper.openLinkInCustomTab",
+	"Comment": "tries to open a link in a custom tabfalls back to browser if not possible",
+	"Method": "void openLinkInCustomTab(Uri uri,Context context){\r\n    int toolbarColor = ThemeUtils.getColorById(context, \"custom_tab_toolbar\");\r\n    CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();\r\n    builder.setToolbarColor(toolbarColor);\r\n    CustomTabsIntent customTabsIntent = builder.build();\r\n    try {\r\n        String packageName = CustomTabsHelper.getPackageNameToUse(context);\r\n        if (packageName == null) {\r\n            openLinkInBrowser(uri, context);\r\n        } else {\r\n            customTabsIntent.intent.setPackage(packageName);\r\n            customTabsIntent.launchUrl(context, uri);\r\n        }\r\n    } catch (ActivityNotFoundException e) {\r\n        Log.w(\"URLSpan\", \"Activity was not found for intent, \" + customTabsIntent.toString());\r\n    }\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.player.direct.BufferFormat.validate",
+	"Comment": "validate the buffer format.incorrect parameter values can cause fatal crashes, so all are checked hereto mitigate.",
+	"Method": "void validate(String chroma,int width,int height,int[] pitches,int[] lines){\r\n    if (chroma == null || chroma.length() != 4) {\r\n        throw new IllegalArgumentException(\"chroma must be exactly 4 characters\");\r\n    }\r\n    if (width <= 0) {\r\n        throw new IllegalArgumentException(\"width must be greater than zero\");\r\n    }\r\n    if (height <= 0) {\r\n        throw new IllegalArgumentException(\"height must be greater than zero\");\r\n    }\r\n    if (pitches == null || pitches.length == 0) {\r\n        throw new IllegalArgumentException(\"pitches length must be greater than zero\");\r\n    }\r\n    if (lines == null || lines.length == 0) {\r\n        throw new IllegalArgumentException(\"lines length must be greater than zero\");\r\n    }\r\n    if (pitches.length != lines.length) {\r\n        throw new IllegalArgumentException(\"pitches and lines must have equal length\");\r\n    }\r\n    for (int i = 0; i < pitches.length; i++) {\r\n        if (pitches[i] <= 0) {\r\n            throw new IllegalArgumentException(\"pitch must be greater than zero\");\r\n        }\r\n        if (lines[i] <= 0) {\r\n            throw new IllegalArgumentException(\"line must be greater than zero\");\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.DataProcessingException.getColumnIndex",
+	"Comment": "returns the index of the column from where the error occurred, if available.",
+	"Method": "int getColumnIndex(){\r\n    return columnIndex;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.AbstractParser.consumeValueOnEOF",
+	"Comment": "allows the parser implementation to handle any value that was being consumed when the end of the input was reached",
+	"Method": "boolean consumeValueOnEOF(){\r\n    return false;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.json.JSONObject.toJSONArray",
+	"Comment": "produce a jsonarray containing the values of the members of this jsonobject.",
+	"Method": "JSONArray toJSONArray(JSONArray names){\r\n    if (names == null || names.length() == 0) {\r\n        return null;\r\n    }\r\n    JSONArray ja = new JSONArray();\r\n    for (int i = 0; i < names.length(); i += 1) {\r\n        ja.put(this.opt(names.getString(i)));\r\n    }\r\n    return ja;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.ArgumentUtils.findMissingElements",
+	"Comment": "searches for elements in a given array and returns the elements not found.",
+	"Method": "Object[] findMissingElements(Object[] array,Collection<?> elements,Object[] findMissingElements,Object[] array,Object[] elements){\r\n    List<Object> out = new ArrayList<Object>();\r\n    for (Object element : elements) {\r\n        if (indexOf(array, element) == -1) {\r\n            out.add(element);\r\n        }\r\n    }\r\n    return out.toArray();\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.json.JSONArray.optJSONObject",
+	"Comment": "get the optional jsonobject associated with an index. null is returned if the key is not found, or null if theindex has no value, or if the value is not a jsonobject.",
+	"Method": "JSONObject optJSONObject(int index){\r\n    Object o = this.opt(index);\r\n    return o instanceof JSONObject ? (JSONObject) o : null;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.json.JSONObject.increment",
+	"Comment": "increment a property of a jsonobject. if there is no such property, create one with a value of 1. if there issuch a property, and if it is an integer, long, double, or float, then add one to it.",
+	"Method": "JSONObject increment(String key){\r\n    Object value = this.opt(key);\r\n    if (value == null) {\r\n        this.put(key, 1);\r\n    } else if (value instanceof Integer) {\r\n        this.put(key, ((Integer) value).intValue() + 1);\r\n    } else if (value instanceof Long) {\r\n        this.put(key, ((Long) value).longValue() + 1);\r\n    } else if (value instanceof Double) {\r\n        this.put(key, ((Double) value).doubleValue() + 1);\r\n    } else if (value instanceof Float) {\r\n        this.put(key, ((Float) value).floatValue() + 1);\r\n    } else {\r\n        throw new JSONException(\"Unable to increment [\" + quote(key) + \"].\");\r\n    }\r\n    return this;\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.player.embedded.DefaultFullScreenStrategy.getDisplayMode",
+	"Comment": "get the desired display mode.the default implementation returns null to accept the default display mode.",
+	"Method": "DisplayMode getDisplayMode(DisplayMode[] displayModes){\r\n    logger.debug(\"getDisplayMode()\", Arrays.toString(displayModes));\r\n    return null;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.remoting.resources.services.FileUtils.isFileNewer",
+	"Comment": "tests if the specified file is newer than the specifiedtime reference.",
+	"Method": "boolean isFileNewer(File file,File reference,boolean isFileNewer,File file,Date date,boolean isFileNewer,File file,long timeMillis){\r\n    if (file == null) {\r\n        throw new IllegalArgumentException(\"No specified file\");\r\n    }\r\n    if (!file.exists()) {\r\n        return false;\r\n    }\r\n    return file.lastModified() > timeMillis;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.AbstractXDocReport.getXMLEntries",
+	"Comment": "returns xml entries which define xml document to merge with java model with template engine.",
+	"Method": "String[] getXMLEntries(){\r\n    return xmlEntries;\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.discovery.NativeDiscovery.discover",
+	"Comment": "attempt to discover the location of the libvlc native libraries.if the native libraries were found, the directory reported to be containingthose libraries is explicitly added to the jna native library search path.",
+	"Method": "boolean discover(){\r\n    logger.debug(\"discover()\");\r\n    String jnaLibraryPath = System.getProperty(JNA_SYSTEM_PROPERTY_NAME);\r\n    logger.debug(\"jnaLibraryPath={}\", jnaLibraryPath);\r\n    if (jnaLibraryPath == null) {\r\n        for (NativeDiscoveryStrategy discoveryStrategy : discoveryStrategies) {\r\n            logger.debug(\"discoveryStrategy={}\", discoveryStrategy);\r\n            boolean supported = discoveryStrategy.supported();\r\n            logger.debug(\"supported={}\", supported);\r\n            if (supported) {\r\n                String path = discoveryStrategy.discover();\r\n                logger.debug(\"path={}\", path);\r\n                if (path != null) {\r\n                    logger.info(\"Discovery found libvlc at '{}'\", path);\r\n                    NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), path);\r\n                    discoveryStrategy.onFound(path);\r\n                    return true;\r\n                }\r\n            }\r\n        }\r\n        logger.warn(\"Discovery did not find libvlc\");\r\n    } else {\r\n        logger.info(\"Skipped discovery as system property '{}' already set to '{}'\", JNA_SYSTEM_PROPERTY_NAME, jnaLibraryPath);\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.XDocReport.getReport",
+	"Comment": "get the template report from the cache registered with report id and load it if it is not found by using thegiven report loader by setting the registry.",
+	"Method": "IXDocReport getReport(String reportId,IXDocReportController controller,IXDocReport getReport,String reportId,IXDocReportController controller,XDocReportRegistry registry,IXDocReport getReport,String reportId,IXDocReportLoader reportLoader,IXDocReport getReport,String reportId,IXDocReportLoader reportLoader,XDocReportRegistry registry){\r\n    IXDocReport report = registry.getReport(reportId);\r\n    if (report != null) {\r\n        return report;\r\n    }\r\n    return loadReport(reportId, reportLoader, registry);\r\n}"
+}, {
+	"Path": "com.univocity.parsers.csv.Csv.parseRfc4180",
+	"Comment": "provides a basic csv configuration for parsing csv files in accordance with the\trules established by rfc 4180",
+	"Method": "CsvParserSettings parseRfc4180(){\r\n    CsvParserSettings settings = parseExcel();\r\n    settings.setNormalizeLineEndingsWithinQuotes(false);\r\n    return settings;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.template.formatter.AbstractFieldsMetadataClassSerializer.isClassToExclude",
+	"Comment": "return true if package of the given class start with list of package to exclude and false otherwise.",
+	"Method": "boolean isClassToExclude(Class<?> clazz){\r\n    if (clazz != null && clazz.getPackage() != null) {\r\n        String packageName = clazz.getPackage().getName();\r\n        for (String excludePackageName : excludedPackages) {\r\n            if (packageName.startsWith(excludePackageName))\r\n                return true;\r\n        }\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.player.MediaPlayerFactory.newMediaDiscoverer",
+	"Comment": "create a new native media service discoverer.not all media discoverers are supported on all platforms.",
+	"Method": "MediaDiscoverer newMediaDiscoverer(String name){\r\n    logger.debug(\"newMediaDiscoverer(name={})\", name);\r\n    return new MediaDiscoverer(libvlc, instance, name);\r\n}"
+}, {
+	"Path": "com.univocity.parsers.conversions.NumericConversion.addFormat",
+	"Comment": "adds a new numeric pattern to be used to parse input strings and convert them to numbers.",
+	"Method": "void addFormat(String format,String formatOptions){\r\n    DecimalFormat formatter = new DecimalFormat(format);\r\n    configureFormatter(formatter);\r\n    AnnotationHelper.applyFormatSettings(formatter, formatOptions);\r\n    this.formats = Arrays.copyOf(formats, formats.length + 1);\r\n    this.formatters = Arrays.copyOf(formatters, formatters.length + 1);\r\n    formats[formats.length - 1] = format;\r\n    formatters[formatters.length - 1] = formatter;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.json.JSONObject.names",
+	"Comment": "produce a jsonarray containing the names of the elements of this jsonobject.",
+	"Method": "JSONArray names(){\r\n    JSONArray ja = new JSONArray();\r\n    Iterator keys = this.keys();\r\n    while (keys.hasNext()) {\r\n        ja.put(keys.next());\r\n    }\r\n    return ja.length() == 0 ? null : ja;\r\n}"
+}, {
+	"Path": "fr.opensagres.poi.xwpf.converter.core.utils.StringUtils.replaceAll",
+	"Comment": "replace the oldstring by the newstring in the line and returns the result.",
+	"Method": "String replaceAll(String line,String oldString,String newString){\r\n    int i = 0;\r\n    if ((i = line.indexOf(oldString, i)) >= 0) {\r\n        char[] line2 = line.toCharArray();\r\n        char[] newString2 = newString.toCharArray();\r\n        int oLength = oldString.length();\r\n        StringBuilder buf = new StringBuilder(line2.length);\r\n        buf.append(line2, 0, i).append(newString2);\r\n        i += oLength;\r\n        int j;\r\n        for (j = i; (i = line.indexOf(oldString, i)) > 0; j = i) {\r\n            buf.append(line2, j, i - j).append(newString2);\r\n            i += oLength;\r\n        }\r\n        buf.append(line2, j, line2.length - j);\r\n        return buf.toString();\r\n    } else {\r\n        return line;\r\n    }\r\n}"
+}, {
+	"Path": "com.linkedin.urls.detection.UrlDetector.getBacktracked",
+	"Comment": "gets the number of characters that were backtracked while reading the input. this is useful for performancemeasurement.",
+	"Method": "int getBacktracked(){\r\n    return _reader.getBacktrackedCount();\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.dump.DumperRegistry.getDumper",
+	"Comment": "returns the dumper registered with the given kind in the registry and null otherwise.",
+	"Method": "IDumper getDumper(String kind){\r\n    initializeIfNeeded();\r\n    return dumpers.get(kind);\r\n}"
+}, {
+	"Path": "com.univocity.parsers.csv.Csv.writeExcel",
+	"Comment": "provides a basic csv configuration that allows writing csv files that can be read by microsoft excel.",
+	"Method": "CsvWriterSettings writeExcel(){\r\n    CsvWriterSettings settings = new CsvWriterSettings();\r\n    settings.getFormat().setLineSeparator(\"\\r\\n\");\r\n    settings.getFormat().setComment('\\0');\r\n    settings.setEmptyValue(null);\r\n    settings.setSkipEmptyLines(false);\r\n    settings.trimValues(false);\r\n    return settings;\r\n}"
+}, {
+	"Path": "com.linkedin.urls.detection.UrlDetector.readEnd",
+	"Comment": "the url has been read to here. remember the url if its valid, and reset state.",
+	"Method": "boolean readEnd(ReadEndState state){\r\n    if (state == ReadEndState.ValidUrl && _buffer.length() > 0) {\r\n        int len = _buffer.length();\r\n        if (_quoteStart && _buffer.charAt(len - 1) == '\\\"') {\r\n            _buffer.delete(len - 1, len);\r\n        }\r\n        if (_buffer.length() > 0) {\r\n            _currentUrlMarker.setOriginalUrl(_buffer.toString());\r\n            _urlList.add(_currentUrlMarker.createUrl());\r\n        }\r\n    }\r\n    _buffer.delete(0, _buffer.length());\r\n    _quoteStart = false;\r\n    _hasScheme = false;\r\n    _dontMatchIpv6 = false;\r\n    _currentUrlMarker = new UrlMarker();\r\n    return state == ReadEndState.ValidUrl;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.fixed.FixedWidthParserSettings.addFormatForLookbehind",
+	"Comment": "defines the format of records identified by a lookbehind symbol.",
+	"Method": "void addFormatForLookbehind(String lookbehind,FixedWidthFields lengths){\r\n    Lookup.registerLookbehind(lookbehind, lengths, lookbehindFormats);\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.DataProcessingException.isFatal",
+	"Comment": "returns a flag indicating whether this error is fatal and the process must stop as it is impossible to proceed.",
+	"Method": "boolean isFatal(){\r\n    return fatal;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.conversions.NullStringConversion.revert",
+	"Comment": "converts a null input to a string representation. the string returned will be the first element provided in the constructor of this class.",
+	"Method": "Object revert(Object input){\r\n    if (input == null) {\r\n        return defaultNullString;\r\n    } else {\r\n        return input;\r\n    }\r\n}"
+}, {
+	"Path": "com.linkedin.urls.detection.DomainNameReader.readCurrent",
+	"Comment": "reads and parses the current string to make sure the domain name started where it was supposed to,and the current domain name is correct.",
+	"Method": "ReaderNextState readCurrent(){\r\n    if (_current != null) {\r\n        if (_current.length() == 1 && CharUtils.isDot(_current.charAt(0))) {\r\n            return ReaderNextState.InvalidDomainName;\r\n        } else if (_current.length() == 3 && _current.equalsIgnoreCase(\"%\" + HEX_ENCODED_DOT)) {\r\n            return ReaderNextState.InvalidDomainName;\r\n        }\r\n        _startDomainName = _buffer.length() - _current.length();\r\n        _numeric = true;\r\n        int newStart = 0;\r\n        char[] currArray = _current.toCharArray();\r\n        int length = currArray.length;\r\n        boolean isAllHexSoFar = length > 2 && (currArray[0] == '0' && (currArray[1] == 'x' || currArray[1] == 'X'));\r\n        int index = isAllHexSoFar ? 2 : 0;\r\n        boolean done = false;\r\n        while (index < length && !done) {\r\n            char curr = currArray[index];\r\n            _currentLabelLength++;\r\n            _topLevelLength = _currentLabelLength;\r\n            if (_currentLabelLength > MAX_LABEL_LENGTH) {\r\n                return ReaderNextState.InvalidDomainName;\r\n            } else if (CharUtils.isDot(curr)) {\r\n                _dots++;\r\n                _currentLabelLength = 0;\r\n            } else if (curr == '[') {\r\n                _seenBracket = true;\r\n                _numeric = false;\r\n            } else if (curr == '%' && index + 2 < length && CharUtils.isHex(currArray[index + 1]) && CharUtils.isHex(currArray[index + 2])) {\r\n                if (currArray[index + 1] == '2' && currArray[index + 2] == 'e') {\r\n                    _dots++;\r\n                    _currentLabelLength = 0;\r\n                } else {\r\n                    _numeric = false;\r\n                }\r\n                index += 2;\r\n            } else if (isAllHexSoFar) {\r\n                if (!CharUtils.isHex(curr)) {\r\n                    _numeric = false;\r\n                    isAllHexSoFar = false;\r\n                    index--;\r\n                }\r\n            } else if (CharUtils.isAlpha(curr) || curr == '-' || curr >= INTERNATIONAL_CHAR_START) {\r\n                _numeric = false;\r\n            } else if (!CharUtils.isNumeric(curr) && !_options.hasFlag(UrlDetectorOptions.ALLOW_SINGLE_LEVEL_DOMAIN)) {\r\n                newStart = index + 1;\r\n                _currentLabelLength = 0;\r\n                _topLevelLength = 0;\r\n                _numeric = true;\r\n                _dots = 0;\r\n                done = true;\r\n            }\r\n            index++;\r\n        }\r\n        if (newStart > 0) {\r\n            if (newStart < _current.length()) {\r\n                _buffer.replace(0, _buffer.length(), _current.substring(newStart));\r\n                _startDomainName = 0;\r\n            }\r\n            if (newStart >= _current.length() || _buffer.toString().equals(\".\")) {\r\n                return ReaderNextState.InvalidDomainName;\r\n            }\r\n        }\r\n    } else {\r\n        _startDomainName = _buffer.length();\r\n    }\r\n    return ReaderNextState.ValidDomainName;\r\n}"
+}, {
+	"Path": "fr.opensagres.odfdom.converter.core.utils.ByteArrayOutputStream.writeTo",
+	"Comment": "writes the entire contents of this byte stream to the specified output stream.",
+	"Method": "void writeTo(OutputStream out){\r\n    int remaining = count;\r\n    for (int i = 0; i < buffers.size(); i++) {\r\n        byte[] buf = getBuffer(i);\r\n        int c = Math.min(buf.length, remaining);\r\n        out.write(buf, 0, c);\r\n        remaining -= c;\r\n        if (remaining == 0) {\r\n            break;\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.player.MediaPlayerLatch.play",
+	"Comment": "play the media and wait for it to either start playing or error.",
+	"Method": "boolean play(){\r\n    logger.debug(\"play()\");\r\n    if (!mediaPlayer.isPlaying()) {\r\n        CountDownLatch latch = new CountDownLatch(1);\r\n        LatchListener listener = new LatchListener(latch);\r\n        mediaPlayer.addMediaPlayerEventListener(listener);\r\n        mediaPlayer.play();\r\n        try {\r\n            logger.debug(\"Waiting for media playing or error...\");\r\n            latch.await();\r\n            logger.debug(\"Finished waiting.\");\r\n            boolean started = listener.playing.get();\r\n            logger.debug(\"started={}\", started);\r\n            return started;\r\n        } catch (InterruptedException e) {\r\n            logger.debug(\"Interrupted while waiting for media player\", e);\r\n            return false;\r\n        } finally {\r\n            mediaPlayer.removeMediaPlayerEventListener(listener);\r\n        }\r\n    } else {\r\n        return true;\r\n    }\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.json.JSONTokener.next",
+	"Comment": "consume the next character, and check that it matches a specified character.",
+	"Method": "char next(char next,char c,String next,int n){\r\n    if (n == 0) {\r\n        return \"\";\r\n    }\r\n    char[] chars = new char[n];\r\n    int pos = 0;\r\n    while (pos < n) {\r\n        chars[pos] = this.next();\r\n        if (this.end()) {\r\n            throw this.syntaxError(\"Substring bounds error\");\r\n        }\r\n        pos += 1;\r\n    }\r\n    return new String(chars);\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.remoting.resources.services.FileUtils.lineIterator",
+	"Comment": "return an iterator for the lines in a file using the default encoding for the vm.",
+	"Method": "LineIterator lineIterator(File file,String encoding,LineIterator lineIterator,File file){\r\n    return lineIterator(file, null);\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.AbstractXDocReport.setXMLEntries",
+	"Comment": "set xml entries which define xml document to merge with java model with template engine.",
+	"Method": "void setXMLEntries(String[] xmlEntries){\r\n    this.xmlEntries = xmlEntries;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.sql.SQLDataProvider.getTableName",
+	"Comment": "returns the table name of the given column of the given resultset. override this method if your jdbc drivercannot support that.",
+	"Method": "String getTableName(ResultSet rs,int column){\r\n    return rs.getMetaData().getTableName(column);\r\n}"
+}, {
+	"Path": "org.togglz.core.util.Services.get",
+	"Comment": "lookup implementations of the supplied spi. please note that the order in which the implementations will occur in thecollection is not specified.",
+	"Method": "Collection<E> get(Class<? extends E> service){\r\n    Iterator<? extends E> implementations = ServiceLoader.load(service).iterator();\r\n    Collection<E> result = new ArrayList<E>();\r\n    while (implementations.hasNext()) {\r\n        result.add(implementations.next());\r\n    }\r\n    return result;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.web.BaseXDocReportServlet.getTemplateEngine",
+	"Comment": "returns the template engine from request and otherwise returns the default template engine.",
+	"Method": "ITemplateEngine getTemplateEngine(String reportId,HttpServletRequest request,ITemplateEngine getTemplateEngine,IXDocReport report,HttpServletRequest request,ITemplateEngine getTemplateEngine,HttpServletRequest request){\r\n    String templateEngineId = getTemplateEngineId(request);\r\n    if (StringUtils.isNotEmpty(templateEngineId)) {\r\n        return TemplateEngineInitializerRegistry.getRegistry().getTemplateEngine(templateEngineId);\r\n    }\r\n    return TemplateEngineRegistry.getRegistry().getDefaultTemplateEngine();\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.CommonParserSettings.configureFromAnnotations",
+	"Comment": "configures the parser based on the annotations provided in a given class",
+	"Method": "void configureFromAnnotations(Class<?> beanClass){\r\n    if (!deriveHeadersFrom(beanClass)) {\r\n        return;\r\n    }\r\n    Headers headerAnnotation = AnnotationHelper.findHeadersAnnotation(beanClass);\r\n    String[] headersFromBean = ArgumentUtils.EMPTY_STRING_ARRAY;\r\n    boolean allFieldsIndexBased = AnnotationHelper.allFieldsIndexBasedForParsing(beanClass);\r\n    boolean extractHeaders = !allFieldsIndexBased;\r\n    if (headerAnnotation != null) {\r\n        if (headerAnnotation.sequence().length > 0) {\r\n            headersFromBean = headerAnnotation.sequence();\r\n        }\r\n        extractHeaders = headerAnnotation.extract();\r\n    }\r\n    if (headerExtractionEnabled == null) {\r\n        setHeaderExtractionEnabled(extractHeaders);\r\n    }\r\n    if (getHeaders() == null && headersFromBean.length > 0 && !headerExtractionEnabled) {\r\n        setHeadersDerivedFromClass(beanClass, headersFromBean);\r\n    }\r\n    if (getFieldSet() == null) {\r\n        if (allFieldsIndexBased) {\r\n            selectIndexes(AnnotationHelper.getSelectedIndexes(beanClass, MethodFilter.ONLY_SETTERS));\r\n        } else if (headersFromBean.length > 0 && AnnotationHelper.allFieldsNameBasedForParsing(beanClass)) {\r\n            selectFields(headersFromBean);\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.player.MediaPlayerFactory.newLog",
+	"Comment": "create a new native log component.the native log requires vlc 2.1.0 or later.",
+	"Method": "NativeLog newLog(){\r\n    logger.debug(\"newLog()\");\r\n    if (LibVlcVersion.getVersion().atLeast(LibVlcVersion.LIBVLC_210)) {\r\n        return new NativeLog(libvlc, instance);\r\n    } else {\r\n        logger.warn(\"Native log not available on this platform, needs libvlc 2.1.0 or later\");\r\n        return null;\r\n    }\r\n}"
+}, {
+	"Path": "org.hongxi.whatsmars.tomcat.connector.SocketInputStream.fill",
+	"Comment": "fill the internal buffer using data from the undelying input stream.",
+	"Method": "void fill(){\r\n    pos = 0;\r\n    count = 0;\r\n    int nRead = input.read(buf, 0, buf.length);\r\n    if (nRead > 0) {\r\n        count = nRead;\r\n    }\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.json.JSONObject.isNull",
+	"Comment": "determine if the value associated with the key is null or if there is no value.",
+	"Method": "boolean isNull(String key){\r\n    return JSONObject.NULL.equals(this.opt(key));\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.tools.remoting.resources.FileUtils.lineIterator",
+	"Comment": "return an iterator for the lines in a file using the default encoding for the vm.",
+	"Method": "LineIterator lineIterator(File file,String encoding,LineIterator lineIterator,File file){\r\n    return lineIterator(file, null);\r\n}"
+}, {
+	"Path": "com.univocity.parsers.fixed.FixedWidthParserSettings.getFieldLengths",
+	"Comment": "returns the sequence of lengths to be read by the parser to form a record.",
+	"Method": "int[] getFieldLengths(){\r\n    if (fieldLengths == null) {\r\n        return null;\r\n    }\r\n    return fieldLengths.getFieldLengths();\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.processor.core.AbstractMasterDetailListProcessor.getRecords",
+	"Comment": "returns the list of generated masterdetailrecords at the end of the parsing process.",
+	"Method": "List<MasterDetailRecord> getRecords(){\r\n    return this.records;\r\n}"
+}, {
+	"Path": "org.togglz.core.util.ConcurrentReferenceHashMap.segmentFor",
+	"Comment": "returns the segment that should be used for key with given hash",
+	"Method": "Segment<K, V> segmentFor(int hash){\r\n    return segments[(hash >>> segmentShift) & segmentMask];\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.player.MediaPlayerFactory.getMediaType",
+	"Comment": "get the media type for the media.this is a medium type rather than e.g. a specific file type.requires libvlc 3.0.0 or later.",
+	"Method": "libvlc_media_type_e getMediaType(libvlc_media_t media){\r\n    logger.debug(\"getMediaType(media={})\", media);\r\n    if (media != null) {\r\n        return libvlc_media_type_e.mediaType(libvlc.libvlc_media_get_type(media));\r\n    } else {\r\n        return null;\r\n    }\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.odt.preprocessor.ODTAnnotationParsingHelper.isNotReplacedYet",
+	"Comment": "check if in case of range annotation replacement has been already done.",
+	"Method": "boolean isNotReplacedYet(){\r\n    return notReplacedYet;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.json.JSONObject.optString",
+	"Comment": "get an optional string associated with a key. it returns the defaultvalue if there is no such key.",
+	"Method": "String optString(String key,String optString,String key,String defaultValue){\r\n    Object object = this.opt(key);\r\n    return NULL.equals(object) ? defaultValue : object.toString();\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.player.Equalizer.getAmps",
+	"Comment": "get the current amplification values for all frequency bands.",
+	"Method": "float[] getAmps(){\r\n    float[] result = new float[bandCount];\r\n    copy(bandAmps, result);\r\n    return result;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.conversions.CalendarConversion.fromString",
+	"Comment": "converts a formatted date string to an instance of calendar.\tthe pattern in the formatted date must match one of the date patterns provided in the constructor of this class.",
+	"Method": "Calendar fromString(String input){\r\n    Date date = dateConversion.execute(input);\r\n    Calendar out = Calendar.getInstance();\r\n    out.setTime(date);\r\n    return out;\r\n}"
+}, {
+	"Path": "com.bstek.urule.console.repository.database.DbPersistenceManager.getPassword",
+	"Comment": "returns the configured password that is used to establish jdbc connections.",
+	"Method": "String getPassword(){\r\n    return password;\r\n}"
+}, {
+	"Path": "fr.opensagres.poi.xwpf.converter.core.utils.XWPFRunHelper.getFldCharType",
+	"Comment": "returns the fldchartype of the given run and null otherwise.",
+	"Method": "STFldCharType.Enum getFldCharType(CTR r){\r\n    CTFldChar fldChar = getFldChar(r);\r\n    if (fldChar == null) {\r\n        return null;\r\n    }\r\n    return fldChar.getFldCharType();\r\n}"
+}, {
+	"Path": "com.bstek.urule.console.repository.database.journal.DatabaseRecordIterator.nextRecord",
+	"Comment": "return the next record. if there are no more records, throwsa nosuchelementexception. if an error occurs,throws a journalexception.",
+	"Method": "Record nextRecord(){\r\n    if (!hasNext()) {\r\n        String msg = \"No current record.\";\r\n        throw new NoSuchElementException(msg);\r\n    }\r\n    close(lastRecord);\r\n    lastRecord = record;\r\n    record = null;\r\n    return lastRecord;\r\n}"
+}, {
+	"Path": "com.linkedin.urls.NormalizedUrl.getHostBytes",
+	"Comment": "returns the byte representation of the ip address. if the host is not an ip address, it returns null.",
+	"Method": "byte[] getHostBytes(){\r\n    if (_hostBytes == null) {\r\n        populateHostAndHostBytes();\r\n    }\r\n    return _hostBytes;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.remoting.resources.services.FileUtils.toURLs",
+	"Comment": "converts each of an array of file to a url.returns an array of the same size as the input.",
+	"Method": "URL[] toURLs(File[] files){\r\n    URL[] urls = new URL[files.length];\r\n    for (int i = 0; i < urls.length; i++) {\r\n        urls[i] = files[i].toURL();\r\n    }\r\n    return urls;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.preprocessor.sax.TransformedBufferedDocumentContentHandler.isTableRow",
+	"Comment": "returns true if current element is a table row and false otherwise.",
+	"Method": "boolean isTableRow(String uri,String localName,String name){\r\n    return bufferedDocument.isTableRow(uri, localName, name);\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.binding.LibVlcFactory.discovery",
+	"Comment": "request that automatic discovery of the native libraries be tried.",
+	"Method": "LibVlcFactory discovery(NativeDiscovery discovery){\r\n    this.discovery = discovery;\r\n    return this;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.json.JSONObject.accumulate",
+	"Comment": "accumulate values under a key. it is similar to the put method except that if there is already an object storedunder the key then a jsonarray is stored under the key to hold all of the accumulated values. if there is alreadya jsonarray, then the new value is appended to it. in contrast, the put method replaces the previous value. ifonly one value is accumulated that is not a jsonarray, then the result will be the same as using put. but ifmultiple values are accumulated, then the result will be like append.",
+	"Method": "JSONObject accumulate(String key,Object value){\r\n    testValidity(value);\r\n    Object object = this.opt(key);\r\n    if (object == null) {\r\n        this.put(key, value instanceof JSONArray ? new JSONArray().put(value) : value);\r\n    } else if (object instanceof JSONArray) {\r\n        ((JSONArray) object).put(value);\r\n    } else {\r\n        this.put(key, new JSONArray().put(object).put(value));\r\n    }\r\n    return this;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.AbstractParser.parseAllRecords",
+	"Comment": "parses all records from the input and returns them in a list.",
+	"Method": "List<Record> parseAllRecords(int expectedRowCount,List<Record> parseAllRecords,List<Record> parseAllRecords,File file,int expectedRowCount,List<Record> parseAllRecords,File file,String encoding,int expectedRowCount,List<Record> parseAllRecords,File file,Charset encoding,int expectedRowCount,List<Record> parseAllRecords,InputStream input,int expectedRowCount,List<Record> parseAllRecords,InputStream input,String encoding,int expectedRowCount,List<Record> parseAllRecords,InputStream input,Charset encoding,int expectedRowCount,List<Record> parseAllRecords,File file,List<Record> parseAllRecords,File file,String encoding,List<Record> parseAllRecords,File file,Charset encoding,List<Record> parseAllRecords,InputStream input,List<Record> parseAllRecords,InputStream input,String encoding,List<Record> parseAllRecords,InputStream input,Charset encoding,List<Record> parseAllRecords,Reader reader,int expectedRowCount,List<Record> parseAllRecords,Reader reader){\r\n    return parseAllRecords(reader, 0);\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.CommonParserSettings.setLineSeparatorDetectionEnabled",
+	"Comment": "defines whether the parser should detect the line separator automatically.",
+	"Method": "void setLineSeparatorDetectionEnabled(boolean lineSeparatorDetectionEnabled){\r\n    this.lineSeparatorDetectionEnabled = lineSeparatorDetectionEnabled;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.fixed.FixedWidthWriterSettings.getFieldLengths",
+	"Comment": "returns the sequence of field lengths to be written to form a record.",
+	"Method": "int[] getFieldLengths(){\r\n    if (fieldLengths == null) {\r\n        return null;\r\n    }\r\n    return fieldLengths.getFieldLengths();\r\n}"
+}, {
+	"Path": "com.bstek.urule.console.repository.database.journal.DatabaseJournal.appending",
+	"Comment": "save away the locked revision inside the newly appended record.",
+	"Method": "void appending(AppendRecord record){\r\n    record.setRevision(lockedRevision);\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.processor.core.BeanConversionProcessor.getBeanClass",
+	"Comment": "returns the class of the annotated java bean instances that will be manipulated by this processor.",
+	"Method": "Class<T> getBeanClass(){\r\n    return beanClass;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.json.JSONArray.optDouble",
+	"Comment": "get the optional double value associated with an index. the defaultvalue is returned if there is no value for theindex, or if the value is not a number and cannot be converted to a number.",
+	"Method": "double optDouble(int index,double optDouble,int index,double defaultValue){\r\n    try {\r\n        return this.getDouble(index);\r\n    } catch (Exception e) {\r\n        return defaultValue;\r\n    }\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.template.formatter.FieldsMetadata.hasFieldsAsImage",
+	"Comment": "returns true if there are fields as image and false otherwise.",
+	"Method": "boolean hasFieldsAsImage(){\r\n    return fieldsAsImage.size() > 0;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.template.formatter.FieldsMetadata.getFieldsAsImage",
+	"Comment": "returns list of fields name which are considered as an image.",
+	"Method": "Collection<FieldMetadata> getFieldsAsImage(){\r\n    if (sortedFieldsAsImage == null) {\r\n        sortedFieldsAsImage = new ArrayList<FieldMetadata>(fieldsAsImage.values());\r\n        Collections.sort(sortedFieldsAsImage, FieldsMetadataComparator.getInstance());\r\n    }\r\n    return sortedFieldsAsImage;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.annotations.helpers.FieldMapping.getIndex",
+	"Comment": "returns the column index against which this field is mapped.",
+	"Method": "int getIndex(){\r\n    return index;\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.player.Logo.image",
+	"Comment": "apply the logo image.this is not optimal as the image must first be written to disk in a temporary file.",
+	"Method": "Logo image(RenderedImage image){\r\n    this.image = image;\r\n    return this;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.fields.FieldConversionMapping.getConversions",
+	"Comment": "returns the sequence of conversions to be applied at a given column index",
+	"Method": "Conversion[] getConversions(int index,Class<?> expectedType){\r\n    List<Conversion<?, ?>> conversions = conversionsByIndex.get(index);\r\n    Conversion[] out;\r\n    if (conversions != null) {\r\n        out = new Conversion[conversions.size()];\r\n        int i = 0;\r\n        for (Conversion conversion : conversions) {\r\n            out[i++] = conversion;\r\n        }\r\n    } else if (expectedType == String.class) {\r\n        return EMPTY_CONVERSION_ARRAY;\r\n    } else {\r\n        out = new Conversion[1];\r\n        out[0] = AnnotationHelper.getDefaultConversion(expectedType, null, null);\r\n        if (out[0] == null) {\r\n            return EMPTY_CONVERSION_ARRAY;\r\n        }\r\n    }\r\n    return out;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.conversions.FormattedBigDecimalConversion.configureFormatter",
+	"Comment": "configures the decimal format instance created by the parent class to parse bigdecimals.",
+	"Method": "void configureFormatter(DecimalFormat formatter){\r\n    formatter.setParseBigDecimal(true);\r\n}"
+}, {
+	"Path": "org.togglz.core.util.ConcurrentReferenceHashMap.putAll",
+	"Comment": "copies all of the mappings from the specified map to this one.these mappings replace any mappings that this map had for any of thekeys currently in the specified map.",
+	"Method": "void putAll(Map<? extends K, ? extends V> m){\r\n    for (Map.Entry<? extends K, ? extends V> e : m.entrySet()) put(e.getKey(), e.getValue());\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.web.BaseXDocReportServlet.getRegistry",
+	"Comment": "returns the xdocreport registry which load and cache document. by default the registry is a singleton. if youwish manage registry per http session, override this method, create an instance per session and returns theregistry instance linked to the http session.",
+	"Method": "XDocReportRegistry getRegistry(HttpServletRequest request){\r\n    return XDocReportRegistry.getRegistry();\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.CommonParserSettings.getFieldSelector",
+	"Comment": "returns the fieldselector object, which handles selected fields.",
+	"Method": "FieldSelector getFieldSelector(){\r\n    return preventReordering() ? null : super.getFieldSelector();\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.player.DefaultMediaPlayer.getMediaPlayerState",
+	"Comment": "fixme do not return the native structure, should be a java enum",
+	"Method": "libvlc_state_t getMediaPlayerState(){\r\n    logger.debug(\"getMediaPlayerState()\");\r\n    return libvlc_state_t.state(libvlc.libvlc_media_player_get_state(mediaPlayerInstance));\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.tools.remoting.resources.FileUtils.toSuffixes",
+	"Comment": "converts an array of file extensions to suffixes for usewith iofilefilters.",
+	"Method": "String[] toSuffixes(String[] extensions){\r\n    String[] suffixes = new String[extensions.length];\r\n    for (int i = 0; i < extensions.length; i++) {\r\n        suffixes[i] = \".\" + extensions[i];\r\n    }\r\n    return suffixes;\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.component.EmbeddedMediaListPlayerComponent.getMediaListPlayer",
+	"Comment": "get the embedded media list player reference.an application uses this handle to control the media player, add listeners and so on.",
+	"Method": "MediaListPlayer getMediaListPlayer(){\r\n    return mediaListPlayer;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.remoting.resources.services.FileUtils.readLines",
+	"Comment": "reads the contents of a file line by line to a list of strings using the default encoding for the vm.the file is always closed.",
+	"Method": "List<String> readLines(File file,String encoding,List<String> readLines,File file){\r\n    return readLines(file, null);\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.remoting.resources.services.FileUtils.forceMkdir",
+	"Comment": "make a directory, including any necessary but nonexistent parentdirectories. if there already exists a file with specified name orthe directory cannot be created then an exception is thrown.",
+	"Method": "void forceMkdir(File directory){\r\n    if (directory.exists()) {\r\n        if (directory.isFile()) {\r\n            String message = \"File \" + directory + \" exists and is \" + \"not a directory. Unable to create directory.\";\r\n            throw new IOException(message);\r\n        }\r\n    } else {\r\n        if (!directory.mkdirs()) {\r\n            String message = \"Unable to create directory \" + directory;\r\n            throw new IOException(message);\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "fr.opensagres.web.servlet.view.xdocreport.XDocReportView.getRegistry",
+	"Comment": "returns the xdocreport registry which load and cache document.",
+	"Method": "XDocReportRegistry getRegistry(){\r\n    return XDocReportRegistry.getRegistry();\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.binding.LibVlcFactory.synchronise",
+	"Comment": "request that the libvlc native library instance be synchronised.",
+	"Method": "LibVlcFactory synchronise(){\r\n    this.synchronise = true;\r\n    return this;\r\n}"
+}, {
+	"Path": "com.keylesspalace.tusky.util.CustomTabsHelper.hasSpecializedHandlerIntents",
+	"Comment": "used to check whether there is a specialized handler for a given intent.",
+	"Method": "boolean hasSpecializedHandlerIntents(Context context,Intent intent){\r\n    try {\r\n        PackageManager pm = context.getPackageManager();\r\n        List<ResolveInfo> handlers = pm.queryIntentActivities(intent, PackageManager.GET_RESOLVED_FILTER);\r\n        if (handlers == null || handlers.size() == 0) {\r\n            return false;\r\n        }\r\n        for (ResolveInfo resolveInfo : handlers) {\r\n            IntentFilter filter = resolveInfo.filter;\r\n            if (filter == null)\r\n                continue;\r\n            if (filter.countDataAuthorities() == 0 || filter.countDataPaths() == 0)\r\n                continue;\r\n            if (resolveInfo.activityInfo == null)\r\n                continue;\r\n            return true;\r\n        }\r\n    } catch (RuntimeException e) {\r\n        Log.e(TAG, \"Runtime exception while getting specialized handlers\");\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.tools.remoting.resources.FileUtils.isFileNewer",
+	"Comment": "tests if the specified file is newer than the specifiedtime reference.",
+	"Method": "boolean isFileNewer(File file,File reference,boolean isFileNewer,File file,Date date,boolean isFileNewer,File file,long timeMillis){\r\n    if (file == null) {\r\n        throw new IllegalArgumentException(\"No specified file\");\r\n    }\r\n    if (!file.exists()) {\r\n        return false;\r\n    }\r\n    return file.lastModified() > timeMillis;\r\n}"
+}, {
+	"Path": "com.bstek.urule.console.repository.database.DbPersistenceManager.getKey",
+	"Comment": "constructs a parameter list for a preparedstatementfor the given node identifier.",
+	"Method": "Object[] getKey(NodeId id){\r\n    if (getStorageModel() == SM_BINARY_KEYS) {\r\n        return new Object[] { id.getRawBytes() };\r\n    } else {\r\n        return new Object[] { id.getMostSignificantBits(), id.getLeastSignificantBits() };\r\n    }\r\n}"
+}, {
+	"Path": "com.univocity.parsers.annotations.helpers.FieldMapping.canWrite",
+	"Comment": "queries whether this field mapping can be applied over a given object instance.",
+	"Method": "boolean canWrite(Object instance){\r\n    if (!primitive) {\r\n        if (instance == null) {\r\n            return true;\r\n        }\r\n        return fieldType.isAssignableFrom(instance.getClass());\r\n    } else if (instance instanceof Number) {\r\n        return primitiveNumber;\r\n    } else if (instance instanceof Boolean) {\r\n        return fieldType == boolean.class;\r\n    } else if (instance instanceof Character) {\r\n        return fieldType == char.class;\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.processor.core.BeanConversionProcessor.mapValuesToFields",
+	"Comment": "goes through a list of objects and associates each value to a particular field of a java bean instance",
+	"Method": "void mapValuesToFields(T instance,Object[] row,Context context){\r\n    if (row.length > lastFieldIndexMapped) {\r\n        this.lastFieldIndexMapped = row.length;\r\n        mapFieldIndexes(context, row, context.headers(), context.extractedFieldIndexes(), context.columnsReordered());\r\n    }\r\n    int last = row.length < readOrder.length ? row.length : readOrder.length;\r\n    int i = 0;\r\n    for (; i < last; i++) {\r\n        FieldMapping field = readOrder[i];\r\n        if (field != null) {\r\n            Object value = row[i];\r\n            field.write(instance, value);\r\n        }\r\n    }\r\n    if (conversions != null && row.length < readOrder.length) {\r\n        i = last;\r\n        for (; i < readOrder.length; i++) {\r\n            FieldMapping field = readOrder[i];\r\n            if (field != null) {\r\n                Object value = conversions.applyConversions(i, null, null);\r\n                field.write(instance, value);\r\n            }\r\n        }\r\n    }\r\n    if (missing != null) {\r\n        for (i = 0; i < missing.length; i++) {\r\n            Object value = valuesForMissing[i];\r\n            if (value != null) {\r\n                FieldMapping field = missing[i];\r\n                field.write(instance, value);\r\n            }\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "com.keylesspalace.tusky.util.CustomTabsHelper.getPackageNameToUse",
+	"Comment": "goes through all apps that handle view intents and have a warmup service. picksthe one chosen by the user if there is one, otherwise makes a best effort to return avalid package name.this is not threadsafe.",
+	"Method": "String getPackageNameToUse(Context context){\r\n    if (sPackageNameToUse != null)\r\n        return sPackageNameToUse;\r\n    PackageManager pm = context.getPackageManager();\r\n    Intent activityIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(\"http://www.example.com\"));\r\n    ResolveInfo defaultViewHandlerInfo = pm.resolveActivity(activityIntent, 0);\r\n    String defaultViewHandlerPackageName = null;\r\n    if (defaultViewHandlerInfo != null) {\r\n        defaultViewHandlerPackageName = defaultViewHandlerInfo.activityInfo.packageName;\r\n    }\r\n    List<ResolveInfo> resolvedActivityList = pm.queryIntentActivities(activityIntent, 0);\r\n    List<String> packagesSupportingCustomTabs = new ArrayList();\r\n    for (ResolveInfo info : resolvedActivityList) {\r\n        Intent serviceIntent = new Intent();\r\n        serviceIntent.setAction(ACTION_CUSTOM_TABS_CONNECTION);\r\n        serviceIntent.setPackage(info.activityInfo.packageName);\r\n        if (pm.resolveService(serviceIntent, 0) != null) {\r\n            packagesSupportingCustomTabs.add(info.activityInfo.packageName);\r\n        }\r\n    }\r\n    if (packagesSupportingCustomTabs.isEmpty()) {\r\n        sPackageNameToUse = null;\r\n    } else if (packagesSupportingCustomTabs.size() == 1) {\r\n        sPackageNameToUse = packagesSupportingCustomTabs.get(0);\r\n    } else if (!TextUtils.isEmpty(defaultViewHandlerPackageName) && !hasSpecializedHandlerIntents(context, activityIntent) && packagesSupportingCustomTabs.contains(defaultViewHandlerPackageName)) {\r\n        sPackageNameToUse = defaultViewHandlerPackageName;\r\n    } else if (packagesSupportingCustomTabs.contains(STABLE_PACKAGE)) {\r\n        sPackageNameToUse = STABLE_PACKAGE;\r\n    } else if (packagesSupportingCustomTabs.contains(BETA_PACKAGE)) {\r\n        sPackageNameToUse = BETA_PACKAGE;\r\n    } else if (packagesSupportingCustomTabs.contains(DEV_PACKAGE)) {\r\n        sPackageNameToUse = DEV_PACKAGE;\r\n    } else if (packagesSupportingCustomTabs.contains(LOCAL_PACKAGE)) {\r\n        sPackageNameToUse = LOCAL_PACKAGE;\r\n    }\r\n    return sPackageNameToUse;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.tools.remoting.resources.FileUtils.toURLs",
+	"Comment": "converts each of an array of file to a url.returns an array of the same size as the input.",
+	"Method": "URL[] toURLs(File[] files){\r\n    URL[] urls = new URL[files.length];\r\n    for (int i = 0; i < urls.length; i++) {\r\n        urls[i] = files[i].toURL();\r\n    }\r\n    return urls;\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.test.version.LibVlcVersionTest.main",
+	"Comment": "execute the test.this will throw a runtimeexception if the libvlc native library version is too old.",
+	"Method": "void main(String[] args){\r\n    String version = LibVlc.INSTANCE.libvlc_get_version();\r\n    test(\"2.1.0\", version);\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.CommonSettings.getFieldSelector",
+	"Comment": "returns the fieldselector object, which handles selected fields.",
+	"Method": "FieldSelector getFieldSelector(){\r\n    return this.fieldSelector;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.json.JSONWriter.endObject",
+	"Comment": "end an object. this method most be called to balance calls to object.",
+	"Method": "JSONWriter endObject(){\r\n    return this.end('k', '}');\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.itext.extension.ExtendedSection.ancestorConstructTitle",
+	"Comment": "constructs a paragraph that will be used as title for a section or chapter.",
+	"Method": "Paragraph ancestorConstructTitle(IParagraphFactory factory,Paragraph title,ArrayList numbers,int numberDepth,int numberStyle){\r\n    if (title == null) {\r\n        return null;\r\n    }\r\n    int depth = Math.min(numbers.size(), numberDepth);\r\n    if (depth < 1) {\r\n        return title;\r\n    }\r\n    StringBuffer buf = new StringBuffer(\" \");\r\n    for (int i = 0; i < depth; i++) {\r\n        buf.insert(0, \".\");\r\n        buf.insert(0, ((Integer) numbers.get(i)).intValue());\r\n    }\r\n    if (numberStyle == NUMBERSTYLE_DOTTED_WITHOUT_FINAL_DOT) {\r\n        buf.deleteCharAt(buf.length() - 2);\r\n    }\r\n    Paragraph result = factory.createParagraph(title);\r\n    result.add(0, new Chunk(buf.toString(), title.getFont()));\r\n    return result;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.csv.CsvWriterSettings.isQuotationTrigger",
+	"Comment": "queries if a given character is a quotation trigger, i.e. a character that if present in a value to be written,\twill make the csv writer enclose the entire value within quotes.",
+	"Method": "boolean isQuotationTrigger(char ch){\r\n    for (int i = 0; i < quotationTriggers.length; i++) {\r\n        if (quotationTriggers[i] == ch) {\r\n            return true;\r\n        }\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.core.io.internal.ByteArrayOutputStream.toByteArray",
+	"Comment": "gets the curent contents of this byte stream as a byte array. the result is independent of this stream.",
+	"Method": "byte[] toByteArray(){\r\n    int remaining = count;\r\n    if (remaining == 0) {\r\n        return EMPTY_BYTE_ARRAY;\r\n    }\r\n    byte[] newbuf = new byte[remaining];\r\n    int pos = 0;\r\n    for (int i = 0; i < buffers.size(); i++) {\r\n        byte[] buf = getBuffer(i);\r\n        int c = Math.min(buf.length, remaining);\r\n        System.arraycopy(buf, 0, newbuf, pos, c);\r\n        pos += c;\r\n        remaining -= c;\r\n        if (remaining == 0) {\r\n            break;\r\n        }\r\n    }\r\n    return newbuf;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.ArgumentUtils.noNulls",
+	"Comment": "throws an illegalargumentexception if the given array is null,empty, or contains null values",
+	"Method": "void noNulls(String argDescription,T args){\r\n    notEmpty(argDescription, args);\r\n    for (T arg : args) {\r\n        if (arg == null) {\r\n            if (args.length > 0) {\r\n                throw new IllegalArgumentException(argDescription + \" must not contain nulls\");\r\n            } else {\r\n                throw new IllegalArgumentException(argDescription + \" must not be null\");\r\n            }\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.CommonWriterSettings.setRowWriterProcessor",
+	"Comment": "defines a processor for input objects that converts them into a manageable format for writing.",
+	"Method": "void setRowWriterProcessor(RowWriterProcessor<?> rowWriterProcessor){\r\n    this.rowWriterProcessor = rowWriterProcessor;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.DataProcessingException.markAsNonFatal",
+	"Comment": "marks the error as non fatal and the parsing process might proceed.",
+	"Method": "void markAsNonFatal(){\r\n    this.fatal = false;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.csv.CsvFormat.isQuote",
+	"Comment": "identifies whether or not a given character is used for escaping values where the field delimiter is part of the value",
+	"Method": "boolean isQuote(char ch){\r\n    return this.quote == ch;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.CommonSettings.deriveHeadersFrom",
+	"Comment": "indicates whether headers should be derived from a given class.",
+	"Method": "boolean deriveHeadersFrom(Class<?> beanClass){\r\n    if (headerSourceClass != null) {\r\n        if (headerSourceClass != beanClass) {\r\n            setHeaders(null);\r\n        } else {\r\n            return false;\r\n        }\r\n    }\r\n    return true;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.processor.core.BeanConversionProcessor.reverseConversions",
+	"Comment": "converts a java bean instance into a sequence of values for writing.",
+	"Method": "Object[] reverseConversions(T bean,String[] headers,int[] indexesToWrite){\r\n    if (bean == null) {\r\n        return null;\r\n    }\r\n    if (row == null) {\r\n        if (headers != null) {\r\n            row = new Object[headers.length];\r\n        } else if (indexesToWrite != null) {\r\n            int minimumRowLength = 0;\r\n            for (int index : indexesToWrite) {\r\n                if (index + 1 > minimumRowLength) {\r\n                    minimumRowLength = index + 1;\r\n                }\r\n            }\r\n            if (minimumRowLength < indexesToWrite.length) {\r\n                minimumRowLength = indexesToWrite.length;\r\n            }\r\n            row = new Object[minimumRowLength];\r\n        } else {\r\n            Set<Integer> assignedIndexes = new HashSet<Integer>();\r\n            int lastIndex = -1;\r\n            for (FieldMapping f : parsedFields) {\r\n                if (lastIndex < f.getIndex() + 1) {\r\n                    lastIndex = f.getIndex() + 1;\r\n                }\r\n                assignedIndexes.add(f.getIndex());\r\n            }\r\n            if (lastIndex < parsedFields.size()) {\r\n                lastIndex = parsedFields.size();\r\n            }\r\n            row = new Object[lastIndex];\r\n            if (syntheticHeaders == null) {\r\n                syntheticHeaders = new String[lastIndex];\r\n                Iterator<FieldMapping> it = parsedFields.iterator();\r\n                for (int i = 0; i < lastIndex; i++) {\r\n                    if (assignedIndexes.contains(i)) {\r\n                        continue;\r\n                    }\r\n                    String fieldName = null;\r\n                    while (it.hasNext() && (fieldName = it.next().getFieldName()) == null) ;\r\n                    syntheticHeaders[i] = fieldName;\r\n                }\r\n            }\r\n        }\r\n    }\r\n    if (nestedAttributes != null) {\r\n        for (Map.Entry<FieldMapping, BeanConversionProcessor<?>> e : nestedAttributes.entrySet()) {\r\n            Object nested = e.getKey().read(bean);\r\n            if (nested != null) {\r\n                BeanConversionProcessor<Object> nestedProcessor = (BeanConversionProcessor<Object>) e.getValue();\r\n                nestedProcessor.row = row;\r\n                nestedProcessor.reverseConversions(nested, headers, indexesToWrite);\r\n            }\r\n        }\r\n    }\r\n    if (syntheticHeaders != null) {\r\n        headers = syntheticHeaders;\r\n    }\r\n    try {\r\n        mapFieldsToValues(bean, row, headers, indexesToWrite, false);\r\n    } catch (Throwable ex) {\r\n        if (ex instanceof DataProcessingException) {\r\n            DataProcessingException error = (DataProcessingException) ex;\r\n            if (error.isHandled()) {\r\n                return null;\r\n            } else {\r\n                throw error;\r\n            }\r\n        } else if (!handleConversionError(ex, row, -1)) {\r\n            throw toDataProcessingException(ex, row, -1);\r\n        }\r\n        return null;\r\n    }\r\n    if (super.reverseConversions(true, row, headers, indexesToWrite)) {\r\n        return row;\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.remoting.resources.services.FileUtils.toSuffixes",
+	"Comment": "converts an array of file extensions to suffixes for usewith iofilefilters.",
+	"Method": "String[] toSuffixes(String[] extensions){\r\n    String[] suffixes = new String[extensions.length];\r\n    for (int i = 0; i < extensions.length; i++) {\r\n        suffixes[i] = \".\" + extensions[i];\r\n    }\r\n    return suffixes;\r\n}"
+}, {
+	"Path": "com.bstek.urule.console.repository.database.journal.DatabaseJournal.initInstanceRevisionAndJanitor",
+	"Comment": "initialize the instance revision manager and the janitor thread.",
+	"Method": "void initInstanceRevisionAndJanitor(){\r\n    databaseRevision = new DatabaseRevision();\r\n    long localFileRevision = 0L;\r\n    if (getRevision() != null) {\r\n        InstanceRevision currentFileRevision = new FileRevision(new File(getRevision()), true);\r\n        localFileRevision = currentFileRevision.get();\r\n        currentFileRevision.close();\r\n    }\r\n    long localRevision = databaseRevision.init(localFileRevision);\r\n    log.info(\"Initialized local revision to \" + localRevision);\r\n    if (janitorEnabled) {\r\n        janitorThread = new Thread(new RevisionTableJanitor(), \"Jackrabbit-ClusterRevisionJanitor\");\r\n        janitorThread.setDaemon(true);\r\n        janitorThread.start();\r\n        log.info(\"Cluster revision janitor thread started; first run scheduled at \" + janitorNextRun.getTime());\r\n    } else {\r\n        log.info(\"Cluster revision janitor thread not started\");\r\n    }\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.web.AbstractProcessXDocReportServlet.getOptionsDumper",
+	"Comment": "returns the dumper options from the http request and null otherwise.",
+	"Method": "DumperOptions getOptionsDumper(IXDocReport report,HttpServletRequest request){\r\n    final String kind = getDumperKind(report, request);\r\n    if (StringUtils.isEmpty(kind)) {\r\n        return null;\r\n    }\r\n    DumperOptions options = new DumperOptions(kind);\r\n    return options;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.json.JSONArray.optString",
+	"Comment": "get the optional string associated with an index. the defaultvalue is returned if the key is not found.",
+	"Method": "String optString(int index,String optString,int index,String defaultValue){\r\n    Object object = this.opt(index);\r\n    return JSONObject.NULL.equals(object) ? defaultValue : object.toString();\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.component.DirectAudioPlayerComponent.getMediaPlayer",
+	"Comment": "get the direct audio player reference.an application uses this handle to control the media player, add listeners and so on.",
+	"Method": "DirectAudioPlayer getMediaPlayer(){\r\n    return mediaPlayer;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.processor.core.ColumnSplitter.getColumnValuesAsMapOfNames",
+	"Comment": "returns a map of column names and their respective list of values parsed from the input.",
+	"Method": "Map<String, List<T>> getColumnValuesAsMapOfNames(){\r\n    Map<String, List<T>> map = new HashMap<String, List<T>>();\r\n    putColumnValuesInMapOfNames(map);\r\n    return map;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.json.JSONObject.optLong",
+	"Comment": "get an optional long value associated with a key, or the default if there is no such key or if the value is not anumber. if the value is a string, an attempt will be made to evaluate it as a number.",
+	"Method": "long optLong(String key,long optLong,String key,long defaultValue){\r\n    try {\r\n        return this.getLong(key);\r\n    } catch (Exception e) {\r\n        return defaultValue;\r\n    }\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.player.Marquee.timeout",
+	"Comment": "apply the timeout.the marquee will be removed when the timeout expires.",
+	"Method": "Marquee timeout(int timeout){\r\n    this.timeout = timeout;\r\n    return this;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.XDocReport.loadReport",
+	"Comment": "load the template report by using the given controller and cache it to the given registry",
+	"Method": "IXDocReport loadReport(String reportId,IXDocReportController controller,XDocReportRegistry registry,IXDocReport loadReport,String reportId,IXDocReportLoader reportLoader,XDocReportRegistry registry,IXDocReport loadReport,InputStream sourceStream,String templateEngineKind,FieldsMetadata metadata,XDocReportRegistry registry){\r\n    if (sourceStream == null) {\r\n        throw new XDocReportException(\"Input stream is null \");\r\n    }\r\n    IXDocReport report = registry.loadReport(sourceStream, null, templateEngineKind, false);\r\n    report.setFieldsMetadata(metadata);\r\n    return report;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.AbstractXDocReport.getFieldsMetadata",
+	"Comment": "returns fields metadata used to manage lazy loop for table row.",
+	"Method": "FieldsMetadata getFieldsMetadata(){\r\n    return fieldsMetadata;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.preprocessor.sax.TransformedBufferedDocumentContentHandler.getProcessRowResult",
+	"Comment": "if a row parsing, replace fields name with well script to manage lazy loop for table row.",
+	"Method": "ProcessRowResult getProcessRowResult(String content,boolean forceAsField){\r\n    RowBufferedRegion currentRow = bufferedDocument.getCurrentTableRow();\r\n    if (currentRow != null && formatter != null && fieldsMetadata != null) {\r\n        Collection<String> fieldsAsList = fieldsMetadata.getFieldsAsList();\r\n        if (!currentRow.isLoopTemplateDirectiveInitilalized()) {\r\n            for (final String fieldName : fieldsAsList) {\r\n                if (content.contains(fieldName)) {\r\n                    String itemNameList = formatter.extractItemNameList(content, fieldName, forceAsField);\r\n                    if (StringUtils.isNotEmpty(itemNameList)) {\r\n                        currentRow.initializeLoopTemplateDirective(itemNameList, formatter, getStartNoParse(), getEndNoParse());\r\n                        break;\r\n                    }\r\n                }\r\n            }\r\n        }\r\n        if (currentRow.isLoopTemplateDirectiveInitilalized()) {\r\n            for (final String fieldName : fieldsAsList) {\r\n                if (content.contains(fieldName)) {\r\n                    String newContent = formatter.formatAsFieldItemList(content, fieldName, forceAsField);\r\n                    if (newContent != null) {\r\n                        return new ProcessRowResult(newContent, fieldName, currentRow.getItemNameList(), currentRow.getStartLoopDirective(), currentRow.getEndLoopDirective());\r\n                    }\r\n                }\r\n            }\r\n        }\r\n    }\r\n    return new ProcessRowResult(content, null, null, null, null);\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.tools.remoting.resources.FileUtils.readFileToString",
+	"Comment": "reads the contents of a file into a string using the default encoding for the vm. the file is always closed.",
+	"Method": "String readFileToString(File file,String encoding,String readFileToString,File file){\r\n    return readFileToString(file, null);\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.runtime.RuntimeUtil.isWindows",
+	"Comment": "test whether the runtime operating system is a windows variant.",
+	"Method": "boolean isWindows(){\r\n    return OS_NAME.indexOf(\"win\") != -1;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.odt.preprocessor.ODTAnnotationParsingHelper.setParsingBegin",
+	"Comment": "set the helper in the state of parsing annotation tag content.",
+	"Method": "void setParsingBegin(String name,int index){\r\n    this.parsing = true;\r\n    this.content = new StringBuilder();\r\n    this.ignore = false;\r\n    this.before = null;\r\n    this.after = null;\r\n    this.replacement = null;\r\n    if (StringUtils.isNotEmpty(name)) {\r\n        this.name = name;\r\n    } else {\r\n        this.name = null;\r\n    }\r\n    this.index = index;\r\n    this.notReplacedYet = true;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.ParserOutput.reset",
+	"Comment": "resets the parser output and prepares for a new parsing process.",
+	"Method": "void reset(){\r\n    this.columnsToExtractInitialized = false;\r\n    this.currentRecord = 0;\r\n    this.column = 0;\r\n    this.headers = null;\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.medialist.MediaList.removeListEventListener",
+	"Comment": "remove a component previously added so that it no longer receives medialist events.",
+	"Method": "void removeListEventListener(MediaListEventListener listener){\r\n    logger.debug(\"removeMediaListEventListener(listener={})\", listener);\r\n    eventListenerList.remove(listener);\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.input.LookaheadCharInputReader.getLookahead",
+	"Comment": "returns the lookahead value prepended with the current character",
+	"Method": "String getLookahead(String getLookahead,char current){\r\n    if (start >= length) {\r\n        return String.valueOf(current);\r\n    }\r\n    return current + new String(lookahead, start, length - 1);\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.processor.core.BeanConversionProcessor.processField",
+	"Comment": "determines whether or not an annotated field should be processed.\tcan be overridden by subclasses for fine grained control.",
+	"Method": "void processField(AnnotatedElement element,PropertyWrapper propertyDescriptor,String[] headers,boolean processField,FieldMapping field){\r\n    return true;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.Generator.getRegistry",
+	"Comment": "returns the xdocreport registry which load and cache document. by default the registry is a singleton. if youwish manage registry per http session, override this method, create an instance per session and returns theregistry instance linked to the http session.",
+	"Method": "XDocReportRegistry getRegistry(In request){\r\n    return XDocReportRegistry.getRegistry();\r\n}"
+}, {
+	"Path": "com.univocity.parsers.fixed.FixedWidthParserSettings.getFieldAlignments",
+	"Comment": "returns the sequence of alignments to consider for each field of each record.",
+	"Method": "FieldAlignment[] getFieldAlignments(){\r\n    if (fieldLengths == null) {\r\n        return null;\r\n    }\r\n    return fieldLengths.getFieldAlignments();\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.component.overlay.AbstractJWindowOverlayComponent.onHideCursor",
+	"Comment": "template method to determine whether or not the mouse pointer should be hidden when theoverlay is active.the default behaviour is to hide the mouse pointer.",
+	"Method": "boolean onHideCursor(){\r\n    return true;\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.filter.swing.SwingFileFilterFactory.newAudioFileFilter",
+	"Comment": "create a new file name extension filter that accepts audio files.",
+	"Method": "FileFilter newAudioFileFilter(){\r\n    return new SwingFileFilter(AUDIO_FILTER_DESCRIPTION, new AudioFileFilter());\r\n}"
+}, {
+	"Path": "com.univocity.parsers.fixed.FixedWidthWriterSettings.getFieldAlignments",
+	"Comment": "returns the sequence of field alignments to apply to each field in the record.",
+	"Method": "FieldAlignment[] getFieldAlignments(){\r\n    if (fieldLengths == null) {\r\n        return null;\r\n    }\r\n    return fieldLengths.getFieldAlignments();\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.fields.ExcludeFieldNameSelector.getFieldIndexes",
+	"Comment": "returns the indexes of any that are part of a sequence of headers but not part of the selection.",
+	"Method": "int[] getFieldIndexes(String[] headers){\r\n    if (headers == null) {\r\n        return null;\r\n    }\r\n    headers = ArgumentUtils.normalize(headers);\r\n    Set<String> chosenFields = new HashSet<String>(this.get());\r\n    ArgumentUtils.normalize(chosenFields);\r\n    Object[] unknownFields = ArgumentUtils.findMissingElements(headers, chosenFields);\r\n    if (unknownFields.length > 0) {\r\n        throw new IllegalStateException(\"Unknown field names: \" + Arrays.toString(unknownFields));\r\n    }\r\n    int[] out = new int[headers.length - chosenFields.size()];\r\n    int j = 0;\r\n    for (int i = 0; i < headers.length; i++) {\r\n        if (!chosenFields.contains(headers[i])) {\r\n            out[j++] = i;\r\n        }\r\n    }\r\n    return out;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.fields.FieldConversionMapping.applyConversionsOnFieldNames",
+	"Comment": "applies a sequence of conversions on a selection of field name",
+	"Method": "FieldSet<String> applyConversionsOnFieldNames(Conversion<String, ?> conversions){\r\n    return fieldNameConversionMapping.registerConversions(conversions);\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.AbstractWriter.setHeadersFromMap",
+	"Comment": "iterates over the keys of a map and builds an internal header row.",
+	"Method": "void setHeadersFromMap(Map<?, ?> map,boolean keys){\r\n    this.headers = new String[map.size()];\r\n    int i = 0;\r\n    for (Object header : keys ? map.keySet() : map.values()) {\r\n        headers[i++] = String.valueOf(header);\r\n    }\r\n}"
+}, {
+	"Path": "com.keylesspalace.tusky.util.EmojiCompatFont.cancelDownload",
+	"Comment": "stops downloading the font. if no one started a font download, nothing happens.",
+	"Method": "void cancelDownload(){\r\n    if (fontDownloader != null) {\r\n        fontDownloader.cancel(false);\r\n        fontDownloader = null;\r\n    }\r\n}"
+}, {
+	"Path": "com.univocity.parsers.conversions.DateConversion.fromString",
+	"Comment": "converts a formatted date string to an instance of date.\tthe pattern in the formatted date must match one of the date patterns provided in the constructor of this class.",
+	"Method": "Date fromString(String input){\r\n    for (SimpleDateFormat formatter : parsers) {\r\n        try {\r\n            synchronized (formatter) {\r\n                return formatter.parse(input);\r\n            }\r\n        } catch (ParseException ex) {\r\n        }\r\n    }\r\n    DataProcessingException exception = new DataProcessingException(\"Cannot parse '{value}' as a valid date of locale '\" + locale + \"'. Supported formats are: \" + Arrays.toString(formats));\r\n    exception.setValue(input);\r\n    throw exception;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.AbstractParser.parseLine",
+	"Comment": "parses a single line from a string in the format supported by the parser implementation.",
+	"Method": "String[] parseLine(String line){\r\n    if (line == null || line.isEmpty()) {\r\n        return null;\r\n    }\r\n    lineReader.setLine(line);\r\n    if (context == null || context.isStopped()) {\r\n        beginParsing(lineReader);\r\n    } else {\r\n        ((DefaultCharInputReader) input).reloadBuffer();\r\n    }\r\n    try {\r\n        while (!context.isStopped()) {\r\n            input.markRecordStart();\r\n            ch = input.nextChar();\r\n            if (inComment()) {\r\n                processComment();\r\n                return null;\r\n            }\r\n            if (output.pendingRecords.isEmpty()) {\r\n                parseRecord();\r\n            }\r\n            String[] row = output.rowParsed();\r\n            if (row != null) {\r\n                if (processor != NoopProcessor.instance) {\r\n                    rowProcessed(row);\r\n                }\r\n                return row;\r\n            }\r\n        }\r\n        return null;\r\n    } catch (EOFException ex) {\r\n        return handleEOF();\r\n    } catch (NullPointerException ex) {\r\n        if (input != null) {\r\n            stopParsing(null);\r\n        }\r\n        throw new IllegalStateException(\"Error parsing next record.\", ex);\r\n    } catch (Throwable ex) {\r\n        try {\r\n            ex = handleException(ex);\r\n        } finally {\r\n            stopParsing(ex);\r\n        }\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.registry.XDocReportRegistry.createCache",
+	"Comment": "create the storage cache to store instances of ixdocreport.",
+	"Method": "ICacheStorage<String, IXDocReport> createCache(){\r\n    return CacheStorageRegistry.getRegistry().createCache();\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.remoting.resources.services.FileUtils.copyDirectoryToDirectory",
+	"Comment": "copies a directory to within another directory preserving the file dates.this method copies the source directory and all its contents to adirectory of the same name in the specified destination directory.the destination directory is created if it does not exist.if the destination directory did exist, then this method mergesthe source with the destination, with the source taking precedence.",
+	"Method": "void copyDirectoryToDirectory(File srcDir,File destDir){\r\n    if (srcDir == null) {\r\n        throw new NullPointerException(\"Source must not be null\");\r\n    }\r\n    if (srcDir.exists() && srcDir.isDirectory() == false) {\r\n        throw new IllegalArgumentException(\"Source '\" + destDir + \"' is not a directory\");\r\n    }\r\n    if (destDir == null) {\r\n        throw new NullPointerException(\"Destination must not be null\");\r\n    }\r\n    if (destDir.exists() && destDir.isDirectory() == false) {\r\n        throw new IllegalArgumentException(\"Destination '\" + destDir + \"' is not a directory\");\r\n    }\r\n    copyDirectory(srcDir, new File(destDir, srcDir.getName()), true);\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.processor.core.BeanConversionProcessor.isStrictHeaderValidationEnabled",
+	"Comment": "returns a flag indicating whether all headers declared in the annotated class must be present in the input.\tif enabled, an exception will be thrown in case the input data does not contain all headers required.",
+	"Method": "boolean isStrictHeaderValidationEnabled(){\r\n    return strictHeaderValidationEnabled;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.textstyling.TextStylingTransformerRegistry.getTextStylingTransformer",
+	"Comment": "returns the text styling transformer for the given syntax kind.",
+	"Method": "ITextStylingTransformer getTextStylingTransformer(SyntaxKind syntaxKind,ITextStylingTransformer getTextStylingTransformer,String syntaxKind){\r\n    super.initializeIfNeeded();\r\n    return transformers.get(syntaxKind);\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.DataProcessingException.setColumnIndex",
+	"Comment": "defines the column index being processed when the error occurred.",
+	"Method": "void setColumnIndex(int columnIndex){\r\n    this.columnIndex = columnIndex;\r\n}"
+}, {
+	"Path": "org.togglz.servlet.util.HttpServletRequestHolder.release",
+	"Comment": "remove the request that is currently associated with the current thread.",
+	"Method": "void release(){\r\n    threadLocal.set(null);\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.test.version.MediaPlayerFactoryVersionTest.main",
+	"Comment": "execute the test.this will throw a runtimeexception if the libvlc native library version is too old.",
+	"Method": "void main(String[] args){\r\n    new MediaPlayerFactory();\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.preprocessor.sax.ProcessRowResult.getContent",
+	"Comment": "the content of the result of process row. this content can be the original content or modified content withfields transformed.",
+	"Method": "String getContent(){\r\n    return content;\r\n}"
+}, {
+	"Path": "com.linkedin.urls.detection.UrlDetector.getCharacterCount",
+	"Comment": "gets the number of times the current character was seen in the document. only special characters are tracked.",
+	"Method": "int getCharacterCount(char curr){\r\n    Integer count = _characterMatch.get(curr);\r\n    return count == null ? 0 : count;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.csv.CsvWriterSettings.quoteIndexes",
+	"Comment": "selects field positions whose values should always be written within quotes",
+	"Method": "FieldSet<Integer> quoteIndexes(Integer columns){\r\n    return setFieldSet(new FieldIndexSelector(), columns);\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent.getMediaPlayer",
+	"Comment": "get the embedded media player reference.an application uses this handle to control the media player, add listeners and so on.",
+	"Method": "EmbeddedMediaPlayer getMediaPlayer(){\r\n    return mediaPlayer;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.json.JSONArray.optInt",
+	"Comment": "get the optional int value associated with an index. the defaultvalue is returned if there is no value for theindex, or if the value is not a number and cannot be converted to a number.",
+	"Method": "int optInt(int index,int optInt,int index,int defaultValue){\r\n    try {\r\n        return this.getInt(index);\r\n    } catch (Exception e) {\r\n        return defaultValue;\r\n    }\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.player.MediaPlayerFactory.getModuleDescriptions",
+	"Comment": "convert a collection of native module description structures.",
+	"Method": "List<ModuleDescription> getModuleDescriptions(libvlc_module_description_t moduleDescriptions){\r\n    List<ModuleDescription> result = new ArrayList<ModuleDescription>();\r\n    libvlc_module_description_t moduleDescription = moduleDescriptions;\r\n    while (moduleDescription != null) {\r\n        result.add(new ModuleDescription(moduleDescription.psz_name, moduleDescription.psz_shortname, moduleDescription.psz_longname, moduleDescription.psz_help));\r\n        moduleDescription = moduleDescription.p_next;\r\n    }\r\n    return result;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.ArgumentUtils.notEmpty",
+	"Comment": "throws an illegalargumentexception if the given array is null or empty.",
+	"Method": "void notEmpty(String argDescription,T args){\r\n    if (args == null) {\r\n        throw new IllegalArgumentException(argDescription + \" must not be null\");\r\n    }\r\n    if (args.length == 0) {\r\n        throw new IllegalArgumentException(argDescription + \" must not be empty\");\r\n    }\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.XDocReport.generateReportAndConvert",
+	"Comment": "generate report and convert it by using report loader to load report by setting the registry.",
+	"Method": "IXDocReport generateReportAndConvert(String reportId,IXDocReportController controller,Map<String, Object> contextMap,Options options,OutputStream out,IXDocReport generateReportAndConvert,String reportId,IXDocReportController controller,Map<String, Object> contextMap,Options options,OutputStream out,XDocReportRegistry registry,IXDocReport generateReportAndConvert,String reportId,IXDocReportLoader reportLoader,Map<String, Object> contextMap,Options options,OutputStream out,IXDocReport generateReportAndConvert,String reportId,IXDocReportLoader reportLoader,Map<String, Object> contextMap,Options options,OutputStream out,XDocReportRegistry registry,IXDocReport generateReportAndConvert,InputStream sourceStream,String templateEngineKind,FieldsMetadata metadata,Map<String, Object> contextMap,Options options,OutputStream out,IXDocReport generateReportAndConvert,InputStream sourceStream,String templateEngineKind,FieldsMetadata metadata,Map<String, Object> contextMap,Options options,OutputStream out,XDocReportRegistry registry){\r\n    IXDocReport report = loadReport(sourceStream, templateEngineKind, metadata, registry);\r\n    report.convert(contextMap, options, out);\r\n    return report;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.odt.preprocessor.ODTAnnotationParsingHelper.setReplacementDone",
+	"Comment": "should be executed, when range annotation replacemen is done. it preventsunwanted multiple relacement when several containers is present inannotation range.",
+	"Method": "void setReplacementDone(){\r\n    this.notReplacedYet = false;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.csv.CsvFormat.isQuoteEscape",
+	"Comment": "identifies whether or not a given character is used for escaping quotes inside an already quoted value.",
+	"Method": "boolean isQuoteEscape(char ch){\r\n    return this.quoteEscape == ch;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.processor.core.ColumnSplitter.putColumnValuesInMapOfNames",
+	"Comment": "fills a given map associating each column name to its list o values",
+	"Method": "void putColumnValuesInMapOfNames(Map<String, List<T>> map){\r\n    if (columnValues == null) {\r\n        return;\r\n    }\r\n    for (int i = 0; i < columnValues.size(); i++) {\r\n        String header = getHeader(i);\r\n        if (header == null) {\r\n            throw new DataProcessingException(\"Parsed input does not have header for column at index '\" + i + \"'. Parsed header names: \" + Arrays.toString(getHeaders()), i);\r\n        }\r\n        map.put(header, columnValues.get(i));\r\n    }\r\n}"
+}, {
+	"Path": "com.univocity.parsers.fixed.FixedWidthWriterSettings.addFormatForLookahead",
+	"Comment": "defines the format of records identified by a lookahead symbol.",
+	"Method": "void addFormatForLookahead(String lookahead,FixedWidthFields lengths){\r\n    Lookup.registerLookahead(lookahead, lengths, lookaheadFormats);\r\n}"
+}, {
+	"Path": "com.univocity.parsers.annotations.helpers.FieldMapping.read",
+	"Comment": "reads the value accessible by this field mapping from a given object",
+	"Method": "Object read(Object instance,Object read,Object instance,boolean ignoreErrors){\r\n    setAccessible();\r\n    try {\r\n        if (readMethod != null) {\r\n            return readMethod.invoke(instance);\r\n        } else {\r\n            return ((Field) target).get(instance);\r\n        }\r\n    } catch (Throwable e) {\r\n        if (e instanceof InvocationTargetException) {\r\n            e = e.getCause();\r\n        }\r\n        if (!ignoreErrors) {\r\n            String msg = \"Unable to get value from field: \" + toString();\r\n            if (e instanceof DataProcessingException) {\r\n                DataProcessingException ex = (DataProcessingException) e;\r\n                ex.setDetails(msg);\r\n                throw ex;\r\n            }\r\n            throw new DataProcessingException(msg, e);\r\n        }\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.json.JSONArray.toJSONObject",
+	"Comment": "produce a jsonobject by combining a jsonarray of names with the values of this jsonarray.",
+	"Method": "JSONObject toJSONObject(JSONArray names){\r\n    if (names == null || names.length() == 0 || this.length() == 0) {\r\n        return null;\r\n    }\r\n    JSONObject jo = new JSONObject();\r\n    for (int i = 0; i < names.length(); i += 1) {\r\n        jo.put(names.getString(i), this.opt(i));\r\n    }\r\n    return jo;\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.test.version.VersionFormatTest.main",
+	"Comment": "execute the test.this will throw a runtimeexception if the libvlc native library version is too old.",
+	"Method": "void main(String[] args){\r\n    test(\"2.0.0\");\r\n    test(\"1.2.0\");\r\n    test(\"1.2.0-b1\");\r\n    test(\"1.1.10 The Luggage\");\r\n    test(\"1.7.0_17\");\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.core.io.IOUtils.contentEquals",
+	"Comment": "compare the contents of two readers to determine if they are equal or not.this method buffers the input internally using bufferedreader if they are not already buffered.",
+	"Method": "boolean contentEquals(InputStream input1,InputStream input2,boolean contentEquals,Reader input1,Reader input2){\r\n    if (!(input1 instanceof BufferedReader)) {\r\n        input1 = new BufferedReader(input1);\r\n    }\r\n    if (!(input2 instanceof BufferedReader)) {\r\n        input2 = new BufferedReader(input2);\r\n    }\r\n    int ch = input1.read();\r\n    while (-1 != ch) {\r\n        int ch2 = input2.read();\r\n        if (ch != ch2) {\r\n            return false;\r\n        }\r\n        ch = input1.read();\r\n    }\r\n    int ch2 = input2.read();\r\n    return (ch2 == -1);\r\n}"
+}, {
+	"Path": "com.univocity.parsers.annotations.helpers.FieldMapping.write",
+	"Comment": "writes a value to the field of a given object instance, whose field is accessible through this field mapping.",
+	"Method": "void write(Object instance,Object value){\r\n    setAccessible();\r\n    try {\r\n        if (primitive) {\r\n            if (value == null) {\r\n                if (applyDefault == null) {\r\n                    Object currentValue = read(instance, true);\r\n                    applyDefault = defaultPrimitiveValue.equals(currentValue);\r\n                }\r\n                if (applyDefault == Boolean.TRUE) {\r\n                    value = defaultPrimitiveValue;\r\n                } else {\r\n                    return;\r\n                }\r\n            } else if (defaultPrimitiveValue.getClass() != value.getClass() && value instanceof Number) {\r\n                Number number = ((Number) value);\r\n                if (fieldType == int.class) {\r\n                    value = number.intValue();\r\n                } else if (fieldType == long.class) {\r\n                    value = number.longValue();\r\n                } else if (fieldType == double.class) {\r\n                    value = number.doubleValue();\r\n                } else if (fieldType == float.class) {\r\n                    value = number.floatValue();\r\n                } else if (fieldType == byte.class) {\r\n                    value = number.byteValue();\r\n                } else if (fieldType == short.class) {\r\n                    value = number.shortValue();\r\n                }\r\n            }\r\n        }\r\n        if (writeMethod != null) {\r\n            writeMethod.invoke(instance, value);\r\n        } else {\r\n            ((Field) target).set(instance, value);\r\n        }\r\n    } catch (Throwable e) {\r\n        String valueTypeName = value == null ? null : value.getClass().getName();\r\n        String msg;\r\n        String details = null;\r\n        if (valueTypeName != null) {\r\n            msg = \"Unable to set value '{value}' of type '\" + valueTypeName + \"' to field \" + toString();\r\n        } else {\r\n            msg = \"Unable to set value 'null' to field \" + toString();\r\n        }\r\n        if (e instanceof InvocationTargetException) {\r\n            e = e.getCause();\r\n            details = msg;\r\n        }\r\n        if (e instanceof DataProcessingException) {\r\n            DataProcessingException ex = (DataProcessingException) e;\r\n            ex.markAsNonFatal();\r\n            ex.setValue(value);\r\n            ex.setDetails(details);\r\n            throw (DataProcessingException) e;\r\n        }\r\n        DataProcessingException ex = new DataProcessingException(msg, e);\r\n        ex.markAsNonFatal();\r\n        ex.setValue(value);\r\n        throw ex;\r\n    }\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.processor.BeanWriterProcessor.write",
+	"Comment": "converts the java bean instance into a sequence of values for writing.",
+	"Method": "Object[] write(T input,String[] headers,int[] indexesToWrite){\r\n    if (!initialized) {\r\n        super.initialize(headers);\r\n    }\r\n    return reverseConversions(input, headers, indexesToWrite);\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.dump.DumperRegistry.findDumper",
+	"Comment": "returns the dumper registered with the given kind in the registry.",
+	"Method": "IDumper findDumper(String kind){\r\n    IDumper dumper = getDumper(kind);\r\n    if (dumper == null) {\r\n        String msg = String.format(\"Cannot find dumper with kind=%s\", dumper);\r\n        LOGGER.severe(msg);\r\n        throw new XDocReportException(msg);\r\n    }\r\n    return dumper;\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.player.Equalizer.getBandCount",
+	"Comment": "get the number of distinct frequency bands in the equalizer.",
+	"Method": "int getBandCount(){\r\n    return bandCount;\r\n}"
+}, {
+	"Path": "com.bstek.urule.console.repository.database.DbPersistenceManager.setConsistencyFix",
+	"Comment": "defines if the consistency check should attempt to fix issues thatit finds.",
+	"Method": "void setConsistencyFix(String consistencyFix){\r\n    this.consistencyFix = Boolean.valueOf(consistencyFix).booleanValue();\r\n}"
+}, {
+	"Path": "com.univocity.parsers.csv.Csv.writeRfc4180",
+	"Comment": "provides a basic csv configuration for writing csv files in accordance with the\trules established by rfc 4180",
+	"Method": "CsvWriterSettings writeRfc4180(){\r\n    CsvWriterSettings settings = writeExcel();\r\n    settings.setNormalizeLineEndingsWithinQuotes(false);\r\n    settings.setQuoteEscapingEnabled(true);\r\n    return settings;\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.runtime.streams.NativeStreams.redirectOutputTo",
+	"Comment": "redirect the native process standard output stream to a file.",
+	"Method": "boolean redirectOutputTo(String target){\r\n    outputStream = LibC.INSTANCE.fdopen(STDOUT_FD, STREAM_MODE);\r\n    if (outputStream != null) {\r\n        redirectedOutputStream = LibC.INSTANCE.freopen(target, STREAM_MODE, outputStream);\r\n        return redirectedOutputStream != null;\r\n    } else {\r\n        return false;\r\n    }\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.CommonSettings.clearInputSpecificSettings",
+	"Comment": "clears settings that are likely to be specific to a given input.",
+	"Method": "void clearInputSpecificSettings(){\r\n    fieldSelector = null;\r\n    headers = null;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.XDocReport.generateReport",
+	"Comment": "generate report by using report loader to load report by setting the registry.",
+	"Method": "IXDocReport generateReport(String reportId,IXDocReportController controller,Map<String, Object> contextMap,OutputStream out,IXDocReport generateReport,String reportId,IXDocReportController controller,Map<String, Object> contextMap,OutputStream out,XDocReportRegistry registry,IXDocReport generateReport,String reportId,IXDocReportLoader reportLoader,Map<String, Object> contextMap,OutputStream out,IXDocReport generateReport,String reportId,IXDocReportLoader reportLoader,Map<String, Object> contextMap,OutputStream out,XDocReportRegistry registry,IXDocReport generateReport,InputStream sourceStream,String templateEngineKind,FieldsMetadata metadata,Map<String, Object> contextMap,OutputStream out,IXDocReport generateReport,InputStream sourceStream,String templateEngineKind,FieldsMetadata metadata,Map<String, Object> contextMap,OutputStream out,XDocReportRegistry registry){\r\n    if (sourceStream == null) {\r\n        throw new XDocReportException(\"Input stream is null\");\r\n    }\r\n    IXDocReport report = loadReport(sourceStream, templateEngineKind, metadata, registry);\r\n    report.process(contextMap, out);\r\n    return report;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.conversions.CalendarConversion.revert",
+	"Comment": "converts calendar to a formatted date string.\tthe pattern used to generate the formatted date is the first date pattern provided in the constructor of this class",
+	"Method": "String revert(Calendar input){\r\n    if (input == null) {\r\n        return super.revert(null);\r\n    }\r\n    return dateConversion.revert(input.getTime());\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.sql.SQLDataProvider.getColumnLabel",
+	"Comment": "returns the column label name of the given column of the given resultset. override this method if your jdbcdriver cannot support that.",
+	"Method": "String getColumnLabel(ResultSet rs,int column){\r\n    return rs.getMetaData().getColumnLabel(column);\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.TextParsingException.getParsedContent",
+	"Comment": "returns the last chunk of content parsed before the error took place",
+	"Method": "String getParsedContent(){\r\n    if (errorContentLength == 0) {\r\n        return null;\r\n    }\r\n    return content;\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.runtime.windows.WindowsRuntimeUtil.getVlcInstallDir",
+	"Comment": "get the vlc installation directory.if vlc is installed correctly, this should not be needed.",
+	"Method": "String getVlcInstallDir(){\r\n    logger.debug(\"getVlcInstallDir()\");\r\n    try {\r\n        return Advapi32Util.registryGetStringValue(WinReg.HKEY_LOCAL_MACHINE, VLC_REGISTRY_KEY, VLC_INSTALL_DIR_KEY);\r\n    } catch (Exception e) {\r\n        logger.warn(\"Failed to get VLC installation directory from the registry\", e);\r\n        return null;\r\n    }\r\n}"
+}, {
+	"Path": "com.univocity.parsers.fixed.FixedWidthWriterSettings.addFormatForLookbehind",
+	"Comment": "defines the format of records identified by a lookbehind symbol.",
+	"Method": "void addFormatForLookbehind(String lookbehind,FixedWidthFields lengths){\r\n    Lookup.registerLookbehind(lookbehind, lengths, lookbehindFormats);\r\n}"
+}, {
+	"Path": "org.togglz.core.util.IOUtils.copy",
+	"Comment": "copies all bytes from the input stream to the output stream.does not close or flush either stream.",
+	"Method": "long copy(InputStream from,OutputStream to,long copy,Readable from,Appendable to){\r\n    checkNotNull(from);\r\n    checkNotNull(to);\r\n    CharBuffer buf = CharBuffer.allocate(BUF_SIZE);\r\n    long total = 0;\r\n    while (from.read(buf) != -1) {\r\n        buf.flip();\r\n        to.append(buf);\r\n        total += buf.remaining();\r\n        buf.clear();\r\n    }\r\n    return total;\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.player.NativeString.getNativeString",
+	"Comment": "get a string from a native string pointer, freeing the native string pointer when done.if the native string pointer is not freed then a native memory leak will occur.",
+	"Method": "String getNativeString(LibVlc libvlc,Pointer pointer){\r\n    if (pointer != null) {\r\n        String result = pointer.getString(0);\r\n        libvlc.libvlc_free(pointer);\r\n        return result;\r\n    } else {\r\n        return null;\r\n    }\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.runtime.x.LibXUtil.initialise",
+	"Comment": "attempt to initialise libx threads.it is safe to invoke this on any operating system and it will silently fail if x is notsupported.this can prevent some fatal native crashes on linux and related operating systems.this should not be required, but in practice it may be useful.",
+	"Method": "void initialise(){\r\n    try {\r\n        LibX11.INSTANCE.XInitThreads();\r\n    } catch (Exception e) {\r\n        if (!RuntimeUtil.isWindows()) {\r\n            logger.debug(\"Did not initialise LibX11: {}\", e.getMessage());\r\n        }\r\n    } catch (Error e) {\r\n        if (!RuntimeUtil.isWindows()) {\r\n            logger.debug(\"Did not initialise LibX11: {}\", e.getMessage());\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.player.DefaultMediaPlayer.applyEqualizer",
+	"Comment": "apply the audio equalizer settings to the native media player.",
+	"Method": "void applyEqualizer(){\r\n    logger.trace(\"applyEqualizer()\");\r\n    logger.trace(\"equalizerInstance={}\", equalizerInstance);\r\n    if (equalizerInstance != null) {\r\n        logger.trace(\"Set equalizer\");\r\n        libvlc.libvlc_audio_equalizer_set_preamp(equalizerInstance, equalizer.getPreamp());\r\n        for (int i = 0; i < libvlc.libvlc_audio_equalizer_get_band_count(); i++) {\r\n            libvlc.libvlc_audio_equalizer_set_amp_at_index(equalizerInstance, equalizer.getAmp(i), i);\r\n        }\r\n        libvlc.libvlc_media_player_set_equalizer(mediaPlayerInstance, equalizerInstance);\r\n    } else {\r\n        logger.trace(\"Disable equalizer\");\r\n        libvlc.libvlc_media_player_set_equalizer(mediaPlayerInstance, null);\r\n    }\r\n}"
+}, {
+	"Path": "com.bstek.urule.console.repository.database.manager.DerbyPersistenceManager.close",
+	"Comment": "closes the given connection by shutting down the embedded derbydatabase.",
+	"Method": "void close(){\r\n    super.close();\r\n    ((DerbyConnectionHelper) conHelper).shutDown(getDriver());\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.processor.RowWriterProcessorSwitch.getHeaders",
+	"Comment": "returns the sequence of headers to use for processing an input record.",
+	"Method": "String[] getHeaders(String[] getHeaders,Map headerMapping,Map mapInput,String[] getHeaders,Object input){\r\n    return null;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.annotations.helpers.TransformedHeader.getTargetName",
+	"Comment": "returns the original attribute name of the field in its containing class.",
+	"Method": "String getTargetName(){\r\n    if (target == null) {\r\n        return null;\r\n    }\r\n    if (field != null) {\r\n        return field.getName();\r\n    } else {\r\n        return method.getName();\r\n    }\r\n}"
+}, {
+	"Path": "com.univocity.parsers.csv.CsvFormat.isDelimiter",
+	"Comment": "identifies whether or not a given character represents a field delimiter",
+	"Method": "boolean isDelimiter(char ch,boolean isDelimiter,String sequence){\r\n    return this.delimiter.equals(sequence);\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.processor.core.AbstractBeanListProcessor.beanProcessed",
+	"Comment": "stores the generated java bean produced with a parsed record into a list.",
+	"Method": "void beanProcessed(T bean,C context){\r\n    beans.add(bean);\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.filter.swing.SwingFileFilterFactory.newVideoFileFilter",
+	"Comment": "create a new file name extension filter that accepts video files.",
+	"Method": "FileFilter newVideoFileFilter(){\r\n    return new SwingFileFilter(VIDEO_FILTER_DESCRIPTION, new VideoFileFilter());\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.fields.FieldConversionMapping.applyConversionsOnFieldIndexes",
+	"Comment": "applies a sequence of conversions on a selection of field indexes",
+	"Method": "FieldSet<Integer> applyConversionsOnFieldIndexes(Conversion<String, ?> conversions){\r\n    return fieldIndexConversionMapping.registerConversions(conversions);\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.player.embedded.DefaultFullScreenStrategy.getScreenDevice",
+	"Comment": "get the desired screen device.the default implementation simply returns the default screen device.",
+	"Method": "GraphicsDevice getScreenDevice(){\r\n    logger.debug(\"getScreenDevice()\");\r\n    return GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();\r\n}"
+}, {
+	"Path": "com.linkedin.urls.UrlUtil.encode",
+	"Comment": "replaces all special characters in the url with hex strings.",
+	"Method": "String encode(String url){\r\n    StringBuilder encoder = new StringBuilder();\r\n    for (char chr : url.toCharArray()) {\r\n        byte chrByte = (byte) chr;\r\n        if ((chrByte <= 32 || chrByte >= 127 || chr == '#' || chr == '%')) {\r\n            encoder.append(String.format(\"%%X\", chrByte));\r\n        } else {\r\n            encoder.append(chr);\r\n        }\r\n    }\r\n    return encoder.toString();\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.log.NativeLog.destroyInstance",
+	"Comment": "destroy the native resources and shut down the log component.",
+	"Method": "void destroyInstance(){\r\n    logger.debug(\"destroyInstance()\");\r\n    libvlc.libvlc_log_unset(instance);\r\n    eventListenerList.clear();\r\n    logger.debug(\"Shut down listeners...\");\r\n    listenersService.shutdown();\r\n    logger.debug(\"Listeners shut down.\");\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.DataProcessingException.getValue",
+	"Comment": "returns the value being processed when the error occurred, if available.",
+	"Method": "Object getValue(){\r\n    if (errorContentLength == 0) {\r\n        return null;\r\n    }\r\n    if (value != null) {\r\n        return value;\r\n    }\r\n    if (row != null && columnIndex != -1 && columnIndex < row.length) {\r\n        return row[columnIndex];\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.processor.core.AbstractObjectListProcessor.rowProcessed",
+	"Comment": "stores the row extracted by the parser and them converted to an object array into a list.",
+	"Method": "void rowProcessed(Object[] row,T context){\r\n    rows.add(row);\r\n}"
+}, {
+	"Path": "com.univocity.parsers.conversions.NullStringConversion.execute",
+	"Comment": "converts an object to null. the string representation of the object will be used to match the string elements provided in the constructor.",
+	"Method": "Object execute(Object input){\r\n    if (input == null) {\r\n        return null;\r\n    }\r\n    if (nullStrings.contains(String.valueOf(input))) {\r\n        return null;\r\n    }\r\n    return input;\r\n}"
+}, {
+	"Path": "com.bstek.urule.console.repository.database.DbPersistenceManager.getUser",
+	"Comment": "returns the configured user that is used to establish jdbc connections.",
+	"Method": "String getUser(){\r\n    return user;\r\n}"
+}, {
+	"Path": "org.togglz.core.context.ThreadLocalFeatureManagerProviderTest.before",
+	"Comment": "binds a featuremanager to the thread before starting each test",
+	"Method": "void before(){\r\n    FeatureManager featureManager = new FeatureManagerBuilder().featureEnum(MyFeature.class).stateRepository(new InMemoryStateRepository()).userProvider(new NoOpUserProvider()).build();\r\n    ThreadLocalFeatureManagerProvider.bind(featureManager);\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.fields.FieldEnumSelector.getFieldIndex",
+	"Comment": "returns the position of a given column represented by an enumeration value.",
+	"Method": "int getFieldIndex(Enum column){\r\n    return names.getFieldIndex(column.toString());\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.TextParsingException.getCharIndex",
+	"Comment": "returns the location of the last character read from before the error occurred.",
+	"Method": "long getCharIndex(){\r\n    return charIndex;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.CommonParserSettings.isLineSeparatorDetectionEnabled",
+	"Comment": "indicates whether the parser should detect the line separator automatically.",
+	"Method": "boolean isLineSeparatorDetectionEnabled(){\r\n    return lineSeparatorDetectionEnabled;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.csv.CsvFormatDetector.getChar",
+	"Comment": "returns the character with the highest or lowest associated number.",
+	"Method": "char getChar(Map<Character, Integer> map,Map<Character, Integer> totals,char defaultChar,boolean min){\r\n    int val = min ? Integer.MAX_VALUE : Integer.MIN_VALUE;\r\n    for (Entry<Character, Integer> e : map.entrySet()) {\r\n        int sum = e.getValue();\r\n        if ((min && sum <= val) || (!min && sum >= val)) {\r\n            char newChar = e.getKey();\r\n            if (val == sum) {\r\n                Integer currentTotal = totals.get(defaultChar);\r\n                Integer newTotal = totals.get(newChar);\r\n                if (currentTotal != null && newTotal != null) {\r\n                    if ((min && newTotal > currentTotal) || (!min && newTotal > currentTotal)) {\r\n                        defaultChar = newChar;\r\n                    }\r\n                } else if (isSymbol(newChar)) {\r\n                    defaultChar = newChar;\r\n                }\r\n            } else {\r\n                val = sum;\r\n                defaultChar = newChar;\r\n            }\r\n        }\r\n    }\r\n    return defaultChar;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.input.LookaheadCharInputReader.matches",
+	"Comment": "matches a sequence of characters against the current lookahead buffer.",
+	"Method": "boolean matches(char current,char[] sequence,char wildcard,boolean matches,char[] sequence,char wildcard){\r\n    if (sequence.length > length - start) {\r\n        return false;\r\n    }\r\n    for (int i = 0; i < sequence.length; i++) {\r\n        char ch = sequence[i];\r\n        if (ch != wildcard && sequence[i] != lookahead[i + start]) {\r\n            return false;\r\n        }\r\n    }\r\n    return true;\r\n}"
+}, {
+	"Path": "org.hongxi.whatsmars.tomcat.connector.HttpRequest.parseParameters",
+	"Comment": "parse the parameters of this request, if it has not already occurred.if parameters are present in both the query string and the requestcontent, they are merged.",
+	"Method": "void parseParameters(){\r\n    if (parsed)\r\n        return;\r\n    ParameterMap results = parameters;\r\n    if (results == null)\r\n        results = new ParameterMap();\r\n    results.setLocked(false);\r\n    String encoding = getCharacterEncoding();\r\n    if (encoding == null)\r\n        encoding = \"ISO-8859-1\";\r\n    String queryString = getQueryString();\r\n    try {\r\n    } catch (Exception e) {\r\n        ;\r\n    }\r\n    String contentType = getContentType();\r\n    if (contentType == null)\r\n        contentType = \"\";\r\n    int semicolon = contentType.indexOf(';');\r\n    if (semicolon >= 0) {\r\n        contentType = contentType.substring(0, semicolon).trim();\r\n    } else {\r\n        contentType = contentType.trim();\r\n    }\r\n    if (\"POST\".equals(getMethod()) && (getContentLength() > 0) && \"application/x-www-form-urlencoded\".equals(contentType)) {\r\n        try {\r\n            int max = getContentLength();\r\n            int len = 0;\r\n            byte[] buf = new byte[getContentLength()];\r\n            ServletInputStream is = getInputStream();\r\n            while (len < max) {\r\n                int next = is.read(buf, len, max - len);\r\n                if (next < 0) {\r\n                    break;\r\n                }\r\n                len += next;\r\n            }\r\n            is.close();\r\n            if (len < max) {\r\n                throw new RuntimeException(\"Content length mismatch\");\r\n            }\r\n        } catch (UnsupportedEncodingException ue) {\r\n            ;\r\n        } catch (IOException e) {\r\n            throw new RuntimeException(\"Content read fail\");\r\n        }\r\n    }\r\n    results.setLocked(true);\r\n    parsed = true;\r\n    parameters = results;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.routine.AbstractRoutines.setParserSettings",
+	"Comment": "defines the parser configuration to be used by the routines of this utility class.",
+	"Method": "void setParserSettings(P parserSettings){\r\n    this.parserSettings = parserSettings;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.json.JSONArray.optLong",
+	"Comment": "get the optional long value associated with an index. the defaultvalue is returned if there is no value for theindex, or if the value is not a number and cannot be converted to a number.",
+	"Method": "long optLong(int index,long optLong,int index,long defaultValue){\r\n    try {\r\n        return this.getLong(index);\r\n    } catch (Exception e) {\r\n        return defaultValue;\r\n    }\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.json.JSONObject.optInt",
+	"Comment": "get an optional int value associated with a key, or the default if there is no such key or if the value is not anumber. if the value is a string, an attempt will be made to evaluate it as a number.",
+	"Method": "int optInt(String key,int optInt,String key,int defaultValue){\r\n    try {\r\n        return this.getInt(key);\r\n    } catch (Exception e) {\r\n        return defaultValue;\r\n    }\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.player.list.DefaultMediaListPlayer.attachVideoSurface",
+	"Comment": "if there is an associated media player then make sure the video surface is attached.",
+	"Method": "void attachVideoSurface(){\r\n    if (mediaPlayer instanceof EmbeddedMediaPlayer) {\r\n        ((EmbeddedMediaPlayer) mediaPlayer).attachVideoSurface();\r\n    }\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.template.formatter.FieldsMetadata.getFieldsAsTextStyling",
+	"Comment": "returns list of fields name which can contains text styling.",
+	"Method": "Collection<FieldMetadata> getFieldsAsTextStyling(){\r\n    if (sortedFieldsAsTextStyling == null) {\r\n        sortedFieldsAsTextStyling = new ArrayList<FieldMetadata>(fieldsAsTextStyling.values());\r\n        Collections.sort(sortedFieldsAsTextStyling, FieldsMetadataComparator.getInstance());\r\n    }\r\n    return sortedFieldsAsTextStyling;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.AbstractParser.parseAll",
+	"Comment": "parses all records from an input stream and returns them in a list.",
+	"Method": "List<String[]> parseAll(int expectedRowCount,List<String[]> parseAll,List<String[]> parseAll,Reader reader,List<String[]> parseAll,Reader reader,int expectedRowCount,List<String[]> parseAll,File file,int expectedRowCount,List<String[]> parseAll,File file,String encoding,int expectedRowCount,List<String[]> parseAll,File file,Charset encoding,int expectedRowCount,List<String[]> parseAll,InputStream input,int expectedRowCount,List<String[]> parseAll,InputStream input,String encoding,int expectedRowCount,List<String[]> parseAll,InputStream input,Charset encoding,int expectedRowCount,List<String[]> parseAll,File file,List<String[]> parseAll,File file,String encoding,List<String[]> parseAll,File file,Charset encoding,List<String[]> parseAll,InputStream input,List<String[]> parseAll,InputStream input,String encoding,List<String[]> parseAll,InputStream input,Charset encoding){\r\n    return parseAll(ArgumentUtils.newReader(input, encoding));\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.core.utils.StringUtils.replaceAll",
+	"Comment": "replace the oldstring by the newstring in the line and returns the result.",
+	"Method": "String replaceAll(String line,String oldString,String newString){\r\n    int i = 0;\r\n    if ((i = line.indexOf(oldString, i)) >= 0) {\r\n        char[] line2 = line.toCharArray();\r\n        char[] newString2 = newString.toCharArray();\r\n        int oLength = oldString.length();\r\n        StringBuilder buf = new StringBuilder(line2.length);\r\n        buf.append(line2, 0, i).append(newString2);\r\n        i += oLength;\r\n        int j;\r\n        for (j = i; (i = line.indexOf(oldString, i)) > 0; j = i) {\r\n            buf.append(line2, j, i - j).append(newString2);\r\n            i += oLength;\r\n        }\r\n        buf.append(line2, j, line2.length - j);\r\n        return buf.toString();\r\n    } else {\r\n        return line;\r\n    }\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.preprocessor.sax.ProcessRowResult.getEndLoopDirective",
+	"Comment": "returns the end loop directive if process row has modified the content and null otherwise.",
+	"Method": "String getEndLoopDirective(){\r\n    return endLoopDirective;\r\n}"
+}, {
+	"Path": "com.linkedin.urls.detection.InputTextReader.canReadChars",
+	"Comment": "returns true if the reader has more the specified number of chars.",
+	"Method": "boolean canReadChars(int numberChars){\r\n    return _content.length >= _index + numberChars;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.fields.FieldConversionMapping.applyConversions",
+	"Comment": "applies a sequence of conversions associated with a string value parsed from a given index.",
+	"Method": "Object applyConversions(int index,String stringValue,boolean[] convertedFlags){\r\n    List<Conversion<?, ?>> conversions = conversionsByIndex.get(index);\r\n    if (conversions != null) {\r\n        if (convertedFlags != null) {\r\n            convertedFlags[index] = true;\r\n        }\r\n        Object result = stringValue;\r\n        for (Conversion conversion : conversions) {\r\n            try {\r\n                result = conversion.execute(result);\r\n            } catch (DataProcessingException ex) {\r\n                ex.setColumnIndex(index);\r\n                ex.markAsNonFatal();\r\n                throw ex;\r\n            } catch (Throwable ex) {\r\n                DataProcessingException exception = new DataProcessingException(\"Error converting value '{value}' using conversion \" + conversion.getClass().getName(), ex);\r\n                exception.setValue(result);\r\n                exception.setColumnIndex(index);\r\n                exception.markAsNonFatal();\r\n                throw exception;\r\n            }\r\n        }\r\n        return result;\r\n    }\r\n    return stringValue;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.tools.remoting.resources.FileUtils.isFileOlder",
+	"Comment": "tests if the specified file is older than the specifiedtime reference.",
+	"Method": "boolean isFileOlder(File file,File reference,boolean isFileOlder,File file,Date date,boolean isFileOlder,File file,long timeMillis){\r\n    if (file == null) {\r\n        throw new IllegalArgumentException(\"No specified file\");\r\n    }\r\n    if (!file.exists()) {\r\n        return false;\r\n    }\r\n    return file.lastModified() < timeMillis;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.TextWritingException.getRecordCount",
+	"Comment": "returns the number of records written before the exception occurred.",
+	"Method": "long getRecordCount(){\r\n    return recordCount;\r\n}"
+}, {
+	"Path": "fr.opensagres.odfdom.converter.core.utils.ByteArrayOutputStream.toByteArray",
+	"Comment": "gets the curent contents of this byte stream as a byte array. the result is independent of this stream.",
+	"Method": "byte[] toByteArray(){\r\n    int remaining = count;\r\n    if (remaining == 0) {\r\n        return EMPTY_BYTE_ARRAY;\r\n    }\r\n    byte[] newbuf = new byte[remaining];\r\n    int pos = 0;\r\n    for (int i = 0; i < buffers.size(); i++) {\r\n        byte[] buf = getBuffer(i);\r\n        int c = Math.min(buf.length, remaining);\r\n        System.arraycopy(buf, 0, newbuf, pos, c);\r\n        pos += c;\r\n        remaining -= c;\r\n        if (remaining == 0) {\r\n            break;\r\n        }\r\n    }\r\n    return newbuf;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.record.AbstractRecordFactory.getRecordMetaData",
+	"Comment": "returns the metadata information associated with the records generated by this factory class",
+	"Method": "M getRecordMetaData(){\r\n    return metaData;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.odt.ODTUtils.isODT",
+	"Comment": "returns true if the given document archive is a odt and false otherwise.",
+	"Method": "boolean isODT(XDocArchive documentArchive){\r\n    try {\r\n        if (!documentArchive.hasEntry(MIMETYPE)) {\r\n            return false;\r\n        }\r\n        return ODT_MIMETYPE.equals(IOUtils.toString(documentArchive.getEntryReader(MIMETYPE)));\r\n    } catch (IOException e) {\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "fr.opensagres.odfdom.converter.pdf.PdfOptions.fontEncoding",
+	"Comment": "set font encoding to use when retrieving fonts. the default value is unicode encoding",
+	"Method": "PdfOptions fontEncoding(String fontEncoding){\r\n    this.fontEncoding = fontEncoding;\r\n    return this;\r\n}"
+}, {
+	"Path": "fr.opensagres.web.servlet.view.xdocreport.XDocReportView.getConvertTo",
+	"Comment": "return convert to if the report should be converted to other format and null otherwise.",
+	"Method": "String getConvertTo(){\r\n    return convertTo;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.sql.SQLDataProvider.getColumnCount",
+	"Comment": "returns the column count. override this method if your jdbc driver cannot support that.",
+	"Method": "int getColumnCount(ResultSet rs){\r\n    return rs.getMetaData().getColumnCount();\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.routine.AbstractRoutines.setWriterSettings",
+	"Comment": "defines the writer configuration to be used by the routines of this utility class.",
+	"Method": "void setWriterSettings(W writerSettings){\r\n    this.writerSettings = writerSettings;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.AbstractParser.getInputAnalysisProcess",
+	"Comment": "allows the parser implementation to traverse the input buffer before the parsing process starts, in order to enable automatic configuration and discovery of data formats.",
+	"Method": "InputAnalysisProcess getInputAnalysisProcess(){\r\n    return null;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.processor.MasterDetailRecord.getDetailRows",
+	"Comment": "returns the detail rows which are associated with the master row",
+	"Method": "List<Object[]> getDetailRows(){\r\n    return detailRows;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.json.JSONTokener.nextString",
+	"Comment": "return the characters up to the next close quote character. backslash processing is done. the formal json formatdoes not allow strings in single quotes, but an implementation is allowed to accept them.",
+	"Method": "String nextString(char quote){\r\n    char c;\r\n    StringBuilder sb = new StringBuilder();\r\n    for (; ; ) {\r\n        c = this.next();\r\n        switch(c) {\r\n            case 0:\r\n            case '\\n':\r\n            case '\\r':\r\n                throw this.syntaxError(\"Unterminated string\");\r\n            case '\\\\':\r\n                c = this.next();\r\n                switch(c) {\r\n                    case 'b':\r\n                        sb.append('\\b');\r\n                        break;\r\n                    case 't':\r\n                        sb.append('\\t');\r\n                        break;\r\n                    case 'n':\r\n                        sb.append('\\n');\r\n                        break;\r\n                    case 'f':\r\n                        sb.append('\\f');\r\n                        break;\r\n                    case 'r':\r\n                        sb.append('\\r');\r\n                        break;\r\n                    case 'u':\r\n                        sb.append((char) Integer.parseInt(this.next(4), 16));\r\n                        break;\r\n                    case '\"':\r\n                    case '\\'':\r\n                    case '\\\\':\r\n                    case '/':\r\n                        sb.append(c);\r\n                        break;\r\n                    default:\r\n                        throw this.syntaxError(\"Illegal escape.\");\r\n                }\r\n                break;\r\n            default:\r\n                if (c == quote) {\r\n                    return sb.toString();\r\n                }\r\n                sb.append(c);\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "com.bstek.urule.console.repository.database.DbPersistenceManager.setMinBlobSize",
+	"Comment": "sets the minimum blob size. this size defines the threshold of whichsize a property is included in the bundle or is stored in the blob store.",
+	"Method": "void setMinBlobSize(String minBlobSize){\r\n    this.minBlobSize = Integer.decode(minBlobSize).intValue();\r\n}"
+}, {
+	"Path": "com.univocity.parsers.annotations.helpers.FieldMapping.getFieldName",
+	"Comment": "returns the column name against which this field is mapped.",
+	"Method": "String getFieldName(){\r\n    return fieldName;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.core.utils.DOMUtils.getFirstChildElementByTagName",
+	"Comment": "returns the first child element retrieved by tag name from the parent node and null otherwise.",
+	"Method": "Element getFirstChildElementByTagName(Node parentNode,String elementName){\r\n    Element result = null;\r\n    if (parentNode.getNodeType() == Node.DOCUMENT_NODE) {\r\n        result = ((Document) parentNode).getDocumentElement();\r\n        if (!result.getNodeName().equals(elementName)) {\r\n            result = null;\r\n        }\r\n    } else {\r\n        NodeList nodes = parentNode.getChildNodes();\r\n        Node node;\r\n        for (int i = 0; i < nodes.getLength(); i++) {\r\n            node = nodes.item(i);\r\n            if (node.getNodeType() == Node.ELEMENT_NODE && node.getNodeName().equals(elementName)) {\r\n                result = (Element) node;\r\n                break;\r\n            }\r\n        }\r\n    }\r\n    return result;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.fields.FieldConversionMapping.reverseConversions",
+	"Comment": "applies a sequence of conversions associated with an object value at a given index in a record.",
+	"Method": "Object reverseConversions(boolean executeInReverseOrder,int index,Object value,boolean[] convertedFlags){\r\n    List<Conversion<?, ?>> conversions = conversionsByIndex.get(index);\r\n    if (conversions != null) {\r\n        if (convertedFlags != null) {\r\n            convertedFlags[index] = true;\r\n        }\r\n        Conversion conversion = null;\r\n        try {\r\n            if (executeInReverseOrder) {\r\n                for (int i = conversions.size() - 1; i >= 0; i--) {\r\n                    conversion = conversions.get(i);\r\n                    value = conversion.revert(value);\r\n                }\r\n            } else {\r\n                for (Conversion<?, ?> c : conversions) {\r\n                    conversion = c;\r\n                    value = conversion.revert(value);\r\n                }\r\n            }\r\n        } catch (DataProcessingException ex) {\r\n            ex.setValue(value);\r\n            ex.setColumnIndex(index);\r\n            ex.markAsNonFatal();\r\n            throw ex;\r\n        } catch (Throwable ex) {\r\n            DataProcessingException exception;\r\n            if (conversion != null) {\r\n                exception = new DataProcessingException(\"Error converting value '{value}' using conversion \" + conversion.getClass().getName(), ex);\r\n            } else {\r\n                exception = new DataProcessingException(\"Error converting value '{value}'\", ex);\r\n            }\r\n            exception.setValue(value);\r\n            exception.setColumnIndex(index);\r\n            exception.markAsNonFatal();\r\n            throw exception;\r\n        }\r\n    }\r\n    return value;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.DataProcessingException.setColumnName",
+	"Comment": "defines the name of the column being processed when the error occurred.",
+	"Method": "void setColumnName(String columnName){\r\n    this.columnName = columnName;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.Generator.getTemplateEngine",
+	"Comment": "returns the template engine from request and otherwise returns the default template engine.",
+	"Method": "ITemplateEngine getTemplateEngine(String reportId,In request,ITemplateEngine getTemplateEngine,IXDocReport report,In request,ITemplateEngine getTemplateEngine,In request){\r\n    String templateEngineId = getTemplateEngineId(request);\r\n    if (StringUtils.isNotEmpty(templateEngineId)) {\r\n        return TemplateEngineInitializerRegistry.getRegistry().getTemplateEngine(templateEngineId);\r\n    }\r\n    return TemplateEngineRegistry.getRegistry().getDefaultTemplateEngine();\r\n}"
+}, {
+	"Path": "com.linkedin.urls.detection.InputTextReader.peek",
+	"Comment": "peeks at the next number of chars and returns as a string without incrementing the current index.",
+	"Method": "String peek(int numberChars){\r\n    return new String(_content, _index, numberChars);\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.json.JSONWriter.endArray",
+	"Comment": "end an array. this method most be called to balance calls to array.",
+	"Method": "JSONWriter endArray(){\r\n    return this.end('a', ']');\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.processor.OutputValueSwitch.getColumnIndex",
+	"Comment": "returns the column index whose values will be used to switching from a row processor to another.",
+	"Method": "int getColumnIndex(){\r\n    return columnIndex;\r\n}"
+}, {
+	"Path": "com.linkedin.urls.detection.DomainNameReader.checkDomainNameValid",
+	"Comment": "checks the current state of this object and returns if the valid state indicates that theobject has a valid domain name. if it does, it will return append the last characterand return the validstate specified.",
+	"Method": "ReaderNextState checkDomainNameValid(ReaderNextState validState,Character lastChar){\r\n    boolean valid = false;\r\n    int lastDotLength = _buffer.length() > 3 && _buffer.substring(_buffer.length() - 3).equalsIgnoreCase(\"%\" + HEX_ENCODED_DOT) ? 3 : 1;\r\n    int domainLength = _buffer.length() - _startDomainName + (_currentLabelLength > 0 ? lastDotLength : 0);\r\n    int dotCount = _dots + (_currentLabelLength > 0 ? 1 : 0);\r\n    if (domainLength >= MAX_DOMAIN_LENGTH || (dotCount > MAX_NUMBER_LABELS)) {\r\n        valid = false;\r\n    } else if (_numeric) {\r\n        String testDomain = _buffer.substring(_startDomainName).toLowerCase();\r\n        valid = isValidIpv4(testDomain);\r\n    } else if (_seenBracket) {\r\n        String testDomain = _buffer.substring(_startDomainName).toLowerCase();\r\n        valid = isValidIpv6(testDomain);\r\n    } else if ((_currentLabelLength > 0 && _dots >= 1) || (_dots >= 2 && _currentLabelLength == 0) || (_options.hasFlag(UrlDetectorOptions.ALLOW_SINGLE_LEVEL_DOMAIN) && _dots == 0)) {\r\n        int topStart = _buffer.length() - _topLevelLength;\r\n        if (_currentLabelLength == 0) {\r\n            topStart--;\r\n        }\r\n        topStart = Math.max(topStart, 0);\r\n        String topLevelStart = _buffer.substring(topStart, topStart + Math.min(4, _buffer.length() - topStart));\r\n        valid = ((topLevelStart.equalsIgnoreCase(\"xn--\") || (_topLevelLength >= MIN_TOP_LEVEL_DOMAIN && _topLevelLength <= MAX_TOP_LEVEL_DOMAIN)));\r\n    }\r\n    if (valid) {\r\n        if (lastChar != null) {\r\n            _buffer.append(lastChar);\r\n        }\r\n        return validState;\r\n    }\r\n    _reader.goBack();\r\n    return ReaderNextState.InvalidDomainName;\r\n}"
+}, {
+	"Path": "com.bstek.urule.console.repository.database.DbPersistenceManager.setSchemaObjectPrefix",
+	"Comment": "sets the schema object prefix. this string is used to prefix all schemaobjects, like tables and indexes. this is useful, if several persistencemanagers use the same database.",
+	"Method": "void setSchemaObjectPrefix(String schemaObjectPrefix){\r\n    this.schemaObjectPrefix = schemaObjectPrefix.toUpperCase();\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.AbstractWriter.updateIndexesToWrite",
+	"Comment": "update indexes to write based on the field selection provided by the user.",
+	"Method": "void updateIndexesToWrite(CommonSettings<?> settings){\r\n    FieldSelector selector = settings.getFieldSelector();\r\n    if (selector != null) {\r\n        if (headers != null && headers.length > 0) {\r\n            indexesToWrite = selector.getFieldIndexes(headers);\r\n            if (columnReorderingEnabled) {\r\n                outputRow = new Object[indexesToWrite.length];\r\n            } else {\r\n                outputRow = new Object[headers.length];\r\n            }\r\n        } else if (!(selector instanceof FieldNameSelector) && !(selector instanceof ExcludeFieldNameSelector)) {\r\n            int rowLength = largestRowLength;\r\n            if ((selector instanceof FieldIndexSelector)) {\r\n                boolean gotLengthFromSelection = false;\r\n                for (Integer index : ((FieldIndexSelector) selector).get()) {\r\n                    if (rowLength <= index) {\r\n                        rowLength = index;\r\n                        gotLengthFromSelection = true;\r\n                    }\r\n                }\r\n                if (gotLengthFromSelection) {\r\n                    rowLength++;\r\n                }\r\n                if (rowLength < largestRowLength) {\r\n                    rowLength = largestRowLength;\r\n                }\r\n            } else {\r\n                rowLength = settings.getMaxColumns();\r\n            }\r\n            indexesToWrite = selector.getFieldIndexes(new String[rowLength]);\r\n            if (columnReorderingEnabled) {\r\n                outputRow = new Object[indexesToWrite.length];\r\n            } else {\r\n                outputRow = new Object[rowLength];\r\n            }\r\n        } else {\r\n            throw new IllegalStateException(\"Cannot select fields by name with no headers defined\");\r\n        }\r\n    } else {\r\n        outputRow = null;\r\n        indexesToWrite = null;\r\n    }\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.json.JSONObject.optJSONObject",
+	"Comment": "get an optional jsonobject associated with a key. it returns null if there is no such key, or if its value is nota jsonobject.",
+	"Method": "JSONObject optJSONObject(String key){\r\n    Object object = this.opt(key);\r\n    return object instanceof JSONObject ? (JSONObject) object : null;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.routine.AbstractRoutines.setKeepResourcesOpen",
+	"Comment": "allows preventing resources used for writing from being closed after being\tused by the routines available from this object, when applicable.",
+	"Method": "void setKeepResourcesOpen(boolean keepResourcesOpen){\r\n    this.keepResourcesOpen = keepResourcesOpen;\r\n}"
+}, {
+	"Path": "com.linkedin.urls.detection.DomainNameReader.isValidIpv4",
+	"Comment": "handles hexadecimal, octal, decimal, dotted decimal, dotted hex, dotted octal.",
+	"Method": "boolean isValidIpv4(String testDomain){\r\n    boolean valid = false;\r\n    if (testDomain.length() > 0) {\r\n        if (_dots == 0) {\r\n            try {\r\n                long value;\r\n                if (testDomain.length() > 2 && testDomain.charAt(0) == '0' && testDomain.charAt(1) == 'x') {\r\n                    value = Long.parseLong(testDomain.substring(2), 16);\r\n                } else if (testDomain.charAt(0) == '0') {\r\n                    value = Long.parseLong(testDomain.substring(1), 8);\r\n                } else {\r\n                    value = Long.parseLong(testDomain);\r\n                }\r\n                valid = value <= MAX_NUMERIC_DOMAIN_VALUE && value >= MIN_NUMERIC_DOMAIN_VALUE;\r\n            } catch (NumberFormatException e) {\r\n                valid = false;\r\n            }\r\n        } else if (_dots == 3) {\r\n            String[] parts = CharUtils.splitByDot(testDomain);\r\n            valid = true;\r\n            for (int i = 0; i < parts.length && valid; i++) {\r\n                String part = parts[i];\r\n                if (part.length() > 0) {\r\n                    String parsedNum;\r\n                    int base;\r\n                    if (part.length() > 2 && part.charAt(0) == '0' && part.charAt(1) == 'x') {\r\n                        parsedNum = part.substring(2);\r\n                        base = 16;\r\n                    } else if (part.charAt(0) == '0') {\r\n                        parsedNum = part.substring(1);\r\n                        base = 8;\r\n                    } else {\r\n                        parsedNum = part;\r\n                        base = 10;\r\n                    }\r\n                    Integer section;\r\n                    if (parsedNum.length() == 0) {\r\n                        section = 0;\r\n                    } else {\r\n                        try {\r\n                            section = Integer.parseInt(parsedNum, base);\r\n                        } catch (NumberFormatException e) {\r\n                            return false;\r\n                        }\r\n                    }\r\n                    if (section < MIN_IP_PART || section > MAX_IP_PART) {\r\n                        valid = false;\r\n                    }\r\n                } else {\r\n                    valid = false;\r\n                }\r\n            }\r\n        }\r\n    }\r\n    return valid;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.json.JSONTokener.back",
+	"Comment": "back up one character. this provides a sort of lookahead capability, so that you can test for a digit or letterbefore attempting to parse the next number or identifier.",
+	"Method": "void back(){\r\n    if (this.usePrevious || this.index <= 0) {\r\n        throw new JSONException(\"Stepping back two steps is not supported\");\r\n    }\r\n    this.index -= 1;\r\n    this.character -= 1;\r\n    this.usePrevious = true;\r\n    this.eof = false;\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.player.Logo.apply",
+	"Comment": "apply the logo to the media player.all previously applied properties will be set on the media player.",
+	"Method": "void apply(MediaPlayer mediaPlayer){\r\n    if (intOpacity != null) {\r\n        mediaPlayer.setLogoOpacity(intOpacity);\r\n    }\r\n    if (floatOpacity != null) {\r\n        mediaPlayer.setLogoOpacity(floatOpacity);\r\n    }\r\n    if (x != null && y != null && x >= 0 && y >= 0) {\r\n        mediaPlayer.setLogoLocation(x, y);\r\n    }\r\n    if (position != null) {\r\n        mediaPlayer.setLogoPosition(position);\r\n    }\r\n    if (file != null) {\r\n        mediaPlayer.setLogoFile(file);\r\n    }\r\n    if (image != null) {\r\n        mediaPlayer.setLogoImage(image);\r\n    }\r\n    if (enable) {\r\n        mediaPlayer.enableLogo(true);\r\n    }\r\n}"
+}, {
+	"Path": "com.univocity.parsers.csv.CsvParserSettings.createDefaultFormat",
+	"Comment": "returns the default csvformat configured to handle csv inputs compliant to the rfc4180 standard.",
+	"Method": "CsvFormat createDefaultFormat(){\r\n    return new CsvFormat();\r\n}"
+}, {
+	"Path": "com.univocity.parsers.annotations.helpers.AnnotationHelper.getAnnotatedMethods",
+	"Comment": "returns all methods available from a given class that have an annotation.",
+	"Method": "List<Method> getAnnotatedMethods(Class<?> beanClass,MethodFilter filter,Class<A> annotationType,List<Method> getAnnotatedMethods,Class<?> beanClass,MethodFilter filter){\r\n    return getAnnotatedMethods(beanClass, filter, null);\r\n}"
+}, {
+	"Path": "com.linkedin.urls.detection.UrlDetector.checkMatchingCharacter",
+	"Comment": "increments the counter for the characters seen and return if this character matches a special characterthat might require stopping reading the url.",
+	"Method": "CharacterMatch checkMatchingCharacter(char curr){\r\n    if ((curr == '\\\"' && _options.hasFlag(UrlDetectorOptions.QUOTE_MATCH)) || (curr == '\\'' && _options.hasFlag(UrlDetectorOptions.SINGLE_QUOTE_MATCH))) {\r\n        boolean quoteStart;\r\n        if (curr == '\\\"') {\r\n            quoteStart = _quoteStart;\r\n            _quoteStart = true;\r\n        } else {\r\n            quoteStart = _singleQuoteStart;\r\n            _singleQuoteStart = true;\r\n        }\r\n        Integer currVal = getCharacterCount(curr) + 1;\r\n        _characterMatch.put(curr, currVal);\r\n        return quoteStart || currVal % 2 == 0 ? CharacterMatch.CharacterMatchStop : CharacterMatch.CharacterMatchStart;\r\n    } else if (_options.hasFlag(UrlDetectorOptions.BRACKET_MATCH) && (curr == '[' || curr == '{' || curr == '(')) {\r\n        _characterMatch.put(curr, getCharacterCount(curr) + 1);\r\n        return CharacterMatch.CharacterMatchStart;\r\n    } else if (_options.hasFlag(UrlDetectorOptions.XML) && (curr == '<')) {\r\n        _characterMatch.put(curr, getCharacterCount(curr) + 1);\r\n        return CharacterMatch.CharacterMatchStart;\r\n    } else if ((_options.hasFlag(UrlDetectorOptions.BRACKET_MATCH) && (curr == ']' || curr == '}' || curr == ')')) || (_options.hasFlag(UrlDetectorOptions.XML) && (curr == '>'))) {\r\n        Integer currVal = getCharacterCount(curr) + 1;\r\n        _characterMatch.put(curr, currVal);\r\n        char match = '\\0';\r\n        switch(curr) {\r\n            case ']':\r\n                match = '[';\r\n                break;\r\n            case '}':\r\n                match = '{';\r\n                break;\r\n            case ')':\r\n                match = '(';\r\n                break;\r\n            case '>':\r\n                match = '<';\r\n                break;\r\n            default:\r\n                break;\r\n        }\r\n        return getCharacterCount(match) > currVal ? CharacterMatch.CharacterMatchStop : CharacterMatch.CharacterMatchStart;\r\n    }\r\n    return CharacterMatch.CharacterNotMatched;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.converter.ConverterTo.getDefaultConverter",
+	"Comment": "returns the default converter or the first converter if none default converter.",
+	"Method": "IConverter getDefaultConverter(){\r\n    IConverter defaultConverter = null;\r\n    for (IConverter converter : getConvertersTo()) {\r\n        if (converter.isDefault()) {\r\n            return converter;\r\n        }\r\n        if (defaultConverter == null) {\r\n            defaultConverter = converter;\r\n        }\r\n    }\r\n    return defaultConverter;\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.binding.LibVlcFactory.atLeast",
+	"Comment": "request that the libvlc native library be of at least a particular version.",
+	"Method": "LibVlcFactory atLeast(String version){\r\n    this.requiredVersion = new Version(version);\r\n    return this;\r\n}"
+}, {
+	"Path": "fr.opensagres.odfdom.converter.core.utils.IOUtils.contentEquals",
+	"Comment": "compare the contents of two readers to determine if they are equal or not.this method buffers the input internally using bufferedreader if they are not already buffered.",
+	"Method": "boolean contentEquals(InputStream input1,InputStream input2,boolean contentEquals,Reader input1,Reader input2){\r\n    if (!(input1 instanceof BufferedReader)) {\r\n        input1 = new BufferedReader(input1);\r\n    }\r\n    if (!(input2 instanceof BufferedReader)) {\r\n        input2 = new BufferedReader(input2);\r\n    }\r\n    int ch = input1.read();\r\n    while (-1 != ch) {\r\n        int ch2 = input2.read();\r\n        if (ch != ch2) {\r\n            return false;\r\n        }\r\n        ch = input1.read();\r\n    }\r\n    int ch2 = input2.read();\r\n    return (ch2 == -1);\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.DataProcessingException.getColumnName",
+	"Comment": "returns the name of the column from where the error occurred, if available.",
+	"Method": "String getColumnName(){\r\n    if (columnName != null) {\r\n        return columnName;\r\n    }\r\n    String[] headers = getHeaders();\r\n    if (headers != null && getExtractedColumnIndex() != -1 && getExtractedColumnIndex() < headers.length) {\r\n        return headers[getExtractedColumnIndex()];\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.CommonParserSettings.setNumberOfRowsToSkip",
+	"Comment": "defines a number of rows to skip from the input before the parser can begin to execute.",
+	"Method": "void setNumberOfRowsToSkip(long numberOfRowsToSkip){\r\n    if (numberOfRowsToSkip < 0) {\r\n        throw new IllegalArgumentException(\"Number of rows to skip from the input must be 0 or greater\");\r\n    }\r\n    this.numberOfRowsToSkip = numberOfRowsToSkip;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.preprocessor.sax.TransformedBufferedDocumentContentHandler.processRowIfNeeded",
+	"Comment": "if a row parsing, replace fields name with well script to manage lazy loop for table row.",
+	"Method": "String processRowIfNeeded(String content,String processRowIfNeeded,String content,boolean forceAsField){\r\n    ProcessRowResult result = getProcessRowResult(content, forceAsField);\r\n    return result.getContent();\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.core.io.XDocArchive.getEntryNames",
+	"Comment": "returns the entry names of the xml document archive by using cache entries.",
+	"Method": "Set<String> getEntryNames(Set<String> getEntryNames,String wildcard){\r\n    if (cacheEntriesWilcard == null) {\r\n        cacheEntriesWilcard = new HashMap<String, Set<String>>();\r\n    }\r\n    Set<String> entryNamesWithWildcard = cacheEntriesWilcard.get(wildcard);\r\n    if (entryNamesWithWildcard != null) {\r\n        return entryNamesWithWildcard;\r\n    }\r\n    String regexp = wildcardToRegex(wildcard);\r\n    entryNamesWithWildcard = new HashSet<String>();\r\n    Set<String> entryNames = getEntryNames();\r\n    for (String entryName : entryNames) {\r\n        if (entryName.matches(regexp)) {\r\n            entryNamesWithWildcard.add(entryName);\r\n        }\r\n    }\r\n    cacheEntriesWilcard.put(wildcard, entryNamesWithWildcard);\r\n    return entryNamesWithWildcard;\r\n}"
+}, {
+	"Path": "org.hongxi.whatsmars.tomcat.connector.HttpRequestLine.recycle",
+	"Comment": "release all object references, and initialize instance variables, inpreparation for reuse of this object.",
+	"Method": "void recycle(){\r\n    methodEnd = 0;\r\n    uriEnd = 0;\r\n    protocolEnd = 0;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.core.utils.DOMUtils.getFirstChildElementsByTagName",
+	"Comment": "returns list of the first child element retrieved by tag name from the parent node and null otherwise.",
+	"Method": "Collection<Element> getFirstChildElementsByTagName(Node contextNode,String elementName){\r\n    Collection<Element> elements = null;\r\n    Element result = null;\r\n    if (contextNode.getNodeType() == Node.DOCUMENT_NODE) {\r\n        result = ((Document) contextNode).getDocumentElement();\r\n        if (!result.getNodeName().equals(elementName)) {\r\n            result = null;\r\n        }\r\n    } else {\r\n        NodeList nodes = contextNode.getChildNodes();\r\n        Node node;\r\n        for (int i = 0; i < nodes.getLength(); i++) {\r\n            node = nodes.item(i);\r\n            if (node.getNodeType() == Node.ELEMENT_NODE && node.getNodeName().equals(elementName)) {\r\n                if (elements == null) {\r\n                    elements = new ArrayList<Element>();\r\n                }\r\n                result = (Element) node;\r\n                elements.add(result);\r\n            }\r\n        }\r\n    }\r\n    if (elements == null) {\r\n        return Collections.emptyList();\r\n    }\r\n    return elements;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.core.io.internal.ByteArrayOutputStream.toString",
+	"Comment": "gets the curent contents of this byte stream as a string using the specified encoding.",
+	"Method": "String toString(String toString,String enc){\r\n    return new String(toByteArray(), enc);\r\n}"
+}, {
+	"Path": "fr.opensagres.poi.xwpf.converter.pdf.PdfOptions.fontEncoding",
+	"Comment": "set font encoding to use when retrieving fonts. the default value is underlying operating system encoding",
+	"Method": "PdfOptions fontEncoding(String fontEncoding){\r\n    this.fontEncoding = fontEncoding;\r\n    return this;\r\n}"
+}, {
+	"Path": "com.linkedin.urls.detection.InputTextReader.read",
+	"Comment": "reads a single char from the content stream and increments the index.",
+	"Method": "char read(){\r\n    char chr = _content[_index++];\r\n    return CharUtils.isWhiteSpace(chr) ? ' ' : chr;\r\n}"
+}, {
+	"Path": "com.linkedin.urls.detection.DomainNameReader.readDomainName",
+	"Comment": "reads the dns and returns the next state the state machine should take in throwing this out, or continue processingif this is a valid domain name.",
+	"Method": "ReaderNextState readDomainName(){\r\n    if (readCurrent() == ReaderNextState.InvalidDomainName) {\r\n        return ReaderNextState.InvalidDomainName;\r\n    }\r\n    boolean done = false;\r\n    while (!done && !_reader.eof()) {\r\n        char curr = _reader.read();\r\n        if (curr == '/') {\r\n            return checkDomainNameValid(ReaderNextState.ReadPath, curr);\r\n        } else if (curr == ':' && (!_seenBracket || _seenCompleteBracketSet)) {\r\n            return checkDomainNameValid(ReaderNextState.ReadPort, curr);\r\n        } else if (curr == '?') {\r\n            return checkDomainNameValid(ReaderNextState.ReadQueryString, curr);\r\n        } else if (curr == '#') {\r\n            return checkDomainNameValid(ReaderNextState.ReadFragment, curr);\r\n        } else if (CharUtils.isDot(curr) || (curr == '%' && _reader.canReadChars(2) && _reader.peek(2).equalsIgnoreCase(HEX_ENCODED_DOT))) {\r\n            if (_currentLabelLength < 1) {\r\n                done = true;\r\n            } else {\r\n                _buffer.append(curr);\r\n                if (!CharUtils.isDot(curr)) {\r\n                    _buffer.append(_reader.read());\r\n                    _buffer.append(_reader.read());\r\n                }\r\n                if (!_zoneIndex) {\r\n                    _dots++;\r\n                    _currentLabelLength = 0;\r\n                }\r\n                if (_currentLabelLength >= MAX_LABEL_LENGTH) {\r\n                    return ReaderNextState.InvalidDomainName;\r\n                }\r\n            }\r\n        } else if (_seenBracket && (CharUtils.isHex(curr) || curr == ':' || curr == '[' || curr == ']' || curr == '%') && !_seenCompleteBracketSet) {\r\n            switch(curr) {\r\n                case ':':\r\n                    _currentLabelLength = 0;\r\n                    break;\r\n                case '[':\r\n                    _reader.goBack();\r\n                    return ReaderNextState.InvalidDomainName;\r\n                case ']':\r\n                    _seenCompleteBracketSet = true;\r\n                    _zoneIndex = false;\r\n                    break;\r\n                case '%':\r\n                    _zoneIndex = true;\r\n                    break;\r\n                default:\r\n                    _currentLabelLength++;\r\n                    break;\r\n            }\r\n            _numeric = false;\r\n            _buffer.append(curr);\r\n        } else if (CharUtils.isAlphaNumeric(curr) || curr == '-' || curr >= INTERNATIONAL_CHAR_START) {\r\n            if (_seenCompleteBracketSet) {\r\n                _reader.goBack();\r\n                done = true;\r\n            } else {\r\n                if (curr != 'x' && curr != 'X' && !CharUtils.isNumeric(curr)) {\r\n                    _numeric = false;\r\n                }\r\n                _buffer.append(curr);\r\n                _currentLabelLength++;\r\n                _topLevelLength = _currentLabelLength;\r\n            }\r\n        } else if (curr == '[' && !_seenBracket) {\r\n            _seenBracket = true;\r\n            _numeric = false;\r\n            _buffer.append(curr);\r\n        } else if (curr == '[' && _seenCompleteBracketSet) {\r\n            _reader.goBack();\r\n            done = true;\r\n        } else if (curr == '%' && _reader.canReadChars(2) && CharUtils.isHex(_reader.peekChar(0)) && CharUtils.isHex(_reader.peekChar(1))) {\r\n            _buffer.append(curr);\r\n            _buffer.append(_reader.read());\r\n            _buffer.append(_reader.read());\r\n            _currentLabelLength += 3;\r\n            _topLevelLength = _currentLabelLength;\r\n        } else {\r\n            _characterHandler.addCharacter(curr);\r\n            done = true;\r\n        }\r\n    }\r\n    return checkDomainNameValid(ReaderNextState.ValidDomainName, null);\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.json.JSONWriter.key",
+	"Comment": "append a key. the key will be associated with the next value. in an object, every value must be preceded by akey.",
+	"Method": "JSONWriter key(String string){\r\n    if (string == null) {\r\n        throw new JSONException(\"Null key.\");\r\n    }\r\n    if (this.mode == 'k') {\r\n        try {\r\n            this.stack[this.top - 1].putOnce(string, Boolean.TRUE);\r\n            if (this.comma) {\r\n                this.writer.write(',');\r\n            }\r\n            this.writer.write(JSONObject.quote(string));\r\n            this.writer.write(':');\r\n            this.comma = false;\r\n            this.mode = 'o';\r\n            return this;\r\n        } catch (IOException e) {\r\n            throw new JSONException(e);\r\n        }\r\n    }\r\n    throw new JSONException(\"Misplaced key.\");\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.core.logging.LogUtils.getLogger",
+	"Comment": "get a logger with the associated default resource bundle for the class.",
+	"Method": "Logger getLogger(Class<?> cls,Logger getLogger,String name){\r\n    return createLogger(name);\r\n}"
+}, {
+	"Path": "com.univocity.parsers.csv.Csv.parseExcel",
+	"Comment": "provides a basic csv configuration that allows parsing csv files produced by microsoft excel.",
+	"Method": "CsvParserSettings parseExcel(){\r\n    CsvParserSettings settings = new CsvParserSettings();\r\n    settings.getFormat().setLineSeparator(\"\\r\\n\");\r\n    settings.getFormat().setComment('\\0');\r\n    settings.setParseUnescapedQuotes(false);\r\n    settings.setSkipEmptyLines(false);\r\n    settings.trimValues(false);\r\n    return settings;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.fields.ExcludeFieldIndexSelector.getFieldIndexes",
+	"Comment": "returns the indexes of any that are part of a sequence of headers but not part of the selection.",
+	"Method": "int[] getFieldIndexes(String[] columns){\r\n    if (columns == null) {\r\n        return null;\r\n    }\r\n    Set<Integer> chosenFields = new HashSet<Integer>(this.get());\r\n    for (Integer chosenIndex : chosenFields) {\r\n        if (chosenIndex >= columns.length || chosenIndex < 0) {\r\n            throw new IndexOutOfBoundsException(\"Exclusion index '\" + chosenIndex + \"' is out of bounds. It must be between '0' and '\" + (columns.length - 1) + '\\'');\r\n        }\r\n    }\r\n    int[] out = new int[columns.length - chosenFields.size()];\r\n    int j = 0;\r\n    for (int i = 0; i < columns.length; i++) {\r\n        if (!chosenFields.contains(i)) {\r\n            out[j++] = i;\r\n        }\r\n    }\r\n    return out;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.processor.core.BeanConversionProcessor.mapFieldsToValues",
+	"Comment": "iterates over all fields in the java bean instance and extracts its values.",
+	"Method": "void mapFieldsToValues(T instance,Object[] row,String[] headers,int[] indexes,boolean columnsReordered){\r\n    if (row.length > this.lastFieldIndexMapped) {\r\n        mapFieldIndexes(null, row, headers, indexes, columnsReordered);\r\n    }\r\n    int last = row.length < readOrder.length ? row.length : readOrder.length;\r\n    for (int i = 0; i < last; i++) {\r\n        FieldMapping field = readOrder[i];\r\n        if (field != null) {\r\n            try {\r\n                row[i] = field.read(instance);\r\n            } catch (Throwable e) {\r\n                if (!beanClass.isAssignableFrom(instance.getClass())) {\r\n                    handleConversionError(e, new Object[] { instance }, -1);\r\n                    throw toDataProcessingException(e, row, i);\r\n                } else if (!handleConversionError(e, row, i)) {\r\n                    throw toDataProcessingException(e, row, i);\r\n                }\r\n            }\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "com.univocity.parsers.conversions.NumericConversion.fromString",
+	"Comment": "converts a formatted numeric string to an instance of number.\tthe pattern in the formatted input must match one of the numeric patterns provided in the constructor of this class.",
+	"Method": "T fromString(String input){\r\n    for (int i = 0; i < formatters.length; i++) {\r\n        position.setIndex(0);\r\n        T out = (T) formatters[i].parse(input, position);\r\n        if (formatters.length == 1 || position.getIndex() == input.length()) {\r\n            if (out == null || numberType == Number.class) {\r\n                return out;\r\n            } else if (numberType == Double.class) {\r\n                return (T) Double.valueOf(out.doubleValue());\r\n            } else if (numberType == Float.class) {\r\n                return (T) Float.valueOf(out.floatValue());\r\n            } else if (numberType == BigDecimal.class) {\r\n                if (out instanceof BigDecimal) {\r\n                    return out;\r\n                }\r\n                return (T) new BigDecimal(String.valueOf(out));\r\n            } else if (numberType == BigInteger.class) {\r\n                if (out instanceof BigInteger) {\r\n                    return out;\r\n                }\r\n                return (T) BigInteger.valueOf(out.longValue());\r\n            } else if (numberType == Long.class) {\r\n                return (T) Long.valueOf(out.longValue());\r\n            } else if (numberType == Integer.class) {\r\n                return (T) Integer.valueOf(out.intValue());\r\n            } else if (numberType == Short.class) {\r\n                return (T) Short.valueOf(out.shortValue());\r\n            } else if (numberType == Byte.class) {\r\n                return (T) Byte.valueOf(out.byteValue());\r\n            }\r\n            return out;\r\n        }\r\n    }\r\n    DataProcessingException exception = new DataProcessingException(\"Cannot parse '{value}' as a valid number. Supported formats are: \" + Arrays.toString(formats));\r\n    exception.setValue(input);\r\n    throw exception;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.remoting.resources.services.FileUtils.isFileOlder",
+	"Comment": "tests if the specified file is older than the specifiedtime reference.",
+	"Method": "boolean isFileOlder(File file,File reference,boolean isFileOlder,File file,Date date,boolean isFileOlder,File file,long timeMillis){\r\n    if (file == null) {\r\n        throw new IllegalArgumentException(\"No specified file\");\r\n    }\r\n    if (!file.exists()) {\r\n        return false;\r\n    }\r\n    return file.lastModified() < timeMillis;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.preprocessor.sax.BufferedElement.findChildAt",
+	"Comment": "returns the first child element of this element which match the given\tname and null otherwise.",
+	"Method": "BufferedElement findChildAt(String name,int index,BufferedElement findChildAt,BufferedElement element,String name,int index){\r\n    List<BufferedElement> elements = findChildren(element, name);\r\n    if (index < elements.size()) {\r\n        return elements.get(index);\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.player.MediaPlayerFactory.isEqualizerAvailable",
+	"Comment": "is the audio equalizer available?this will be removed when libvlc 2.1.x is no longer supported.",
+	"Method": "boolean isEqualizerAvailable(){\r\n    return equalizerAvailable;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.csv.CsvWriterSettings.createDefaultFormat",
+	"Comment": "returns the default csvformat configured to produce csv outputs compliant to the rfc4180 standard.",
+	"Method": "CsvFormat createDefaultFormat(){\r\n    return new CsvFormat();\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.player.MediaPlayerFactory.clock",
+	"Comment": "get the time as defined by libvlc.the time is not meaningful in the sense of what time is it, rather it is a monotonic clockwith an arbitrary starting value.",
+	"Method": "long clock(){\r\n    logger.trace(\"clock()\");\r\n    return libvlc.libvlc_clock();\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.preprocessor.sax.TransformedBufferedDocumentContentHandler.isTable",
+	"Comment": "returns true if current element is a table and false otherwise.",
+	"Method": "boolean isTable(String uri,String localName,String name){\r\n    return bufferedDocument.isTable(uri, localName, name);\r\n}"
+}, {
+	"Path": "com.bstek.urule.console.repository.database.DbPersistenceManager.setConsistencyCheck",
+	"Comment": "defines if a consistency check is to be performed on initialization.",
+	"Method": "void setConsistencyCheck(String consistencyCheck){\r\n    this.consistencyCheck = Boolean.valueOf(consistencyCheck).booleanValue();\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.images.SimpleImageInfo.setCollectComments",
+	"Comment": "specify whether textual comments are supposed to be extracted from input.default is false.if enabled, comments will be added to an internal list.",
+	"Method": "void setCollectComments(boolean newValue){\r\n    collectComments = newValue;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.processor.core.ColumnSplitter.reset",
+	"Comment": "prepares to execute a column splitting process from the beginning.\tremoves any column values previously processed, as well as information about headers in the input. resets row count to 0.",
+	"Method": "void reset(){\r\n    this.columnValues = null;\r\n    this.headers = null;\r\n    addNullsFrom = 0L;\r\n    rowCount = 0L;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.remoting.resources.services.FileUtils.readFileToByteArray",
+	"Comment": "reads the contents of a file into a byte array.the file is always closed.",
+	"Method": "byte[] readFileToByteArray(File file){\r\n    InputStream in = null;\r\n    try {\r\n        in = openInputStream(file);\r\n        return IOUtils.toByteArray(in);\r\n    } finally {\r\n        IOUtils.closeQuietly(in);\r\n    }\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.fields.FieldConversionMapping.applyConversionsOnFieldEnums",
+	"Comment": "applies a sequence of conversions on a selection of enumerations that represent fields",
+	"Method": "FieldSet<Enum> applyConversionsOnFieldEnums(Conversion<String, ?> conversions){\r\n    return fieldEnumConversionMapping.registerConversions(conversions);\r\n}"
+}, {
+	"Path": "com.bstek.urule.console.repository.database.DbPersistenceManager.setSchema",
+	"Comment": "sets the database type. this identifier is used to load and executethe respective .ddl resource in order to create the required schemaobjects.",
+	"Method": "void setSchema(String databaseType){\r\n    this.databaseType = databaseType;\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.filter.ExtensionFileFilter.getExtensions",
+	"Comment": "get the recognised file extensions.a sorted copy of the array of file extensions is returned.",
+	"Method": "String[] getExtensions(){\r\n    return Arrays.copyOf(extensions, extensions.length);\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.tools.remoting.resources.FileUtils.readFileToByteArray",
+	"Comment": "reads the contents of a file into a byte array.the file is always closed.",
+	"Method": "byte[] readFileToByteArray(File file){\r\n    InputStream in = null;\r\n    try {\r\n        in = openInputStream(file);\r\n        return IOUtils.toByteArray(in);\r\n    } finally {\r\n        IOUtils.closeQuietly(in);\r\n    }\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.fields.FieldSet.describe",
+	"Comment": "returns a string that represents the current field selection",
+	"Method": "String describe(){\r\n    return \"field selection: \" + fields.toString();\r\n}"
+}, {
+	"Path": "com.bstek.urule.console.repository.database.DbPersistenceManager.setDatabaseType",
+	"Comment": "sets the database type. this identifier is used to load and executethe respective .ddl resource in order to create the required schemaobjects.",
+	"Method": "void setDatabaseType(String databaseType){\r\n    this.databaseType = databaseType;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.preprocessor.sax.ProcessRowResult.getItemNameList",
+	"Comment": "returns the itame name list if process row has modified the content and null otherwise.",
+	"Method": "String getItemNameList(){\r\n    return itemNameList;\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.player.NativeString.copyNativeString",
+	"Comment": "copy a string from a native string pointer, without freeing the native pointer.",
+	"Method": "String copyNativeString(LibVlc libvlc,Pointer pointer){\r\n    if (pointer != null) {\r\n        return pointer.getString(0);\r\n    } else {\r\n        return null;\r\n    }\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.preprocessor.sax.ProcessRowResult.getFieldName",
+	"Comment": "returns the field name which was used to transform the content if process row has modified the content and nullotherwise.",
+	"Method": "String getFieldName(){\r\n    return fieldName;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.processor.core.ColumnSplitter.getColumnValuesAsMapOfIndexes",
+	"Comment": "returns a map of column indexes and their respective list of values parsed from the input.",
+	"Method": "Map<Integer, List<T>> getColumnValuesAsMapOfIndexes(){\r\n    Map<Integer, List<T>> map = new HashMap<Integer, List<T>>();\r\n    putColumnValuesInMapOfIndexes(map);\r\n    return map;\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.player.embedded.AdaptiveRuntimeFullScreenStrategy.setStrategy",
+	"Comment": "set a strategy for a particular runtime operating system type.",
+	"Method": "void setStrategy(RuntimeType runtimeType,FullScreenStrategy strategy){\r\n    strategies.put(runtimeType, strategy);\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.DataProcessingException.getRow",
+	"Comment": "returns the record being processed when the error occurred, if available.",
+	"Method": "Object[] getRow(){\r\n    return restrictContent(row);\r\n}"
+}, {
+	"Path": "com.univocity.parsers.csv.CsvWriterSettings.getQuotationTriggers",
+	"Comment": "returns the list of characters that when present in a value to be written, will\tforce the output value to be enclosed in quotes.",
+	"Method": "char[] getQuotationTriggers(){\r\n    return quotationTriggers;\r\n}"
+}, {
+	"Path": "fr.opensagres.odfdom.converter.core.utils.ByteArrayOutputStream.toString",
+	"Comment": "gets the curent contents of this byte stream as a string using the specified encoding.",
+	"Method": "String toString(String toString,String enc){\r\n    return new String(toByteArray(), enc);\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.template.formatter.FieldsMetadata.getFieldAsTextStyling",
+	"Comment": "returns the fields metadata as text styling from the given content and\tnull otherwise.",
+	"Method": "FieldMetadata getFieldAsTextStyling(String content){\r\n    Collection<FieldMetadata> fieldsAsTextStyling = getFieldsAsTextStyling();\r\n    for (FieldMetadata field : fieldsAsTextStyling) {\r\n        if (content.contains(field.getFieldName())) {\r\n            return field;\r\n        }\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.DataProcessingException.setRow",
+	"Comment": "updates the exception with the record being processed when the error occurred.",
+	"Method": "void setRow(Object[] row){\r\n    if (errorContentLength == 0) {\r\n        row = null;\r\n    }\r\n    this.row = row;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.processor.core.BeanConversionProcessor.createBean",
+	"Comment": "converts a record with values extracted from the parser into a java bean instance.",
+	"Method": "T createBean(String[] row,Context context){\r\n    Object[] convertedRow = super.applyConversions(row, context);\r\n    if (convertedRow == null) {\r\n        return null;\r\n    }\r\n    T instance;\r\n    try {\r\n        instance = constructor.newInstance();\r\n    } catch (Throwable e) {\r\n        throw new DataProcessingException(\"Unable to instantiate class '\" + beanClass.getName() + '\\'', row, e);\r\n    }\r\n    mapValuesToFields(instance, convertedRow, context);\r\n    if (nestedAttributes != null) {\r\n        processNestedAttributes(row, instance, context);\r\n    }\r\n    return instance;\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.component.AudioMediaListPlayerComponent.getMediaListPlayer",
+	"Comment": "get the embedded media list player reference.an application uses this handle to control the media player, add listeners and so on.",
+	"Method": "MediaListPlayer getMediaListPlayer(){\r\n    return mediaListPlayer;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.json.JSONObject.optDouble",
+	"Comment": "get an optional double associated with a key, or the defaultvalue if there is no such key or if its value is nota number. if the value is a string, an attempt will be made to evaluate it as a number.",
+	"Method": "double optDouble(String key,double optDouble,String key,double defaultValue){\r\n    try {\r\n        return this.getDouble(key);\r\n    } catch (Exception e) {\r\n        return defaultValue;\r\n    }\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.json.JSONObject.append",
+	"Comment": "append values to the array under a key. if the key does not exist in the jsonobject, then the key is put in thejsonobject with its value being a jsonarray containing the value parameter. if the key was already associatedwith a jsonarray, then the value parameter is appended to it.",
+	"Method": "JSONObject append(String key,Object value){\r\n    testValidity(value);\r\n    Object object = this.opt(key);\r\n    if (object == null) {\r\n        this.put(key, new JSONArray().put(value));\r\n    } else if (object instanceof JSONArray) {\r\n        this.put(key, ((JSONArray) object).put(value));\r\n    } else {\r\n        throw new JSONException(\"JSONObject[\" + key + \"] is not a JSONArray.\");\r\n    }\r\n    return this;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.csv.CsvFormatDetector.max",
+	"Comment": "returns the character with the highest associated number.",
+	"Method": "char max(Map<Character, Integer> map,Map<Character, Integer> totals,char defaultChar){\r\n    return getChar(map, totals, defaultChar, false);\r\n}"
+}, {
+	"Path": "com.keylesspalace.tusky.adapter.StatusBaseViewHolder.setRebloggingEnabled",
+	"Comment": "this should only be called after setreblogged, in order to override the tint correctly.",
+	"Method": "void setRebloggingEnabled(boolean enabled,Status.Visibility visibility){\r\n    reblogButton.setEnabled(enabled && visibility != Status.Visibility.PRIVATE);\r\n    if (enabled) {\r\n        int inactiveId;\r\n        int activeId;\r\n        if (visibility == Status.Visibility.PRIVATE) {\r\n            inactiveId = ThemeUtils.getDrawableId(reblogButton.getContext(), R.attr.status_reblog_disabled_drawable, R.drawable.reblog_private_dark);\r\n            activeId = R.drawable.reblog_private_active;\r\n        } else {\r\n            inactiveId = ThemeUtils.getDrawableId(reblogButton.getContext(), R.attr.status_reblog_inactive_drawable, R.drawable.reblog_inactive_dark);\r\n            activeId = R.drawable.reblog_active;\r\n        }\r\n        reblogButton.setInactiveImage(inactiveId);\r\n        reblogButton.setActiveImage(activeId);\r\n    } else {\r\n        int disabledId;\r\n        if (visibility == Status.Visibility.DIRECT) {\r\n            disabledId = ThemeUtils.getDrawableId(reblogButton.getContext(), R.attr.status_reblog_direct_drawable, R.drawable.reblog_direct_dark);\r\n        } else {\r\n            disabledId = ThemeUtils.getDrawableId(reblogButton.getContext(), R.attr.status_reblog_disabled_drawable, R.drawable.reblog_private_dark);\r\n        }\r\n        reblogButton.setInactiveImage(disabledId);\r\n        reblogButton.setActiveImage(disabledId);\r\n    }\r\n}"
+}, {
+	"Path": "com.keylesspalace.tusky.EmojiPreference.saveSelectedFont",
+	"Comment": "in order to be able to use this font later on, it needs to be saved first.",
+	"Method": "void saveSelectedFont(){\r\n    int index = selected.getId();\r\n    Log.i(TAG, \"saveSelectedFont: Font ID: \" + index);\r\n    PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putInt(FONT_PREFERENCE, index).apply();\r\n    setSummary(selected.getDisplay(getContext()));\r\n}"
+}, {
+	"Path": "com.univocity.parsers.annotations.helpers.FieldMapping.setFieldName",
+	"Comment": "defines the column name against which this field is mapped, overriding any current name derived from\tannotations or from the attribute name itself.",
+	"Method": "void setFieldName(String fieldName){\r\n    this.fieldName = fieldName;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.fields.FieldSet.set",
+	"Comment": "validates and sets multiple field references. any existing reference will be discarded.",
+	"Method": "FieldSet<T> set(T fields,FieldSet<T> set,Collection<T> fields){\r\n    this.fields.clear();\r\n    add(fields);\r\n    for (FieldSet<T> wrapped : wrappedFieldSets) {\r\n        wrapped.set(fields);\r\n    }\r\n    return this;\r\n}"
+}, {
+	"Path": "fr.opensagres.odfdom.converter.core.utils.ODFUtils.hasPercentUnit",
+	"Comment": "returns true if the given string has percent unit and false otherwise.",
+	"Method": "boolean hasPercentUnit(String s){\r\n    return s.indexOf(PERCENT_UNIT) != -1;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.processor.core.ColumnSplitter.putColumnValuesInMapOfIndexes",
+	"Comment": "fills a given map associating each column index to its list of values",
+	"Method": "void putColumnValuesInMapOfIndexes(Map<Integer, List<T>> map){\r\n    if (columnValues == null) {\r\n        return;\r\n    }\r\n    for (int i = 0; i < columnValues.size(); i++) {\r\n        map.put(i, columnValues.get(i));\r\n    }\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.beans.BeanHelper.getPropertyDescriptors",
+	"Comment": "returns the property descriptors of all properties available from a class",
+	"Method": "PropertyWrapper[] getPropertyDescriptors(Class<?> beanClass){\r\n    if (propertyDescriptorMethod == null) {\r\n        return EMPTY;\r\n    }\r\n    PropertyWrapper[] out = null;\r\n    WeakReference<PropertyWrapper[]> reference = descriptors.get(beanClass);\r\n    if (reference != null) {\r\n        out = reference.get();\r\n    }\r\n    if (out == null) {\r\n        try {\r\n            Object beanInfo = beanInfoMethod.invoke(null, beanClass, Object.class);\r\n            Object[] propertyDescriptors = (Object[]) propertyDescriptorMethod.invoke(beanInfo);\r\n            out = new PropertyWrapper[propertyDescriptors.length];\r\n            for (int i = 0; i < propertyDescriptors.length; i++) {\r\n                out[i] = new PropertyWrapper(propertyDescriptors[i]);\r\n            }\r\n        } catch (Exception ex) {\r\n            out = EMPTY;\r\n        }\r\n        descriptors.put(beanClass, new WeakReference<PropertyWrapper[]>(out));\r\n    }\r\n    return out;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.annotations.helpers.AnnotationHelper.getAnnotatedFields",
+	"Comment": "returns all attributes available from a given class that have an annotation.",
+	"Method": "List<Field> getAnnotatedFields(Class<?> beanClass,List<Field> getAnnotatedFields,Class<?> beanClass,Class<A> annotationType){\r\n    List<Field> out = new ArrayList<Field>();\r\n    Class clazz = beanClass;\r\n    do {\r\n        Field[] declared = clazz.getDeclaredFields();\r\n        outer: for (Field field : declared) {\r\n            Annotation[] annotations = field.getDeclaredAnnotations();\r\n            for (Annotation annotation : annotations) {\r\n                if ((annotationType == null && isCustomAnnotation(annotation)) || annotationType == annotation.annotationType()) {\r\n                    out.add(field);\r\n                    continue outer;\r\n                }\r\n            }\r\n        }\r\n        clazz = clazz.getSuperclass();\r\n    } while (clazz != null && clazz != Object.class);\r\n    return out;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.fixed.FixedWidthWriterSettings.getFieldPaddings",
+	"Comment": "returns the sequence of paddings used by each field of each record.",
+	"Method": "char[] getFieldPaddings(){\r\n    if (fieldLengths == null) {\r\n        return null;\r\n    }\r\n    return fieldLengths.getFieldPaddings(getFormat());\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.medialist.MediaList.newMediaListItem",
+	"Comment": "create a new media list item for a give native media instance.",
+	"Method": "MediaListItem newMediaListItem(libvlc_media_t mediaInstance){\r\n    String name = NativeString.getNativeString(libvlc, libvlc.libvlc_media_get_meta(mediaInstance, libvlc_meta_t.libvlc_meta_Title.intValue()));\r\n    String mrl = NativeString.getNativeString(libvlc, libvlc.libvlc_media_get_mrl(mediaInstance));\r\n    List<MediaListItem> subItems;\r\n    libvlc_media_list_t subItemList = libvlc.libvlc_media_subitems(mediaInstance);\r\n    if (subItemList != null) {\r\n        try {\r\n            libvlc.libvlc_media_list_lock(subItemList);\r\n            subItems = new ArrayList<MediaListItem>();\r\n            for (int i = 0; i < libvlc.libvlc_media_list_count(subItemList); i++) {\r\n                libvlc_media_t subItemInstance = libvlc.libvlc_media_list_item_at_index(subItemList, i);\r\n                subItems.add(newMediaListItem(subItemInstance));\r\n                libvlc.libvlc_media_release(subItemInstance);\r\n            }\r\n        } finally {\r\n            libvlc.libvlc_media_list_unlock(subItemList);\r\n        }\r\n        libvlc.libvlc_media_list_release(subItemList);\r\n    } else {\r\n        subItems = Collections.emptyList();\r\n    }\r\n    return new MediaListItem(name, mrl, subItems);\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.version.Version.atLeast",
+	"Comment": "test whether or not this version is at least the required version.",
+	"Method": "boolean atLeast(Version required){\r\n    return compareTo(required) >= 0;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.json.JSONArray.length",
+	"Comment": "get the number of elements in the jsonarray, included nulls.",
+	"Method": "int length(){\r\n    return super.size();\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.template.utils.TemplateUtils.getDynamicBean",
+	"Comment": "returns dynamicbean from the context with the given key or create it if not exists.",
+	"Method": "DynamicBean getDynamicBean(IContext context,String key){\r\n    Object result = context.get(key);\r\n    if (result == null) {\r\n        DynamicBean bean = new DynamicBean();\r\n        context.put(key, bean);\r\n        return bean;\r\n    } else if (result instanceof DynamicBean) {\r\n        return (DynamicBean) result;\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.json.JSONTokener.skipTo",
+	"Comment": "skip characters until the next character is the requested character. if the requested character is not found, nocharacters are skipped.",
+	"Method": "char skipTo(char to){\r\n    char c;\r\n    try {\r\n        int startIndex = this.index;\r\n        int startCharacter = this.character;\r\n        int startLine = this.line;\r\n        this.reader.mark(Integer.MAX_VALUE);\r\n        do {\r\n            c = this.next();\r\n            if (c == 0) {\r\n                this.reader.reset();\r\n                this.index = startIndex;\r\n                this.character = startCharacter;\r\n                this.line = startLine;\r\n                return c;\r\n            }\r\n        } while (c != to);\r\n    } catch (IOException exc) {\r\n        throw new JSONException(exc);\r\n    }\r\n    this.back();\r\n    return c;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.core.io.internal.LineIterator.close",
+	"Comment": "closes the underlying reader quietly. this method is useful if you only want to process the firstfew lines of a larger file. if you do not close the iterator then the reader remains open. thismethod can safely be called multiple times.",
+	"Method": "void close(){\r\n    finished = true;\r\n    IOUtils.closeQuietly(bufferedReader);\r\n    cachedLine = null;\r\n}"
+}, {
+	"Path": "uk.co.caprica.vlcj.player.MediaPlayerFactory.release",
+	"Comment": "release the native resources associated with this factory.",
+	"Method": "void release(){\r\n    logger.debug(\"release()\");\r\n    if (!released) {\r\n        if (instance != null) {\r\n            libvlc.libvlc_release(instance);\r\n        }\r\n        released = true;\r\n    }\r\n}"
+}, {
+	"Path": "com.bstek.urule.console.repository.database.DbPersistenceManager.setUser",
+	"Comment": "sets the user name that will be used to establish jdbc connections.",
+	"Method": "void setUser(String user){\r\n    this.user = user;\r\n}"
+}, {
+	"Path": "com.univocity.parsers.common.routine.AbstractRoutines.getKeepResourcesOpen",
+	"Comment": "returns a flag indicating whether resources used for writing should be kept open after being\tused by the routines available from this object, when applicable.",
+	"Method": "boolean getKeepResourcesOpen(){\r\n    return keepResourcesOpen;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.tools.remoting.resources.FileUtils.forceMkdir",
+	"Comment": "make a directory, including any necessary but nonexistent parentdirectories. if there already exists a file with specified name orthe directory cannot be created then an exception is thrown.",
+	"Method": "void forceMkdir(File directory){\r\n    if (directory.exists()) {\r\n        if (directory.isFile()) {\r\n            String message = \"File \" + directory + \" exists and is \" + \"not a directory. Unable to create directory.\";\r\n            throw new IOException(message);\r\n        }\r\n    } else {\r\n        if (!directory.mkdirs()) {\r\n            String message = \"Unable to create directory \" + directory;\r\n            throw new IOException(message);\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "fr.opensagres.web.servlet.view.xdocreport.XDocReportView.getConfiguration",
+	"Comment": "returns the configuration to use after the report is loaded and null otherwise.",
+	"Method": "IXDocReportConfiguration getConfiguration(){\r\n    return configuration;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.document.preprocessor.sax.BufferedElement.isEnded",
+	"Comment": "returns true if current buffer is end tag element and false otherwise.",
+	"Method": "boolean isEnded(){\r\n    return this.currentTagElement == endTagElement;\r\n}"
+}, {
+	"Path": "fr.opensagres.xdocreport.remoting.resources.services.FileUtils.readFileToString",
+	"Comment": "reads the contents of a file into a string using the default encoding for the vm. the file is always closed.",
+	"Method": "String readFileToString(File file,String encoding,String readFileToString,File file){\r\n    return readFileToString(file, null);\r\n}"
+}, {
+	"Path": "fr.opensagres.poi.xwpf.converter.core.openxmlformats.ZipArchive.getEntryNames",
+	"Comment": "returns the entry names of the xml document archive by using cache entries.",
+	"Method": "Set<String> getEntryNames(Set<String> getEntryNames,String wildcard){\r\n    if (cacheEntriesWilcard == null) {\r\n        cacheEntriesWilcard = new HashMap<String, Set<String>>();\r\n    }\r\n    Set<String> entryNamesWithWildcard = cacheEntriesWilcard.get(wildcard);\r\n    if (entryNamesWithWildcard != null) {\r\n        return entryNamesWithWildcard;\r\n    }\r\n    String regexp = wildcardToRegex(wildcard);\r\n    entryNamesWithWildcard = new HashSet<String>();\r\n    Set<String> entryNames = getEntryNames();\r\n    for (String entryName : entryNames) {\r\n        if (entryName.matches(regexp)) {\r\n            entryNamesWithWildcard.add(entryName);\r\n        }\r\n    }\r\n    cacheEntriesWilcard.put(wildcard, entryNamesWithWildcard);\r\n    return entryNamesWithWildcard;\r\n}"
+}]

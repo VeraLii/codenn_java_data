@@ -1,0 +1,753 @@
+[{
+	"Path": "play.cache.Cache.safeReplace",
+	"Comment": "replace an element only if it already exists and return only when the element is effectively cached.",
+	"Method": "boolean safeReplace(String key,Object value,String expiration){\r\n    checkSerializable(value);\r\n    return cacheImpl.safeReplace(key, value, Time.parseDuration(expiration));\r\n}"
+}, {
+	"Path": "play.PlayPlugin.bind",
+	"Comment": "called when play need to bind a java object from http params.when overriding this method, do not call super impl.. super impl is calling old bind methodto be backward compatible.",
+	"Method": "Object bind(String name,Class clazz,Type type,Annotation[] annotations,Map<String, String[]> params,Object bind,RootParamNode rootParamNode,String name,Class<?> clazz,Type type,Annotation[] annotations,Object bind,String name,Object o,Map<String, String[]> params){\r\n    return null;\r\n}"
+}, {
+	"Path": "org.apache.servicecomb.foundation.common.utils.RSAUtils.verify",
+	"Comment": "if has performance problem ,change signature to threadlocal instance",
+	"Method": "boolean verify(String publicKey,String sign,String content){\r\n    if (null == kf) {\r\n        throw new NoSuchAlgorithmException(RSA_ALG + \" KeyFactory not available\");\r\n    }\r\n    byte[] bytes = decoder.decode(publicKey);\r\n    X509EncodedKeySpec keySpec = new X509EncodedKeySpec(bytes);\r\n    PublicKey pubKey = kf.generatePublic(keySpec);\r\n    Signature signature = Signature.getInstance(SIGN_ALG);\r\n    signature.initVerify(pubKey);\r\n    signature.update(content.getBytes());\r\n    return signature.verify(decoder.decode(sign));\r\n}"
+}, {
+	"Path": "com.rarchives.ripme.ripper.AbstractRipper.getRipper",
+	"Comment": "finds, instantiates, and returns a compatible ripper for given url.",
+	"Method": "AbstractRipper getRipper(URL url){\r\n    for (Constructor<?> constructor : getRipperConstructors(\"com.rarchives.ripme.ripper.rippers\")) {\r\n        try {\r\n            AlbumRipper ripper = (AlbumRipper) constructor.newInstance(url);\r\n            LOGGER.debug(\"Found album ripper: \" + ripper.getClass().getName());\r\n            return ripper;\r\n        } catch (Exception e) {\r\n        }\r\n    }\r\n    for (Constructor<?> constructor : getRipperConstructors(\"com.rarchives.ripme.ripper.rippers.video\")) {\r\n        try {\r\n            VideoRipper ripper = (VideoRipper) constructor.newInstance(url);\r\n            LOGGER.debug(\"Found video ripper: \" + ripper.getClass().getName());\r\n            return ripper;\r\n        } catch (Exception e) {\r\n        }\r\n    }\r\n    throw new Exception(\"No compatible ripper found\");\r\n}"
+}, {
+	"Path": "org.schemaspy.DbAnalyzer.getTablesWithoutIndexes",
+	"Comment": "return a list of tables that have neither an index nor a primary key.",
+	"Method": "List<Table> getTablesWithoutIndexes(Collection<Table> tables){\r\n    List<Table> withoutIndexes = new ArrayList();\r\n    for (Table table : tables) {\r\n        if (table.getIndexes().isEmpty() && !table.isView() && !table.isLogical())\r\n            withoutIndexes.add(table);\r\n    }\r\n    return sortTablesByName(withoutIndexes);\r\n}"
+}, {
+	"Path": "org.apache.servicecomb.qps.QpsControllerManager.create",
+	"Comment": "create relevant qpslimit dynamicproperty and watch the configuration change.search and return a valid qpscontroller.",
+	"Method": "QpsController create(String qualifiedNameKey,String microserviceName,Invocation invocation){\r\n    createQpsControllerIfNotExist(microserviceName);\r\n    createQpsControllerIfNotExist(qualifiedNameKey.substring(0, microserviceName.length() + invocation.getSchemaId().length() + 1));\r\n    createQpsControllerIfNotExist(qualifiedNameKey);\r\n    return searchQpsController(qualifiedNameKey);\r\n}"
+}, {
+	"Path": "com.rarchives.ripme.utils.Utils.portableMode",
+	"Comment": "determines if the app is running in a portable mode. i.e. on a usb stick",
+	"Method": "boolean portableMode(){\r\n    try {\r\n        File file = new File(new File(\".\").getCanonicalPath() + File.separator + CONFIG_FILE);\r\n        if (file.exists() && !file.isDirectory()) {\r\n            return true;\r\n        }\r\n    } catch (IOException e) {\r\n        return false;\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "com.rabbitmq.client.test.server.DurableBindingLifecycle.defaultBindingRecovery",
+	"Comment": "this tests whether the default bindings for durable queuesare recovered properly.the idea is to create a durable queue, nuke the server and thenpublish a message to it using the queue name as a routing key",
+	"Method": "void defaultBindingRecovery(){\r\n    declareDurableQueue(Q);\r\n    restart();\r\n    basicPublishVolatile(\"\", Q);\r\n    GetResponse response = channel.basicGet(Q, true);\r\n    assertNotNull(\"The initial response SHOULD NOT be null\", response);\r\n    deleteQueue(Q);\r\n}"
+}, {
+	"Path": "com.codeborne.selenide.proxy.FileDownloadFilter.deactivate",
+	"Comment": "deactivate this filter.starting from this moment, it will not record any responses.",
+	"Method": "void deactivate(){\r\n    active = false;\r\n}"
+}, {
+	"Path": "play.modules.search.Query.executeQuery",
+	"Comment": "executes the lucene query against the index. you get queryresults.",
+	"Method": "List<QueryResult> executeQuery(boolean fetch){\r\n    try {\r\n        if (topDocs == null) {\r\n            org.apache.lucene.search.Query luceneQuery = new QueryParser(Search.getLuceneVersion(), \"_docID\", Search.getAnalyser()).parse(query);\r\n            BooleanQuery.setMaxClauseCount(Integer.parseInt(Play.configuration.getProperty(\"play.search.maxClauseCount\", \"1024\")));\r\n            topDocs = indexSearcher.search(luceneQuery, null, Integer.MAX_VALUE, getSort());\r\n        }\r\n        List<QueryResult> results = new ArrayList<QueryResult>();\r\n        if (topDocs == null)\r\n            return results;\r\n        int l = topDocs.totalHits;\r\n        if (offset > l) {\r\n            return results;\r\n        }\r\n        List<Long> ids = new ArrayList<Long>();\r\n        if (pageSize > 0) {\r\n            for (int i = offset; i < (offset + pageSize > l ? l : offset + pageSize); i++) {\r\n                QueryResult qresult = new QueryResult();\r\n                qresult.score = topDocs.scoreDocs[i].score;\r\n                qresult.id = indexSearcher.doc(topDocs.scoreDocs[i].doc).get(\"_docID\");\r\n                if (fetch) {\r\n                    Object objectId = ConvertionUtils.getIdValueFromIndex(clazz, qresult.id);\r\n                    qresult.object = (JPABase) JPA.em().find(clazz, objectId);\r\n                    if (qresult.object == null)\r\n                        throw new SearchException(\"Please re-index\");\r\n                }\r\n                results.add(qresult);\r\n            }\r\n        } else {\r\n            for (int i = 0; i < l; i++) {\r\n                QueryResult qresult = new QueryResult();\r\n                qresult.score = topDocs.scoreDocs[i].score;\r\n                qresult.id = indexSearcher.doc(topDocs.scoreDocs[i].doc).get(\"_docID\");\r\n                if (fetch) {\r\n                    Object objectId = ConvertionUtils.getIdValueFromIndex(clazz, qresult.id);\r\n                    qresult.object = (JPABase) JPA.em().find(clazz, objectId);\r\n                    if (qresult.object == null)\r\n                        throw new SearchException(\"Please re-index\");\r\n                }\r\n                results.add(qresult);\r\n            }\r\n        }\r\n        return results;\r\n    } catch (ParseException e) {\r\n        throw new SearchException(e);\r\n    } catch (Exception e) {\r\n        throw new UnexpectedException(e);\r\n    }\r\n}"
+}, {
+	"Path": "play.classloading.ApplicationClasses.getAnnotatedClasses",
+	"Comment": "retrieve all application classes with a specific annotation.",
+	"Method": "List<ApplicationClass> getAnnotatedClasses(Class<? extends Annotation> clazz){\r\n    List<ApplicationClass> results = new ArrayList<ApplicationClass>();\r\n    for (ApplicationClass applicationClass : classes.values()) {\r\n        if (!applicationClass.isClass()) {\r\n            continue;\r\n        }\r\n        try {\r\n            Play.classloader.loadClass(applicationClass.name);\r\n        } catch (ClassNotFoundException ex) {\r\n            throw new UnexpectedException(ex);\r\n        }\r\n        if (applicationClass.javaClass != null && applicationClass.javaClass.isAnnotationPresent(clazz)) {\r\n            results.add(applicationClass);\r\n        }\r\n    }\r\n    return results;\r\n}"
+}, {
+	"Path": "com.rabbitmq.client.test.functional.RequeueOnClose.requeueInFlightConsumerNoAckNoCancel",
+	"Comment": "test close while consuming partially not acked without cancel successfully requeues unacknowledged messages",
+	"Method": "void requeueInFlightConsumerNoAckNoCancel(){\r\n    for (int i = 0; i < 5; i++) {\r\n        publishLotsAndConsumeSome(false, false);\r\n    }\r\n}"
+}, {
+	"Path": "com.rarchives.ripme.utils.Utils.getWindowsConfigDir",
+	"Comment": "gets the directory of where the config file is stored on a windows machine.",
+	"Method": "String getWindowsConfigDir(){\r\n    return System.getenv(\"LOCALAPPDATA\") + File.separator + \"ripme\";\r\n}"
+}, {
+	"Path": "org.apache.servicecomb.core.SCBEngine.destroy",
+	"Comment": "not allow throw any exceptioneven some step throw exception, must catch it and go on, otherwise shutdown process will be broken.",
+	"Method": "void destroy(){\r\n    if (SCBStatus.UP.equals(status) || SCBStatus.STARTING.equals(status)) {\r\n        LOGGER.info(\"ServiceComb is closing now...\");\r\n        doDestroy();\r\n        status = SCBStatus.DOWN;\r\n        LOGGER.info(\"ServiceComb had closed\");\r\n    }\r\n}"
+}, {
+	"Path": "play.classloading.BytecodeCache.hash",
+	"Comment": "build a hash of the source code.to efficiently track source code modifications.",
+	"Method": "String hash(String text){\r\n    try {\r\n        StringBuffer plugins = new StringBuffer();\r\n        for (PlayPlugin plugin : Play.pluginCollection.getEnabledPlugins()) {\r\n            plugins.append(plugin.getClass().getName());\r\n        }\r\n        MessageDigest messageDigest = MessageDigest.getInstance(\"MD5\");\r\n        messageDigest.reset();\r\n        messageDigest.update((Play.version + plugins.toString() + text).getBytes(\"utf-8\"));\r\n        byte[] digest = messageDigest.digest();\r\n        StringBuilder builder = new StringBuilder();\r\n        for (int i = 0; i < digest.length; ++i) {\r\n            int value = digest[i];\r\n            if (value < 0) {\r\n                value += 256;\r\n            }\r\n            builder.append(Integer.toHexString(value));\r\n        }\r\n        return builder.toString();\r\n    } catch (Exception e) {\r\n        throw new RuntimeException(e);\r\n    }\r\n}"
+}, {
+	"Path": "org.schemaspy.model.Table.getColumns",
+	"Comment": "returns list of tablecolumns in ascending column number order.",
+	"Method": "List<TableColumn> getColumns(){\r\n    Set<TableColumn> sorted = new TreeSet(new ByColumnIdComparator());\r\n    sorted.addAll(columns.values());\r\n    return new ArrayList(sorted);\r\n}"
+}, {
+	"Path": "com.rabbitmq.client.impl.recovery.RetryResult.getResult",
+	"Comment": "the result of the recovery operation.e.g. a consumer tag when recovering a consumer.",
+	"Method": "Object getResult(){\r\n    return result;\r\n}"
+}, {
+	"Path": "com.segmentfault.springbootlesson7.entity2.User.getName",
+	"Comment": "this method was generated by mybatis generator.this method returns the value of the database column user.name",
+	"Method": "String getName(){\r\n    return name;\r\n}"
+}, {
+	"Path": "play.classloading.ApplicationClassloader.getAnnotatedClasses",
+	"Comment": "retrieve all application classes with a specific annotation.",
+	"Method": "List<Class> getAnnotatedClasses(Class<? extends Annotation> clazz,List<Class> getAnnotatedClasses,Class[] clazz){\r\n    List<Class> results = new ArrayList<Class>();\r\n    for (Class<? extends Annotation> cl : clazz) {\r\n        results.addAll(getAnnotatedClasses(cl));\r\n    }\r\n    return results;\r\n}"
+}, {
+	"Path": "org.schemaspy.model.ForeignKeyConstraint.isNullOnDelete",
+	"Comment": "returns true if the constraint indicates that the foreign keywill be set to null when the parent key is deleted.",
+	"Method": "boolean isNullOnDelete(){\r\n    return getDeleteRule() == importedKeySetNull;\r\n}"
+}, {
+	"Path": "org.schemaspy.Config.setFont",
+	"Comment": "the font to use within diagrams.modify the .css to specify html fonts.",
+	"Method": "void setFont(String font){\r\n    this.font = font;\r\n}"
+}, {
+	"Path": "play.data.parsing.MultipartStream.readBoundary",
+	"Comment": "skips a boundary token, and checks whether moreencapsulations are contained in the stream.",
+	"Method": "boolean readBoundary(){\r\n    byte[] marker = new byte[2];\r\n    boolean nextChunk = false;\r\n    head += boundaryLength;\r\n    try {\r\n        marker[0] = readByte();\r\n        if (marker[0] == LF) {\r\n            return true;\r\n        }\r\n        marker[1] = readByte();\r\n        if (arrayequals(marker, STREAM_TERMINATOR, 2)) {\r\n            nextChunk = false;\r\n        } else if (arrayequals(marker, FIELD_SEPARATOR, 2)) {\r\n            nextChunk = true;\r\n        } else {\r\n            throw new MalformedStreamException(\"Unexpected characters follow a boundary\");\r\n        }\r\n    } catch (IOException e) {\r\n        throw new MalformedStreamException(\"Stream ended unexpectedly\");\r\n    }\r\n    return nextChunk;\r\n}"
+}, {
+	"Path": "com.rabbitmq.client.test.TruncatedInputStreamTest.amountInitiallyAvailable",
+	"Comment": "check the amount of data initially available is as it should be",
+	"Method": "void amountInitiallyAvailable(){\r\n    assertEquals(TRUNCATED_LENGTH, _truncStream.available());\r\n}"
+}, {
+	"Path": "com.rabbitmq.client.impl.WorkPool.unregisterKey",
+	"Comment": "remove client from pool and from any other state. has no effect if client already absent.",
+	"Method": "void unregisterKey(K key){\r\n    synchronized (this) {\r\n        this.pool.remove(key);\r\n        this.ready.remove(key);\r\n        this.inProgress.remove(key);\r\n        this.unlimited.remove(key);\r\n    }\r\n}"
+}, {
+	"Path": "play.libs.WS.withEncoding",
+	"Comment": "use thos method to get an instance to ws with diferent encoding",
+	"Method": "WSWithEncoding withEncoding(String newEncoding,WSWithEncoding withEncoding,String encoding){\r\n    return wsWithDefaultEncoding.withEncoding(encoding);\r\n}"
+}, {
+	"Path": "org.schemaspy.model.Routine.getReturnType",
+	"Comment": "returns the return type for the routine or null if there is none",
+	"Method": "String getReturnType(){\r\n    return returnType;\r\n}"
+}, {
+	"Path": "com.anupcowkur.reservoir.Reservoir.get",
+	"Comment": "get an object from reservoir with the given key. this a blocking io operation.",
+	"Method": "T get(String key,Class<T> classOfT,T get,String key,Type typeOfT){\r\n    failIfNotInitialised();\r\n    String json = cache.getString(key).getString();\r\n    T value = sGson.fromJson(json, typeOfT);\r\n    if (value == null)\r\n        throw new NullPointerException();\r\n    return value;\r\n}"
+}, {
+	"Path": "models.data.providers.AgentConfigProvider.addAdhocAgentDataFromNodeGroupSourceMetadatas",
+	"Comment": "201501 optimize for adhoc case initialize the nodegroupdatamap inside of\tallagentdata",
+	"Method": "void addAdhocAgentDataFromNodeGroupSourceMetadatas(Map<String, NodeGroupDataMap> dataStore,Map<String, NodeGroupSourceMetadata> nodeGroupStore,String nodeGroupType){\r\n    try {\r\n        NodeGroupSourceMetadata ngsm = nodeGroupStore.get(nodeGroupType);\r\n        if (ngsm == null) {\r\n            models.utils.LogUtils.printLogError(\"Error in addAdhocAgentDataFromNodeGroupSourceMetadatas. ngsm is null for node group \" + nodeGroupType);\r\n            return;\r\n        }\r\n        if (!dataStore.containsKey(ngsm.getNodeGroupType()) || dataStore.get(ngsm.getNodeGroupType()) == null) {\r\n            NodeGroupDataMap ngdm = new NodeGroupDataMap(ngsm.getNodeGroupType());\r\n            dataStore.put(ngsm.getNodeGroupType(), ngdm);\r\n        }\r\n        models.utils.LogUtils.printLogNormal(\"Completed addAdhocAgentDataFromNodeGroupSourceMetadatas: dataStore with size: \" + dataStore.size() + \" at \" + DateUtils.getNowDateTimeStr());\r\n    } catch (Throwable e) {\r\n        e.printStackTrace();\r\n        models.utils.LogUtils.printLogError(\"Error in addAdhocAgentDataFromNodeGroupSourceMetadatas.\" + e.getLocalizedMessage());\r\n    }\r\n}"
+}, {
+	"Path": "com.rabbitmq.client.impl.VariableLinkedBlockingQueue.offer",
+	"Comment": "inserts the specified element at the tail of this queue if possible,returning immediately if this queue is full.",
+	"Method": "boolean offer(E o,long timeout,TimeUnit unit,boolean offer,E o){\r\n    if (o == null)\r\n        throw new NullPointerException();\r\n    final AtomicInteger count = this.count;\r\n    if (count.get() >= capacity)\r\n        return false;\r\n    int c = -1;\r\n    final ReentrantLock putLock = this.putLock;\r\n    putLock.lock();\r\n    try {\r\n        if (count.get() < capacity) {\r\n            insert(o);\r\n            c = count.getAndIncrement();\r\n            if (c + 1 < capacity)\r\n                notFull.signal();\r\n        }\r\n    } finally {\r\n        putLock.unlock();\r\n    }\r\n    if (c == 0)\r\n        signalNotEmpty();\r\n    return c >= 0;\r\n}"
+}, {
+	"Path": "org.apache.servicecomb.foundation.common.http.HttpUtils.getCharsetFromContentType",
+	"Comment": "parse the character encoding from the specified content type header.if the content type is null, or there is no explicit character encoding,null is returned.",
+	"Method": "String getCharsetFromContentType(String contentType){\r\n    if (contentType == null) {\r\n        return null;\r\n    }\r\n    int start = contentType.indexOf(\"charset=\");\r\n    if (start < 0) {\r\n        return null;\r\n    }\r\n    String encoding = contentType.substring(start + 8);\r\n    int end = encoding.indexOf(';');\r\n    if (end >= 0) {\r\n        encoding = encoding.substring(0, end);\r\n    }\r\n    encoding = encoding.trim();\r\n    if ((encoding.length() > 2) && (encoding.startsWith(\"\\\"\")) && (encoding.endsWith(\"\\\"\"))) {\r\n        encoding = encoding.substring(1, encoding.length() - 1);\r\n    }\r\n    return encoding.trim();\r\n}"
+}, {
+	"Path": "org.apache.servicecomb.faultinjection.TestFaultInjectHandler.testFaultInjectHandlerConfigChangeEvent6",
+	"Comment": "tests the fault injection handler functionality with configuration change event for service level config.",
+	"Method": "void testFaultInjectHandlerConfigChangeEvent6(){\r\n    System.setProperty(\"servicecomb.governance.Consumer.carts6.policy.fault.protocols.rest.delay.fixedDelay\", \"1000\");\r\n    System.setProperty(\"servicecomb.governance.Consumer.carts6.policy.fault.protocols.rest.delay.percent\", \"100\");\r\n    Mockito.when(invocation.getMicroserviceQualifiedName()).thenReturn(\"MicroserviceQualifiedName12\");\r\n    Mockito.when(invocation.getTransport()).thenReturn(transport);\r\n    Mockito.when(transport.getName()).thenReturn(\"rest\");\r\n    Mockito.when(invocation.getOperationName()).thenReturn(\"sayBye4\");\r\n    Mockito.when(invocation.getSchemaId()).thenReturn(\"testSchema4\");\r\n    Mockito.when(invocation.getMicroserviceName()).thenReturn(\"carts6\");\r\n    DelayFault delayFault = new DelayFault();\r\n    FaultParam faultParam = new FaultParam(3);\r\n    Vertx vertx = VertxUtils.getOrCreateVertxByName(\"faultinjectionTest\", null);\r\n    faultParam.setVertx(vertx);\r\n    delayFault.injectFault(invocation, faultParam, ar);\r\n    System.getProperties().remove(\"servicecomb.governance.Consumer.carts6.policy.fault.protocols.rest.delay.fixedDelay\");\r\n    System.getProperties().remove(\"servicecomb.governance.Consumer.carts6.policy.fault.protocols.rest.delay.percent\");\r\n    AtomicLong count = FaultInjectionUtil.getOperMetTotalReq(\"restMicroserviceQualifiedName12\");\r\n    assertEquals(1, count.get());\r\n}"
+}, {
+	"Path": "com.rabbitmq.client.test.functional.BindingLifecycle.exchangeIfUnused",
+	"Comment": "this tests whether the server checks that an exchange isactually being used when you try to delete it with the ifunusedflag.to test this, you try to delete an exchange with a queue stillbound to it and expect the delete operation to fail.",
+	"Method": "void exchangeIfUnused(){\r\n    boolean durable = true;\r\n    Binding binding = setupExchangeBindings(true);\r\n    try {\r\n        channel.exchangeDelete(binding.x, true);\r\n    } catch (IOException e) {\r\n        checkShutdownSignal(AMQP.PRECONDITION_FAILED, e);\r\n        openChannel();\r\n        deleteExchangeAndQueue(binding);\r\n        return;\r\n    }\r\n    fail(\"Exchange delete should have failed\");\r\n}"
+}, {
+	"Path": "org.apache.servicecomb.faultinjection.TestFaultInjectHandler.testFaultInjectHandlerConfigChangeEvent5",
+	"Comment": "tests the fault injection handler functionality with configuration change event for service level config.",
+	"Method": "void testFaultInjectHandlerConfigChangeEvent5(){\r\n    System.setProperty(\"servicecomb.governance.Consumer.carts5.policy.fault.protocols.rest.delay.percent\", \"100\");\r\n    System.setProperty(\"servicecomb.governance.Consumer.carts5.policy.fault.protocols.rest.delay.fixedDelay\", \"10\");\r\n    System.setProperty(\"servicecomb.governance.Consumer.carts5.policy.fault.protocols.rest.abort.percent\", \"100\");\r\n    System.setProperty(\"servicecomb.governance.Consumer.carts5.policy.fault.protocols.rest.abort.httpStatus\", \"500\");\r\n    Mockito.when(invocation.getMicroserviceQualifiedName()).thenReturn(\"MicroserviceQualifiedName11\");\r\n    Mockito.when(invocation.getTransport()).thenReturn(transport);\r\n    Mockito.when(transport.getName()).thenReturn(\"rest\");\r\n    Mockito.when(invocation.getOperationName()).thenReturn(\"sayBye4\");\r\n    Mockito.when(invocation.getSchemaId()).thenReturn(\"testSchema4\");\r\n    Mockito.when(invocation.getMicroserviceName()).thenReturn(\"carts5\");\r\n    boolean validAssert;\r\n    List<Fault> faultInjectionFeatureList = Arrays.asList(delayFault, abortFault);\r\n    handler.setFaultFeature(faultInjectionFeatureList);\r\n    try {\r\n        validAssert = true;\r\n        handler.handle(invocation, ar);\r\n    } catch (Exception e) {\r\n        validAssert = false;\r\n    }\r\n    Assert.assertTrue(validAssert);\r\n    TestFaultInjectUtil.updateProperty(\"servicecomb.governance.Consumer.carts5.policy.fault.protocols.rest.abort.httpStatus\", \"420\");\r\n    Holder<Boolean> isAsserted = new Holder(false);\r\n    handler.handle(invocation, ar -> {\r\n        isAsserted.value = true;\r\n        assertTrue(response.isFailed());\r\n        assertEquals(500, response.getStatusCode());\r\n        assertEquals(420, ar.getStatusCode());\r\n    });\r\n    Assert.assertTrue(isAsserted.value);\r\n    System.getProperties().remove(\"servicecomb.governance.Consumer.carts5.policy.fault.protocols.rest.delay.fixedDelay\");\r\n    System.getProperties().remove(\"servicecomb.governance.Consumer.carts5.policy.fault.protocols.rest.delay.percent\");\r\n    System.getProperties().remove(\"servicecomb.governance.Consumer.carts5.policy.fault.protocols.rest.abort.percent\");\r\n    System.getProperties().remove(\"servicecomb.governance.Consumer.carts5.policy.fault.protocols.rest.abort.httpStatus\");\r\n    AtomicLong count = FaultInjectionUtil.getOperMetTotalReq(\"restMicroserviceQualifiedName11\");\r\n    assertEquals(3, count.get());\r\n}"
+}, {
+	"Path": "com.codeborne.selenide.WebDriverRunner.addListener",
+	"Comment": "use this method before opening a browser to add custom event listeners to webdriver.",
+	"Method": "void addListener(WebDriverEventListener listener){\r\n    webdriverContainer.addListener(listener);\r\n}"
+}, {
+	"Path": "play.classloading.ApplicationClasses.getAssignableClasses",
+	"Comment": "retrieve all application classes assignable to this class.",
+	"Method": "List<ApplicationClass> getAssignableClasses(Class<?> clazz){\r\n    List<ApplicationClass> results = new ArrayList<ApplicationClass>();\r\n    if (clazz != null) {\r\n        for (ApplicationClass applicationClass : new ArrayList<ApplicationClass>(classes.values())) {\r\n            if (!applicationClass.isClass()) {\r\n                continue;\r\n            }\r\n            try {\r\n                Play.classloader.loadClass(applicationClass.name);\r\n            } catch (ClassNotFoundException ex) {\r\n                throw new UnexpectedException(ex);\r\n            }\r\n            try {\r\n                if (clazz.isAssignableFrom(applicationClass.javaClass) && !applicationClass.javaClass.getName().equals(clazz.getName())) {\r\n                    results.add(applicationClass);\r\n                }\r\n            } catch (Exception e) {\r\n            }\r\n        }\r\n    }\r\n    return results;\r\n}"
+}, {
+	"Path": "com.rarchives.ripme.utils.Utils.removeCWD",
+	"Comment": "removes the current working directory from a given filename",
+	"Method": "String removeCWD(File saveAs,String removeCWD,String file){\r\n    return removeCWD(new File(file));\r\n}"
+}, {
+	"Path": "org.schemaspy.model.ForeignKeyConstraint.getChildColumns",
+	"Comment": "returns all of the foreign key columns that are referenced by this constraint.",
+	"Method": "List<TableColumn> getChildColumns(){\r\n    return Collections.unmodifiableList(childColumns);\r\n}"
+}, {
+	"Path": "play.classloading.ApplicationClasses.getJava",
+	"Comment": "retrieve the corresponding source file for a given class name.it handles innerclass too !",
+	"Method": "VirtualFile getJava(String name){\r\n    String fileName = name;\r\n    if (fileName.contains(\"$\")) {\r\n        fileName = fileName.substring(0, fileName.indexOf(\"$\"));\r\n    }\r\n    fileName = fileName.replace(\".\", \"/\") + \".java\";\r\n    for (VirtualFile path : Play.javaPath) {\r\n        VirtualFile javaFile = path.child(fileName);\r\n        if (javaFile.exists()) {\r\n            return javaFile;\r\n        }\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "org.apache.servicecomb.serviceregistry.task.TestMicroserviceRegisterTask.testLocalSchemaAndServiceCenterSchemaDiff",
+	"Comment": "there is schema in service center which is different from local schema.",
+	"Method": "void testLocalSchemaAndServiceCenterSchemaDiff(ServiceRegistryClient srClient){\r\n    Microservice otherMicroservice = new Microservice();\r\n    otherMicroservice.setAppId(microservice.getAppId());\r\n    otherMicroservice.setServiceName(\"ms1\");\r\n    otherMicroservice.addSchema(\"s1\", \"abcd\");\r\n    List<GetSchemaResponse> list = new ArrayList();\r\n    GetSchemaResponse resp = new GetSchemaResponse();\r\n    resp.setSchemaId(\"s1\");\r\n    resp.setSummary(\"c1188d709631a9038874f9efc6eb894f\");\r\n    list.add(resp);\r\n    Holder<List<GetSchemaResponse>> onlineSchemasHolder = new Holder();\r\n    onlineSchemasHolder.setValue(list).setStatusCode(200);\r\n    new Expectations() {\r\n        {\r\n            srClient.getMicroserviceId(anyString, anyString, anyString, anyString);\r\n            result = \"serviceId\";\r\n            srClient.getMicroservice(anyString);\r\n            result = otherMicroservice;\r\n            srClient.getSchemas(anyString);\r\n            result = onlineSchemasHolder;\r\n            srClient.getSchema(anyString, anyString);\r\n            result = \"swagger: \\\"2.0\\\"\\n\" + \"info:\\n\" + \"  version: \\\"1.0.0\\\"\\n\" + \"  title: \\\"swagger definition for org.apache.servicecomb.demo.jaxrs.server.RequestClientTimeOut\\\"\\n\" + \"  x-java-interface: \\\"cse.gen.jaxrstest.jaxrs.clientreqtimeout.RequestClientTimeOutIntf\\\"\\n\" + \"basePath: \\\"/clientreqtimeout\\\"\\n\" + \"consumes:\\n\" + \"- \\\"application/json\\\"\\n\" + \"produces:\\n\" + \"- \\\"application/json\\\"\\n\" + \"paths:\\n\" + \"  /sayhello:\\n\" + \"    post:\\n\" + \"      operationId: \\\"sayHello\\\"\\n\" + \"      parameters:\\n\" + \"      - in: \\\"body\\\"\\n\" + \"        name: \\\"student\\\"\\n\" + \"        required: false\\n\" + \"        schema:\\n\" + \"          $ref: \\\"#/definitions/Student\\\"\\n\" + \"      responses:\\n\" + \"        200:\\n\" + \"          description: \\\"response of 200\\\"\\n\" + \"          schema:\\n\" + \"            $ref: \\\"#/definitions/Student\\\"\\n\" + \"definitions:\\n\" + \"  Student:\\n\" + \"    type: \\\"object\\\"\\n\" + \"    required:\\n\" + \"    - \\\"name\\\"\\n\" + \"    properties:\\n\" + \"      name:\\n\" + \"        type: \\\"string\\\"\\n\" + \"      age:\\n\" + \"        type: \\\"integer\\\"\\n\" + \"        format: \\\"int32\\\"\\n\" + \"        maximum: 20\\n\" + \"    x-java-class: \\\"org.apache.servicecomb.demo.validator.Student\\\"\";\r\n        }\r\n    };\r\n    microservice.addSchema(\"s1\", \"swagger: \\\"2.0\\\"\\n\" + \"info:\\n\" + \"  version: \\\"1.0.0\\\"\\n\" + \"  title: \\\"swagger definition for org.apache.servicecomb.demo.jaxrs.server.RequestClientTimeOut\\\"\\n\" + \"  x-java-interface: \\\"cse.gen.jaxrstest.jaxrs.clientreqtimeout.RequestClientTimeOutIntf\\\"\\n\" + \"basePath: \\\"/clientreqtimeout\\\"\\n\" + \"consumes:\\n\" + \"- \\\"application/json\\\"\\n\" + \"produces:\\n\" + \"- \\\"application/json\\\"\\n\" + \"paths:\\n\" + \"  /sayhello:\\n\" + \"    post:\\n\" + \"      operationId: \\\"sayHello\\\"\\n\" + \"      parameters:\\n\" + \"      - in: \\\"body\\\"\\n\" + \"        name: \\\"student\\\"\\n\" + \"        required: false\\n\" + \"        schema:\\n\" + \"          $ref: \\\"#/definitions/Student\\\"\\n\" + \"      responses:\\n\" + \"        200:\\n\" + \"          description: \\\"response of 200\\\"\\n\" + \"          schema:\\n\" + \"            type: \\\"string\\\"\\n\" + \"definitions:\\n\" + \"  Student:\\n\" + \"    type: \\\"object\\\"\\n\" + \"    required:\\n\" + \"    - \\\"name\\\"\\n\" + \"    properties:\\n\" + \"      name:\\n\" + \"        type: \\\"string\\\"\\n\" + \"      age:\\n\" + \"        type: \\\"integer\\\"\\n\" + \"        format: \\\"int32\\\"\\n\" + \"        maximum: 20\\n\" + \"    x-java-class: \\\"org.apache.servicecomb.demo.validator.Student\\\"\");\r\n    microservice.setEnvironment(\"prod\");\r\n    MicroserviceRegisterTask registerTask = new MicroserviceRegisterTask(eventBus, srClient, microservice);\r\n    Boolean isIlleagalException = false;\r\n    try {\r\n        registerTask.run();\r\n    } catch (IllegalStateException exception) {\r\n        isIlleagalException = true;\r\n        List<LoggingEvent> events = collector.getEvents().stream().filter(e -> {\r\n            return MicroserviceRegisterTask.class.getName().equals(e.getLoggerName());\r\n        }).collect(Collectors.toList());\r\n        Assert.assertEquals(\"service center schema and local schema both are different:\\n\" + \" service center schema:\\n\" + \"[swagger: \\\"2.0\\\"\\n\" + \"info:\\n\" + \"  version: \\\"1.0.0\\\"\\n\" + \"  title: \\\"swagger definition for org.apache.servicecomb.demo.jaxrs.server.RequestClientTimeOut\\\"\\n\" + \"  x-java-interface: \\\"cse.gen.jaxrstest.jaxrs.clientreqtimeout.RequestClientTimeOutIntf\\\"\\n\" + \"basePath: \\\"/clientreqtimeout\\\"\\n\" + \"consumes:\\n\" + \"- \\\"application/json\\\"\\n\" + \"produces:\\n\" + \"- \\\"application/json\\\"\\n\" + \"paths:\\n\" + \"  /sayhello:\\n\" + \"    post:\\n\" + \"      operationId: \\\"sayHello\\\"\\n\" + \"      parameters:\\n\" + \"      - in: \\\"body\\\"\\n\" + \"        name: \\\"student\\\"\\n\" + \"        required: false\\n\" + \"        schema:\\n\" + \"          $ref: \\\"#/definitions/Student\\\"\\n\" + \"      responses:\\n\" + \"        200:\\n\" + \"          description: \\\"response of 200\\\"\\n\" + \"          schema:\\n\" + \"            $ref: \\\"#/definitions/Student\\\"\\n\" + \"definitions:\\n\" + \"  Student:\\n\" + \"    type: \\\"object\\\"\\n\" + \"    required:\\n\" + \"    - \\\"name\\\"\\n\" + \"    properties:\\n\" + \"      name:\\n\" + \"        type: \\\"string\\\"\\n\" + \"      age:\\n\" + \"        type: \\\"integer\\\"\\n\" + \"        format: \\\"int32\\\"\\n\" + \"        maximum: 20\\n\" + \"    x-java-class: \\\"org.apache.servicecomb.demo.validator.Student\\\"\\n\" + \" local schema:\\n\" + \"[swagger: \\\"2.0\\\"\\n\" + \"info:\\n\" + \"  version: \\\"1.0.0\\\"\\n\" + \"  title: \\\"swagger definition for org.apache.servicecomb.demo.jaxrs.server.RequestClientTimeOut\\\"\\n\" + \"  x-java-interface: \\\"cse.gen.jaxrstest.jaxrs.clientreqtimeout.RequestClientTimeOutIntf\\\"\\n\" + \"basePath: \\\"/clientreqtimeout\\\"\\n\" + \"consumes:\\n\" + \"- \\\"application/json\\\"\\n\" + \"produces:\\n\" + \"- \\\"application/json\\\"\\n\" + \"paths:\\n\" + \"  /sayhello:\\n\" + \"    post:\\n\" + \"      operationId: \\\"sayHello\\\"\\n\" + \"      parameters:\\n\" + \"      - in: \\\"body\\\"\\n\" + \"        name: \\\"student\\\"\\n\" + \"        required: false\\n\" + \"        schema:\\n\" + \"          $ref: \\\"#/definitions/Student\\\"\\n\" + \"      responses:\\n\" + \"        200:\\n\" + \"          description: \\\"response of 200\\\"\\n\" + \"          schema:\\n\" + \"            type: \\\"string\\\"\\n\" + \"definitions:\\n\" + \"  Student:\\n\" + \"    type: \\\"object\\\"\\n\" + \"    required:\\n\" + \"    - \\\"name\\\"\\n\" + \"    properties:\\n\" + \"      name:\\n\" + \"        type: \\\"string\\\"\\n\" + \"      age:\\n\" + \"        type: \\\"integer\\\"\\n\" + \"        format: \\\"int32\\\"\\n\" + \"        maximum: 20\\n\" + \"    x-java-class: \\\"org.apache.servicecomb.demo.validator.Student\\\"]\", events.get(4).getMessage());\r\n        Assert.assertEquals(\"The difference in local schema:\\n\" + \"[type: \\\"string\\\"\\n\" + \"definitions:\\n\" + \"  Student:\\n\" + \"    type: \\\"object\\\"\\n\" + \"    required:\\n\" + \"    - \\\"name\\\"\\n\" + \"    properties:\\n\" + \"      name:\\n\" + \"        type: \\\"string\\\"\\n\" + \"      age:\\n\" + \"        type: \\\"integer\\\"\\n\" + \"        format: \\\"int32\\\"\\n\" + \"        maximum: 20\\n\" + \"    x-java-class: \\\"org.apache.servicecomb.demo.validator.Student\\\"]\", events.get(5).getMessage());\r\n    }\r\n    Assert.assertEquals(true, isIlleagalException);\r\n}"
+}, {
+	"Path": "org.apache.servicecomb.foundation.test.scaffolding.config.ArchaiusUtils.updateProperty",
+	"Comment": "difference with setproperty is that, updateproperty value can be null",
+	"Method": "void updateProperty(String key,Object value){\r\n    ReflectionUtils.invokeMethod(updatePropertyMethod, null, key, value);\r\n}"
+}, {
+	"Path": "org.apache.servicecomb.transport.rest.vertx.VertxRestDispatcher.sendFailResponseByInvocation",
+	"Comment": "use restproducerinvocation to send failure message. the throwable is allowed to be null.",
+	"Method": "void sendFailResponseByInvocation(RoutingContext context,AbstractRestInvocation restProducerInvocation,Throwable e){\r\n    restProducerInvocation.sendFailResponse(e);\r\n    context.response().close();\r\n}"
+}, {
+	"Path": "com.rabbitmq.client.test.TruncatedInputStreamTest.readTruncatedBytes",
+	"Comment": "check the data read from the truncated stream is as it should be",
+	"Method": "void readTruncatedBytes(){\r\n    byte[] readBytes = new byte[TEST_BYTES.length];\r\n    int numRead = _truncStream.read(readBytes);\r\n    assertEquals(TRUNCATED_LENGTH, numRead);\r\n    for (int i = 0; i < TRUNCATED_LENGTH; i++) {\r\n        assertEquals(TEST_BYTES[i], readBytes[i]);\r\n    }\r\n}"
+}, {
+	"Path": "org.apache.servicecomb.demo.springmvc.server.CodeFirstSpringmvc.fallbackReturnNull",
+	"Comment": "complex exceptionconverters to deal with exceptions thrown by hanlders, etc.",
+	"Method": "String fallbackReturnNull(String name){\r\n    if (\"throwexception\".equals(name)) {\r\n        throw new InvocationException(490, \"490\", new CommonExceptionData(\"xxx\"));\r\n    }\r\n    return name;\r\n}"
+}, {
+	"Path": "org.apache.servicecomb.faultinjection.TestFaultInjectHandler.testFaultInjectHandlerConfigChangeEvent4",
+	"Comment": "tests the fault injection handler functionality with configuration change event for service level config.",
+	"Method": "void testFaultInjectHandlerConfigChangeEvent4(){\r\n    System.setProperty(\"servicecomb.governance.Consumer.carts4.policy.fault.protocols.rest.delay.fixedDelay\", \"1\");\r\n    System.setProperty(\"servicecomb.governance.Consumer.carts4.policy.fault.protocols.rest.delay.percent\", \"100\");\r\n    System.setProperty(\"servicecomb.governance.Consumer.carts4.policy.fault.protocols.rest.abort.percent\", \"100\");\r\n    System.setProperty(\"servicecomb.governance.Consumer.carts4.policy.fault.protocols.rest.abort.httpStatus\", \"421\");\r\n    Mockito.when(invocation.getMicroserviceQualifiedName()).thenReturn(\"MicroserviceQualifiedName10\");\r\n    Mockito.when(invocation.getTransport()).thenReturn(transport);\r\n    Mockito.when(transport.getName()).thenReturn(\"rest\");\r\n    Mockito.when(invocation.getOperationName()).thenReturn(\"sayBye4\");\r\n    Mockito.when(invocation.getSchemaId()).thenReturn(\"testSchema4\");\r\n    Mockito.when(invocation.getMicroserviceName()).thenReturn(\"carts4\");\r\n    boolean validAssert;\r\n    long timeOld = System.currentTimeMillis();\r\n    List<Fault> faultInjectionFeatureList = Arrays.asList(delayFault, abortFault);\r\n    handler.setFaultFeature(faultInjectionFeatureList);\r\n    try {\r\n        validAssert = true;\r\n        handler.handle(invocation, ar);\r\n    } catch (Exception e) {\r\n        validAssert = false;\r\n    }\r\n    Assert.assertTrue(validAssert);\r\n    TestFaultInjectUtil.updateProperty(\"servicecomb.governance.Consumer.carts4.policy.fault.protocols.rest.delay.fixedDelay\", 500);\r\n    Holder<Boolean> isAsserted = new Holder(false);\r\n    handler.handle(invocation, ar -> {\r\n        isAsserted.value = true;\r\n        assertEquals(421, response.getStatusCode());\r\n        assertTrue(response.isFailed());\r\n        long timeNow = System.currentTimeMillis();\r\n        Assert.assertTrue((timeNow - timeOld) >= 500);\r\n    });\r\n    Assert.assertTrue(isAsserted.value);\r\n    System.getProperties().remove(\"servicecomb.governance.Consumer.carts4.policy.fault.protocols.rest.delay.fixedDelay\");\r\n    System.getProperties().remove(\"servicecomb.governance.Consumer.carts4.policy.fault.protocols.rest.delay.percent\");\r\n    System.getProperties().remove(\"servicecomb.governance.Consumer.carts4.policy.fault.protocols.rest.abort.percent\");\r\n    System.getProperties().remove(\"servicecomb.governance.Consumer.carts4.policy.fault.protocols.rest.abort.httpStatus\");\r\n    AtomicLong count = FaultInjectionUtil.getOperMetTotalReq(\"restMicroserviceQualifiedName10\");\r\n    assertEquals(3, count.get());\r\n}"
+}, {
+	"Path": "org.apache.servicecomb.swagger.generator.jaxrs.processor.annotation.BeanParamAnnotationProcessor.setUpParameter",
+	"Comment": "generate swagger parameter, set default value, and return it.",
+	"Method": "Parameter setUpParameter(OperationGenerator operationGenerator,Annotation fieldAnnotation,Type genericParamType,String defaultValue){\r\n    AbstractSerializableParameter<?> parameter = createParameter(operationGenerator.getContext(), fieldAnnotation, genericParamType);\r\n    if (null != defaultValue) {\r\n        parameter.setDefaultValue(defaultValue);\r\n    }\r\n    return parameter;\r\n}"
+}, {
+	"Path": "com.rabbitmq.tools.json.JSONUtil.tryFill",
+	"Comment": "ignores reflection exceptions while using reflection to fillpublic fields and bean properties of the target object from thesource map.",
+	"Method": "void tryFill(Object target,Map<String, Object> source){\r\n    try {\r\n        fill(target, source);\r\n    } catch (IntrospectionException ie) {\r\n        LOGGER.error(\"Error in tryFill\", ie);\r\n    } catch (IllegalAccessException iae) {\r\n        LOGGER.error(\"Error in tryFill\", iae);\r\n    } catch (InvocationTargetException ite) {\r\n        LOGGER.error(\"Error in tryFill\", ite);\r\n    }\r\n}"
+}, {
+	"Path": "org.apache.servicecomb.faultinjection.TestFaultInjectHandler.testFaultInjectHandlerConfigChangeEvent3",
+	"Comment": "tests the fault injection handler functionality with configuration change event for schema level config.",
+	"Method": "void testFaultInjectHandlerConfigChangeEvent3(){\r\n    System.setProperty(\"servicecomb.governance.Consumer.carts3.schemas.testSchema3.policy.fault.protocols.rest.delay.fixedDelay\", \"1\");\r\n    System.setProperty(\"servicecomb.governance.Consumer.carts3.schemas.testSchema3.policy.fault.protocols.rest.delay.percent\", \"100\");\r\n    System.setProperty(\"servicecomb.governance.Consumer.carts3.schemas.testSchema3.policy.fault.protocols.rest.abort.percent\", \"100\");\r\n    System.setProperty(\"servicecomb.governance.Consumer.carts3.schemas.testSchema3.policy.fault.protocols.rest.abort.httpStatus\", \"421\");\r\n    Mockito.when(invocation.getMicroserviceQualifiedName()).thenReturn(\"MicroserviceQualifiedName9\");\r\n    Mockito.when(invocation.getTransport()).thenReturn(transport);\r\n    Mockito.when(transport.getName()).thenReturn(\"rest\");\r\n    Mockito.when(invocation.getOperationName()).thenReturn(\"sayBye3\");\r\n    Mockito.when(invocation.getSchemaId()).thenReturn(\"testSchema3\");\r\n    Mockito.when(invocation.getMicroserviceName()).thenReturn(\"carts3\");\r\n    boolean validAssert;\r\n    long timeOld = System.currentTimeMillis();\r\n    List<Fault> faultInjectionFeatureList = Arrays.asList(delayFault, abortFault);\r\n    handler.setFaultFeature(faultInjectionFeatureList);\r\n    try {\r\n        validAssert = true;\r\n        handler.handle(invocation, ar);\r\n    } catch (Exception e) {\r\n        validAssert = false;\r\n    }\r\n    Assert.assertTrue(validAssert);\r\n    TestFaultInjectUtil.updateProperty(\"servicecomb.governance.Consumer.carts3.schemas.testSchema3.policy.fault.protocols.rest.delay.fixedDelay\", 500);\r\n    Holder<Boolean> isAsserted = new Holder(false);\r\n    handler.handle(invocation, ar -> {\r\n        isAsserted.value = true;\r\n        assertEquals(421, response.getStatusCode());\r\n        assertTrue(response.isFailed());\r\n        long timeNow = System.currentTimeMillis();\r\n        Assert.assertTrue((timeNow - timeOld) >= 500);\r\n    });\r\n    Assert.assertTrue(isAsserted.value);\r\n    System.getProperties().remove(\"servicecomb.governance.Consumer.carts3.schemas.testSchema3.policy.fault.protocols.rest.delay.fixedDelay\");\r\n    System.getProperties().remove(\"servicecomb.governance.Consumer.carts3.schemas.testSchema3.policy.fault.protocols.rest.delay.percent\");\r\n    System.getProperties().remove(\"servicecomb.governance.Consumer.carts3.schemas.testSchema3.policy.fault.protocols.rest.abort.percent\");\r\n    System.getProperties().remove(\"servicecomb.governance.Consumer.carts3.schemas.testSchema3.policy.fault.protocols.rest.abort.httpStatus\");\r\n    AtomicLong count = FaultInjectionUtil.getOperMetTotalReq(\"restMicroserviceQualifiedName9\");\r\n    assertEquals(3, count.get());\r\n}"
+}, {
+	"Path": "org.apache.servicecomb.core.transport.TestAbstractTransport.testRequestCfgOperation",
+	"Comment": "tests the request call timeout for operatation level timeout value",
+	"Method": "void testRequestCfgOperation(){\r\n    System.setProperty(\"servicecomb.request.hello3.sayHelloSchema3.sayHello3.timeout\", \"1000\");\r\n    Assert.assertEquals(1000, AbstractTransport.getReqTimeout(\"sayHello3\", \"sayHelloSchema3\", \"hello3\"));\r\n    System.getProperties().remove(\"servicecomb.request.hello3.sayHelloSchema3.sayHello3.timeout\");\r\n}"
+}, {
+	"Path": "org.apache.servicecomb.faultinjection.TestFaultInjectHandler.testFaultInjectHandlerConfigChangeEvent2",
+	"Comment": "tests the fault injection handler functionality with configuration change event for operation level config.",
+	"Method": "void testFaultInjectHandlerConfigChangeEvent2(){\r\n    System.setProperty(\"servicecomb.governance.Consumer.carts2.schemas.testSchema2.operations.sayBye2.policy.fault.protocols.rest.delay.fixedDelay\", \"1\");\r\n    System.setProperty(\"servicecomb.governance.Consumer.carts2.schemas.testSchema2.operations.sayBye2.policy.fault.protocols.rest.delay.percent\", \"100\");\r\n    System.setProperty(\"servicecomb.governance.Consumer.carts2.schemas.testSchema2.operations.sayBye2.policy.fault.protocols.rest.abort.percent\", \"100\");\r\n    System.setProperty(\"servicecomb.governance.Consumer.carts2.schemas.testSchema2.operations.sayBye2.policy.fault.protocols.rest.abort.httpStatus\", \"420\");\r\n    Mockito.when(invocation.getMicroserviceQualifiedName()).thenReturn(\"MicroserviceQualifiedName8\");\r\n    Mockito.when(invocation.getTransport()).thenReturn(transport);\r\n    Mockito.when(transport.getName()).thenReturn(\"rest\");\r\n    Mockito.when(invocation.getOperationName()).thenReturn(\"sayBye2\");\r\n    Mockito.when(invocation.getSchemaId()).thenReturn(\"testSchema2\");\r\n    Mockito.when(invocation.getMicroserviceName()).thenReturn(\"carts2\");\r\n    boolean validAssert;\r\n    long timeOld = System.currentTimeMillis();\r\n    List<Fault> faultInjectionFeatureList = Arrays.asList(delayFault, abortFault);\r\n    handler.setFaultFeature(faultInjectionFeatureList);\r\n    try {\r\n        validAssert = true;\r\n        handler.handle(invocation, ar);\r\n    } catch (Exception e) {\r\n        validAssert = false;\r\n    }\r\n    Assert.assertTrue(validAssert);\r\n    TestFaultInjectUtil.updateProperty(\"servicecomb.governance.Consumer.carts2.schemas.testSchema2.operations.sayBye2.policy.fault.protocols.rest.delay.fixedDelay\", 500);\r\n    Holder<Boolean> isAsserted = new Holder(false);\r\n    handler.handle(invocation, ar -> {\r\n        isAsserted.value = true;\r\n        assertEquals(420, response.getStatusCode());\r\n        assertTrue(response.isFailed());\r\n        long timeNow = System.currentTimeMillis();\r\n        Assert.assertTrue((timeNow - timeOld) >= 500);\r\n    });\r\n    Assert.assertTrue(isAsserted.value);\r\n    System.getProperties().remove(\"servicecomb.governance.Consumer.carts2.schemas.testSchema2.operations.sayBye2.policy.fault.protocols.rest.delay.fixedDelay\");\r\n    System.getProperties().remove(\"servicecomb.governance.Consumer.carts2.schemas.testSchema2.operations.sayBye2.policy.fault.protocols.rest.delay.percent\");\r\n    System.getProperties().remove(\"servicecomb.governance.Consumer.carts2.schemas.testSchema2.operations.sayBye2.policy.fault.protocols.rest.abort.percent\");\r\n    System.getProperties().remove(\"servicecomb.governance.Consumer.carts2.schemas.testSchema2.operations.sayBye2.policy.fault.protocols.rest.abort.httpStatus\");\r\n    AtomicLong count = FaultInjectionUtil.getOperMetTotalReq(\"restMicroserviceQualifiedName8\");\r\n    assertEquals(3, count.get());\r\n}"
+}, {
+	"Path": "org.rakam.aws.kinesis.KinesisUtils.createAndWaitForStreamToBecomeAvailable",
+	"Comment": "creates an amazon kinesis stream if it does not exist and waits for it to become available",
+	"Method": "void createAndWaitForStreamToBecomeAvailable(AmazonKinesisClient kinesisClient,String streamName,int shardCount){\r\n    if (streamExists(kinesisClient, streamName)) {\r\n        String state = streamState(kinesisClient, streamName);\r\n        switch(state) {\r\n            case \"DELETING\":\r\n                long startTime = System.currentTimeMillis();\r\n                long endTime = startTime + 1000 * 120;\r\n                while (System.currentTimeMillis() < endTime && streamExists(kinesisClient, streamName)) {\r\n                    try {\r\n                        LOG.info(\"...Deleting Stream \" + streamName + \"...\");\r\n                        Thread.sleep(1000 * 10);\r\n                    } catch (InterruptedException e) {\r\n                    }\r\n                }\r\n                if (streamExists(kinesisClient, streamName)) {\r\n                    LOG.error(\"KinesisUtils timed out waiting for stream \" + streamName + \" to delete\");\r\n                    throw new IllegalStateException(\"KinesisUtils timed out waiting for stream \" + streamName + \" to delete\");\r\n                }\r\n            case \"ACTIVE\":\r\n                LOG.info(\"Stream \" + streamName + \" is ACTIVE\");\r\n                return;\r\n            case \"CREATING\":\r\n                break;\r\n            case \"UPDATING\":\r\n                LOG.info(\"Stream \" + streamName + \" is UPDATING\");\r\n                return;\r\n            default:\r\n                throw new IllegalStateException(\"Illegal stream state: \" + state);\r\n        }\r\n    } else {\r\n        CreateStreamRequest createStreamRequest = new CreateStreamRequest();\r\n        createStreamRequest.setStreamName(streamName);\r\n        createStreamRequest.setShardCount(shardCount);\r\n        kinesisClient.createStream(createStreamRequest);\r\n        LOG.info(\"Stream \" + streamName + \" created\");\r\n    }\r\n    long startTime = System.currentTimeMillis();\r\n    long endTime = startTime + (10 * 60 * 1000);\r\n    while (System.currentTimeMillis() < endTime) {\r\n        try {\r\n            Thread.sleep(1000 * 10);\r\n        } catch (Exception e) {\r\n        }\r\n        try {\r\n            String streamStatus = streamState(kinesisClient, streamName);\r\n            if (streamStatus.equals(\"ACTIVE\")) {\r\n                LOG.info(\"Stream \" + streamName + \" is ACTIVE\");\r\n                return;\r\n            }\r\n        } catch (ResourceNotFoundException e) {\r\n            throw new IllegalStateException(\"Stream \" + streamName + \" never went active\");\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "org.apache.servicecomb.faultinjection.TestFaultInjectHandler.testFaultInjectHandlerConfigChangeEvent1",
+	"Comment": "tests the fault injection handler functionality with configuration change event for global level config.",
+	"Method": "void testFaultInjectHandlerConfigChangeEvent1(){\r\n    System.setProperty(\"servicecomb.governance.Consumer._global.policy.fault.protocols.rest.delay.fixedDelay\", \"1\");\r\n    System.setProperty(\"servicecomb.governance.Consumer._global.policy.fault.protocols.rest.delay.percent\", \"100\");\r\n    System.setProperty(\"servicecomb.governance.Consumer._global.policy.fault.protocols.rest.abort.percent\", \"100\");\r\n    System.setProperty(\"servicecomb.governance.Consumer._global.policy.fault.protocols.rest.abort.httpStatus\", \"420\");\r\n    Mockito.when(invocation.getMicroserviceQualifiedName()).thenReturn(\"MicroserviceQualifiedName7\");\r\n    Mockito.when(invocation.getTransport()).thenReturn(transport);\r\n    Mockito.when(transport.getName()).thenReturn(\"rest\");\r\n    Mockito.when(invocation.getOperationName()).thenReturn(\"sayBye1\");\r\n    Mockito.when(invocation.getSchemaId()).thenReturn(\"testSchema1\");\r\n    Mockito.when(invocation.getMicroserviceName()).thenReturn(\"carts1\");\r\n    boolean validAssert;\r\n    List<Fault> faultInjectionFeatureList = Arrays.asList(delayFault, abortFault);\r\n    handler.setFaultFeature(faultInjectionFeatureList);\r\n    try {\r\n        validAssert = true;\r\n        handler.handle(invocation, ar);\r\n    } catch (Exception e) {\r\n        validAssert = false;\r\n    }\r\n    Assert.assertTrue(validAssert);\r\n    TestFaultInjectUtil.updateProperty(\"servicecomb.governance.Consumer._global.policy.fault.protocols.rest.delay.fixedDelay\", 500);\r\n    TestFaultInjectUtil.updateProperty(\"servicecomb.governance.Consumer._global.policy.fault.protocols.rest.abort.httpStatus\", 421);\r\n    Holder<Boolean> isAsserted = new Holder(false);\r\n    handler.handle(invocation, ar -> {\r\n        isAsserted.value = true;\r\n        assertTrue(response.isFailed());\r\n    });\r\n    Assert.assertTrue(isAsserted.value);\r\n    System.getProperties().remove(\"servicecomb.governance.Consumer._global.policy.fault.protocols.rest.delay.fixedDelay\");\r\n    System.getProperties().remove(\"servicecomb.governance.Consumer._global.policy.fault.protocols.rest.delay.percent\");\r\n    System.getProperties().remove(\"servicecomb.governance.Consumer._global.policy.fault.protocols.rest.abort.percent\");\r\n    System.getProperties().remove(\"servicecomb.governance.Consumer._global.policy.fault.protocols.rest.abort.httpStatus\");\r\n    AtomicLong count = FaultInjectionUtil.getOperMetTotalReq(\"restMicroserviceQualifiedName7\");\r\n    assertEquals(3, count.get());\r\n}"
+}, {
+	"Path": "org.apache.servicecomb.serviceregistry.discovery.DiscoveryTree.sort",
+	"Comment": "all leaf group will create a loadbalancer instance, groupname is loadbalancer key",
+	"Method": "void sort(){\r\n    filters.sort(Comparator.comparingInt(DiscoveryFilter::getOrder));\r\n    Iterator<DiscoveryFilter> iterator = filters.iterator();\r\n    while (iterator.hasNext()) {\r\n        DiscoveryFilter filter = iterator.next();\r\n        if (!filter.enabled()) {\r\n            iterator.remove();\r\n        }\r\n        LOGGER.info(\"DiscoveryFilter {}, enabled {}.\", filter.getClass().getName(), filter.enabled());\r\n    }\r\n}"
+}, {
+	"Path": "com.google.re2j.Parser.cleanAlt",
+	"Comment": "cleanalt cleans re for eventual inclusion in an alternation.",
+	"Method": "void cleanAlt(Regexp re){\r\n    switch(re.op) {\r\n        case CHAR_CLASS:\r\n            re.runes = new CharClass(re.runes).cleanClass().toArray();\r\n            if (re.runes.length == 2 && re.runes[0] == 0 && re.runes[1] == Unicode.MAX_RUNE) {\r\n                re.runes = null;\r\n                re.op = Regexp.Op.ANY_CHAR;\r\n                return;\r\n            }\r\n            if (re.runes.length == 4 && re.runes[0] == 0 && re.runes[1] == '\\n' - 1 && re.runes[2] == '\\n' + 1 && re.runes[3] == Unicode.MAX_RUNE) {\r\n                re.runes = null;\r\n                re.op = Regexp.Op.ANY_CHAR_NOT_NL;\r\n                return;\r\n            }\r\n            break;\r\n    }\r\n}"
+}, {
+	"Path": "org.schemaspy.Config.determineDbProperties",
+	"Comment": "determines the database properties associated with the specified type.",
+	"Method": "Properties determineDbProperties(String type){\r\n    return propertiesResolver.getDbProperties(type);\r\n}"
+}, {
+	"Path": "play.test.FunctionalTest.assertContentMatch",
+	"Comment": "asserts response body matched a pattern or contains some text.",
+	"Method": "void assertContentMatch(String pattern,Response response){\r\n    Pattern ptn = Pattern.compile(pattern);\r\n    boolean ok = ptn.matcher(getContent(response)).find();\r\n    assertTrue(\"Response content does not match '\" + pattern + \"'\", ok);\r\n}"
+}, {
+	"Path": "com.rarchives.ripme.utils.Utils.getMacOSConfigDir",
+	"Comment": "gets the directory of where the config file is stored on a mac machine.",
+	"Method": "String getMacOSConfigDir(){\r\n    return System.getProperty(\"user.home\") + File.separator + \"Library\" + File.separator + \"Application Support\" + File.separator + \"ripme\";\r\n}"
+}, {
+	"Path": "org.schemaspy.model.TableColumn.matches",
+	"Comment": "returns true if tablename.columnname matches the suppliedregular expression.",
+	"Method": "boolean matches(Pattern regex){\r\n    return regex.matcher(getTable().getName() + '.' + getName()).matches();\r\n}"
+}, {
+	"Path": "com.github.davidmoten.rtree.internal.util.PriorityQueue.iterator",
+	"Comment": "returns an iterator over the elements in this queue. the iterator doesnot return the elements in any particular order.",
+	"Method": "Iterator<E> iterator(){\r\n    return new Itr();\r\n}"
+}, {
+	"Path": "models.data.AgentCommandMetadata.convertMapToList",
+	"Comment": "this does not completely copy!! missing requestcontenttemplate, list\telement for easy json passing to html template!!",
+	"Method": "List<AgentCommandMetadata> convertMapToList(Map<String, AgentCommandMetadata> map){\r\n    List<AgentCommandMetadata> list = new ArrayList<AgentCommandMetadata>();\r\n    for (Entry<String, AgentCommandMetadata> entry : map.entrySet()) {\r\n        AgentCommandMetadata copyWithoutList = new AgentCommandMetadata(entry.getValue());\r\n        list.add(copyWithoutList);\r\n    }\r\n    return list;\r\n}"
+}, {
+	"Path": "com.rabbitmq.client.test.AMQConnectionTest.connectionHangInNegotiation",
+	"Comment": "test that we catch timeout between connect and negotiation of the connection being finished.",
+	"Method": "void connectionHangInNegotiation(){\r\n    this._mockFrameHandler.setTimeoutCount(10);\r\n    assertEquals(0, this._mockFrameHandler.countHeadersSent());\r\n    try {\r\n        ConnectionParams params = factory.params(Executors.newFixedThreadPool(1));\r\n        new AMQConnection(params, this._mockFrameHandler).start();\r\n        fail(\"Connection should have thrown exception\");\r\n    } catch (IOException signal) {\r\n    } catch (TimeoutException te) {\r\n    }\r\n    assertEquals(1, this._mockFrameHandler.countHeadersSent());\r\n    List<Throwable> exceptionList = exceptionHandler.getHandledExceptions();\r\n    assertEquals(\"Only one exception expected\", 1, exceptionList.size());\r\n    assertEquals(\"Wrong type of exception returned.\", SocketTimeoutException.class, exceptionList.get(0).getClass());\r\n}"
+}, {
+	"Path": "org.apache.servicecomb.faultinjection.FaultInjectionUtil.getOperMetTotalReq",
+	"Comment": "returns total requests per provider for operational level.",
+	"Method": "AtomicLong getOperMetTotalReq(String key){\r\n    return requestCount.computeIfAbsent(key, p -> new AtomicLong(1));\r\n}"
+}, {
+	"Path": "play.libs.Crypto.encryptAES",
+	"Comment": "encrypt a string with the aes encryption standard. private key must have a length of 16 bytes",
+	"Method": "String encryptAES(String value,String encryptAES,String value,String privateKey){\r\n    try {\r\n        byte[] raw = privateKey.getBytes();\r\n        SecretKeySpec skeySpec = new SecretKeySpec(raw, \"AES\");\r\n        Cipher cipher = Cipher.getInstance(\"AES\");\r\n        cipher.init(Cipher.ENCRYPT_MODE, skeySpec);\r\n        return Codec.byteToHexString(cipher.doFinal(value.getBytes()));\r\n    } catch (Exception ex) {\r\n        throw new UnexpectedException(ex);\r\n    }\r\n}"
+}, {
+	"Path": "play.data.parsing.MultipartStream.getHeaderEncoding",
+	"Comment": "retrieves the character encoding used when reading the headers of anindividual part. when not specified, or null, the platformdefault encoding is used.",
+	"Method": "String getHeaderEncoding(){\r\n    return headerEncoding;\r\n}"
+}, {
+	"Path": "com.rabbitmq.client.test.functional.RequeueOnClose.requeueInFlightConsumerAck",
+	"Comment": "test close while consuming partially acked with cancel successfully requeues unacknowledged messages",
+	"Method": "void requeueInFlightConsumerAck(){\r\n    for (int i = 0; i < 5; i++) {\r\n        publishLotsAndConsumeSome(true, true);\r\n    }\r\n}"
+}, {
+	"Path": "com.segmentfault.springbootlesson7.entity2.UserExample.clear",
+	"Comment": "this method was generated by mybatis generator.this method corresponds to the database table user",
+	"Method": "void clear(){\r\n    oredCriteria.clear();\r\n    orderByClause = null;\r\n    distinct = false;\r\n}"
+}, {
+	"Path": "org.rakam.collection.TestMetastore.testConcurrentSchemaChanges",
+	"Comment": "the schema change requests may be performed from any rakam node in a cluster and they have to be consistent.",
+	"Method": "void testConcurrentSchemaChanges(){\r\n    getMetastore().createProject(\"test\");\r\n    List<List<SchemaField>> collect = IntStream.range(0, 10).parallel().mapToObj(i -> getMetastore().getOrCreateCollectionFields(\"test\", \"test\", ImmutableSet.of(new SchemaField(\"test\" + i, STRING)))).collect(Collectors.toList());\r\n    Set<SchemaField> allSchemas = ImmutableSet.copyOf(collect.stream().sorted((o1, o2) -> o2.size() - o1.size()).findFirst().get());\r\n    for (List<SchemaField> schemaFields : collect) {\r\n        for (int i = 0; i < schemaFields.size(); i++) {\r\n            assertTrue(allSchemas.contains(schemaFields.get(i)), String.format(\"%s not in %s\", schemaFields.get(i), allSchemas));\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "play.utils.ANSIConsoleAppender.getColour",
+	"Comment": "get the appropriate control characters to changethe colour for the specified logging level.",
+	"Method": "String getColour(org.apache.log4j.Level level){\r\n    switch(level.toInt()) {\r\n        case Priority.FATAL_INT:\r\n            return FATAL_COLOUR;\r\n        case Priority.ERROR_INT:\r\n            return ERROR_COLOUR;\r\n        case Priority.WARN_INT:\r\n            return WARN_COLOUR;\r\n        case Priority.INFO_INT:\r\n            return INFO_COLOUR;\r\n        case Priority.DEBUG_INT:\r\n            return DEBUG_COLOUR;\r\n        default:\r\n            return TRACE_COLOUR;\r\n    }\r\n}"
+}, {
+	"Path": "com.rarchives.ripme.ripper.rippers.DeviantartRipper.getFirstPage",
+	"Comment": "gets first page.will determine if login is supplied,if there is a login, then login and add that login cookies.otherwise, just bypass the age gate with an anonymous flag.",
+	"Method": "JSONObject getFirstPage(){\r\n    cookies = getDACookies();\r\n    if (cookies.isEmpty()) {\r\n        LOGGER.warn(\"Failed to get login cookies\");\r\n        cookies.put(\"agegate_state\", \"1\");\r\n    }\r\n    cookies.put(\"agegate_state\", \"1\");\r\n    Response res = Http.url(this.url).cookies(cookies).response();\r\n    Document page = res.parse();\r\n    JSONObject firstPageJSON = getFirstPageJSON(page);\r\n    requestID = firstPageJSON.getJSONObject(\"dapx\").getString(\"requestid\");\r\n    galleryID = getGalleryID(page);\r\n    username = getUsernameFromURL(url.toExternalForm());\r\n    csrf = firstPageJSON.getString(\"csrf\");\r\n    pageCookies = res.cookies();\r\n    return requestPage(0, galleryID, username, requestID, csrf, pageCookies);\r\n}"
+}, {
+	"Path": "com.rabbitmq.client.test.functional.BindingLifecycle.exchangeDelete",
+	"Comment": "this tests whether when you delete an exchange, that anybindings attached to it are deleted as well.",
+	"Method": "void exchangeDelete(){\r\n    boolean durable = true;\r\n    Binding binding = setupExchangeAndRouteMessage(true);\r\n    channel.exchangeDelete(binding.x);\r\n    channel.exchangeDeclare(binding.x, \"direct\");\r\n    sendUnroutable(binding);\r\n    channel.queueDelete(binding.q);\r\n}"
+}, {
+	"Path": "play.data.parsing.MultipartStream.findByte",
+	"Comment": "searches for a byte of specified value in the buffer,starting at the specified position.",
+	"Method": "int findByte(byte value,int pos){\r\n    for (int i = pos; i < tail; i++) {\r\n        if (buffer[i] == value) {\r\n            return i;\r\n        }\r\n    }\r\n    return -1;\r\n}"
+}, {
+	"Path": "com.segmentfault.springbootlesson7.entity2.UserExample.getOredCriteria",
+	"Comment": "this method was generated by mybatis generator.this method corresponds to the database table user",
+	"Method": "List<Criteria> getOredCriteria(){\r\n    return oredCriteria;\r\n}"
+}, {
+	"Path": "com.rabbitmq.tools.jsonrpc.JsonRpcServer.matchingMethod",
+	"Comment": "retrieves the best matching method for the given method name and parameters.subclasses may override this if they have specialiseddispatching requirements, so long as they continue to honourtheir servicedescription.",
+	"Method": "Method matchingMethod(String methodName,Object[] params){\r\n    ProcedureDescription proc = serviceDescription.getProcedure(methodName, params.length);\r\n    return proc.internal_getMethod();\r\n}"
+}, {
+	"Path": "org.schemaspy.util.ResourceWriter.copyJarResourceToPath",
+	"Comment": "copies resources from the jar file of the current thread and extract itto the destination path.",
+	"Method": "void copyJarResourceToPath(JarURLConnection jarConnection,File destPath,FileFilter filter){\r\n    try {\r\n        JarFile jarFile = jarConnection.getJarFile();\r\n        String jarConnectionEntryName = jarConnection.getEntryName();\r\n        for (Enumeration<JarEntry> e = jarFile.entries(); e.hasMoreElements(); ) {\r\n            JarEntry jarEntry = e.nextElement();\r\n            String jarEntryName = jarEntry.getName();\r\n            if (jarEntryName.startsWith(jarConnectionEntryName + \"/\")) {\r\n                String filename = jarEntryName.substring(jarConnectionEntryName.length());\r\n                File currentFile = new File(destPath, filename);\r\n                if (jarEntry.isDirectory()) {\r\n                    FileUtils.forceMkdir(currentFile);\r\n                } else {\r\n                    if (filter == null || filter.accept(currentFile)) {\r\n                        InputStream is = jarFile.getInputStream(jarEntry);\r\n                        OutputStream out = FileUtils.openOutputStream(currentFile);\r\n                        IOUtils.copy(is, out);\r\n                        is.close();\r\n                        out.close();\r\n                    }\r\n                }\r\n            }\r\n        }\r\n    } catch (IOException e) {\r\n        LOGGER.warn(e.getMessage(), e);\r\n    }\r\n}"
+}, {
+	"Path": "com.segmentfault.springbootlesson7.entity2.User.getHeight",
+	"Comment": "this method was generated by mybatis generator.this method returns the value of the database column user.height",
+	"Method": "Float getHeight(){\r\n    return height;\r\n}"
+}, {
+	"Path": "com.segmentfault.springbootlesson19.listener.PersonIntegrationTestListener.beforeTestMethod",
+	"Comment": "the default implementation is empty. can be overridden bysubclasses as necessary.",
+	"Method": "void beforeTestMethod(TestContext testContext){\r\n    System.err.println(\"before : \" + testContext.getTestMethod());\r\n}"
+}, {
+	"Path": "com.segmentfault.springbootlesson7.entity2.User.setName",
+	"Comment": "this method was generated by mybatis generator.this method sets the value of the database column user.name",
+	"Method": "void setName(String name){\r\n    this.name = name;\r\n}"
+}, {
+	"Path": "play.data.parsing.MultipartStream.setHeaderEncoding",
+	"Comment": "specifies the character encoding to be used when reading the headers ofindividual parts. when not specified, or null, the platformdefault encoding is used.",
+	"Method": "void setHeaderEncoding(String encoding){\r\n    headerEncoding = encoding;\r\n}"
+}, {
+	"Path": "com.google.re2j.Matcher.end",
+	"Comment": "returns the end position of a subgroup of the most recent match.",
+	"Method": "int end(int end,int group){\r\n    loadGroup(group);\r\n    return groups[2 * group + 1];\r\n}"
+}, {
+	"Path": "org.schemaspy.service.SqlService.createInvalidIdentifierPattern",
+	"Comment": "return a pattern whose matcher will return truewhen run against an identifier that contains a character that is notacceptable by the database without being quoted.",
+	"Method": "Pattern createInvalidIdentifierPattern(DatabaseMetaData databaseMetaData){\r\n    StringBuilder validChars = new StringBuilder(\"a-zA-Z0-9_\");\r\n    String reservedRegexChars = \"-&^\";\r\n    String extraValidChars = databaseMetaData.getExtraNameCharacters();\r\n    for (int i = 0; i < extraValidChars.length(); ++i) {\r\n        char ch = extraValidChars.charAt(i);\r\n        if (reservedRegexChars.indexOf(ch) >= 0)\r\n            validChars.append(\"\" + \"\\\\\");\r\n        validChars.append(ch);\r\n    }\r\n    return Pattern.compile(\"[^\" + validChars + \"]\");\r\n}"
+}, {
+	"Path": "com.segmentfault.springbootlesson7.entity2.User.setId",
+	"Comment": "this method was generated by mybatis generator.this method sets the value of the database column user.id",
+	"Method": "void setId(Integer id){\r\n    this.id = id;\r\n}"
+}, {
+	"Path": "com.rabbitmq.client.test.functional.BindingLifecycle.queuePurge",
+	"Comment": "this tests that when you purge a queue, all of its messages go.",
+	"Method": "void queuePurge(){\r\n    Binding binding = setupExchangeBindings(false);\r\n    channel.basicPublish(binding.x, binding.k, null, payload);\r\n    channel.queuePurge(binding.q);\r\n    GetResponse response = channel.basicGet(binding.q, true);\r\n    assertNull(\"The response SHOULD BE null\", response);\r\n    deleteExchangeAndQueue(binding);\r\n}"
+}, {
+	"Path": "com.segmentfault.springbootlesson7.entity2.UserExample.isDistinct",
+	"Comment": "this method was generated by mybatis generator.this method corresponds to the database table user",
+	"Method": "boolean isDistinct(){\r\n    return distinct;\r\n}"
+}, {
+	"Path": "com.google.re2j.ApiTestUtils.assertCompileFails",
+	"Comment": "asserts that illegalargumentexception is thrown from compile with flags.",
+	"Method": "void assertCompileFails(String regex,int flag){\r\n    try {\r\n        Pattern.compile(regex, flag);\r\n        fail(\"Compiling Pattern with regex: \" + regex + \" and flag: \" + flag + \" passed, when it should have failed.\");\r\n    } catch (IllegalArgumentException e) {\r\n        if (!\"Flags UNIX_LINES and COMMENTS unsupported\".equals(e.getMessage())) {\r\n            throw e;\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "com.rabbitmq.client.impl.VariableLinkedBlockingQueue.put",
+	"Comment": "adds the specified element to the tail of this queue, waiting ifnecessary for space to become available.",
+	"Method": "void put(E o){\r\n    if (o == null)\r\n        throw new NullPointerException();\r\n    int c = -1;\r\n    final ReentrantLock putLock = this.putLock;\r\n    final AtomicInteger count = this.count;\r\n    putLock.lockInterruptibly();\r\n    try {\r\n        try {\r\n            while (count.get() >= capacity) notFull.await();\r\n        } catch (InterruptedException ie) {\r\n            notFull.signal();\r\n            throw ie;\r\n        }\r\n        insert(o);\r\n        c = count.getAndIncrement();\r\n        if (c + 1 < capacity)\r\n            notFull.signal();\r\n    } finally {\r\n        putLock.unlock();\r\n    }\r\n    if (c == 0)\r\n        signalNotEmpty();\r\n}"
+}, {
+	"Path": "play.cache.Cache.safeSet",
+	"Comment": "set an element and return only when the element is effectively cached.",
+	"Method": "boolean safeSet(String key,Object value,String expiration){\r\n    checkSerializable(value);\r\n    return cacheImpl.safeSet(key, value, Time.parseDuration(expiration));\r\n}"
+}, {
+	"Path": "com.twitter.serial.SerializationTestUtils.performRoundTripThroughSerialization",
+	"Comment": "returns the result of serializing and deserializing an object.",
+	"Method": "T performRoundTripThroughSerialization(T object,T performRoundTripThroughSerialization,T object,Serializer<? super T> serializer){\r\n    final ByteBufferSerializerOutput output = new ByteBufferSerializerOutput();\r\n    serializer.serialize(CONTEXT, output, object);\r\n    final ByteBufferSerializerInput input = new ByteBufferSerializerInput(output.getSerializedData());\r\n    return InternalSerialUtils.cast(serializer.deserialize(CONTEXT, input));\r\n}"
+}, {
+	"Path": "org.apache.servicecomb.foundation.common.event.SimpleEventBus.collectSubscriberForEvent",
+	"Comment": "subscribersmap almost stableso we not care for performance of collectsubscriberforevent",
+	"Method": "List<SimpleSubscriber> collectSubscriberForEvent(Class<?> eventClass){\r\n    List<SimpleSubscriber> subscribersForEvent = new ArrayList();\r\n    for (List<SimpleSubscriber> subscribers : subscribersMap.values()) {\r\n        for (SimpleSubscriber subscriber : subscribers) {\r\n            if (subscriber.getMethod().getParameterTypes()[0].isAssignableFrom(eventClass)) {\r\n                subscribersForEvent.add(subscriber);\r\n            }\r\n        }\r\n    }\r\n    return subscribersForEvent;\r\n}"
+}, {
+	"Path": "com.rabbitmq.client.test.CloseInMainLoop.closeWithFaultyConsumer",
+	"Comment": "consumer exception handler, and result in a clean shut down.",
+	"Method": "void closeWithFaultyConsumer(){\r\n    SpecialConnection connection = new SpecialConnection();\r\n    Channel channel = connection.createChannel();\r\n    channel.exchangeDeclare(\"x\", \"direct\");\r\n    channel.queueDeclare(\"q\", false, false, false, null);\r\n    channel.queueBind(\"q\", \"x\", \"k\");\r\n    channel.basicConsume(\"q\", true, new DefaultConsumer(channel) {\r\n        @Override\r\n        public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) {\r\n            throw new RuntimeException(\"I am a bad consumer\");\r\n        }\r\n    });\r\n    channel.basicPublish(\"x\", \"k\", null, new byte[10]);\r\n    assertTrue(closeLatch.await(1000, TimeUnit.MILLISECONDS));\r\n    assertTrue(connection.hadValidShutdown());\r\n}"
+}, {
+	"Path": "com.rabbitmq.client.test.CloseInMainLoop.closeWithFaultyConsumer",
+	"Comment": "consumer exception handler, and result in a clean shut down.",
+	"Method": "void closeWithFaultyConsumer(){\r\n    throw new RuntimeException(\"I am a bad consumer\");\r\n}"
+}, {
+	"Path": "org.schemaspy.model.ForeignKeyConstraint.isRestrictDelete",
+	"Comment": "returns true if the constraint prevents the parent tablefrom being deleted if child tables exist.",
+	"Method": "boolean isRestrictDelete(){\r\n    return getDeleteRule() == importedKeyNoAction || getDeleteRule() == importedKeyRestrict;\r\n}"
+}, {
+	"Path": "org.apache.servicecomb.faultinjection.TestFaultInjectHandler.testFaultInjectHandlerRestWithDefaultCfg",
+	"Comment": "tests the fault injection handler functionality with default values for resttransport.",
+	"Method": "void testFaultInjectHandlerRestWithDefaultCfg(){\r\n    Mockito.when(invocation.getMicroserviceQualifiedName()).thenReturn(\"MicroserviceQualifiedName2\");\r\n    Mockito.when(invocation.getTransport()).thenReturn(transport);\r\n    Mockito.when(transport.getName()).thenReturn(\"rest\");\r\n    Mockito.when(invocation.getOperationName()).thenReturn(\"sayHello\");\r\n    Mockito.when(invocation.getSchemaId()).thenReturn(\"sayHelloSchema\");\r\n    Mockito.when(invocation.getMicroserviceName()).thenReturn(\"hello\");\r\n    List<Fault> faultInjectionFeatureList = Arrays.asList(delayFault, abortFault);\r\n    handler.setFaultFeature(faultInjectionFeatureList);\r\n    handler.handle(invocation, asyncResp);\r\n    AtomicLong count = FaultInjectionUtil.getOperMetTotalReq(\"restMicroserviceQualifiedName2\");\r\n    assertEquals(2, count.get());\r\n}"
+}, {
+	"Path": "org.apache.servicecomb.demo.springmvc.server.CodeFirstSpringmvc.checkQueryGenericObject",
+	"Comment": "for the nesting object params, including the generic params whose generic field is an object,the inner object field is not supported.",
+	"Method": "String checkQueryGenericObject(GenericParam<Person> requestBody,GenericParamWithJsonIgnore<Person> generic,String str){\r\n    LOGGER.info(\"checkQueryGenericObject() is called!\");\r\n    return \"str=\" + str + \",generic=\" + generic + \",requestBody=\" + requestBody;\r\n}"
+}, {
+	"Path": "org.asamk.signal.manager.Manager.sendMessageLegacy",
+	"Comment": "this method throws an encapsulatedexceptions exception instead of returning a list of sendmessageresult.",
+	"Method": "void sendMessageLegacy(SignalServiceDataMessage.Builder messageBuilder,Collection<String> recipients){\r\n    List<SendMessageResult> results = sendMessage(messageBuilder, recipients);\r\n    List<UntrustedIdentityException> untrustedIdentities = new LinkedList();\r\n    List<UnregisteredUserException> unregisteredUsers = new LinkedList();\r\n    List<NetworkFailureException> networkExceptions = new LinkedList();\r\n    for (SendMessageResult result : results) {\r\n        if (result.isUnregisteredFailure()) {\r\n            unregisteredUsers.add(new UnregisteredUserException(result.getAddress().getNumber(), null));\r\n        } else if (result.isNetworkFailure()) {\r\n            networkExceptions.add(new NetworkFailureException(result.getAddress().getNumber(), null));\r\n        } else if (result.getIdentityFailure() != null) {\r\n            untrustedIdentities.add(new UntrustedIdentityException(\"Untrusted\", result.getAddress().getNumber(), result.getIdentityFailure().getIdentityKey()));\r\n        }\r\n    }\r\n    if (!untrustedIdentities.isEmpty() || !unregisteredUsers.isEmpty() || !networkExceptions.isEmpty()) {\r\n        throw new EncapsulatedExceptions(untrustedIdentities, unregisteredUsers, networkExceptions);\r\n    }\r\n}"
+}, {
+	"Path": "com.rarchives.ripme.ripper.AlbumRipper.addURLToDownload",
+	"Comment": "queues image to be downloaded and saved.uses filename from url to decide filename.",
+	"Method": "/**\n     * Queues multiple URLs of single images to download from a single Album URL\n     */\r\nboolean addURLToDownload(URL url,File saveAs,String referrer,Map<String, String> cookies,Boolean getFileExtFromMIME,boolean addURLToDownload,URL url,File saveAs,boolean addURLToDownload,URL url){\r\n    return addURLToDownload(url, \"\", \"\");\r\n}"
+}, {
+	"Path": "com.github.davidmoten.rtree.RTree.add",
+	"Comment": "returns the observable sequence of trees created by progressively addingentries.",
+	"Method": "RTree<T, S> add(Entry<? extends T, ? extends S> entry,RTree<T, S> add,T value,S geometry,RTree<T, S> add,Iterable<Entry<T, S>> entries,Observable<RTree<T, S>> add,Observable<Entry<T, S>> entries){\r\n    return entries.scan(this, new Func2<RTree<T, S>, Entry<T, S>, RTree<T, S>>() {\r\n        @Override\r\n        public RTree<T, S> call(RTree<T, S> tree, Entry<T, S> entry) {\r\n            return tree.add(entry);\r\n        }\r\n    });\r\n}"
+}, {
+	"Path": "com.github.davidmoten.rtree.RTree.add",
+	"Comment": "returns the observable sequence of trees created by progressively addingentries.",
+	"Method": "RTree<T, S> add(Entry<? extends T, ? extends S> entry,RTree<T, S> add,T value,S geometry,RTree<T, S> add,Iterable<Entry<T, S>> entries,Observable<RTree<T, S>> add,Observable<Entry<T, S>> entries){\r\n    return tree.add(entry);\r\n}"
+}, {
+	"Path": "org.apache.servicecomb.transport.rest.vertx.VertxRestDispatcher.sendExceptionByRoutingContext",
+	"Comment": "use routingcontext to send failure information in throwable.",
+	"Method": "void sendExceptionByRoutingContext(RoutingContext context,Throwable e){\r\n    if (InvocationException.class.isInstance(e)) {\r\n        InvocationException invocationException = (InvocationException) e;\r\n        context.response().putHeader(HttpHeaders.CONTENT_TYPE, MediaType.WILDCARD).setStatusCode(invocationException.getStatusCode()).setStatusMessage(invocationException.getReasonPhrase()).end(wrapResponseBody(invocationException.getReasonPhrase()));\r\n    } else {\r\n        context.response().putHeader(HttpHeaders.CONTENT_TYPE, MediaType.WILDCARD).setStatusCode(Status.INTERNAL_SERVER_ERROR.getStatusCode()).end(wrapResponseBody(e.getMessage()));\r\n    }\r\n    context.response().close();\r\n}"
+}, {
+	"Path": "com.twitter.serial.util.InternalSerialUtils.getOrEmpty",
+	"Comment": "returns the given string if not null, otherwise an empty string.",
+	"Method": "String getOrEmpty(String string){\r\n    return string == null ? \"\" : string;\r\n}"
+}, {
+	"Path": "com.rarchives.ripme.App.main",
+	"Comment": "where everything starts. takes in, and tries to parse as many commandline arguments as possible.otherwise, it launches a gui.",
+	"Method": "void main(String[] args){\r\n    CommandLine cl = getArgs(args);\r\n    if (args.length > 0 && cl.hasOption('v')) {\r\n        logger.info(UpdateUtils.getThisJarVersion());\r\n        System.exit(0);\r\n    }\r\n    if (Utils.getConfigString(\"proxy.http\", null) != null) {\r\n        Proxy.setHTTPProxy(Utils.getConfigString(\"proxy.http\", null));\r\n    } else if (Utils.getConfigString(\"proxy.socks\", null) != null) {\r\n        Proxy.setSocks(Utils.getConfigString(\"proxy.socks\", null));\r\n    }\r\n    if (cl.hasOption(\"a\")) {\r\n        logger.info(cl.getOptionValue(\"a\"));\r\n        stringToAppendToFoldername = cl.getOptionValue(\"a\");\r\n    }\r\n    if (GraphicsEnvironment.isHeadless() || args.length > 0) {\r\n        handleArguments(args);\r\n    } else {\r\n        if (SystemUtils.IS_OS_MAC_OSX) {\r\n            System.setProperty(\"apple.laf.useScreenMenuBar\", \"true\");\r\n            System.setProperty(\"com.apple.mrj.application.apple.menu.about.name\", \"RipMe\");\r\n        }\r\n        Utils.configureLogger();\r\n        logger.info(\"Initialized ripme v\" + UpdateUtils.getThisJarVersion());\r\n        MainWindow mw = new MainWindow();\r\n        SwingUtilities.invokeLater(mw);\r\n    }\r\n}"
+}, {
+	"Path": "org.apache.servicecomb.serviceregistry.task.TestMicroserviceRegisterTask.testFirstRegisterForProd",
+	"Comment": "there is microservice information but no schema in service center.",
+	"Method": "void testFirstRegisterForProd(ServiceRegistryClient srClient){\r\n    Microservice otherMicroservice = new Microservice();\r\n    otherMicroservice.setAppId(microservice.getAppId());\r\n    otherMicroservice.setServiceName(\"ms1\");\r\n    otherMicroservice.addSchema(\"s1\", null);\r\n    List<GetSchemaResponse> list = new ArrayList();\r\n    GetSchemaResponse resp = new GetSchemaResponse();\r\n    resp.setSchemaId(\"s1\");\r\n    list.add(resp);\r\n    Holder<List<GetSchemaResponse>> onlineSchemasHolder = new Holder();\r\n    onlineSchemasHolder.setValue(list).setStatusCode(200);\r\n    new Expectations() {\r\n        {\r\n            srClient.getMicroserviceId(anyString, anyString, anyString, anyString);\r\n            result = \"serviceId\";\r\n            srClient.getMicroservice(anyString);\r\n            result = otherMicroservice;\r\n            srClient.getSchemas(anyString);\r\n            result = onlineSchemasHolder;\r\n            srClient.getSchema(\"serviceId\", \"s1\");\r\n            result = null;\r\n            srClient.registerSchema(\"serviceId\", \"s1\", \"s1Content\");\r\n            result = true;\r\n        }\r\n    };\r\n    microservice.addSchema(\"s1\", \"s1Content\");\r\n    microservice.setEnvironment(\"production\");\r\n    MicroserviceRegisterTask registerTask = new MicroserviceRegisterTask(eventBus, srClient, microservice);\r\n    registerTask.run();\r\n    Assert.assertEquals(true, registerTask.isRegistered());\r\n    Assert.assertEquals(true, registerTask.isSchemaIdSetMatch());\r\n    Assert.assertEquals(\"serviceId\", microservice.getServiceId());\r\n    Assert.assertEquals(1, taskList.size());\r\n}"
+}, {
+	"Path": "play.mvc.results.Result.getEncoding",
+	"Comment": "the encoding that should be used when writing this response to the client",
+	"Method": "String getEncoding(){\r\n    return Http.Response.current().encoding;\r\n}"
+}, {
+	"Path": "com.twitter.serial.stream.legacy.LegacySerial.toByteArray",
+	"Comment": "serialize the given value and compress the result bytes. this method should be used only for valuesthat may occupy large amount of memories. do not use this method for small objects because thecompression incurs performance overheads and the compressed data cannot be inspected usingserializationutils.dumpserializeddata",
+	"Method": "byte[] toByteArray(T value,Serializer<T> serializer){\r\n    if (value == null) {\r\n        return InternalSerialUtils.EMPTY_BYTE_ARRAY;\r\n    }\r\n    final ByteArrayOutputStream byteOutputStream = new ByteArrayOutputStream();\r\n    ObjectOutput objectOutput = null;\r\n    try {\r\n        objectOutput = new ObjectOutputStream(byteOutputStream);\r\n        serializer.serialize(mContext, new LegacySerializerOutput(objectOutput), value);\r\n    } catch (IOException e) {\r\n        throw e;\r\n    } finally {\r\n        if (objectOutput != null) {\r\n            try {\r\n                objectOutput.close();\r\n            } catch (IOException ignore) {\r\n            }\r\n        }\r\n    }\r\n    return byteOutputStream.toByteArray();\r\n}"
+}, {
+	"Path": "org.schemaspy.util.DbSpecificConfig.dumpUsage",
+	"Comment": "dump usage details associated with the associated type of database",
+	"Method": "void dumpUsage(){\r\n    LOGGER.info(description);\r\n    LOGGER.info(\"Usage -t {}\", dbType);\r\n    getOptions().stream().flatMap(option -> {\r\n        if (\"hostOptionalPort\".equals(option.getName())) {\r\n            return Stream.of(String.format(DUMP_FORMAT, \"host\", \"host of database, may contain port\"), String.format(DUMP_FORMAT, \"port\", \"optional port if not default\"));\r\n        } else {\r\n            return Stream.of(String.format(DUMP_FORMAT, option.getName(), getDescription(option)));\r\n        }\r\n    }).forEach(LOGGER::info);\r\n}"
+}, {
+	"Path": "org.schemaspy.util.DbSpecificOption.getValue",
+	"Comment": "todo this method may return null. consider changing the return type to optional and return optional.empty instead of null",
+	"Method": "String getValue(){\r\n    return value;\r\n}"
+}, {
+	"Path": "play.libs.Time.cronInterval",
+	"Comment": "compute the number of milliseconds between the next valid date and the one after",
+	"Method": "long cronInterval(String cron,long cronInterval,String cron,Date date){\r\n    try {\r\n        return new CronExpression(cron).getNextInterval(date);\r\n    } catch (Exception e) {\r\n        throw new IllegalArgumentException(\"Invalid CRON pattern : \" + cron, e);\r\n    }\r\n}"
+}, {
+	"Path": "com.rabbitmq.client.test.functional.QueueLifecycle.verifyQueue",
+	"Comment": "verify that a queue both exists and has the properties as given",
+	"Method": "void verifyQueue(String name,boolean durable,boolean exclusive,boolean autoDelete,Map<String, Object> args){\r\n    verifyQueueExists(name);\r\n    channel.queueDeclare(name, durable, exclusive, autoDelete, args);\r\n}"
+}, {
+	"Path": "com.codeborne.selenide.WebDriverRunner.getWebDriver",
+	"Comment": "get the underlying instance of selenium webdriver.this can be used for any operations directly with webdriver.",
+	"Method": "WebDriver getWebDriver(){\r\n    return webdriverContainer.getWebDriver();\r\n}"
+}, {
+	"Path": "integration.server.LocalHttpServer.main",
+	"Comment": "method may be used to locally run test server used by selenide own tests",
+	"Method": "void main(String[] args){\r\n    new LocalHttpServer(8080, false).start();\r\n    Thread.currentThread().join();\r\n}"
+}, {
+	"Path": "org.schemaspy.TableOrderer.getTablesOrderedByRI",
+	"Comment": "returns a list of tables ordered such that parents are listed firstand child tables are listed last.recursiveconstraints gets populated with tableconstraintsthat had to be removed to resolve the returned list.",
+	"Method": "List<Table> getTablesOrderedByRI(Collection<Table> tables,Collection<ForeignKeyConstraint> recursiveConstraints){\r\n    List<Table> heads = new ArrayList();\r\n    List<Table> tails = new ArrayList();\r\n    List<Table> remainingTables = new ArrayList(tables);\r\n    List<Table> unattached = new ArrayList();\r\n    removeRemotesAndUnattached(remainingTables, unattached);\r\n    unattached = sortTrimmedLevel(unattached);\r\n    boolean prunedNonReals = false;\r\n    while (!remainingTables.isEmpty()) {\r\n        int tablesLeft = remainingTables.size();\r\n        tails.addAll(0, trimLeaves(remainingTables));\r\n        heads.addAll(trimRoots(remainingTables));\r\n        if (tablesLeft == remainingTables.size()) {\r\n            if (!prunedNonReals) {\r\n                for (Table table : remainingTables) {\r\n                    table.removeNonRealForeignKeys();\r\n                }\r\n                prunedNonReals = true;\r\n                continue;\r\n            }\r\n            boolean foundSimpleRecursion = removeSelfReferencingConstraints(remainingTables, recursiveConstraints);\r\n            removeAForeignKeyConstraint(recursiveConstraints, remainingTables, foundSimpleRecursion);\r\n        }\r\n    }\r\n    List<Table> ordered = new ArrayList(heads.size() + tails.size());\r\n    ordered.addAll(heads);\r\n    ordered.addAll(tails);\r\n    ordered.addAll(unattached);\r\n    return ordered;\r\n}"
+}, {
+	"Path": "org.schemaspy.DbAnalyzer.getForeignKeyConstraints",
+	"Comment": "returns a list of all of the foreignkeyconstraintsused by the specified tables.",
+	"Method": "List<ForeignKeyConstraint> getForeignKeyConstraints(Collection<Table> tables){\r\n    List<ForeignKeyConstraint> constraints = new ArrayList();\r\n    for (Table table : tables) {\r\n        constraints.addAll(table.getForeignKeys());\r\n    }\r\n    return constraints;\r\n}"
+}, {
+	"Path": "play.cache.Cache.safeDelete",
+	"Comment": "delete an element from the cache and return only when the element is effectively removed.",
+	"Method": "boolean safeDelete(String key){\r\n    return cacheImpl.safeDelete(key);\r\n}"
+}, {
+	"Path": "org.schemaspy.model.Table.getNumParents",
+	"Comment": "returns the number of tables that are referenced by this table",
+	"Method": "int getNumParents(){\r\n    int numParents = 0;\r\n    for (TableColumn column : columns.values()) {\r\n        numParents += column.getParents().size();\r\n    }\r\n    return numParents;\r\n}"
+}, {
+	"Path": "com.rarchives.ripme.ripper.AbstractRipper.tryResumeDownload",
+	"Comment": "if true ripme will try to resume a broken download for this ripper",
+	"Method": "boolean tryResumeDownload(){\r\n    return false;\r\n}"
+}, {
+	"Path": "play.PlayPlugin.bindBean",
+	"Comment": "called when play need to bind an existing java object from http params.when overriding this method, do not call the super method, since its default impl is tocall the old bind method to be backward compatible.",
+	"Method": "Object bindBean(RootParamNode rootParamNode,String name,Object bean){\r\n    return bind(rootParamNode.getOriginalKey(), bean, rootParamNode.originalParams);\r\n}"
+}, {
+	"Path": "org.apache.servicecomb.core.transport.TestAbstractTransport.testRequestCfgService",
+	"Comment": "tests the request call timeout for service level timeout value",
+	"Method": "void testRequestCfgService(){\r\n    System.setProperty(\"servicecomb.request.hello1.timeout\", \"3000\");\r\n    Assert.assertEquals(3000, AbstractTransport.getReqTimeout(\"sayHello1\", \"sayHelloSchema1\", \"hello1\"));\r\n    System.getProperties().remove(\"servicecomb.request.hello1.timeout\");\r\n}"
+}, {
+	"Path": "com.codeborne.selenide.Selenide.atBottom",
+	"Comment": "return true if bottom of the page is reacheduseful if you need to scroll down by x pixels unknown number of times.",
+	"Method": "boolean atBottom(){\r\n    return getSelenideDriver().atBottom();\r\n}"
+}, {
+	"Path": "org.schemaspy.Config.setGraphvizDir",
+	"Comment": "set the path to graphviz so we can find dot to generate er diagrams",
+	"Method": "void setGraphvizDir(String graphvizDir){\r\n    if (graphvizDir.endsWith(\"\\\"\"))\r\n        graphvizDir = graphvizDir.substring(0, graphvizDir.length() - 1);\r\n    this.graphvizDir = new File(graphvizDir).toString();\r\n}"
+}, {
+	"Path": "com.github.davidmoten.rtree.internal.Line2D.ptSegDist",
+	"Comment": "returns the distance from a point to a line segment. the distance measured isthe distance between the specified point and the closest point between thespecified end points. if the specified point intersects the line segment inbetween the end points, this method returns 0.0.",
+	"Method": "double ptSegDist(double px,double py,double ptSegDist,double x1,double y1,double x2,double y2,double px,double py){\r\n    return Math.sqrt(ptSegDistSq(x1, y1, x2, y2, px, py));\r\n}"
+}, {
+	"Path": "org.apache.servicecomb.serviceregistry.client.IpPortManager.initAutoDiscovery",
+	"Comment": "we have to do this operation after the first time setup has already done",
+	"Method": "void initAutoDiscovery(){\r\n    if (!autoDiscoveryInited && this.serviceRegistryConfig.isRegistryAutoDiscovery()) {\r\n        InstanceCache cache = instanceCacheManager.getOrCreate(REGISTRY_APP_ID, REGISTRY_SERVICE_NAME, DefinitionConst.VERSION_RULE_LATEST);\r\n        if (cache.getInstanceMap().size() > 0) {\r\n            setAutoDiscoveryInited(true);\r\n        } else {\r\n            setAutoDiscoveryInited(false);\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "org.apache.servicecomb.swagger.converter.SwaggerToClassGenerator.forceConvert",
+	"Comment": "just only for invoker know that there is no recursive dependency",
+	"Method": "JavaType forceConvert(Object swaggerObject){\r\n    convert(swaggerObject);\r\n    convertPendingCtClasses();\r\n    return swaggerObjectMap.get(swaggerObject);\r\n}"
+}, {
+	"Path": "play.ant.PlayConfigurationLoadTask.properties",
+	"Comment": "load all properties from the given conf file, resolving the id",
+	"Method": "Map<String, String> properties(){\r\n    if (properties != null)\r\n        return properties;\r\n    File srcFile = new File(applicationDir, \"conf/application.conf\");\r\n    if (!srcFile.exists()) {\r\n        throw new BuildException(\"No application configuration found! \" + srcFile.getAbsolutePath());\r\n    }\r\n    try {\r\n        properties = new HashMap<String, String>();\r\n        Map<String, String> idSpecific = new HashMap<String, String>();\r\n        BufferedReader reader = new BufferedReader(new FileReader(srcFile));\r\n        String line;\r\n        while ((line = reader.readLine()) != null) {\r\n            line = line.trim();\r\n            if (line.startsWith(\"#\")) {\r\n                continue;\r\n            }\r\n            if (line.startsWith(\"%\")) {\r\n                if (playId.length() > 0 && line.startsWith(playId + \".\")) {\r\n                    line = line.substring((playId + \".\").length());\r\n                    String[] sa = splitLine(line);\r\n                    if (sa != null) {\r\n                        idSpecific.put(sa[0], sa[1]);\r\n                    }\r\n                }\r\n            } else {\r\n                String[] sa = splitLine(line);\r\n                if (sa != null) {\r\n                    properties.put(sa[0], sa[1]);\r\n                }\r\n            }\r\n        }\r\n        properties.putAll(idSpecific);\r\n        return properties;\r\n    } catch (IOException e) {\r\n        throw new BuildException(\"Failed to load configuration file: \" + srcFile.getAbsolutePath(), e);\r\n    }\r\n}"
+}, {
+	"Path": "com.google.re2j.MatcherTest.testDocumentedExample",
+	"Comment": "this example is documented in the com.google.re2j package.html.",
+	"Method": "void testDocumentedExample(){\r\n    Pattern p = Pattern.compile(\"b(an)*(.)\");\r\n    Matcher m = p.matcher(\"by, band, banana\");\r\n    assertTrue(m.lookingAt());\r\n    m.reset();\r\n    assertTrue(m.find());\r\n    assertEquals(\"by\", m.group(0));\r\n    assertEquals(null, m.group(1));\r\n    assertEquals(\"y\", m.group(2));\r\n    assertTrue(m.find());\r\n    assertEquals(\"band\", m.group(0));\r\n    assertEquals(\"an\", m.group(1));\r\n    assertEquals(\"d\", m.group(2));\r\n    assertTrue(m.find());\r\n    assertEquals(\"banana\", m.group(0));\r\n    assertEquals(\"an\", m.group(1));\r\n    assertEquals(\"a\", m.group(2));\r\n    assertFalse(m.find());\r\n}"
+}, {
+	"Path": "com.rabbitmq.client.test.functional.RequeueOnClose.requeueInFlightConsumerAckNoCancel",
+	"Comment": "test close while consuming partially acked without cancel successfully requeues unacknowledged messages",
+	"Method": "void requeueInFlightConsumerAckNoCancel(){\r\n    for (int i = 0; i < 5; i++) {\r\n        publishLotsAndConsumeSome(true, false);\r\n    }\r\n}"
+}, {
+	"Path": "org.apache.servicecomb.serviceregistry.task.MicroserviceRegisterTask.registerNewSchema",
+	"Comment": "try to register a new schema to service center, or throw exception if cannot register.",
+	"Method": "boolean registerNewSchema(Entry<String, String> localSchemaEntry){\r\n    if (onlineSchemaIsModifiable()) {\r\n        return registerSingleSchema(localSchemaEntry.getKey(), localSchemaEntry.getValue());\r\n    }\r\n    throw new IllegalStateException(\"There is a schema only existing in local microservice: [\" + localSchemaEntry.getKey() + \"], which means there are interfaces changed. \" + \"You need to increment microservice version before deploying, \" + \"or you can configure service_description.environment=\" + ServiceCombConstants.DEVELOPMENT_SERVICECOMB_ENV + \" to work in development environment and ignore this error\");\r\n}"
+}, {
+	"Path": "models.utils.FileIoUtils.getFileNamesInFolder",
+	"Comment": "this will display all files except for empty.txt refined 20130918",
+	"Method": "List<String> getFileNamesInFolder(String folderName){\r\n    List<String> fileNameList = new ArrayList<String>();\r\n    try {\r\n        VirtualFile virtualDir = VirtualFile.fromRelativePath(folderName);\r\n        List<VirtualFile> virtualFileList = virtualDir.list();\r\n        if (virtualFileList == null) {\r\n            models.utils.LogUtils.printLogError(\"virtualFileList is NULL! in getFileNamesInFolder()\" + DateUtils.getNowDateTimeStrSdsm());\r\n        }\r\n        models.utils.LogUtils.printLogNormal(\"Under folder: \" + folderName + \",  File/dir count is \" + virtualFileList.size());\r\n        for (int i = 0; i < virtualFileList.size(); i++) {\r\n            if (virtualFileList.get(i).getRealFile().isFile()) {\r\n                String fileName = virtualFileList.get(i).getName();\r\n                if ((!fileName.equalsIgnoreCase(VarUtils.FILE_NAME_APP_LOG_EMPTY))) {\r\n                    if (VarUtils.IN_DETAIL_DEBUG) {\r\n                        models.utils.LogUtils.printLogNormal(\"File \" + fileName);\r\n                    }\r\n                    fileNameList.add(fileName);\r\n                }\r\n            } else if (virtualFileList.get(i).getRealFile().isDirectory()) {\r\n                models.utils.LogUtils.printLogNormal(\"Directory \" + virtualFileList.get(i).getName());\r\n            }\r\n        }\r\n    } catch (Throwable t) {\r\n        t.printStackTrace();\r\n    }\r\n    return fileNameList;\r\n}"
+}, {
+	"Path": "models.utils.FileIoUtils.getFileAndDirNamesInFolder",
+	"Comment": "output both this will display all files except for empty.txt refined\t20130918",
+	"Method": "void getFileAndDirNamesInFolder(String folderName,List<String> fileNames,List<String> dirNames){\r\n    if (fileNames == null) {\r\n        fileNames = new ArrayList<String>();\r\n    }\r\n    if (dirNames == null) {\r\n        dirNames = new ArrayList<String>();\r\n    }\r\n    try {\r\n        VirtualFile virtualDir = VirtualFile.fromRelativePath(folderName);\r\n        List<VirtualFile> virtualFileList = virtualDir.list();\r\n        if (virtualFileList == null) {\r\n            models.utils.LogUtils.printLogError(\"virtualFileList is NULL! in getFileNamesInFolder()\" + DateUtils.getNowDateTimeStrSdsm());\r\n        }\r\n        models.utils.LogUtils.printLogNormal(\"Under folder: \" + folderName + \",  File/dir count is \" + virtualFileList.size());\r\n        for (int i = 0; i < virtualFileList.size(); i++) {\r\n            String fileOrDirName = virtualFileList.get(i).getName();\r\n            if (virtualFileList.get(i).getRealFile().isFile()) {\r\n                if ((!fileOrDirName.equalsIgnoreCase(VarUtils.FILE_NAME_APP_LOG_EMPTY))) {\r\n                    if (VarUtils.IN_DETAIL_DEBUG) {\r\n                        models.utils.LogUtils.printLogNormal(\"File \" + fileOrDirName);\r\n                    }\r\n                    fileNames.add(fileOrDirName);\r\n                }\r\n            } else if (virtualFileList.get(i).getRealFile().isDirectory()) {\r\n                models.utils.LogUtils.printLogNormal(\"Directory \" + fileOrDirName);\r\n                dirNames.add(fileOrDirName);\r\n            }\r\n        }\r\n    } catch (Throwable t) {\r\n        t.printStackTrace();\r\n    }\r\n}"
+}, {
+	"Path": "org.schemaspy.model.Table.getMaxChildren",
+	"Comment": "returns the maximum number of children that this table has had beforeany had been removed during dependency analysis",
+	"Method": "int getMaxChildren(){\r\n    return maxChildren;\r\n}"
+}, {
+	"Path": "org.apache.servicecomb.serviceregistry.api.registry.MicroserviceInstance.createFromDefinition",
+	"Comment": "some properties of microservice instance are dynamic changed, not cover them all now.",
+	"Method": "MicroserviceInstance createFromDefinition(Configuration configuration){\r\n    MicroserviceInstance microserviceInstance = new MicroserviceInstance();\r\n    microserviceInstance.setStage(DEFAULT_STAGE);\r\n    microserviceInstance.setEnvironment(configuration.getString(CONFIG_QUALIFIED_INSTANCE_ENVIRONMENT_KEY, DEFAULT_INSTANCE_ENVIRONMENT));\r\n    HealthCheck healthCheck = new HealthCheck();\r\n    healthCheck.setMode(HealthCheckMode.HEARTBEAT);\r\n    microserviceInstance.setHealthCheck(healthCheck);\r\n    Map<String, String> propertiesMap = InstancePropertiesLoader.INSTANCE.loadProperties(configuration);\r\n    microserviceInstance.setProperties(propertiesMap);\r\n    loadDataCenterInfo(microserviceInstance);\r\n    return microserviceInstance;\r\n}"
+}, {
+	"Path": "play.mvc.Router.appendRoute",
+	"Comment": "this is used internally when reading the route file. the order the routes are added matters andwe want the method to append the routes to the list.",
+	"Method": "void appendRoute(String method,String path,String action,String params,String headers,String sourceFile,int line){\r\n    routes.add(getRoute(method, path, action, params, headers, sourceFile, line));\r\n}"
+}, {
+	"Path": "com.github.davidmoten.rtree.internal.util.PriorityQueue.initFromCollection",
+	"Comment": "initializes queue array with elements from the given collection.",
+	"Method": "void initFromCollection(Collection<? extends E> c){\r\n    initElementsFromCollection(c);\r\n    heapify();\r\n}"
+}, {
+	"Path": "org.schemaspy.view.DotConnectorFinder.getRelatedConnectors",
+	"Comment": "get all the relationships that exist between these two tables.",
+	"Method": "Set<DotConnector> getRelatedConnectors(Table table,boolean includeImplied,Set<DotConnector> getRelatedConnectors,Table table1,Table table2,boolean includeExcluded,boolean includeImplied,Set<DotConnector> getRelatedConnectors,TableColumn column,Table targetTable,boolean includeExcluded,boolean includeImplied){\r\n    Set<DotConnector> relatedConnectors = new HashSet<DotConnector>();\r\n    if (!includeExcluded && column.isExcluded())\r\n        return relatedConnectors;\r\n    for (TableColumn parentColumn : column.getParents()) {\r\n        Table parentTable = parentColumn.getTable();\r\n        if (targetTable != null && parentTable != targetTable)\r\n            continue;\r\n        if (targetTable == null && !includeExcluded && parentColumn.isExcluded())\r\n            continue;\r\n        boolean implied = column.getParentConstraint(parentColumn).isImplied();\r\n        if (!implied || includeImplied) {\r\n            relatedConnectors.add(new DotConnector(parentColumn, column, implied));\r\n        }\r\n    }\r\n    for (TableColumn childColumn : column.getChildren()) {\r\n        Table childTable = childColumn.getTable();\r\n        if (targetTable != null && childTable != targetTable)\r\n            continue;\r\n        if (targetTable == null && !includeExcluded && childColumn.isExcluded())\r\n            continue;\r\n        boolean implied = column.getChildConstraint(childColumn).isImplied();\r\n        if (!implied || includeImplied) {\r\n            relatedConnectors.add(new DotConnector(column, childColumn, implied));\r\n        }\r\n    }\r\n    return relatedConnectors;\r\n}"
+}, {
+	"Path": "org.apache.servicecomb.serviceregistry.task.TestMicroserviceRegisterTask.testReRegisteredSetForProd",
+	"Comment": "there is schema in service center which is different from local schema.",
+	"Method": "void testReRegisteredSetForProd(ServiceRegistryClient srClient){\r\n    Microservice otherMicroservice = new Microservice();\r\n    otherMicroservice.setAppId(microservice.getAppId());\r\n    otherMicroservice.setServiceName(\"ms1\");\r\n    otherMicroservice.addSchema(\"s1\", \"\");\r\n    List<GetSchemaResponse> list = new ArrayList();\r\n    GetSchemaResponse resp = new GetSchemaResponse();\r\n    resp.setSchemaId(\"s1\");\r\n    resp.setSummary(\"c1188d709631a9038874f9efc6eb894f\");\r\n    list.add(resp);\r\n    Holder<List<GetSchemaResponse>> onlineSchemasHolder = new Holder();\r\n    onlineSchemasHolder.setValue(list).setStatusCode(200);\r\n    new Expectations() {\r\n        {\r\n            srClient.getMicroserviceId(anyString, anyString, anyString, anyString);\r\n            result = \"serviceId\";\r\n            srClient.getMicroservice(anyString);\r\n            result = otherMicroservice;\r\n            srClient.getSchemas(anyString);\r\n            result = onlineSchemasHolder;\r\n        }\r\n    };\r\n    microservice.addSchema(\"s1\", \"\");\r\n    microservice.setEnvironment(\"prod\");\r\n    MicroserviceRegisterTask registerTask = new MicroserviceRegisterTask(eventBus, srClient, microservice);\r\n    registerTask.run();\r\n}"
+}, {
+	"Path": "org.schemaspy.model.ForeignKeyConstraint.getParentColumns",
+	"Comment": "returns all of the primary key columns that are referenced by this constraint.",
+	"Method": "List<TableColumn> getParentColumns(){\r\n    return Collections.unmodifiableList(parentColumns);\r\n}"
+}, {
+	"Path": "com.google.re2j.Pattern.split",
+	"Comment": "splits input around instances of the regular expression. it returns an array giving the stringsthat occur before, between, and after instances of the regular expression. empty strings thatwould occur at the end of the array are omitted.",
+	"Method": "String[] split(String input,String[] split,String input,int limit,String[] split,Matcher m,int limit){\r\n    int matchCount = 0;\r\n    int arraySize = 0;\r\n    int last = 0;\r\n    while (m.find()) {\r\n        matchCount++;\r\n        if (limit != 0 || last < m.start()) {\r\n            arraySize = matchCount;\r\n        }\r\n        last = m.end();\r\n    }\r\n    if (last < m.inputLength() || limit != 0) {\r\n        matchCount++;\r\n        arraySize = matchCount;\r\n    }\r\n    int trunc = 0;\r\n    if (limit > 0 && arraySize > limit) {\r\n        arraySize = limit;\r\n        trunc = 1;\r\n    }\r\n    String[] array = new String[arraySize];\r\n    int i = 0;\r\n    last = 0;\r\n    m.reset();\r\n    while (m.find() && i < arraySize - trunc) {\r\n        array[i++] = m.substring(last, m.start());\r\n        last = m.end();\r\n    }\r\n    if (i < arraySize) {\r\n        array[i] = m.substring(last, m.inputLength());\r\n    }\r\n    return array;\r\n}"
+}, {
+	"Path": "com.codeborne.selenide.junit5.TextReportExtension.onFailedTest",
+	"Comment": "initialize text report extension with specified failed tests log strategy.",
+	"Method": "TextReportExtension onFailedTest(boolean onFailedTest){\r\n    this.onFailedTest = onFailedTest;\r\n    return this;\r\n}"
+}, {
+	"Path": "com.rabbitmq.client.test.functional.FrameMax.rejectHeadersExceedingFrameMax",
+	"Comment": "client should throw exception if headers exceed negotiatedframe size",
+	"Method": "void rejectHeadersExceedingFrameMax(){\r\n    declareTransientTopicExchange(\"x\");\r\n    String queueName = channel.queueDeclare().getQueue();\r\n    channel.queueBind(queueName, \"x\", \"foobar\");\r\n    Map<String, Object> headers = new HashMap<String, Object>();\r\n    String headerName = \"x-huge-header\";\r\n    headers.put(headerName, LongStringHelper.asLongString(new byte[0]));\r\n    AMQP.BasicProperties properties = new AMQP.BasicProperties.Builder().headers(headers).build();\r\n    Frame minimalHeaderFrame = properties.toFrame(0, 0);\r\n    int maxHeaderValueSize = FRAME_MAX - minimalHeaderFrame.size();\r\n    headers.put(headerName, LongStringHelper.asLongString(new byte[maxHeaderValueSize]));\r\n    properties = new AMQP.BasicProperties.Builder().headers(headers).build();\r\n    basicPublishVolatile(new byte[100], \"x\", \"foobar\", properties);\r\n    assertDelivered(queueName, 1);\r\n    headers.put(headerName, LongStringHelper.asLongString(new byte[maxHeaderValueSize + 1]));\r\n    properties = new AMQP.BasicProperties.Builder().headers(headers).build();\r\n    try {\r\n        basicPublishVolatile(new byte[100], \"x\", \"foobar\", properties);\r\n        fail(\"expected rejectHeadersExceedingFrameMax to throw\");\r\n    } catch (IllegalArgumentException iae) {\r\n        assertTrue(iae.getMessage().startsWith(\"Content headers exceeded max frame size\"));\r\n        assertDelivered(queueName, 0);\r\n    }\r\n    deleteExchange(\"x\");\r\n}"
+}, {
+	"Path": "com.rarchives.ripme.ripper.VideoRipper.checkIfComplete",
+	"Comment": "notifies observers and updates state if all files have been ripped.",
+	"Method": "void checkIfComplete(){\r\n    if (observer == null) {\r\n        return;\r\n    }\r\n    if (bytesCompleted >= bytesTotal) {\r\n        super.checkIfComplete();\r\n    }\r\n}"
+}, {
+	"Path": "play.plugins.PluginCollection.getPluginInstance",
+	"Comment": "returns the first instance of a loaded plugin of specified type",
+	"Method": "PlayPlugin getPluginInstance(Class<? extends PlayPlugin> pluginClazz){\r\n    synchronized (lock) {\r\n        for (PlayPlugin p : getAllPlugins()) {\r\n            if (pluginClazz.isInstance(p)) {\r\n                return p;\r\n            }\r\n        }\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "com.google.re2j.RE2.get",
+	"Comment": "machine cache if possible, to avoid unnecessary allocation.",
+	"Method": "Machine get(){\r\n    int n = machine.size();\r\n    if (n > 0) {\r\n        return machine.remove(n - 1);\r\n    }\r\n    return new Machine(this);\r\n}"
+}, {
+	"Path": "com.rabbitmq.client.test.functional.RequeueOnClose.requeueInFlight",
+	"Comment": "test close while consuming many messages successfully requeues unacknowledged messages",
+	"Method": "void requeueInFlight(){\r\n    for (int i = 0; i < 5; i++) {\r\n        publishLotsAndGet();\r\n    }\r\n}"
+}, {
+	"Path": "com.google.re2j.RE2.numberOfCapturingGroups",
+	"Comment": "returns the number of parenthesized subexpressions in this regular expression.",
+	"Method": "int numberOfCapturingGroups(){\r\n    return numSubexp;\r\n}"
+}, {
+	"Path": "com.esotericsoftware.reflectasm.MethodAccess.getIndex",
+	"Comment": "returns the index of the first method with the specified name and the specified number of arguments.",
+	"Method": "int getIndex(String methodName,int getIndex,String methodName,Class paramTypes,int getIndex,String methodName,int paramsCount){\r\n    for (int i = 0, n = methodNames.length; i < n; i++) if (methodNames[i].equals(methodName) && parameterTypes[i].length == paramsCount)\r\n        return i;\r\n    throw new IllegalArgumentException(\"Unable to find non-private method: \" + methodName + \" with \" + paramsCount + \" params.\");\r\n}"
+}, {
+	"Path": "org.apache.servicecomb.swagger.generator.core.SwaggerGenerator.isSkipMethod",
+	"Comment": "whether this method should be processed as a swagger operation",
+	"Method": "boolean isSkipMethod(Method method){\r\n    if (method.getDeclaringClass().getName().equals(Object.class.getName())) {\r\n        return true;\r\n    }\r\n    int modifiers = method.getModifiers();\r\n    if (Modifier.isStatic(modifiers)) {\r\n        return true;\r\n    }\r\n    ApiOperation apiOperation = method.getAnnotation(ApiOperation.class);\r\n    if (apiOperation != null && apiOperation.hidden()) {\r\n        return apiOperation.hidden();\r\n    }\r\n    return !context.canProcess(method);\r\n}"
+}, {
+	"Path": "com.rabbitmq.client.impl.ContentHeaderPropertyReader.readShortstr",
+	"Comment": "reads and returns an amqp short string content header field.",
+	"Method": "String readShortstr(){\r\n    return in.readShortstr();\r\n}"
+}, {
+	"Path": "play.modules.search.store.ConvertionUtils.toDocument",
+	"Comment": "examines a jpabase object and creates the corresponding lucene document",
+	"Method": "Document toDocument(Object object){\r\n    Indexed indexed = object.getClass().getAnnotation(Indexed.class);\r\n    if (indexed == null)\r\n        return null;\r\n    if (!(object instanceof JPABase))\r\n        return null;\r\n    JPABase jpaBase = (JPABase) object;\r\n    Document document = new Document();\r\n    document.add(new Field(\"_docID\", getIdValueFor(jpaBase) + \"\", Field.Store.YES, Field.Index.NOT_ANALYZED));\r\n    StringBuffer allValue = new StringBuffer();\r\n    for (java.lang.reflect.Field field : object.getClass().getFields()) {\r\n        play.modules.search.Field index = field.getAnnotation(play.modules.search.Field.class);\r\n        if (index == null)\r\n            continue;\r\n        if (field.getType().isArray())\r\n            continue;\r\n        if (Collection.class.isAssignableFrom(field.getType()))\r\n            continue;\r\n        String name = field.getName();\r\n        String value = null;\r\n        if (JPABase.class.isAssignableFrom(field.getType()) && !(index.joinField().length() == 0)) {\r\n            JPABase joinObject = (JPABase) field.get(object);\r\n            for (java.lang.reflect.Field joinField : joinObject.getClass().getFields()) {\r\n                if (joinField.getName().equals(index.joinField())) {\r\n                    name = joinField.getName();\r\n                    value = valueOf(joinObject, joinField);\r\n                }\r\n            }\r\n        } else {\r\n            value = valueOf(object, field);\r\n        }\r\n        if (value == null)\r\n            continue;\r\n        document.add(new Field(name, value, index.stored() ? Field.Store.YES : Field.Store.NO, index.tokenize() ? Field.Index.ANALYZED : Field.Index.NOT_ANALYZED));\r\n        if (index.tokenize() && index.sortable()) {\r\n            document.add(new Field(name + \"_untokenized\", value, index.stored() ? Field.Store.YES : Field.Store.NO, Field.Index.NOT_ANALYZED));\r\n        }\r\n        allValue.append(value).append(' ');\r\n    }\r\n    document.add(new Field(\"allfield\", allValue.toString(), Field.Store.NO, Field.Index.ANALYZED));\r\n    return document;\r\n}"
+}, {
+	"Path": "com.rabbitmq.client.test.functional.FrameMax.rejectExceedingFrameMax",
+	"Comment": "server should reject frames larger than the negotiated frame",
+	"Method": "void rejectExceedingFrameMax(){\r\n    closeChannel();\r\n    closeConnection();\r\n    ConnectionFactory cf = new GenerousConnectionFactory();\r\n    cf.setRequestedFrameMax(8192);\r\n    connection = cf.newConnection();\r\n    openChannel();\r\n    basicPublishVolatile(new byte[connection.getFrameMax() * 2], \"void\");\r\n    expectError(AMQP.FRAME_ERROR);\r\n}"
+}, {
+	"Path": "org.schemaspy.output.diagram.graphviz.GraphvizVersion.compareTo",
+	"Comment": "compares this object with the specified object for order.returns anegative integer, zero, or a positive integer as this object is lessthan, equal to, or greater than the specified object.",
+	"Method": "int compareTo(GraphvizVersion other){\r\n    int size = Math.min(segments.size(), other.segments.size());\r\n    for (int i = 0; i < size; ++i) {\r\n        Integer thisSegment = segments.get(i);\r\n        Integer otherSegment = other.segments.get(i);\r\n        int result = thisSegment.compareTo(otherSegment);\r\n        if (result != 0)\r\n            return result;\r\n    }\r\n    if (segments.size() == other.segments.size())\r\n        return 0;\r\n    if (segments.size() > other.segments.size())\r\n        return 1;\r\n    return -1;\r\n}"
+}, {
+	"Path": "org.apache.servicecomb.core.tracing.TraceIdGenerator.getName",
+	"Comment": "for generators have the same name, will only use the minimum order instancenot use gettraceidkeyname to control this logic, because most customers not want to generate multiple traceids",
+	"Method": "String getName(){\r\n    return \"default\";\r\n}"
+}, {
+	"Path": "com.codeborne.selenide.junit5.TextReportExtension.onSucceededTest",
+	"Comment": "initialize text report extension with specified successful tests log strategy.",
+	"Method": "TextReportExtension onSucceededTest(boolean onSucceededTest){\r\n    this.onSucceededTest = onSucceededTest;\r\n    return this;\r\n}"
+}, {
+	"Path": "com.rarchives.ripme.utils.Utils.getConfigDir",
+	"Comment": "gets the directory of the config directory, for all systems.",
+	"Method": "String getConfigDir(){\r\n    if (portableMode()) {\r\n        try {\r\n            return new File(\".\").getCanonicalPath();\r\n        } catch (Exception e) {\r\n            return \".\";\r\n        }\r\n    }\r\n    if (isWindows())\r\n        return getWindowsConfigDir();\r\n    if (isMacOS())\r\n        return getMacOSConfigDir();\r\n    if (isUnix())\r\n        return getUnixConfigDir();\r\n    try {\r\n        return new File(\".\").getCanonicalPath();\r\n    } catch (Exception e) {\r\n        return \".\";\r\n    }\r\n}"
+}, {
+	"Path": "com.github.davidmoten.rtree.internal.Line2D.intersectsLine",
+	"Comment": "tests if the specified line segment intersects this line segment.",
+	"Method": "boolean intersectsLine(Line2D l){\r\n    return linesIntersect(l.getX1(), l.getY1(), l.getX2(), l.getY2(), getX1(), getY1(), getX2(), getY2());\r\n}"
+}, {
+	"Path": "play.data.parsing.MultipartStream.setBoundary",
+	"Comment": "changes the boundary token used for partitioning the stream.this method allows single pass processing of nested multipartstreams.the boundary token of the nested stream is requiredto be of the same length as the boundary token in parent stream.restoring the parent stream boundary token after processing of anested stream is left to the application.",
+	"Method": "void setBoundary(byte[] boundary){\r\n    if (boundary.length != boundaryLength - BOUNDARY_PREFIX.length) {\r\n        throw new IllegalBoundaryException(\"The length of a boundary token can not be changed\");\r\n    }\r\n    System.arraycopy(boundary, 0, this.boundary, BOUNDARY_PREFIX.length, boundary.length);\r\n}"
+}, {
+	"Path": "org.apache.servicecomb.serviceregistry.task.MicroserviceRegisterTask.checkRemainingSchema",
+	"Comment": "check whether there are schemas remaining in service center but not exist in local microservice.",
+	"Method": "void checkRemainingSchema(Map<String, GetSchemaResponse> scSchemaMap){\r\n    if (!scSchemaMap.isEmpty()) {\r\n        if (!onlineSchemaIsModifiable()) {\r\n            throw new IllegalStateException(\"There are schemas only existing in service center: \" + scSchemaMap.keySet() + \", which means there are interfaces changed. \" + \"You need to increment microservice version before deploying, \" + \"or if service_description.environment=\" + ServiceCombConstants.DEVELOPMENT_SERVICECOMB_ENV + \", you can delete microservice information in service center and restart this instance.\");\r\n        }\r\n        LOGGER.warn(\"There are schemas only existing in service center: {}, which means there are interfaces changed. \" + \"It's recommended to increment microservice version before deploying.\", scSchemaMap.keySet());\r\n        LOGGER.warn(\"ATTENTION: The schemas in new version are less than the old version, \" + \"which may cause compatibility problems.\");\r\n    }\r\n}"
+}, {
+	"Path": "com.rabbitmq.client.impl.SetQueue.addIfNotPresent",
+	"Comment": "add an element to the back of the queue and return true, or else return false.",
+	"Method": "boolean addIfNotPresent(T item){\r\n    if (this.members.contains(item)) {\r\n        return false;\r\n    }\r\n    this.members.add(item);\r\n    this.queue.offer(item);\r\n    return true;\r\n}"
+}, {
+	"Path": "org.schemaspy.Config.setMaxDbThreads",
+	"Comment": "maximum number of threads to use when querying database metadata information.",
+	"Method": "void setMaxDbThreads(int maxDbThreads){\r\n    this.maxDbThreads = maxDbThreads;\r\n}"
+}, {
+	"Path": "org.apache.servicecomb.serviceregistry.task.MicroserviceInstanceHeartbeatTask.isNeedRegisterInstance",
+	"Comment": "only got service center response, and result is not ok, means need to register instance again.",
+	"Method": "boolean isNeedRegisterInstance(){\r\n    return HeartbeatResult.INSTANCE_NOT_REGISTERED.equals(heartbeatResult);\r\n}"
+}, {
+	"Path": "com.rarchives.ripme.ripper.AlbumRipper.checkIfComplete",
+	"Comment": "notifies observers and updates state if all files have been ripped.",
+	"Method": "void checkIfComplete(){\r\n    if (observer == null) {\r\n        return;\r\n    }\r\n    if (itemsPending.isEmpty()) {\r\n        super.checkIfComplete();\r\n    }\r\n}"
+}, {
+	"Path": "com.rabbitmq.client.impl.ContentHeaderPropertyReader.readLonglong",
+	"Comment": "reads and returns an amqp long integer content header field.",
+	"Method": "Long readLonglong(){\r\n    return in.readLonglong();\r\n}"
+}, {
+	"Path": "org.apache.servicecomb.transport.rest.servlet.ServletUtils.checkUrlPattern",
+	"Comment": "other invalid urlpattern will be check by web container, we do not handle that",
+	"Method": "void checkUrlPattern(String urlPattern){\r\n    if (!urlPattern.startsWith(\"/\")) {\r\n        throw new ServiceCombException(\"only support rule like /* or /path/* or /path1/path2/* and so on.\");\r\n    }\r\n    int idx = urlPattern.indexOf(\"/*\");\r\n    if (idx < 0 || (idx >= 0 && idx != urlPattern.length() - 2)) {\r\n        throw new ServiceCombException(\"only support rule like /* or /path/* or /path1/path2/* and so on.\");\r\n    }\r\n}"
+}, {
+	"Path": "play.Play.fatalServerErrorOccurred",
+	"Comment": "call this method when there has been a fatal error that play cannot recover from",
+	"Method": "void fatalServerErrorOccurred(){\r\n    if (standalonePlayServer) {\r\n        System.exit(-1);\r\n    } else {\r\n        String msg = \"A fatal server error occurred\";\r\n        Logger.error(msg);\r\n        throw new Error(msg);\r\n    }\r\n}"
+}, {
+	"Path": "com.google.re2j.Pattern.reset",
+	"Comment": "releases memory used by internal caches associated with this pattern. does not change theobservable behaviour. useful for tests that detect memory leaks via allocation tracking.",
+	"Method": "void reset(){\r\n    re2.reset();\r\n}"
+}, {
+	"Path": "com.rarchives.ripme.utils.RipUtils.checkTags",
+	"Comment": "checks for blacklisted tags on page. if it finds one it returns it, if not it return null",
+	"Method": "String checkTags(String[] blackListedTags,List<String> tagsOnPage){\r\n    if (blackListedTags == null) {\r\n        return null;\r\n    }\r\n    for (String tag : blackListedTags) {\r\n        for (String pageTag : tagsOnPage) {\r\n            if (tag.trim().toLowerCase().equals(pageTag.toLowerCase())) {\r\n                return tag.toLowerCase();\r\n            }\r\n        }\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "org.rakam.aws.kinesis.KinesisUtils.streamExists",
+	"Comment": "helper method to determine if an amazon kinesis stream exists.",
+	"Method": "boolean streamExists(AmazonKinesisClient kinesisClient,String streamName){\r\n    DescribeStreamRequest describeStreamRequest = new DescribeStreamRequest();\r\n    describeStreamRequest.setStreamName(streamName);\r\n    try {\r\n        kinesisClient.describeStream(describeStreamRequest);\r\n        return true;\r\n    } catch (ResourceNotFoundException e) {\r\n        return false;\r\n    }\r\n}"
+}, {
+	"Path": "org.apache.servicecomb.transport.rest.vertx.VertxRestDispatcher.sendFailureRespDeterminedByStatus",
+	"Comment": "try to determine response by status code, and send response.",
+	"Method": "void sendFailureRespDeterminedByStatus(RoutingContext context){\r\n    Family statusFamily = Family.familyOf(context.statusCode());\r\n    if (Family.CLIENT_ERROR.equals(statusFamily) || Family.SERVER_ERROR.equals(statusFamily) || Family.OTHER.equals(statusFamily)) {\r\n        context.response().putHeader(HttpHeaders.CONTENT_TYPE, MediaType.WILDCARD).setStatusCode(context.statusCode()).end();\r\n    } else {\r\n        context.response().putHeader(HttpHeaders.CONTENT_TYPE, MediaType.WILDCARD).setStatusCode(Status.INTERNAL_SERVER_ERROR.getStatusCode()).setStatusMessage(Status.INTERNAL_SERVER_ERROR.getReasonPhrase()).end(wrapResponseBody(Status.INTERNAL_SERVER_ERROR.getReasonPhrase()));\r\n    }\r\n    context.response().close();\r\n}"
+}, {
+	"Path": "controllers.Agents.generateAgentCommandInNodeGroup",
+	"Comment": "in all agent data only. not to expose the adhoc part. becasue the node\tlist is also adhoc.",
+	"Method": "void generateAgentCommandInNodeGroup(String nodeGroupType,String agentCommandType){\r\n    try {\r\n        AgentDataProvider adp = AgentDataProvider.getInstance();\r\n        Map<String, NodeGroupDataMap> dataStore = null;\r\n        Map<String, NodeGroupSourceMetadata> nodeGroupSource = null;\r\n        dataStore = AgentDataProvider.allAgentData;\r\n        nodeGroupSource = AgentDataProvider.nodeGroupSourceMetadatas;\r\n        adp.generateAgentCommandInNodeGroupDataMap(nodeGroupType, agentCommandType, dataStore, nodeGroupSource);\r\n        renderJSON(new JsonResult(\"Success in generateAgentCommandInNodeGroupDataMap\"));\r\n    } catch (Throwable t) {\r\n        t.printStackTrace();\r\n        renderJSON(new JsonResult(\"Error in generateAgentCommandInNodeGroupDataMap\"));\r\n    }\r\n}"
+}, {
+	"Path": "org.apache.servicecomb.core.transport.TestAbstractTransport.testRequestCfgSchema",
+	"Comment": "tests the request call timeout for schema level timeout value",
+	"Method": "void testRequestCfgSchema(){\r\n    System.setProperty(\"servicecomb.request.hello2.sayHelloSchema2.timeout\", \"2000\");\r\n    Assert.assertEquals(2000, AbstractTransport.getReqTimeout(\"sayHello2\", \"sayHelloSchema2\", \"hello2\"));\r\n    System.getProperties().remove(\"servicecomb.request.hello2.sayHelloSchema2.timeout\");\r\n}"
+}, {
+	"Path": "com.github.davidmoten.rtree.internal.util.PriorityQueue.removeEq",
+	"Comment": "version of remove using reference equality, not equals. needed byiterator.remove.",
+	"Method": "boolean removeEq(Object o){\r\n    for (int i = 0; i < size; i++) {\r\n        if (o == queue[i]) {\r\n            removeAt(i);\r\n            return true;\r\n        }\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "com.github.davidmoten.rtree.RTree.delete",
+	"Comment": "deletes maximum one entry matching the given value and geometry. this methodhas no effect if the entry is not present. the entry must match on both valueand geometry to be deleted.",
+	"Method": "Observable<RTree<T, S>> delete(Observable<Entry<T, S>> entries,boolean all,RTree<T, S> delete,Iterable<Entry<T, S>> entries,boolean all,RTree<T, S> delete,Iterable<Entry<T, S>> entries,RTree<T, S> delete,T value,S geometry,boolean all,RTree<T, S> delete,T value,S geometry,RTree<T, S> delete,Entry<? extends T, ? extends S> entry,boolean all,RTree<T, S> delete,Entry<? extends T, ? extends S> entry){\r\n    return delete(entry, false);\r\n}"
+}, {
+	"Path": "com.rarchives.ripme.utils.Utils.getUnixConfigDir",
+	"Comment": "gets the directory of where the config file is stored on a unix machine.",
+	"Method": "String getUnixConfigDir(){\r\n    return System.getProperty(\"user.home\") + File.separator + \".config\" + File.separator + \"ripme\";\r\n}"
+}, {
+	"Path": "com.segmentfault.springbootlesson19.listener.PersonIntegrationTestListener.prepareTestInstance",
+	"Comment": "the default implementation is empty. can be overridden bysubclasses as necessary.",
+	"Method": "void prepareTestInstance(TestContext testContext){\r\n    ApplicationContext applicationContext = testContext.getApplicationContext();\r\n    Person person = applicationContext.getBean(\"primaryPerson\", Person.class);\r\n    System.err.println(\"person : \" + person);\r\n}"
+}, {
+	"Path": "org.apache.servicecomb.authentication.consumer.RSAConsumerTokenManager.isExpired",
+	"Comment": "the ttl of token is24 hoursclient token will expired 15 minutes early",
+	"Method": "boolean isExpired(RSAAuthenticationToken token){\r\n    if (null == token) {\r\n        return true;\r\n    }\r\n    long generateTime = token.getGenerateTime();\r\n    long expiredDate = generateTime + RSAAuthenticationToken.TOKEN_ACTIVE_TIME - 15 * 60 * 1000;\r\n    long now = System.currentTimeMillis();\r\n    return now > expiredDate;\r\n}"
+}, {
+	"Path": "com.codeborne.selenide.Selenide.clearBrowserCookies",
+	"Comment": "clear browser cookies.it can be useful e.g. if you are trying to avoid restarting browser between tests",
+	"Method": "void clearBrowserCookies(){\r\n    getSelenideDriver().clearCookies();\r\n}"
+}, {
+	"Path": "org.apache.servicecomb.swagger.invocation.arguments.producer.ProducerArgumentsMapperFactory.generateDefaultParamMapper",
+	"Comment": "generate default argument mappers. one swagger argument is mapped to one producer argument.",
+	"Method": "void generateDefaultParamMapper(ArgumentsMapperConfig config,Map<String, ProviderParameter> providerParamMap,Map<String, ParamWrapper<Parameter>> swaggerParamMap,Set<String> aggregatedParamNames){\r\n    Type[] swaggerParamTypes = config.getSwaggerMethod().getGenericParameterTypes();\r\n    for (Entry<String, ProviderParameter> providerParamEntry : providerParamMap.entrySet()) {\r\n        if (aggregatedParamNames.contains(providerParamEntry.getKey())) {\r\n            continue;\r\n        }\r\n        final int swaggerIdx = swaggerParamMap.get(providerParamEntry.getKey()).getIndex();\r\n        Converter converter = converterMgr.findConverter(type, providerParamEntry.getValue().getType(), swaggerParamTypes[swaggerIdx]);\r\n        ArgumentMapper mapper = createArgumentMapperWithConverter(swaggerIdx, providerParamEntry.getValue().getIndex(), converter);\r\n        config.addArgumentMapper(mapper);\r\n    }\r\n}"
+}, {
+	"Path": "org.schemaspy.SchemaAnalyzer.prepareLayoutFiles",
+	"Comment": "this method is responsible to copy layout folder to destination directory and not copy template .html files",
+	"Method": "void prepareLayoutFiles(File outputDir){\r\n    URL url = null;\r\n    Enumeration<URL> possibleResources = SchemaAnalyzer.class.getClassLoader().getResources(\"layout\");\r\n    while (possibleResources.hasMoreElements() && Objects.isNull(url)) {\r\n        URL possibleResource = possibleResources.nextElement();\r\n        if (!possibleResource.getPath().contains(\"test-classes\")) {\r\n            url = possibleResource;\r\n        }\r\n    }\r\n    IOFileFilter notHtmlFilter = FileFilterUtils.notFileFilter(FileFilterUtils.suffixFileFilter(DOT_HTML));\r\n    FileFilter filter = FileFilterUtils.and(notHtmlFilter);\r\n    ResourceWriter.copyResources(url, outputDir, filter);\r\n}"
+}, {
+	"Path": "com.segmentfault.springbootlesson7.entity2.UserExample.setOrderByClause",
+	"Comment": "this method was generated by mybatis generator.this method corresponds to the database table user",
+	"Method": "void setOrderByClause(String orderByClause){\r\n    this.orderByClause = orderByClause;\r\n}"
+}, {
+	"Path": "org.apache.servicecomb.foundation.common.utils.SPIServiceUtils.getTargetService",
+	"Comment": "get target service.if target services are array,only random access to a service.",
+	"Method": "T getTargetService(Class<T> serviceType,IMPL getTargetService,Class<T> serviceType,Class<IMPL> implType){\r\n    List<T> services = getOrLoadSortedService(serviceType);\r\n    return (IMPL) services.stream().filter(service -> service.getClass().equals(implType)).findFirst().orElse(null);\r\n}"
+}, {
+	"Path": "com.segmentfault.springbootlesson7.entity2.UserExample.createCriteriaInternal",
+	"Comment": "this method was generated by mybatis generator.this method corresponds to the database table user",
+	"Method": "Criteria createCriteriaInternal(){\r\n    Criteria criteria = new Criteria();\r\n    return criteria;\r\n}"
+}, {
+	"Path": "org.apache.servicecomb.faultinjection.TestFaultInjectHandler.testFaultInjectHandlerHighwayWithDefaultCfg",
+	"Comment": "tests the fault injection handler functionality with default values forhighway transport.",
+	"Method": "void testFaultInjectHandlerHighwayWithDefaultCfg(){\r\n    Mockito.when(invocation.getMicroserviceQualifiedName()).thenReturn(\"MicroserviceQualifiedName1\");\r\n    Mockito.when(invocation.getTransport()).thenReturn(transport);\r\n    Mockito.when(transport.getName()).thenReturn(\"highway\");\r\n    Mockito.when(invocation.getOperationName()).thenReturn(\"sayHello\");\r\n    Mockito.when(invocation.getSchemaId()).thenReturn(\"sayHelloSchema\");\r\n    Mockito.when(invocation.getMicroserviceName()).thenReturn(\"hello\");\r\n    List<Fault> faultInjectionFeatureList = Arrays.asList(abortFault, delayFault);\r\n    handler.setFaultFeature(faultInjectionFeatureList);\r\n    handler.handle(invocation, asyncResp);\r\n    AtomicLong count = FaultInjectionUtil.getOperMetTotalReq(\"highwayMicroserviceQualifiedName1\");\r\n    assertEquals(2, count.get());\r\n}"
+}, {
+	"Path": "com.anupcowkur.reservoir.Reservoir.contains",
+	"Comment": "check if an object with the given key exists in the reservoir.",
+	"Method": "boolean contains(String key){\r\n    failIfNotInitialised();\r\n    return cache.contains(key);\r\n}"
+}, {
+	"Path": "models.utils.FileIoUtils.readFileToString",
+	"Comment": "20130927 fixed memory leak. dont use line by line, just use apache\tcommons io!! so simple and easy!",
+	"Method": "String readFileToString(String filePath){\r\n    String fileContentString = null;\r\n    try {\r\n        VirtualFile vf = VirtualFile.fromRelativePath(filePath);\r\n        File realFile = vf.getRealFile();\r\n        fileContentString = FileUtils.readFileToString(realFile);\r\n        models.utils.LogUtils.printLogNormal(\"Completed read file with file size: \" + fileContentString.toString().length() / VarUtils.CONVERSION_1024 + \" KB. Path: \" + filePath + \" at \" + DateUtils.getNowDateTimeStr());\r\n    } catch (java.io.FileNotFoundException e) {\r\n        models.utils.LogUtils.printLogError(\"File Not Found exception.\" + e.getLocalizedMessage());\r\n        fileContentString = \"File Not Found exception. This file may have been removed. \" + filePath;\r\n    } catch (Throwable e) {\r\n        models.utils.LogUtils.printLogError(\"Error in readConfigFile.\" + e.getLocalizedMessage());\r\n        e.printStackTrace();\r\n        fileContentString = \"File Not Found exception. This file may have been removed. \" + filePath;\r\n    }\r\n    return fileContentString.toString();\r\n}"
+}, {
+	"Path": "play.mvc.Router.getBaseUrl",
+	"Comment": "gets baseurl from current request or application.baseurl in application.conf",
+	"Method": "String getBaseUrl(){\r\n    if (Http.Request.current() == null) {\r\n        String appBaseUrl = Play.configuration.getProperty(\"application.baseUrl\", \"application.baseUrl\");\r\n        if (appBaseUrl.endsWith(\"/\")) {\r\n            appBaseUrl = appBaseUrl.substring(0, appBaseUrl.length() - 1);\r\n        }\r\n        return appBaseUrl;\r\n    } else {\r\n        return Http.Request.current().getBase();\r\n    }\r\n}"
+}, {
+	"Path": "org.schemaspy.Config.isHelpRequired",
+	"Comment": "returns true if the options indicate that the user wantsto see some help information.",
+	"Method": "boolean isHelpRequired(){\r\n    return helpRequired;\r\n}"
+}, {
+	"Path": "play.Logger.toJuliLevel",
+	"Comment": "utility method that translayte log4j levels to java.util.logging levels.",
+	"Method": "java.util.logging.Level toJuliLevel(String level){\r\n    java.util.logging.Level juliLevel = java.util.logging.Level.INFO;\r\n    if (level.equals(\"ERROR\") || level.equals(\"FATAL\")) {\r\n        juliLevel = java.util.logging.Level.SEVERE;\r\n    }\r\n    if (level.equals(\"WARN\")) {\r\n        juliLevel = java.util.logging.Level.WARNING;\r\n    }\r\n    if (level.equals(\"DEBUG\")) {\r\n        juliLevel = java.util.logging.Level.FINE;\r\n    }\r\n    if (level.equals(\"TRACE\")) {\r\n        juliLevel = java.util.logging.Level.FINEST;\r\n    }\r\n    if (level.equals(\"ALL\")) {\r\n        juliLevel = java.util.logging.Level.ALL;\r\n    }\r\n    if (level.equals(\"OFF\")) {\r\n        juliLevel = java.util.logging.Level.OFF;\r\n    }\r\n    return juliLevel;\r\n}"
+}, {
+	"Path": "org.smssecure.smssecure.crypto.PRNGFixes.applyOpenSSLFix",
+	"Comment": "applies the fix for openssl prng having low entropy. does nothing if thefix is not needed.",
+	"Method": "void applyOpenSSLFix(){\r\n    if ((Build.VERSION.SDK_INT < VERSION_CODE_JELLY_BEAN) || (Build.VERSION.SDK_INT > VERSION_CODE_JELLY_BEAN_MR2)) {\r\n        return;\r\n    }\r\n    try {\r\n        Class.forName(\"org.apache.harmony.xnet.provider.jsse.NativeCrypto\").getMethod(\"RAND_seed\", byte[].class).invoke(null, generateSeed());\r\n        int bytesRead = (Integer) Class.forName(\"org.apache.harmony.xnet.provider.jsse.NativeCrypto\").getMethod(\"RAND_load_file\", String.class, long.class).invoke(null, \"/dev/urandom\", 1024);\r\n        if (bytesRead != 1024) {\r\n            throw new IOException(\"Unexpected number of bytes read from Linux PRNG: \" + bytesRead);\r\n        }\r\n    } catch (Exception e) {\r\n        throw new SecurityException(\"Failed to seed OpenSSL PRNG\", e);\r\n    }\r\n}"
+}, {
+	"Path": "play.Logger.format",
+	"Comment": "try to format messages using java formatter. fall back to the plain message if error.",
+	"Method": "String format(String msg,Object args){\r\n    try {\r\n        if (args != null && args.length > 0) {\r\n            return String.format(msg, args);\r\n        }\r\n        return msg;\r\n    } catch (Exception e) {\r\n        return msg;\r\n    }\r\n}"
+}, {
+	"Path": "com.codeborne.selenide.Selenide.screenshot",
+	"Comment": "take the screenshot of current page and save to file filename.html and filename.png",
+	"Method": "String screenshot(String fileName){\r\n    return Screenshots.takeScreenShot(fileName);\r\n}"
+}, {
+	"Path": "com.esotericsoftware.reflectasm.MethodAccess.invoke",
+	"Comment": "invokes the first method with the specified name and the specified number of arguments.",
+	"Method": "Object invoke(Object object,int methodIndex,Object args,Object invoke,Object object,String methodName,Class[] paramTypes,Object args,Object invoke,Object object,String methodName,Object args){\r\n    return invoke(object, getIndex(methodName, args == null ? 0 : args.length), args);\r\n}"
+}, {
+	"Path": "org.schemaspy.Config.setInstance",
+	"Comment": "sets the global instance.useful for things like selecting a specific configuration in a ui.",
+	"Method": "void setInstance(Config config){\r\n    instance = config;\r\n}"
+}]

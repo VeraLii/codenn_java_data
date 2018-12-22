@@ -1,0 +1,845 @@
+[{
+	"Path": "com.amazon.ask.dispatcher.request.handler.impl.ExceptionEncounteredRequestHandler.canHandle",
+	"Comment": "returns true if the handler can dispatch the current request",
+	"Method": "boolean canHandle(HandlerInput input,ExceptionEncounteredRequest exceptionEncounteredRequest,boolean canHandle,HandlerInput handlerInput){\r\n    if (handlerInput.getRequest() instanceof ExceptionEncounteredRequest) {\r\n        return canHandle(handlerInput, (ExceptionEncounteredRequest) handlerInput.getRequest());\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "org.airsonic.player.service.metadata.JaudiotaggerParser.isApplicable",
+	"Comment": "returns whether this parser is applicable to the given file.",
+	"Method": "boolean isApplicable(File file){\r\n    if (!file.isFile()) {\r\n        return false;\r\n    }\r\n    String format = FilenameUtils.getExtension(file.getName()).toLowerCase();\r\n    return format.equals(\"mp3\") || format.equals(\"m4a\") || format.equals(\"aac\") || format.equals(\"ogg\") || format.equals(\"flac\") || format.equals(\"wav\") || format.equals(\"mpc\") || format.equals(\"mp+\") || format.equals(\"ape\") || format.equals(\"wma\");\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.RawPaginator.getPage",
+	"Comment": "this method will return a list of records for a specific page.",
+	"Method": "List<Map> getPage(int pageNumber){\r\n    if (pageNumber < 1) {\r\n        throw new IllegalArgumentException(\"minimum page index == 1\");\r\n    }\r\n    String select = subQuery == null ? dialect.formSelect(tableName, columns, null, orderBys, pageSize, (pageNumber - 1) * pageSize) : dialect.formSelect(tableName, columns, subQuery, orderBys, pageSize, (pageNumber - 1) * pageSize);\r\n    currentPage = pageNumber;\r\n    return new DB(dbName).findAll(select, params);\r\n}"
+}, {
+	"Path": "org.airsonic.player.service.JukeboxService.play",
+	"Comment": "plays the playqueue of a jukebox player starting at the first item of the queue.",
+	"Method": "void play(Player airsonicPlayer){\r\n    switch(airsonicPlayer.getTechnology()) {\r\n        case JUKEBOX:\r\n            jukeboxLegacySubsonicService.updateJukebox(airsonicPlayer, 0);\r\n            break;\r\n        case JAVA_JUKEBOX:\r\n            jukeboxJavaService.play(airsonicPlayer);\r\n            break;\r\n    }\r\n}"
+}, {
+	"Path": "org.javalite.common.XmlEntities.doUnescape",
+	"Comment": "underlying unescape method that allows the optimisation of not starting from the 0 index again.",
+	"Method": "void doUnescape(StringBuilder sb,String str,int firstAmp){\r\n    sb.append(str, 0, firstAmp);\r\n    int len = str.length();\r\n    for (int i = firstAmp; i < len; i++) {\r\n        char c = str.charAt(i);\r\n        if (c == '&') {\r\n            int nextIdx = i + 1;\r\n            int semiColonIdx = str.indexOf(';', nextIdx);\r\n            if (semiColonIdx == -1) {\r\n                sb.append(c);\r\n                continue;\r\n            }\r\n            int amphersandIdx = str.indexOf('&', i + 1);\r\n            if (amphersandIdx != -1 && amphersandIdx < semiColonIdx) {\r\n                sb.append(c);\r\n                continue;\r\n            }\r\n            String entityContent = str.substring(nextIdx, semiColonIdx);\r\n            int entityValue = -1;\r\n            int entityContentLen = entityContent.length();\r\n            if (entityContentLen > 0) {\r\n                if (entityContent.charAt(0) == '#') {\r\n                    if (entityContentLen > 1) {\r\n                        char isHexChar = entityContent.charAt(1);\r\n                        try {\r\n                            switch(isHexChar) {\r\n                                case 'X':\r\n                                case 'x':\r\n                                    {\r\n                                        entityValue = Integer.parseInt(entityContent.substring(2), 16);\r\n                                        break;\r\n                                    }\r\n                                default:\r\n                                    {\r\n                                        entityValue = Integer.parseInt(entityContent.substring(1), 10);\r\n                                    }\r\n                            }\r\n                            if (entityValue > 0xFFFF) {\r\n                                entityValue = -1;\r\n                            }\r\n                        } catch (NumberFormatException e) {\r\n                            entityValue = -1;\r\n                        }\r\n                    }\r\n                } else {\r\n                    entityValue = this.entityValue(entityContent);\r\n                }\r\n            }\r\n            if (entityValue == -1) {\r\n                sb.append('&');\r\n                sb.append(entityContent);\r\n                sb.append(';');\r\n            } else {\r\n                sb.append(Character.toChars(entityValue));\r\n            }\r\n            i = semiColonIdx;\r\n        } else {\r\n            sb.append(c);\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "act.util.LogSupport.printCenter",
+	"Comment": "print formatted string in the center of 80 chars line, left and right padded.",
+	"Method": "void printCenter(String format,Object args){\r\n    String text = S.fmt(format, args);\r\n    info(S.center(text, 80));\r\n}"
+}, {
+	"Path": "com.amazon.ask.dispatcher.request.handler.impl.ListUpdatedEventRequestHandler.canHandle",
+	"Comment": "returns true if the handler can dispatch the current request",
+	"Method": "boolean canHandle(HandlerInput input,ListUpdatedEventRequest listUpdatedEventRequest,boolean canHandle,HandlerInput handlerInput){\r\n    if (handlerInput.getRequest() instanceof ListUpdatedEventRequest) {\r\n        return canHandle(handlerInput, (ListUpdatedEventRequest) handlerInput.getRequest());\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.ModelRegistry.converterForClass",
+	"Comment": "returns converter for specified model attribute, able to convert from sourceclass to destinationclass.returns null if no suitable converter was found.",
+	"Method": "Converter<S, T> converterForClass(String attribute,Class<S> sourceClass,Class<T> destinationClass){\r\n    List<Converter> list = attributeConverters.get(attribute);\r\n    if (list != null) {\r\n        for (Converter converter : list) {\r\n            if (converter.canConvert(sourceClass, destinationClass)) {\r\n                return converter;\r\n            }\r\n        }\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "org.javalite.common.Convert.toFloat",
+	"Comment": "converts value to float if it can. if value is a float, it is returned, if it is a number, it ispromoted to float and then returned, in all other cases, it converts the value to string,then tries to parse float from it.",
+	"Method": "Float toFloat(Object value){\r\n    if (value == null) {\r\n        return null;\r\n    } else if (value instanceof Float) {\r\n        return (Float) value;\r\n    } else if (value instanceof Number) {\r\n        return ((Number) value).floatValue();\r\n    } else {\r\n        return Float.valueOf(value.toString().trim());\r\n    }\r\n}"
+}, {
+	"Path": "act.route.RouterTest.testGH561",
+	"Comment": "different url variable name caused duplicate routes not been reported",
+	"Method": "void testGH561(){\r\n    router.addMapping(GET, \"/foo/{a}\", \"Foo.bar\", RouteSource.ACTION_ANNOTATION);\r\n    router.addMapping(GET, \"/foo/{b}\", \"Foo.foo\", RouteSource.ACTION_ANNOTATION);\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.Base.open",
+	"Comment": "opens a connection from a datasource. this methods gives a high level control while sourcing a db connection.",
+	"Method": "DB open(DB open,String driver,String url,String user,String password,DB open,String driver,String url,Properties props,DB open,String jndiName,DB open,String jndiName,Properties jndiProperties,DB open,DataSource dataSource){\r\n    return new DB(DB.DEFAULT_NAME).open(dataSource);\r\n}"
+}, {
+	"Path": "org.airsonic.player.service.SettingsService.getAllInternetRadios",
+	"Comment": "returns all internet radio stations. disabled stations are not returned.",
+	"Method": "List<InternetRadio> getAllInternetRadios(List<InternetRadio> getAllInternetRadios,boolean includeAll){\r\n    List<InternetRadio> all = internetRadioDao.getAllInternetRadios();\r\n    List<InternetRadio> result = new ArrayList(all.size());\r\n    for (InternetRadio folder : all) {\r\n        if (includeAll || folder.isEnabled()) {\r\n            result.add(folder);\r\n        }\r\n    }\r\n    return result;\r\n}"
+}, {
+	"Path": "com.amazon.ask.CustomSkill.invoke",
+	"Comment": "invokes the dispatcher to handler the request envelope and construct the handler input",
+	"Method": "ResponseEnvelope invoke(RequestEnvelope requestEnvelope,ResponseEnvelope invoke,RequestEnvelope requestEnvelope,Object context){\r\n    if (skillId != null && !requestEnvelope.getContext().getSystem().getApplication().getApplicationId().equals(skillId)) {\r\n        throw new AskSdkException(\"AlexaSkill ID verification failed.\");\r\n    }\r\n    ServiceClientFactory factory = apiClient != null ? ServiceClientFactory.builder().withDefaultApiConfiguration(getApiConfiguration(requestEnvelope)).build() : null;\r\n    HandlerInput handlerInput = HandlerInput.builder().withRequestEnvelope(requestEnvelope).withPersistenceAdapter(persistenceAdapter).withContext(context).withServiceClientFactory(factory).build();\r\n    Optional<Response> response = requestDispatcher.dispatch(handlerInput);\r\n    return ResponseEnvelope.builder().withResponse(response != null ? response.orElse(null) : null).withSessionAttributes(requestEnvelope.getSession() != null ? handlerInput.getAttributesManager().getSessionAttributes() : null).withVersion(SdkConstants.FORMAT_VERSION).withUserAgent(UserAgentUtils.getUserAgent(customUserAgent)).build();\r\n}"
+}, {
+	"Path": "org.airsonic.player.service.VersionService.readLatestVersion",
+	"Comment": "resolves the latest available airsonic version by inspecting github.",
+	"Method": "void readLatestVersion(){\r\n    LOG.debug(\"Starting to read latest version\");\r\n    RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(10000).setSocketTimeout(10000).build();\r\n    HttpGet method = new HttpGet(VERSION_URL + \"?v=\" + getLocalVersion());\r\n    method.setConfig(requestConfig);\r\n    String content;\r\n    try (CloseableHttpClient client = HttpClients.createDefault()) {\r\n        ResponseHandler<String> responseHandler = new BasicResponseHandler();\r\n        content = client.execute(method, responseHandler);\r\n    }\r\n    List<String> unsortedTags = JsonPath.read(content, JSON_PATH);\r\n    Function<String, Version> convertToVersion = s -> {\r\n        Matcher match = VERSION_REGEX.matcher(s);\r\n        if (!match.matches()) {\r\n            throw new RuntimeException(\"Unexpected tag format \" + s);\r\n        }\r\n        return new Version(match.group(1));\r\n    };\r\n    Predicate<Version> finalVersionPredicate = version -> !version.isPreview();\r\n    Optional<Version> betaV = unsortedTags.stream().map(convertToVersion).sorted(Comparator.reverseOrder()).findFirst();\r\n    Optional<Version> finalV = unsortedTags.stream().map(convertToVersion).sorted(Comparator.reverseOrder()).filter(finalVersionPredicate).findFirst();\r\n    LOG.debug(\"Got {} for beta version\", betaV);\r\n    LOG.debug(\"Got {} for final version\", finalV);\r\n    latestBetaVersion = betaV.get();\r\n    latestFinalVersion = finalV.get();\r\n}"
+}, {
+	"Path": "org.airsonic.player.service.TranscodingService.getTranscodedInputStream",
+	"Comment": "returns a possibly transcoded or downsampled input stream for the given music file and player combination.a transcoding is applied if it is applicable for the format of the given file, and is activated for thegiven player.if no transcoding is applicable, the file may still be downsampled, given that the player is configuredwith a bit rate limit which is higher than the actual bit rate of the file.otherwise, a normal input stream to the original file is returned.",
+	"Method": "InputStream getTranscodedInputStream(Parameters parameters){\r\n    try {\r\n        if (parameters.getTranscoding() != null) {\r\n            return createTranscodedInputStream(parameters);\r\n        }\r\n        if (parameters.downsample) {\r\n            return createDownsampledInputStream(parameters);\r\n        }\r\n    } catch (Exception x) {\r\n        LOG.warn(\"Failed to transcode \" + parameters.getMediaFile() + \". Using original.\", x);\r\n    }\r\n    return new FileInputStream(parameters.getMediaFile().getFile());\r\n}"
+}, {
+	"Path": "org.airsonic.player.controller.DownloadController.copyFileToStream",
+	"Comment": "utility method for writing the content of a given file to a given output stream.",
+	"Method": "void copyFileToStream(File file,OutputStream out,TransferStatus status,HttpRange range){\r\n    LOG.info(\"Downloading '\" + FileUtil.getShortPath(file) + \"' to \" + status.getPlayer());\r\n    final int bufferSize = 16 * 1024;\r\n    InputStream in = new BufferedInputStream(new FileInputStream(file), bufferSize);\r\n    try {\r\n        byte[] buf = new byte[bufferSize];\r\n        long bitrateLimit = 0;\r\n        long lastLimitCheck = 0;\r\n        while (true) {\r\n            long before = System.currentTimeMillis();\r\n            int n = in.read(buf);\r\n            if (n == -1) {\r\n                break;\r\n            }\r\n            out.write(buf, 0, n);\r\n            if (range != null && !range.contains(status.getBytesSkipped() + status.getBytesTransfered())) {\r\n                status.addBytesSkipped(n);\r\n                continue;\r\n            }\r\n            status.addBytesTransfered(n);\r\n            long after = System.currentTimeMillis();\r\n            if (after - lastLimitCheck > 5000) {\r\n                bitrateLimit = 1024L * settingsService.getDownloadBitrateLimit() / Math.max(1, statusService.getAllDownloadStatuses().size());\r\n                lastLimitCheck = after;\r\n            }\r\n            if (bitrateLimit != 0) {\r\n                long sleepTime = 8L * 1000 * bufferSize / bitrateLimit - (after - before);\r\n                if (sleepTime > 0L) {\r\n                    try {\r\n                        Thread.sleep(sleepTime);\r\n                    } catch (Exception x) {\r\n                        LOG.warn(\"Failed to sleep.\", x);\r\n                    }\r\n                }\r\n            }\r\n        }\r\n    } finally {\r\n        out.flush();\r\n        IOUtils.closeQuietly(in);\r\n    }\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.Base.findAll",
+	"Comment": "this method returns entire resultset as one list. do not use it for large result sets.",
+	"Method": "List<Map> findAll(String query,Object params,List<Map> findAll,String query){\r\n    return new DB(DB.DEFAULT_NAME).findAll(query);\r\n}"
+}, {
+	"Path": "org.airsonic.player.service.TranscodingService.getTranscodingsForPlayer",
+	"Comment": "returns all active transcodings for the given player. only enabled transcodings are returned.",
+	"Method": "List<Transcoding> getTranscodingsForPlayer(Player player){\r\n    return transcodingDao.getTranscodingsForPlayer(player.getId());\r\n}"
+}, {
+	"Path": "org.javalite.common.Templator.merge",
+	"Comment": "this method is used in repeated operations, since it will load a resource once.",
+	"Method": "String merge(Map<String, ?> values){\r\n    return mergeFromTemplate(template, values);\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.DB.findAll",
+	"Comment": "this method returns entire resultset as one list. do not use it for large result sets.",
+	"Method": "List<Map> findAll(String query,Object params,List<Map> findAll,String query){\r\n    final ArrayList<Map> results = new ArrayList();\r\n    long start = System.currentTimeMillis();\r\n    find(query).with(new RowListenerAdapter() {\r\n        @Override\r\n        public void onNext(Map<String, Object> row) {\r\n            results.add(row);\r\n        }\r\n    });\r\n    LogFilter.logQuery(LOGGER, query, null, start);\r\n    return results;\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.DB.findAll",
+	"Comment": "this method returns entire resultset as one list. do not use it for large result sets.",
+	"Method": "List<Map> findAll(String query,Object params,List<Map> findAll,String query){\r\n    results.add(row);\r\n}"
+}, {
+	"Path": "com.amazon.ask.dispatcher.request.handler.impl.SessionEndedRequestHandler.canHandle",
+	"Comment": "returns true if the handler can dispatch the current request",
+	"Method": "boolean canHandle(HandlerInput input,SessionEndedRequest sessionEndedRequest,boolean canHandle,HandlerInput handlerInput){\r\n    if (handlerInput.getRequest() instanceof SessionEndedRequest) {\r\n        return canHandle(handlerInput, (SessionEndedRequest) handlerInput.getRequest());\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.Model.isFrozen",
+	"Comment": "will return true if thisinstance is frozen, false otherwise.a frozen instance cannot use used, as it has no relation to a record in table.",
+	"Method": "boolean isFrozen(){\r\n    return frozen;\r\n}"
+}, {
+	"Path": "org.javalite.db_migrator.MigrationManager.migrate",
+	"Comment": "migrates the database to the latest version, enabling migrations if necessary.",
+	"Method": "void migrate(Log log,String encoding){\r\n    if (!versionTableExists()) {\r\n        createSchemaVersionTable();\r\n    }\r\n    final Collection<Migration> pendingMigrations = getPendingMigrations();\r\n    if (pendingMigrations.isEmpty()) {\r\n        log.info(\"No new migrations are found\");\r\n        return;\r\n    }\r\n    log.info(\"Migrating database, applying \" + pendingMigrations.size() + \" migration(s)\");\r\n    Migration currentMigration = null;\r\n    try {\r\n        connection().setAutoCommit(false);\r\n        for (Migration migration : pendingMigrations) {\r\n            currentMigration = migration;\r\n            log.info(\"Running migration \" + currentMigration.getName());\r\n            long start = System.currentTimeMillis();\r\n            currentMigration.migrate(encoding);\r\n            versionStrategy.recordMigration(currentMigration.getVersion(), new Date(start), (start - System.currentTimeMillis()));\r\n            connection().commit();\r\n        }\r\n    } catch (Exception e) {\r\n        try {\r\n            connection().rollback();\r\n        } catch (Exception ex) {\r\n            throw new MigrationException(e);\r\n        }\r\n        assert currentMigration != null;\r\n        throw new MigrationException(\"Migration for version \" + currentMigration.getVersion() + \" failed, rolling back and terminating migration.\", e);\r\n    }\r\n    log.info(\"Migrated database\");\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.statistics.StatisticsQueue.stop",
+	"Comment": "shutdowns statisticsqueue completely, new statisticsqueue should be created to start gathering statistics again",
+	"Method": "void stop(){\r\n    int notProcessed = worker.shutdownNow().size();\r\n    if (notProcessed != 0) {\r\n        LogFilter.log(LOGGER, LogLevel.INFO, \"Worker exiting, {} execution events remaining, time: {}\", notProcessed, System.currentTimeMillis());\r\n    }\r\n}"
+}, {
+	"Path": "org.airsonic.player.domain.TransferStatus.terminated",
+	"Comment": "returns whether this stream has been terminated.not that the terminated status is cleared by this method.",
+	"Method": "boolean terminated(){\r\n    boolean result = terminated;\r\n    terminated = false;\r\n    return result;\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.RawPaginator.getCurrentPage",
+	"Comment": "returns index of current page, or 0 if this instance has not produced a page yet.",
+	"Method": "int getCurrentPage(){\r\n    return currentPage;\r\n}"
+}, {
+	"Path": "org.airsonic.player.service.JukeboxJavaService.play",
+	"Comment": "plays the playqueue of a jukebox player starting at the beginning.",
+	"Method": "void play(Player airsonicPlayer){\r\n    log.debug(\"begin play jukebox : player = id:{};name:{}\", airsonicPlayer.getId(), airsonicPlayer.getName());\r\n    com.github.biconou.AudioPlayer.api.Player audioPlayer = retrieveAudioPlayerForAirsonicPlayer(airsonicPlayer);\r\n    User user = securityService.getUserByName(airsonicPlayer.getUsername());\r\n    if (!user.isJukeboxRole()) {\r\n        log.warn(\"{} is not authorized for jukebox playback.\", user.getUsername());\r\n        return;\r\n    }\r\n    log.debug(\"Different file to play -> start a new play list\");\r\n    if (airsonicPlayer.getPlayQueue().getCurrentFile() != null) {\r\n        audioPlayer.setPlayList(new PlayList() {\r\n            @Override\r\n            public File getNextAudioFile() throws IOException {\r\n                airsonicPlayer.getPlayQueue().next();\r\n                return getCurrentAudioFile();\r\n            }\r\n            @Override\r\n            public File getCurrentAudioFile() {\r\n                MediaFile current = airsonicPlayer.getPlayQueue().getCurrentFile();\r\n                if (current != null) {\r\n                    return airsonicPlayer.getPlayQueue().getCurrentFile().getFile();\r\n                } else {\r\n                    return null;\r\n                }\r\n            }\r\n            @Override\r\n            public int getSize() {\r\n                return airsonicPlayer.getPlayQueue().size();\r\n            }\r\n            @Override\r\n            public int getIndex() {\r\n                return airsonicPlayer.getPlayQueue().getIndex();\r\n            }\r\n        });\r\n        String mixer = airsonicPlayer.getJavaJukeboxMixer();\r\n        if (StringUtils.isBlank(mixer)) {\r\n            mixer = DEFAULT_MIXER_ENTRY_KEY;\r\n        }\r\n        List<com.github.biconou.AudioPlayer.api.Player> playersForSameMixer = activeAudioPlayersPerMixer.get(mixer);\r\n        playersForSameMixer.forEach(player -> {\r\n            if (player != audioPlayer) {\r\n                player.close();\r\n            }\r\n        });\r\n        audioPlayer.play();\r\n    }\r\n}"
+}, {
+	"Path": "org.airsonic.player.service.JukeboxJavaService.play",
+	"Comment": "plays the playqueue of a jukebox player starting at the beginning.",
+	"Method": "void play(Player airsonicPlayer){\r\n    airsonicPlayer.getPlayQueue().next();\r\n    return getCurrentAudioFile();\r\n}"
+}, {
+	"Path": "org.airsonic.player.service.JukeboxJavaService.play",
+	"Comment": "plays the playqueue of a jukebox player starting at the beginning.",
+	"Method": "void play(Player airsonicPlayer){\r\n    MediaFile current = airsonicPlayer.getPlayQueue().getCurrentFile();\r\n    if (current != null) {\r\n        return airsonicPlayer.getPlayQueue().getCurrentFile().getFile();\r\n    } else {\r\n        return null;\r\n    }\r\n}"
+}, {
+	"Path": "org.airsonic.player.service.JukeboxJavaService.play",
+	"Comment": "plays the playqueue of a jukebox player starting at the beginning.",
+	"Method": "void play(Player airsonicPlayer){\r\n    return airsonicPlayer.getPlayQueue().size();\r\n}"
+}, {
+	"Path": "org.airsonic.player.service.JukeboxJavaService.play",
+	"Comment": "plays the playqueue of a jukebox player starting at the beginning.",
+	"Method": "void play(Player airsonicPlayer){\r\n    return airsonicPlayer.getPlayQueue().getIndex();\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.Model.setRaw",
+	"Comment": "sets raw value of an attribute, without applying conversions.",
+	"Method": "T setRaw(String attributeName,Object value){\r\n    if (manageTime && attributeName.equalsIgnoreCase(\"created_at\")) {\r\n        throw new IllegalArgumentException(\"cannot set 'created_at'\");\r\n    }\r\n    metaModelLocal.checkAttribute(attributeName);\r\n    if (willAttributeModifyModel(attributeName, value)) {\r\n        attributes.put(attributeName, value);\r\n        dirtyAttributeNames.add(attributeName);\r\n    }\r\n    return (T) this;\r\n}"
+}, {
+	"Path": "org.airsonic.player.service.MediaFileService.getMediaFile",
+	"Comment": "returns a media file instance for the given path name. if possible, a cached value is returned.",
+	"Method": "MediaFile getMediaFile(File file,MediaFile getMediaFile,File file,boolean useFastCache,MediaFile getMediaFile,String pathName,MediaFile getMediaFile,int id){\r\n    MediaFile mediaFile = mediaFileDao.getMediaFile(id);\r\n    if (mediaFile == null) {\r\n        return null;\r\n    }\r\n    if (!securityService.isReadAllowed(mediaFile.getFile())) {\r\n        throw new SecurityException(\"Access denied to file \" + mediaFile);\r\n    }\r\n    return checkLastModified(mediaFile, settingsService.isFastCacheEnabled());\r\n}"
+}, {
+	"Path": "org.airsonic.player.util.FileUtil.getShortPath",
+	"Comment": "returns a short path for the given file.the path consists of the nameof the parent directory and the given file.",
+	"Method": "String getShortPath(File file){\r\n    if (file == null) {\r\n        return null;\r\n    }\r\n    File parent = file.getParentFile();\r\n    if (parent == null) {\r\n        return file.getName();\r\n    }\r\n    return parent.getName() + File.separator + file.getName();\r\n}"
+}, {
+	"Path": "org.airsonic.player.domain.MusicFolder.setChanged",
+	"Comment": "sets when the corresponding database entry was last changed.",
+	"Method": "void setChanged(Date changed){\r\n    this.changed = changed;\r\n}"
+}, {
+	"Path": "org.airsonic.player.service.metadata.JaudiotaggerParser.isImageAvailable",
+	"Comment": "returns whether cover art image data is available in the given file.",
+	"Method": "boolean isImageAvailable(MediaFile file){\r\n    try {\r\n        return getArtwork(file) != null;\r\n    } catch (Throwable x) {\r\n        LOG.warn(\"Failed to find cover art tag in \" + file, x);\r\n        return false;\r\n    }\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.Paginator.setCurrentPageIndex",
+	"Comment": "sets an index of a current page. this method will make a quick count query to check thatthe index you are setting is within the boundaries.",
+	"Method": "void setCurrentPageIndex(int currentPageIndex,boolean skipCheck){\r\n    if (currentPageIndex < 1) {\r\n        throw new IndexOutOfBoundsException(\"currentPageIndex cannot be < 1\");\r\n    }\r\n    if (!skipCheck) {\r\n        if (currentPageIndex > pageCount()) {\r\n            throw new IndexOutOfBoundsException(\"currentPageIndex it outside of record set boundaries. \");\r\n        }\r\n    }\r\n    this.currentPageIndex = currentPageIndex;\r\n}"
+}, {
+	"Path": "org.javalite.http.Request.redirect",
+	"Comment": "configures this request to follow redirects. default is false.",
+	"Method": "T redirect(boolean redirect){\r\n    this.redirect = redirect;\r\n    return (T) this;\r\n}"
+}, {
+	"Path": "act.ws.WebSocketContext.sendJsonToUser",
+	"Comment": "send json representation of a data object to all connections of a certain user",
+	"Method": "WebSocketContext sendJsonToUser(Object data,String username){\r\n    return sendToTagged(JSON.toJSONString(data), username);\r\n}"
+}, {
+	"Path": "com.amazon.ask.services.ApacheHttpApiClient.custom",
+	"Comment": "returns a builder that can be used to create a custom instance of this client.",
+	"Method": "Builder custom(){\r\n    return new Builder();\r\n}"
+}, {
+	"Path": "org.airsonic.player.service.TranscodingService.createTranscodedInputStream",
+	"Comment": "returns an input stream by applying the given transcoding to the given music file.",
+	"Method": "InputStream createTranscodedInputStream(Parameters parameters){\r\n    Transcoding transcoding = parameters.getTranscoding();\r\n    Integer maxBitRate = parameters.getMaxBitRate();\r\n    VideoTranscodingSettings videoTranscodingSettings = parameters.getVideoTranscodingSettings();\r\n    MediaFile mediaFile = parameters.getMediaFile();\r\n    TranscodeInputStream in = createTranscodeInputStream(transcoding.getStep1(), maxBitRate, videoTranscodingSettings, mediaFile, null);\r\n    if (transcoding.getStep2() != null) {\r\n        in = createTranscodeInputStream(transcoding.getStep2(), maxBitRate, videoTranscodingSettings, mediaFile, in);\r\n    }\r\n    if (transcoding.getStep3() != null) {\r\n        in = createTranscodeInputStream(transcoding.getStep3(), maxBitRate, videoTranscodingSettings, mediaFile, in);\r\n    }\r\n    return in;\r\n}"
+}, {
+	"Path": "com.amazon.ask.dispatcher.request.handler.impl.PlaybackFailedRequestHandler.canHandle",
+	"Comment": "returns true if the handler can dispatch the current request",
+	"Method": "boolean canHandle(HandlerInput input,PlaybackFailedRequest playbackFailedRequest,boolean canHandle,HandlerInput handlerInput){\r\n    if (handlerInput.getRequest() instanceof PlaybackFailedRequest) {\r\n        return canHandle(handlerInput, (PlaybackFailedRequest) handlerInput.getRequest());\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "org.airsonic.player.service.MediaFileService.incrementPlayCount",
+	"Comment": "increments the play count and last played date for the given media file and itsdirectory and album.",
+	"Method": "void incrementPlayCount(MediaFile file){\r\n    Date now = new Date();\r\n    file.setLastPlayed(now);\r\n    file.setPlayCount(file.getPlayCount() + 1);\r\n    updateMediaFile(file);\r\n    MediaFile parent = getParentOf(file);\r\n    if (!isRoot(parent)) {\r\n        parent.setLastPlayed(now);\r\n        parent.setPlayCount(parent.getPlayCount() + 1);\r\n        updateMediaFile(parent);\r\n    }\r\n    Album album = albumDao.getAlbum(file.getAlbumArtist(), file.getAlbumName());\r\n    if (album != null) {\r\n        album.setLastPlayed(now);\r\n        album.setPlayCount(album.getPlayCount() + 1);\r\n        albumDao.createOrUpdateAlbum(album);\r\n    }\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.Model.errors",
+	"Comment": "provides an instance of localized errors object, filled with error messages after validation.",
+	"Method": "Errors errors(Errors errors,Locale locale){\r\n    errors.setLocale(locale);\r\n    return errors;\r\n}"
+}, {
+	"Path": "me.tongfei.progressbar.ProgressBar.wrap",
+	"Comment": "wraps an iterator so that when iterated, a progress bar is shown to track the traversal progress.",
+	"Method": "Iterator<T> wrap(Iterator<T> it,String task,Iterable<T> wrap,Iterable<T> ts,String task){\r\n    return new ProgressBarWrappedIterable(ts, task);\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.DB.startBatch",
+	"Comment": "creates a java.sql.preparedstatement to be used in batch executions later.",
+	"Method": "PreparedStatement startBatch(String parametrizedStatement){\r\n    try {\r\n        return connection().prepareStatement(parametrizedStatement);\r\n    } catch (SQLException e) {\r\n        throw new DBException(e);\r\n    }\r\n}"
+}, {
+	"Path": "org.airsonic.player.domain.PlayQueue.getRandomSearchCriteria",
+	"Comment": "returns the criteria used to generate this random playlist.",
+	"Method": "RandomSearchCriteria getRandomSearchCriteria(){\r\n    return randomSearchCriteria;\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.Model.set",
+	"Comment": "sets values for this model instance. the sequence of values must correspond to sequence of names.",
+	"Method": "void set(String[] attributeNames,Object[] values,T set,String attributeName,Object value,T set,Object namesAndValues){\r\n    if (namesAndValues.length % 2 != 0) {\r\n        throw new IllegalArgumentException(\"number of arguments must be even\");\r\n    }\r\n    for (int i = 0; i < namesAndValues.length; ) {\r\n        if (namesAndValues[i] == null) {\r\n            throw new IllegalArgumentException(\"attribute names cannot be null\");\r\n        }\r\n        set(namesAndValues[i++].toString(), namesAndValues[i++]);\r\n    }\r\n    return (T) this;\r\n}"
+}, {
+	"Path": "org.airsonic.player.dao.MediaFileDao.getChildrenOf",
+	"Comment": "returns the media file that are direct children of the given path.",
+	"Method": "List<MediaFile> getChildrenOf(String path){\r\n    return query(\"select \" + QUERY_COLUMNS + \" from media_file where parent_path=? and present\", rowMapper, path);\r\n}"
+}, {
+	"Path": "org.airsonic.player.service.JukeboxLegacySubsonicService.updateJukebox",
+	"Comment": "updates the jukebox by starting or pausing playback on the local audio device.",
+	"Method": "void updateJukebox(Player player,int offset){\r\n    User user = securityService.getUserByName(player.getUsername());\r\n    if (!user.isJukeboxRole()) {\r\n        LOG.warn(user.getUsername() + \" is not authorized for jukebox playback.\");\r\n        return;\r\n    }\r\n    if (player.getPlayQueue().getStatus() == PlayQueue.Status.PLAYING) {\r\n        this.player = player;\r\n        MediaFile result;\r\n        synchronized (player.getPlayQueue()) {\r\n            result = player.getPlayQueue().getCurrentFile();\r\n        }\r\n        play(result, offset);\r\n    } else {\r\n        if (audioPlayer != null) {\r\n            audioPlayer.pause();\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.Model.convertDate",
+	"Comment": "converts a named attribute to java.sql.date if possible.acts as a validator if cannot make a conversion.",
+	"Method": "ValidationBuilder convertDate(String attributeName,String format){\r\n    return ModelDelegate.convertDate(modelClass(), attributeName, format);\r\n}"
+}, {
+	"Path": "com.amazon.ask.dispatcher.request.handler.impl.PermissionChangedRequestHandler.canHandle",
+	"Comment": "returns true if the handler can dispatch the current request",
+	"Method": "boolean canHandle(HandlerInput input,PermissionChangedRequest permissionChangedRequest,boolean canHandle,HandlerInput handlerInput){\r\n    if (handlerInput.getRequest() instanceof PermissionChangedRequest) {\r\n        return canHandle(handlerInput, (PermissionChangedRequest) handlerInput.getRequest());\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "act.event.EventBus.emitAsync",
+	"Comment": "emit a event object with parameters and force all listeners to be called asynchronously.",
+	"Method": "EventBus emitAsync(SysEventId eventId,EventBus emitAsync,Enum<?> event,Object args,EventBus emitAsync,String event,Object args,EventBus emitAsync,EventObject event,Object args,EventBus emitAsync,ActEvent event,Object args){\r\n    return _emitWithOnceBus(eventContextAsync(event, args));\r\n}"
+}, {
+	"Path": "act.handler.builtin.controller.RequestHandlerProxy.setHandlerClass",
+	"Comment": "in case interceptor class is super type of action handler class",
+	"Method": "void setHandlerClass(ActionContext context){\r\n    context.handlerClass(actionHandler.invoker().invokeMethod().getDeclaringClass());\r\n}"
+}, {
+	"Path": "com.amazon.ask.request.Predicates.requestType",
+	"Comment": "returns a predicate that returns to true if the incoming request is an instanceof the given request class.",
+	"Method": "Predicate<HandlerInput> requestType(Class<T> requestType){\r\n    return i -> requestType.isInstance(i.getRequestEnvelope().getRequest());\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.Model.parent",
+	"Comment": "returns parent of this model, assuming that this table represents a child.this method may return null in cases when you have orphan record andreferential integrity is not enforced in dbms with a foreign key constraint.",
+	"Method": "P parent(Class<P> parentClass,P parent,Class<P> parentClass,boolean cache){\r\n    P cachedParent = parentClass.cast(cachedParents.get(parentClass));\r\n    if (cachedParent != null) {\r\n        return cachedParent;\r\n    }\r\n    BelongsToAssociation ass = metaModelLocal.getAssociationForTarget(parentClass, BelongsToAssociation.class);\r\n    BelongsToPolymorphicAssociation assP = metaModelLocal.getAssociationForTarget(parentClass, BelongsToPolymorphicAssociation.class);\r\n    Object fkValue;\r\n    String fkName;\r\n    if (ass != null) {\r\n        fkValue = get(ass.getFkName());\r\n        fkName = ass.getFkName();\r\n    } else if (assP != null) {\r\n        fkValue = get(\"parent_id\");\r\n        fkName = \"parent_id\";\r\n        if (!assP.getTypeLabel().equals(getString(\"parent_type\"))) {\r\n            throw new IllegalArgumentException(\"Wrong parent: '\" + parentClass + \"'. Actual parent type label of this record is: '\" + getString(\"parent_type\") + \"'\");\r\n        }\r\n    } else {\r\n        throw new IllegalArgumentException(\"there is no association with model: \" + parentClass);\r\n    }\r\n    if (fkValue == null) {\r\n        LogFilter.log(LOGGER, LogLevel.DEBUG, \"Attribute: {} is null, cannot determine parent. Child record: {}\", fkName, this);\r\n        return null;\r\n    }\r\n    MetaModel parentMM = metaModelOf(parentClass);\r\n    String parentTable = parentMM.getTableName();\r\n    String parentIdName = parentMM.getIdName();\r\n    String query = metaModelLocal.getDialect().selectStarParametrized(parentTable, parentIdName);\r\n    if (parentMM.cached()) {\r\n        P parent = parentClass.cast(QueryCache.instance().getItem(parentTable, query, new Object[] { fkValue }));\r\n        if (parent != null) {\r\n            LogFilter.logQuery(LOGGER, query, new Object[] { fkValue }, System.currentTimeMillis(), true);\r\n            return parent;\r\n        }\r\n    }\r\n    List<Map> results = new DB(parentMM.getDbName()).findAll(query, fkValue);\r\n    if (results.isEmpty()) {\r\n        return null;\r\n    } else {\r\n        try {\r\n            P parent = parentClass.newInstance();\r\n            parent.hydrate(results.get(0), true);\r\n            if (parentMM.cached()) {\r\n                QueryCache.instance().addItem(parentTable, query, new Object[] { fkValue }, parent);\r\n            }\r\n            if (cache) {\r\n                setCachedParent(parent);\r\n            }\r\n            return parent;\r\n        } catch (Exception e) {\r\n            throw new InitException(e.getMessage(), e);\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "act.ws.WebSocketContext.sendToTagged",
+	"Comment": "send message to all connections labeled with tag specified.",
+	"Method": "WebSocketContext sendToTagged(String message,String tag,WebSocketContext sendToTagged,String message,String tag,boolean excludeSelf){\r\n    return sendToConnections(message, tag, manager.tagRegistry(), excludeSelf);\r\n}"
+}, {
+	"Path": "org.javalite.common.Util.read",
+	"Comment": "reads contents of the input stream fully and returns it as string.",
+	"Method": "String read(InputStream in,String read,InputStream in,String charset,byte[] read,File file){\r\n    FileInputStream is = new FileInputStream(file);\r\n    try {\r\n        return bytes(is);\r\n    } finally {\r\n        closeQuietly(is);\r\n    }\r\n}"
+}, {
+	"Path": "org.airsonic.player.service.JukeboxService.updateJukebox",
+	"Comment": "this method should be removed when the jukebox is controlled only through rest api.",
+	"Method": "void updateJukebox(Player airsonicPlayer,int offset){\r\n    if (airsonicPlayer.getTechnology().equals(PlayerTechnology.JUKEBOX)) {\r\n        jukeboxLegacySubsonicService.updateJukebox(airsonicPlayer, offset);\r\n    }\r\n}"
+}, {
+	"Path": "com.amazon.ask.dispatcher.request.handler.impl.PlaybackStartedRequestHandler.canHandle",
+	"Comment": "returns true if the handler can dispatch the current request",
+	"Method": "boolean canHandle(HandlerInput input,PlaybackStartedRequest playbackStartedRequest,boolean canHandle,HandlerInput handlerInput){\r\n    if (handlerInput.getRequest() instanceof PlaybackStartedRequest) {\r\n        return canHandle(handlerInput, (PlaybackStartedRequest) handlerInput.getRequest());\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "act.SysUtilAdmin.isBinary",
+	"Comment": "guess whether given file is binary. just checks for anything under 0x09.",
+	"Method": "boolean isBinary(InputStream in){\r\n    try {\r\n        int size = in.available();\r\n        if (size > 1024)\r\n            size = 1024;\r\n        byte[] data = new byte[size];\r\n        in.read(data);\r\n        in.close();\r\n        int ascii = 0;\r\n        int other = 0;\r\n        for (int i = 0; i < data.length; i++) {\r\n            byte b = data[i];\r\n            if (b < 0x09)\r\n                return true;\r\n            if (b == 0x09 || b == 0x0A || b == 0x0C || b == 0x0D)\r\n                ascii++;\r\n            else if (b >= 0x20 && b <= 0x7E)\r\n                ascii++;\r\n            else\r\n                other++;\r\n        }\r\n        return other != 0 && 100 * other / (ascii + other) > 95;\r\n    } catch (IOException e) {\r\n        throw E.ioException(e);\r\n    }\r\n}"
+}, {
+	"Path": "com.amazon.ask.dispatcher.request.handler.impl.PlaybackStoppedRequestHandler.canHandle",
+	"Comment": "returns true if the handler can dispatch the current request",
+	"Method": "boolean canHandle(HandlerInput input,PlaybackStoppedRequest playbackStoppedRequest,boolean canHandle,HandlerInput handlerInput){\r\n    if (handlerInput.getRequest() instanceof PlaybackStoppedRequest) {\r\n        return canHandle(handlerInput, (PlaybackStoppedRequest) handlerInput.getRequest());\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.MetaModel.getAttributeNamesSkip",
+	"Comment": "finds all attribute names except those provided as arguments.",
+	"Method": "Set<String> getAttributeNamesSkip(String names){\r\n    Set<String> attributes = new CaseInsensitiveSet(getAttributeNames());\r\n    for (String name : names) {\r\n        attributes.remove(name);\r\n    }\r\n    return attributes;\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.ConnectionsAccess.attach",
+	"Comment": "attaches a connection to a threadlocal and binds it to a name.",
+	"Method": "void attach(String dbName,Connection connection,String extraInfo){\r\n    if (ConnectionsAccess.getConnectionMap().get(dbName) != null) {\r\n        throw new InternalException(\"You are opening a connection \" + dbName + \" without closing a previous one. Check your logic. Connection still remains on thread: \" + ConnectionsAccess.getConnectionMap().get(dbName));\r\n    }\r\n    ConnectionsAccess.getConnectionMap().put(dbName, connection);\r\n    LogFilter.log(LOGGER, LogLevel.DEBUG, \"Attached connection named: {}: to current thread: {}. Extra info: {}\", dbName, connection, extraInfo);\r\n}"
+}, {
+	"Path": "org.airsonic.player.service.TranscodingService.getTranscoding",
+	"Comment": "returns an applicable transcoding for the given file and player, or null if notranscoding should be done.",
+	"Method": "Transcoding getTranscoding(MediaFile mediaFile,Player player,String preferredTargetFormat,boolean hls,Transcoding getTranscoding){\r\n    if (hls) {\r\n        return new Transcoding(null, \"hls\", mediaFile.getFormat(), \"ts\", settingsService.getHlsCommand(), null, null, true);\r\n    }\r\n    if (FORMAT_RAW.equals(preferredTargetFormat)) {\r\n        return null;\r\n    }\r\n    List<Transcoding> applicableTranscodings = new LinkedList<Transcoding>();\r\n    String suffix = mediaFile.getFormat();\r\n    List<Transcoding> transcodingsForPlayer = getTranscodingsForPlayer(player);\r\n    for (Transcoding transcoding : transcodingsForPlayer) {\r\n        if (mediaFile.isVideo() && StringUtils.equalsIgnoreCase(preferredTargetFormat, transcoding.getTargetFormat())) {\r\n            LOG.debug(\"Detected source to target format match for video\");\r\n            return transcoding;\r\n        }\r\n        for (String sourceFormat : transcoding.getSourceFormatsAsArray()) {\r\n            if (sourceFormat.equalsIgnoreCase(suffix)) {\r\n                if (isTranscodingInstalled(transcoding)) {\r\n                    applicableTranscodings.add(transcoding);\r\n                }\r\n            }\r\n        }\r\n    }\r\n    if (applicableTranscodings.isEmpty()) {\r\n        return null;\r\n    }\r\n    for (Transcoding transcoding : applicableTranscodings) {\r\n        if (transcoding.getTargetFormat().equalsIgnoreCase(preferredTargetFormat)) {\r\n            return transcoding;\r\n        }\r\n    }\r\n    return applicableTranscodings.get(0);\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.Model.convertTimestamp",
+	"Comment": "converts a named attribute to java.sql.timestamp if possible.acts as a validator if cannot make a conversion.",
+	"Method": "ValidationBuilder convertTimestamp(String attributeName,String format){\r\n    return ModelDelegate.convertTimestamp(modelClass(), attributeName, format);\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.validation.ValidationBuilder.message",
+	"Comment": "todo implement resource bundles here so that the argument cam be either literal string or key to the message",
+	"Method": "void message(String message){\r\n    for (T validator : validators) {\r\n        validator.setMessage(message);\r\n    }\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.Model.callbackWith",
+	"Comment": "setslifecycle listeners on current model. all previous listeners will be unregistered.",
+	"Method": "void callbackWith(CallbackListener listeners){\r\n    ModelDelegate.callbackWith(modelClass(), listeners);\r\n}"
+}, {
+	"Path": "com.amazon.ask.dispatcher.request.handler.impl.PermissionAcceptedRequestHandler.canHandle",
+	"Comment": "returns true if the handler can dispatch the current request",
+	"Method": "boolean canHandle(HandlerInput input,PermissionAcceptedRequest permissionAcceptedRequest,boolean canHandle,HandlerInput handlerInput){\r\n    if (handlerInput.getRequest() instanceof PermissionAcceptedRequest) {\r\n        return canHandle(handlerInput, (PermissionAcceptedRequest) handlerInput.getRequest());\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "org.javalite.app_config.AppConfig.isInTestMode",
+	"Comment": "checks if running in a context of a test by checking of a presence of aclass org.junit.test on classpath.",
+	"Method": "boolean isInTestMode(){\r\n    return AppConfig.class.getResource(\"/org/junit/Test.class\") != null;\r\n}"
+}, {
+	"Path": "snippets.Snippets.initializeArrayWithRange",
+	"Comment": "initializes an array containing the numbers in the specified range where start and end are inclusive.",
+	"Method": "int[] initializeArrayWithRange(int end,int start){\r\n    return IntStream.rangeClosed(start, end).toArray();\r\n}"
+}, {
+	"Path": "act.handler.builtin.FileGetter.verifyBase",
+	"Comment": "if base is valid then return nullotherwise return delegate request handler",
+	"Method": "FastRequestHandler verifyBase(File base){\r\n    if (!base.exists()) {\r\n        logger.warn(\"file base not exists: \" + base);\r\n        return AlwaysNotFound.INSTANCE;\r\n    }\r\n    if (!base.canRead()) {\r\n        logger.warn(\"cannot read file base: \" + base);\r\n        return AlwaysForbidden.INSTANCE;\r\n    }\r\n    if (base.isDirectory() & (!base.canExecute())) {\r\n        logger.warn(\"cannot access directory: \" + base);\r\n        return AlwaysForbidden.INSTANCE;\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "com.amazon.ask.dispatcher.request.handler.impl.LaunchRequestHandler.canHandle",
+	"Comment": "returns true if the handler can dispatch the current request",
+	"Method": "boolean canHandle(HandlerInput input,LaunchRequest launchRequest,boolean canHandle,HandlerInput handlerInput){\r\n    if (handlerInput.getRequest() instanceof LaunchRequest) {\r\n        return canHandle(handlerInput, (LaunchRequest) handlerInput.getRequest());\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "act.ws.WebSocketConnectionRegistry.accept",
+	"Comment": "accept a visitor to iterate through the connections attached to the key specified",
+	"Method": "void accept(String key,$.Function<WebSocketConnection, ?> visitor){\r\n    ConcurrentMap<WebSocketConnection, WebSocketConnection> connections = registry.get(key);\r\n    if (null == connections) {\r\n        return;\r\n    }\r\n    if (!connections.isEmpty()) {\r\n        lock.lock();\r\n        try {\r\n            List<WebSocketConnection> toBeCleared = null;\r\n            for (WebSocketConnection conn : connections.keySet()) {\r\n                if (conn.closed()) {\r\n                    if (null == toBeCleared) {\r\n                        toBeCleared = new ArrayList();\r\n                    }\r\n                    toBeCleared.add(conn);\r\n                    continue;\r\n                }\r\n                visitor.apply(conn);\r\n            }\r\n            if (null != toBeCleared) {\r\n                ConcurrentMap<WebSocketConnection, WebSocketConnection> originalCopy = registry.get(key);\r\n                originalCopy.keySet().removeAll(toBeCleared);\r\n            }\r\n        } finally {\r\n            lock.unlock();\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.Base.startBatch",
+	"Comment": "creates a java.sql.preparedstatement to be used in batch executions later.",
+	"Method": "PreparedStatement startBatch(String parametrizedStatement){\r\n    return new DB(DB.DEFAULT_NAME).startBatch(parametrizedStatement);\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.validation.ValidationException.errors",
+	"Comment": "convenience method, returns the same object with errors that is attached to a model generated this exception.",
+	"Method": "Errors errors(Errors errors,Locale locale){\r\n    return source.errors(locale);\r\n}"
+}, {
+	"Path": "org.javalite.logging.Context.clear",
+	"Comment": "clears current context of any values. usually this is called at the end of a web requestor the end of some processing unit.",
+	"Method": "void clear(){\r\n    contextTL.get().clear();\r\n}"
+}, {
+	"Path": "org.airsonic.player.dao.UserDao.updateUserSettings",
+	"Comment": "updates settings for the given username, creating it if necessary.",
+	"Method": "void updateUserSettings(UserSettings settings){\r\n    getJdbcTemplate().update(\"delete from user_settings where username=?\", new Object[] { settings.getUsername() });\r\n    String sql = \"insert into user_settings (\" + USER_SETTINGS_COLUMNS + \") values (\" + questionMarks(USER_SETTINGS_COLUMNS) + ')';\r\n    String locale = settings.getLocale() == null ? null : settings.getLocale().toString();\r\n    UserSettings.Visibility main = settings.getMainVisibility();\r\n    UserSettings.Visibility playlist = settings.getPlaylistVisibility();\r\n    getJdbcTemplate().update(sql, new Object[] { settings.getUsername(), locale, settings.getThemeId(), settings.isFinalVersionNotificationEnabled(), settings.isBetaVersionNotificationEnabled(), settings.isSongNotificationEnabled(), main.isTrackNumberVisible(), main.isArtistVisible(), main.isAlbumVisible(), main.isGenreVisible(), main.isYearVisible(), main.isBitRateVisible(), main.isDurationVisible(), main.isFormatVisible(), main.isFileSizeVisible(), playlist.isTrackNumberVisible(), playlist.isArtistVisible(), playlist.isAlbumVisible(), playlist.isGenreVisible(), playlist.isYearVisible(), playlist.isBitRateVisible(), playlist.isDurationVisible(), playlist.isFormatVisible(), playlist.isFileSizeVisible(), settings.isLastFmEnabled(), settings.getLastFmUsername(), encrypt(settings.getLastFmPassword()), settings.getTranscodeScheme().name(), settings.isShowNowPlayingEnabled(), settings.getSelectedMusicFolderId(), settings.isPartyModeEnabled(), settings.isNowPlayingAllowed(), settings.getAvatarScheme().name(), settings.getSystemAvatarId(), settings.getChanged(), settings.isShowArtistInfoEnabled(), settings.isAutoHidePlayQueue(), settings.isViewAsList(), settings.getDefaultAlbumList().getId(), settings.isQueueFollowingSongs(), settings.isShowSideBar(), settings.getListReloadDelay(), settings.isKeyboardShortcutsEnabled(), settings.getPaginationSize() });\r\n}"
+}, {
+	"Path": "org.airsonic.player.controller.CoverArtController.getImageInputStreamWithType",
+	"Comment": "returns an input stream to the image in the given file.if the file is an audio file,the embedded album art is returned. in addition returns the mime type",
+	"Method": "Pair<InputStream, String> getImageInputStreamWithType(File file){\r\n    InputStream is;\r\n    String mimeType;\r\n    if (jaudiotaggerParser.isApplicable(file)) {\r\n        LOG.trace(\"Using Jaudio Tagger for reading artwork from {}\", file);\r\n        MediaFile mediaFile = mediaFileService.getMediaFile(file);\r\n        Artwork artwork;\r\n        try {\r\n            LOG.trace(\"Reading artwork from file {}\", mediaFile);\r\n            artwork = jaudiotaggerParser.getArtwork(mediaFile);\r\n        } catch (Exception e) {\r\n            LOG.debug(\"Could not read artwork from file {}\", mediaFile);\r\n            throw new RuntimeException(e);\r\n        }\r\n        is = new ByteArrayInputStream(artwork.getBinaryData());\r\n        mimeType = artwork.getMimeType();\r\n    } else {\r\n        is = new FileInputStream(file);\r\n        mimeType = StringUtil.getMimeType(FilenameUtils.getExtension(file.getName()));\r\n    }\r\n    return Pair.of(is, mimeType);\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.Model.addError",
+	"Comment": "adds a new error to the collection of errors. this is a convenience method to be used from custom validators.",
+	"Method": "void addError(String key,String value){\r\n    errors.put(key, value);\r\n}"
+}, {
+	"Path": "org.airsonic.player.service.MediaFileService.getChildrenOf",
+	"Comment": "returns all media files that are children of a given media file.",
+	"Method": "List<MediaFile> getChildrenOf(MediaFile parent,boolean includeFiles,boolean includeDirectories,boolean sort,List<MediaFile> getChildrenOf,MediaFile parent,boolean includeFiles,boolean includeDirectories,boolean sort,boolean useFastCache){\r\n    if (!parent.isDirectory()) {\r\n        return Collections.emptyList();\r\n    }\r\n    if (!useFastCache) {\r\n        updateChildren(parent);\r\n    }\r\n    List<MediaFile> result = new ArrayList<MediaFile>();\r\n    for (MediaFile child : mediaFileDao.getChildrenOf(parent.getPath())) {\r\n        child = checkLastModified(child, useFastCache);\r\n        if (child.isDirectory() && includeDirectories) {\r\n            result.add(child);\r\n        }\r\n        if (child.isFile() && includeFiles) {\r\n            result.add(child);\r\n        }\r\n    }\r\n    if (sort) {\r\n        Comparator<MediaFile> comparator = new MediaFileComparator(settingsService.isSortAlbumsByYear());\r\n        Set<MediaFile> set = new TreeSet<MediaFile>(comparator);\r\n        set.addAll(result);\r\n        result = new ArrayList<MediaFile>(set);\r\n    }\r\n    return result;\r\n}"
+}, {
+	"Path": "org.airsonic.player.service.TranscodingService.getSuffix",
+	"Comment": "returns the suffix for the given player and media file, taking transcodings into account.",
+	"Method": "String getSuffix(Player player,MediaFile file,String preferredTargetFormat){\r\n    Transcoding transcoding = getTranscoding(file, player, preferredTargetFormat, false);\r\n    return transcoding != null ? transcoding.getTargetFormat() : file.getFormat();\r\n}"
+}, {
+	"Path": "org.airsonic.player.service.TranscodingService.getParameters",
+	"Comment": "creates parameters for a possibly transcoded or downsampled input stream for the given media file and player combination.a transcoding is applied if it is applicable for the format of the given file, and is activated for thegiven player.if no transcoding is applicable, the file may still be downsampled, given that the player is configuredwith a bit rate limit which is higher than the actual bit rate of the file.otherwise, a normal input stream to the original file is returned.",
+	"Method": "Parameters getParameters(MediaFile mediaFile,Player player,Integer maxBitRate,String preferredTargetFormat,VideoTranscodingSettings videoTranscodingSettings){\r\n    Parameters parameters = new Parameters(mediaFile, videoTranscodingSettings);\r\n    TranscodeScheme transcodeScheme = getTranscodeScheme(player);\r\n    if (maxBitRate == null && transcodeScheme != TranscodeScheme.OFF) {\r\n        maxBitRate = transcodeScheme.getMaxBitRate();\r\n    }\r\n    boolean hls = videoTranscodingSettings != null && videoTranscodingSettings.isHls();\r\n    Transcoding transcoding = getTranscoding(mediaFile, player, preferredTargetFormat, hls);\r\n    if (transcoding != null) {\r\n        parameters.setTranscoding(transcoding);\r\n        if (maxBitRate == null) {\r\n            maxBitRate = mediaFile.isVideo() ? VideoPlayerController.DEFAULT_BIT_RATE : TranscodeScheme.MAX_192.getMaxBitRate();\r\n        }\r\n    } else if (maxBitRate != null) {\r\n        boolean supported = isDownsamplingSupported(mediaFile);\r\n        Integer bitRate = mediaFile.getBitRate();\r\n        if (supported && bitRate != null && bitRate > maxBitRate) {\r\n            parameters.setDownsample(true);\r\n        }\r\n    }\r\n    parameters.setMaxBitRate(maxBitRate);\r\n    return parameters;\r\n}"
+}, {
+	"Path": "act.apidoc.javadoc.Utils.nextWord",
+	"Comment": "return the next word of the string, in other words it stops when a space is encountered.",
+	"Method": "String nextWord(String string){\r\n    int index = 0;\r\n    while (index < string.length() && !Character.isWhitespace(string.charAt(index))) {\r\n        index++;\r\n    }\r\n    return string.substring(0, index);\r\n}"
+}, {
+	"Path": "com.amazon.ask.attributes.persistence.impl.PartitionKeyGenerators.deviceId",
+	"Comment": "produces a partition key from the device id contained in an incoming request.",
+	"Method": "Function<RequestEnvelope, String> deviceId(){\r\n    return r -> Optional.ofNullable(r).map(RequestEnvelope::getContext).map(Context::getSystem).map(SystemState::getDevice).map(Device::getDeviceId).orElseThrow(() -> new PersistenceException(\"Could not retrieve device ID from request envelope to generate persistence ID\"));\r\n}"
+}, {
+	"Path": "org.airsonic.player.domain.Transcoding.setDefaultActive",
+	"Comment": "sets whether the transcoding should be automatically activated for all players",
+	"Method": "void setDefaultActive(boolean defaultActive){\r\n    this.defaultActive = defaultActive;\r\n}"
+}, {
+	"Path": "org.airsonic.player.domain.UserSettings.setChanged",
+	"Comment": "sets when the corresponding database entry was last changed.",
+	"Method": "void setChanged(Date changed){\r\n    this.changed = changed;\r\n}"
+}, {
+	"Path": "act.ws.WebSocketContext.sendJsonToPeers",
+	"Comment": "send json representation of a data object to all connections connected tothe same url of this context with the connection of this context excluded",
+	"Method": "WebSocketContext sendJsonToPeers(Object data,WebSocketContext sendJsonToPeers,Object data,boolean excludeSelf){\r\n    return sendToPeers(JSON.toJSONString(data), excludeSelf);\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.MetaModel.getAssociationForTarget",
+	"Comment": "returns association of this table with the target table. will return null if there is no association.",
+	"Method": "A getAssociationForTarget(Class<? extends Model> targetModelClass,Class<A> associationClass,A getAssociationForTarget,Class<? extends Model> targetClass){\r\n    Association result = null;\r\n    for (Association association : associations) {\r\n        if (association.getTargetClass().getName().equals(targetClass.getName())) {\r\n            result = association;\r\n            break;\r\n        }\r\n    }\r\n    return (A) result;\r\n}"
+}, {
+	"Path": "org.airsonic.player.theme.CustomThemeResolver.setThemeName",
+	"Comment": "set the current theme name to the given one. this method is not supported.",
+	"Method": "void setThemeName(HttpServletRequest request,HttpServletResponse response,String themeName){\r\n    throw new UnsupportedOperationException(\"Cannot change theme - use a different theme resolution strategy\");\r\n}"
+}, {
+	"Path": "org.airsonic.player.dao.BookmarkDao.createOrUpdateBookmark",
+	"Comment": "creates or updates a bookmark.if created, the id of the bookmark will be set by this method.",
+	"Method": "void createOrUpdateBookmark(Bookmark bookmark){\r\n    int n = update(\"update bookmark set position_millis=?, comment=?, changed=? where media_file_id=? and username=?\", bookmark.getPositionMillis(), bookmark.getComment(), bookmark.getChanged(), bookmark.getMediaFileId(), bookmark.getUsername());\r\n    if (n == 0) {\r\n        update(\"insert into bookmark (\" + INSERT_COLUMNS + \") values (\" + questionMarks(INSERT_COLUMNS) + \")\", bookmark.getMediaFileId(), bookmark.getPositionMillis(), bookmark.getUsername(), bookmark.getComment(), bookmark.getCreated(), bookmark.getChanged());\r\n        int id = queryForInt(\"select id from bookmark where media_file_id=? and username=?\", 0, bookmark.getMediaFileId(), bookmark.getUsername());\r\n        bookmark.setId(id);\r\n    }\r\n}"
+}, {
+	"Path": "org.airsonic.player.domain.MusicIndex.addPrefix",
+	"Comment": "adds a prefix to this index. music files that starts with this prefix will be categorized under this index entry.",
+	"Method": "void addPrefix(String prefix){\r\n    prefixes.add(prefix);\r\n}"
+}, {
+	"Path": "org.airsonic.player.util.BoundedList.addFirst",
+	"Comment": "adds an element to the head of list. if the list is full, the last element is removed.",
+	"Method": "void addFirst(E e){\r\n    if (isFull()) {\r\n        removeLast();\r\n    }\r\n    super.addFirst(e);\r\n}"
+}, {
+	"Path": "act.handler.builtin.ResourceGetter.verifyBase",
+	"Comment": "if base is valid then return nullotherwise return delegate request handler",
+	"Method": "FastRequestHandler verifyBase(URL baseUrl,String baseSupplied){\r\n    if (null == baseUrl) {\r\n        logger.warn(\"URL base not exists: \" + baseSupplied);\r\n        return AlwaysNotFound.INSTANCE;\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.Model.isNew",
+	"Comment": "returns true if this is a new instance, not saved yet to db, false otherwise.",
+	"Method": "boolean isNew(){\r\n    return getId() == null && !compositeKeyPersisted;\r\n}"
+}, {
+	"Path": "act.app.ActionContext.cached",
+	"Comment": "return cached object by key. the key will be concatenated withcurrent session id when fetching the cached object",
+	"Method": "T cached(String key){\r\n    H.Session sess = session();\r\n    if (null != sess) {\r\n        return sess.cached(key);\r\n    } else {\r\n        return app().cache().get(key);\r\n    }\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.MetaModel.hasAttribute",
+	"Comment": "returns true if this attribute is present in this meta model. this method i case insensitive.",
+	"Method": "boolean hasAttribute(String attribute){\r\n    if (columnMetadata != null) {\r\n        if (columnMetadata.containsKey(attribute)) {\r\n            return true;\r\n        } else if (attribute.startsWith(\"\\\"\") && attribute.endsWith(\"\\\"\")) {\r\n            return columnMetadata.containsKey(attribute.substring(1, attribute.length() - 1));\r\n        }\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "org.airsonic.player.domain.Transcoding.isDefaultActive",
+	"Comment": "returns whether the transcoding should be automatically activated for all players",
+	"Method": "boolean isDefaultActive(){\r\n    return defaultActive;\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.MetaModel.isVersioned",
+	"Comment": "returns true if this model supports optimistic locking, false if not",
+	"Method": "boolean isVersioned(){\r\n    return columnMetadata != null && columnMetadata.containsKey(versionColumn);\r\n}"
+}, {
+	"Path": "io.airlift.airline.TestCommand.unrecognizedCommandShouldThrow",
+	"Comment": "getting the description of a nonexistent command should throw an exception.",
+	"Method": "void unrecognizedCommandShouldThrow(){\r\n    singleCommandParser(Args1.class).parse(\"foo\");\r\n}"
+}, {
+	"Path": "org.airsonic.player.service.VersionService.getLocalBuildNumber",
+	"Comment": "returns the build number for the locally installed airsonic version.",
+	"Method": "String getLocalBuildNumber(){\r\n    if (localBuildNumber == null) {\r\n        try {\r\n            localBuildNumber = readLineFromResource(\"/build_number.txt\");\r\n        } catch (Exception x) {\r\n            LOG.warn(\"Failed to resolve local Airsonic build number.\", x);\r\n        }\r\n    }\r\n    return localBuildNumber;\r\n}"
+}, {
+	"Path": "act.apidoc.javadoc.Javadoc.toComment",
+	"Comment": "create a javadoccomment, by formatting the text of the javadoc using the given indentation.",
+	"Method": "JavadocComment toComment(JavadocComment toComment,String indentation){\r\n    for (char c : indentation.toCharArray()) {\r\n        if (!Character.isWhitespace(c)) {\r\n            throw new IllegalArgumentException(\"The indentation string should be composed only by whitespace characters\");\r\n        }\r\n    }\r\n    StringBuilder sb = new StringBuilder();\r\n    sb.append(EOL);\r\n    final String text = toText();\r\n    if (!text.isEmpty()) {\r\n        for (String line : text.split(EOL)) {\r\n            sb.append(indentation);\r\n            sb.append(\" * \");\r\n            sb.append(line);\r\n            sb.append(EOL);\r\n        }\r\n    }\r\n    sb.append(indentation);\r\n    sb.append(\" \");\r\n    return new JavadocComment(sb.toString());\r\n}"
+}, {
+	"Path": "org.airsonic.player.controller.CoverArtController.getImageInputStream",
+	"Comment": "returns an input stream to the image in the given file.if the file is an audio file,the embedded album art is returned.",
+	"Method": "InputStream getImageInputStream(File file){\r\n    return getImageInputStreamWithType(file).getLeft();\r\n}"
+}, {
+	"Path": "act.apidoc.javadoc.Javadoc.toText",
+	"Comment": "return the text content of the document. it does not containing trailing spaces and asterisksat the start of the line.",
+	"Method": "String toText(){\r\n    StringBuilder sb = new StringBuilder();\r\n    if (!description.isEmpty()) {\r\n        sb.append(description.toText());\r\n        sb.append(EOL);\r\n    }\r\n    if (!blockTags.isEmpty()) {\r\n        sb.append(EOL);\r\n    }\r\n    for (JavadocBlockTag tag : blockTags) {\r\n        sb.append(tag.toText()).append(EOL);\r\n    }\r\n    return sb.toString();\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.Model.deleteAll",
+	"Comment": "deletes all records from associated table. this methods does not take associations into account.",
+	"Method": "int deleteAll(){\r\n    return ModelDelegate.deleteAll(modelClass());\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.Base.hasConnection",
+	"Comment": "use to check if there is a default connection present on current thread.",
+	"Method": "boolean hasConnection(){\r\n    return new DB(DB.DEFAULT_NAME).hasConnection();\r\n}"
+}, {
+	"Path": "org.airsonic.player.service.SecurityService.isWriteAllowed",
+	"Comment": "returns whether the given file may be written, created or deleted.",
+	"Method": "boolean isWriteAllowed(File file){\r\n    boolean isPodcast = isInPodcastFolder(file);\r\n    boolean isCoverArt = isInMusicFolder(file) && file.getName().startsWith(\"cover.\");\r\n    return isPodcast || isCoverArt;\r\n}"
+}, {
+	"Path": "org.airsonic.player.controller.StreamController.sendDummy",
+	"Comment": "feed the other end with some dummy data to keep it from reconnecting.",
+	"Method": "void sendDummy(byte[] buf,OutputStream out){\r\n    try {\r\n        Thread.sleep(2000);\r\n    } catch (InterruptedException x) {\r\n        LOG.warn(\"Interrupted in sleep.\", x);\r\n    }\r\n    Arrays.fill(buf, (byte) 0xFF);\r\n    out.write(buf);\r\n    out.flush();\r\n}"
+}, {
+	"Path": "org.airsonic.player.domain.TransferStatus.setActive",
+	"Comment": "sets whether this transfer is active, i.e., if the connection is still established.",
+	"Method": "void setActive(boolean active){\r\n    this.active = active;\r\n    if (active) {\r\n        setBytesSkipped(0L);\r\n        setBytesTotal(0L);\r\n        setBytesTransfered(0L);\r\n    } else {\r\n        createSample(getBytesTransfered(), true);\r\n    }\r\n}"
+}, {
+	"Path": "com.scottyab.aescrypt.AESCrypt.bytesToHex",
+	"Comment": "converts byte array to hexidecimal useful for logging and fault finding",
+	"Method": "String bytesToHex(byte[] bytes){\r\n    final char[] hexArray = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };\r\n    char[] hexChars = new char[bytes.length * 2];\r\n    int v;\r\n    for (int j = 0; j < bytes.length; j++) {\r\n        v = bytes[j] & 0xFF;\r\n        hexChars[j * 2] = hexArray[v >>> 4];\r\n        hexChars[j * 2 + 1] = hexArray[v & 0x0F];\r\n    }\r\n    return new String(hexChars);\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.Base.addBatch",
+	"Comment": "adds a batch statement using given java.sql.preparedstatement and parameters.",
+	"Method": "void addBatch(PreparedStatement ps,Object parameters){\r\n    new DB(DB.DEFAULT_NAME).addBatch(ps, parameters);\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.Model.validateRegexpOf",
+	"Comment": "validates an attribite format with a ree hand regular expression.",
+	"Method": "ValidationBuilder validateRegexpOf(String attributeName,String pattern){\r\n    return ModelDelegate.validateRegexpOf(modelClass(), attributeName, pattern);\r\n}"
+}, {
+	"Path": "act.job.JobContext.get",
+	"Comment": "generic version of getting value by key from the jobcontext of current thread",
+	"Method": "T get(String key,T get,String key,Class<T> clz){\r\n    return (T) m().get(key);\r\n}"
+}, {
+	"Path": "org.airsonic.player.domain.MusicFolder.getChanged",
+	"Comment": "returns when the corresponding database entry was last changed.",
+	"Method": "Date getChanged(){\r\n    return changed;\r\n}"
+}, {
+	"Path": "org.javalite.common.JsonHelper.sanitize",
+	"Comment": "escapes control characters in a string when you need togenerate json.",
+	"Method": "String sanitize(String value,String sanitize,String value,boolean clean,String sanitize,String value,boolean clean,Character toEscape){\r\n    StringBuilder builder = new StringBuilder();\r\n    Map<Character, String> replacements = clean ? CLEAN_CHARS : REPLACEMENT_CHARS;\r\n    for (int i = 0; i < value.length(); i++) {\r\n        char c = value.charAt(i);\r\n        if (toEscape == null) {\r\n            if (replacements.containsKey(c)) {\r\n                builder.append(replacements.get(c));\r\n            } else {\r\n                builder.append(c);\r\n            }\r\n        } else {\r\n            if (replacements.containsKey(c) && contains(toEscape, c)) {\r\n                builder.append(replacements.get(c));\r\n            } else {\r\n                builder.append(c);\r\n            }\r\n        }\r\n    }\r\n    return builder.toString();\r\n}"
+}, {
+	"Path": "org.javalite.app_config.AppConfig.setProperty",
+	"Comment": "sets a property in memory. if property exists, it will be overwritten, if not, anew one will be created.",
+	"Method": "String setProperty(String name,String value){\r\n    String val = null;\r\n    if (props.containsKey(name)) {\r\n        val = props.get(name).getValue();\r\n    }\r\n    props.put(name, new Property(name, value, \"dynamically added\"));\r\n    LOGGER.warn(\"Temporary overriding property: \" + name + \". Old value: \" + val + \". New value: \" + value);\r\n    return val;\r\n}"
+}, {
+	"Path": "org.airsonic.player.service.PlayerService.getPlayer",
+	"Comment": "returns the player associated with the given http request.if no such player exists, a newone is created.",
+	"Method": "Player getPlayer(HttpServletRequest request,HttpServletResponse response,Player getPlayer,HttpServletRequest request,HttpServletResponse response,boolean remoteControlEnabled,boolean isStreamRequest){\r\n    Player player = getPlayerById(ServletRequestUtils.getIntParameter(request, \"player\"));\r\n    if (player == null && remoteControlEnabled) {\r\n        Integer playerId = (Integer) request.getSession().getAttribute(\"player\");\r\n        if (playerId != null) {\r\n            player = getPlayerById(playerId);\r\n        }\r\n    }\r\n    String username = securityService.getCurrentUsername(request);\r\n    if (player == null && remoteControlEnabled) {\r\n        player = getPlayerById(getPlayerIdFromCookie(request, username));\r\n    }\r\n    if (player != null && player.getUsername() != null && username != null && !player.getUsername().equals(username)) {\r\n        player = null;\r\n    }\r\n    if (player == null) {\r\n        player = getNonRestPlayerByIpAddressAndUsername(request.getRemoteAddr(), username);\r\n    }\r\n    if (player == null) {\r\n        player = new Player();\r\n        createPlayer(player);\r\n    }\r\n    boolean isUpdate = false;\r\n    if (username != null && player.getUsername() == null) {\r\n        player.setUsername(username);\r\n        isUpdate = true;\r\n    }\r\n    if (player.getIpAddress() == null || isStreamRequest || (!isPlayerConnected(player) && player.isDynamicIp() && !request.getRemoteAddr().equals(player.getIpAddress()))) {\r\n        player.setIpAddress(request.getRemoteAddr());\r\n        isUpdate = true;\r\n    }\r\n    String userAgent = request.getHeader(\"user-agent\");\r\n    if (isStreamRequest) {\r\n        player.setType(userAgent);\r\n        player.setLastSeen(new Date());\r\n        isUpdate = true;\r\n    }\r\n    if (isUpdate) {\r\n        updatePlayer(player);\r\n    }\r\n    if (response != null) {\r\n        String cookieName = COOKIE_NAME + \"-\" + StringUtil.utf8HexEncode(username);\r\n        Cookie cookie = new Cookie(cookieName, String.valueOf(player.getId()));\r\n        cookie.setMaxAge(COOKIE_EXPIRY);\r\n        String path = request.getContextPath();\r\n        if (StringUtils.isEmpty(path)) {\r\n            path = \"/\";\r\n        }\r\n        cookie.setPath(path);\r\n        response.addCookie(cookie);\r\n    }\r\n    if (remoteControlEnabled) {\r\n        request.getSession().setAttribute(\"player\", player.getId());\r\n    }\r\n    return player;\r\n}"
+}, {
+	"Path": "org.javalite.common.XmlEntities.entityValue",
+	"Comment": "returns the value of the entity identified by the specified name.",
+	"Method": "int entityValue(String name){\r\n    return map.value(name);\r\n}"
+}, {
+	"Path": "act.ws.WebSocketContext.tag",
+	"Comment": "tag the websocket connection hold by this context with label specified",
+	"Method": "WebSocketContext tag(String label){\r\n    manager.tagRegistry().register(label, connection);\r\n    return this;\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.ScopeBuilder.where",
+	"Comment": "applies additional criteria to scopes defined in the model.",
+	"Method": "LazyList<T> where(String subquery,Object params){\r\n    StringBuilder query;\r\n    if (subquery.equals(\"*\")) {\r\n        query = new StringBuilder();\r\n    } else {\r\n        query = new StringBuilder(subquery);\r\n        query.append(\" AND \");\r\n    }\r\n    for (int i = 0; i < scopes.size(); i++) {\r\n        String scope = scopes.get(i);\r\n        if (!ModelDelegate.getScopes(modelClass.getName()).containsKey(scope)) {\r\n            throw new DBException(String.format(\"Scope '%s' is not defined in model '%s'.\", scope, modelClass.getName()));\r\n        }\r\n        String scopeQuery = ModelDelegate.getScopes(modelClass.getName()).get(scope);\r\n        query.append(scopeQuery);\r\n        if (i < (scopes.size() - 1)) {\r\n            query.append(\" AND \");\r\n        }\r\n    }\r\n    return ModelDelegate.where((Class<T>) modelClass, query.toString(), params);\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.Paginator.getCurrentPage",
+	"Comment": "returns index of current page, or 0 if this instance has not produced a page yet.",
+	"Method": "int getCurrentPage(){\r\n    return currentPageIndex;\r\n}"
+}, {
+	"Path": "act.data.MultipartStream.findByte",
+	"Comment": "searches for a byte of specified value in the buffer,starting at the specified position.",
+	"Method": "int findByte(byte value,int pos){\r\n    for (int i = pos; i < tail; i++) {\r\n        if (buffer[i] == value) {\r\n            return i;\r\n        }\r\n    }\r\n    return -1;\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.DB.hasConnection",
+	"Comment": "use to check if there is a connection present on current thread.",
+	"Method": "boolean hasConnection(){\r\n    return null != ConnectionsAccess.getConnection(name);\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.Model.reset",
+	"Comment": "resets all data in this model, including the id.after this method, this instance is equivalent to an empty, just created instance.",
+	"Method": "void reset(){\r\n    attributes = new CaseInsensitiveMap();\r\n}"
+}, {
+	"Path": "com.amazon.ask.dispatcher.request.handler.impl.ElementSelectedRequestHandler.canHandle",
+	"Comment": "returns true if the handler can dispatch the current request",
+	"Method": "boolean canHandle(HandlerInput input,ElementSelectedRequest elementSelectedRequest,boolean canHandle,HandlerInput handlerInput){\r\n    if (handlerInput.getRequest() instanceof ElementSelectedRequest) {\r\n        return canHandle(handlerInput, (ElementSelectedRequest) handlerInput.getRequest());\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "org.javalite.common.Convert.toShort",
+	"Comment": "converts value to short if it can. if value is a short, it is returned, if it is a number, it ispromoted to short and then returned, in all other cases, it converts the value to string,then tries to parse short from it.",
+	"Method": "Short toShort(Object value){\r\n    if (value == null) {\r\n        return null;\r\n    } else if (value instanceof Short) {\r\n        return (Short) value;\r\n    } else if (value instanceof Number) {\r\n        return ((Number) value).shortValue();\r\n    } else {\r\n        try {\r\n            return Short.valueOf(value.toString().trim());\r\n        } catch (NumberFormatException e) {\r\n            throw new ConversionException(\"failed to convert: '\" + value + \"' to Short\", e);\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "org.airsonic.player.domain.TransferStatus.addBytesSkipped",
+	"Comment": "adds the given byte count to the total number of bytes skipped.",
+	"Method": "void addBytesSkipped(long byteCount){\r\n    bytesSkipped += byteCount;\r\n}"
+}, {
+	"Path": "act.app.DaemonBase.setLastError",
+	"Comment": "set last error without updating the state and logging the message",
+	"Method": "void setLastError(Exception e){\r\n    this.lastError = e;\r\n}"
+}, {
+	"Path": "act.mail.MailerContext.__appRenderArgNames",
+	"Comment": "called by bytecode enhancer to set the name list of the render arguments that is updateby the enhancer",
+	"Method": "MailerContext __appRenderArgNames(String names){\r\n    return super.__appRenderArgNames(names);\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.CacheTest.testCache",
+	"Comment": "to see the cache in action, see console output for hits and misses.",
+	"Method": "void testCache(){\r\n    deleteAndPopulateTables(\"doctors\", \"patients\", \"doctors_patients\");\r\n    List<Doctor> doctors = Doctor.findAll().orderBy(\"id desc\");\r\n    List<Doctor> doctors1 = Doctor.findAll().orderBy(\"id desc\");\r\n    a(doctors.get(0)).shouldBeTheSameAs(doctors1.get(0));\r\n    Doctor d1 = new Doctor();\r\n    d1.set(\"first_name\", \"Sunjay\").set(\"last_name\", \"Gupta\").set(\"discipline\", \"physician\").saveIt();\r\n    doctors1 = Doctor.findAll().orderBy(\"id desc\");\r\n    a(doctors.get(0)).shouldNotBeTheSameAs(doctors1.get(0));\r\n    doctors = Doctor.findAll().orderBy(\"id desc\");\r\n    a(doctors.get(0)).shouldBeTheSameAs(doctors1.get(0));\r\n}"
+}, {
+	"Path": "org.airsonic.player.service.MediaScannerService.scanLibrary",
+	"Comment": "scans the media library.the scanning is done asynchronously, i.e., this method returns immediately.",
+	"Method": "void scanLibrary(){\r\n    if (isScanning()) {\r\n        return;\r\n    }\r\n    scanning = true;\r\n    Thread thread = new Thread(\"MediaLibraryScanner\") {\r\n        @Override\r\n        public void run() {\r\n            doScanLibrary();\r\n            playlistService.importPlaylists();\r\n        }\r\n    };\r\n    thread.setPriority(Thread.MIN_PRIORITY);\r\n    thread.start();\r\n}"
+}, {
+	"Path": "org.airsonic.player.service.MediaScannerService.scanLibrary",
+	"Comment": "scans the media library.the scanning is done asynchronously, i.e., this method returns immediately.",
+	"Method": "void scanLibrary(){\r\n    doScanLibrary();\r\n    playlistService.importPlaylists();\r\n}"
+}, {
+	"Path": "snippets.Snippets.dropElements",
+	"Comment": "removes elements in an array until the passed function returns true. returns the remaining elements in the array.",
+	"Method": "int[] dropElements(int[] elements,IntPredicate condition){\r\n    while (elements.length > 0 && !condition.test(elements[0])) {\r\n        elements = Arrays.copyOfRange(elements, 1, elements.length);\r\n    }\r\n    return elements;\r\n}"
+}, {
+	"Path": "org.airsonic.player.service.metadata.FFmpegParser.getRawMetaData",
+	"Comment": "parses meta data for the given music file. no guessing or reformatting is done.",
+	"Method": "MetaData getRawMetaData(File file){\r\n    MetaData metaData = new MetaData();\r\n    try {\r\n        String ffprobe;\r\n        File inTranscodeDirectory = new File(transcodingService.getTranscodeDirectory(), \"ffprobe\");\r\n        if (inTranscodeDirectory.exists()) {\r\n            ffprobe = inTranscodeDirectory.getAbsolutePath();\r\n        } else {\r\n            ffprobe = \"ffprobe\";\r\n        }\r\n        List<String> command = new ArrayList();\r\n        command.add(ffprobe);\r\n        command.addAll(Arrays.asList(FFPROBE_OPTIONS));\r\n        command.add(file.getAbsolutePath());\r\n        Process process = Runtime.getRuntime().exec(command.toArray(new String[0]));\r\n        final JsonNode result = objectMapper.readTree(process.getInputStream());\r\n        metaData.setDurationSeconds(result.at(\"/format/duration\").asInt());\r\n        metaData.setBitRate(result.at(\"/format/bit_rate\").asInt() / 1000);\r\n        for (JsonNode stream : result.at(\"/streams\")) {\r\n            if (stream.has(\"width\") && stream.has(\"height\")) {\r\n                metaData.setWidth(stream.get(\"width\").asInt());\r\n                metaData.setHeight(stream.get(\"height\").asInt());\r\n                break;\r\n            }\r\n        }\r\n    } catch (Throwable x) {\r\n        LOG.warn(\"Error when parsing metadata in \" + file, x);\r\n    }\r\n    return metaData;\r\n}"
+}, {
+	"Path": "act.app.ActionContext.logout",
+	"Comment": "logout the current session. after calling this method,the session will be cleared",
+	"Method": "void logout(){\r\n    SessionManager sessionManager = app().sessionManager();\r\n    sessionManager.logout(session);\r\n}"
+}, {
+	"Path": "org.airsonic.player.service.TranscodingService.isTranscodingRequired",
+	"Comment": "returns whether transcoding is required for the given media file and player combination.",
+	"Method": "boolean isTranscodingRequired(MediaFile mediaFile,Player player){\r\n    return getTranscoding(mediaFile, player, null, false) != null;\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.Model.findWith",
+	"Comment": "this method is for processing really large result sets. results found by this method are never cached.",
+	"Method": "void findWith(ModelListener listener,String query,Object params){\r\n    ModelDelegate.findWith(modelClass(), listener, query, params);\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.ModelRegistry.converterForValue",
+	"Comment": "returns converter for specified model attribute, able to convert value to an instance of destinationclass.returns null if no suitable converter was found.",
+	"Method": "Converter<Object, T> converterForValue(String attribute,Object value,Class<T> destinationClass){\r\n    return converterForClass(attribute, value != null ? (Class<Object>) value.getClass() : Object.class, destinationClass);\r\n}"
+}, {
+	"Path": "act.ws.WebSocketContext.removeTag",
+	"Comment": "remove the websocket connection hold by this context from label specified",
+	"Method": "WebSocketContext removeTag(String label){\r\n    manager.tagRegistry().deRegister(label, connection);\r\n    return this;\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.Model.findOrCreateIt",
+	"Comment": "a convenience method to fetch existing model from db or to create and insert new record with attribute values.",
+	"Method": "T findOrCreateIt(Object namesAndValues){\r\n    return ModelDelegate.findOrCreateIt(modelClass(), namesAndValues);\r\n}"
+}, {
+	"Path": "org.airsonic.player.service.AudioScrobblerService.register",
+	"Comment": "registers the given media file at www.last.fm. this method returns immediately, the actual registration is doneby a separate thread.",
+	"Method": "void register(MediaFile mediaFile,String username,boolean submission,Date time){\r\n    if (thread == null) {\r\n        thread = new RegistrationThread();\r\n        thread.start();\r\n    }\r\n    if (queue.size() >= MAX_PENDING_REGISTRATION) {\r\n        LOG.warn(\"Last.fm scrobbler queue is full. Ignoring \" + mediaFile);\r\n        return;\r\n    }\r\n    RegistrationData registrationData = createRegistrationData(mediaFile, username, submission, time);\r\n    if (registrationData == null) {\r\n        return;\r\n    }\r\n    try {\r\n        queue.put(registrationData);\r\n    } catch (InterruptedException x) {\r\n        LOG.warn(\"Interrupted while queuing Last.fm scrobble.\", x);\r\n    }\r\n}"
+}, {
+	"Path": "org.airsonic.player.util.StringUtil.md5Hex",
+	"Comment": "calculates the md5 digest and returns the value as a 32 character hex string.",
+	"Method": "String md5Hex(String s){\r\n    if (s == null) {\r\n        return null;\r\n    }\r\n    try {\r\n        MessageDigest md5 = MessageDigest.getInstance(\"MD5\");\r\n        return new String(Hex.encodeHex(md5.digest(s.getBytes(ENCODING_UTF8))));\r\n    } catch (Exception x) {\r\n        throw new RuntimeException(x.getMessage(), x);\r\n    }\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.Model.isValid",
+	"Comment": "this method performs validations and then returns true if no errors were generated, otherwise returns false.",
+	"Method": "boolean isValid(){\r\n    validate();\r\n    return !hasErrors();\r\n}"
+}, {
+	"Path": "org.airsonic.player.service.LastFmService.getTopSongs",
+	"Comment": "returns top songs for the given artist, using last.fm rest api.",
+	"Method": "List<MediaFile> getTopSongs(MediaFile artist,int count,List<MusicFolder> musicFolders,List<MediaFile> getTopSongs,String artistName,int count,List<MusicFolder> musicFolders){\r\n    try {\r\n        if (StringUtils.isBlank(artistName) || count <= 0) {\r\n            return Collections.emptyList();\r\n        }\r\n        List<MediaFile> result = new ArrayList<MediaFile>();\r\n        for (Track topTrack : Artist.getTopTracks(artistName, LAST_FM_KEY)) {\r\n            MediaFile song = mediaFileDao.getSongByArtistAndTitle(artistName, topTrack.getName(), musicFolders);\r\n            if (song != null) {\r\n                result.add(song);\r\n                if (result.size() == count) {\r\n                    return result;\r\n                }\r\n            }\r\n        }\r\n        return result;\r\n    } catch (Throwable x) {\r\n        LOG.warn(\"Failed to find top songs for \" + artistName, x);\r\n        return Collections.emptyList();\r\n    }\r\n}"
+}, {
+	"Path": "com.amazon.ask.dispatcher.request.handler.impl.PlaybackNearlyFinishedRequestHandler.canHandle",
+	"Comment": "returns true if the handler can dispatch the current request",
+	"Method": "boolean canHandle(HandlerInput input,PlaybackNearlyFinishedRequest playbackNearlyFinishedRequest,boolean canHandle,HandlerInput handlerInput){\r\n    if (handlerInput.getRequest() instanceof PlaybackNearlyFinishedRequest) {\r\n        return canHandle(handlerInput, (PlaybackNearlyFinishedRequest) handlerInput.getRequest());\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "com.amazon.ask.dispatcher.request.handler.impl.MessageReceivedRequestHandler.canHandle",
+	"Comment": "returns true if the handler can dispatch the current request",
+	"Method": "boolean canHandle(HandlerInput input,MessageReceivedRequest messageReceivedRequest,boolean canHandle,HandlerInput handlerInput){\r\n    if (handlerInput.getRequest() instanceof MessageReceivedRequest) {\r\n        return canHandle(handlerInput, (MessageReceivedRequest) handlerInput.getRequest());\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "org.airsonic.player.service.metadata.DefaultMetaDataParser.isApplicable",
+	"Comment": "returns whether this parser is applicable to the given file.",
+	"Method": "boolean isApplicable(File file){\r\n    return file.isFile();\r\n}"
+}, {
+	"Path": "act.ws.WebSocketConnectionManager.sendJsonToUser",
+	"Comment": "send json representation of given data object to all connections of a user",
+	"Method": "void sendJsonToUser(Object data,String username){\r\n    sendToUser(JSON.toJSONString(data), username);\r\n}"
+}, {
+	"Path": "snippets.Snippets.differenceWith",
+	"Comment": "filters out all values from an array for which the comparator function does not return true.",
+	"Method": "int[] differenceWith(int[] first,int[] second,IntBinaryOperator comparator){\r\n    return Arrays.stream(first).filter(a -> Arrays.stream(second).noneMatch(b -> comparator.applyAsInt(a, b) == 0)).toArray();\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.Model.exists",
+	"Comment": "returns true if record corresponding to the id of this instance exists inthe db.",
+	"Method": "boolean exists(Object id,boolean exists){\r\n    return null != new DB(metaModelLocal.getDbName()).firstCell(metaModelLocal.getDialect().selectExists(metaModelLocal), getId());\r\n}"
+}, {
+	"Path": "io.airlift.airline.TestCommand.multipleNames",
+	"Comment": "required options with multiple names should work with all names.",
+	"Method": "void multipleNames(String option){\r\n    Args1 args = singleCommandParser(Args1.class).parse(\"Args1\", option, \"2\");\r\n    assertEquals(args.verbose.intValue(), 2);\r\n}"
+}, {
+	"Path": "org.airsonic.player.service.VersionService.getLocalBuildDate",
+	"Comment": "returns the build date for the locally installed airsonic version.",
+	"Method": "Date getLocalBuildDate(){\r\n    if (localBuildDate == null) {\r\n        try {\r\n            String date = readLineFromResource(\"/build_date.txt\");\r\n            localBuildDate = DATE_FORMAT.parse(date);\r\n        } catch (Exception x) {\r\n            LOG.warn(\"Failed to resolve local Airsonic build date.\", x);\r\n        }\r\n    }\r\n    return localBuildDate;\r\n}"
+}, {
+	"Path": "org.airsonic.player.service.VersionService.isNewBetaVersionAvailable",
+	"Comment": "returns whether a new beta version of airsonic is available.",
+	"Method": "boolean isNewBetaVersionAvailable(){\r\n    Version latest = getLatestBetaVersion();\r\n    Version local = getLocalVersion();\r\n    if (latest == null || local == null) {\r\n        return false;\r\n    }\r\n    return local.compareTo(latest) < 0;\r\n}"
+}, {
+	"Path": "com.amazon.ask.dispatcher.request.handler.impl.PlayCommandIssuedRequestHandler.canHandle",
+	"Comment": "returns true if the handler can dispatch the current request",
+	"Method": "boolean canHandle(HandlerInput input,PlayCommandIssuedRequest playCommandIssuedRequest,boolean canHandle,HandlerInput handlerInput){\r\n    if (handlerInput.getRequest() instanceof PlayCommandIssuedRequest) {\r\n        return canHandle(handlerInput, (PlayCommandIssuedRequest) handlerInput.getRequest());\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "org.airsonic.player.io.RangeOutputStream.wrap",
+	"Comment": "wraps the given output stream in a rangeoutputstream, using the valuesin the given range, unless the range is null in which casethe original outputstream is returned.",
+	"Method": "OutputStream wrap(OutputStream out,HttpRange range){\r\n    if (range == null) {\r\n        return out;\r\n    }\r\n    return new RangeOutputStream(out, range);\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.Model.getRaw",
+	"Comment": "gets raw value of the attribute, without conversions applied.",
+	"Method": "Object getRaw(String attributeName){\r\n    if (frozen) {\r\n        throw new FrozenException(this);\r\n    }\r\n    if (attributeName == null) {\r\n        throw new IllegalArgumentException(\"attributeName cannot be null\");\r\n    }\r\n    metaModelLocal.checkAttribute(attributeName);\r\n    return attributes.get(attributeName);\r\n}"
+}, {
+	"Path": "org.mindrot.jbcrypt.BCrypt.crypt_raw",
+	"Comment": "perform the central password hashing step in thebcrypt scheme",
+	"Method": "byte[] crypt_raw(byte password,byte salt,int log_rounds,int cdata){\r\n    int rounds, i, j;\r\n    int clen = cdata.length;\r\n    byte[] ret;\r\n    if (log_rounds < 4 || log_rounds > 30)\r\n        throw new IllegalArgumentException(\"Bad number of rounds\");\r\n    rounds = 1 << log_rounds;\r\n    if (salt.length != BCRYPT_SALT_LEN)\r\n        throw new IllegalArgumentException(\"Bad salt length\");\r\n    init_key();\r\n    ekskey(salt, password);\r\n    for (i = 0; i != rounds; i++) {\r\n        key(password);\r\n        key(salt);\r\n    }\r\n    for (i = 0; i < 64; i++) {\r\n        for (j = 0; j < (clen >> 1); j++) encipher(cdata, j << 1);\r\n    }\r\n    ret = new byte[clen * 4];\r\n    for (i = 0, j = 0; i < clen; i++) {\r\n        ret[j++] = (byte) ((cdata[i] >> 24) & 0xff);\r\n        ret[j++] = (byte) ((cdata[i] >> 16) & 0xff);\r\n        ret[j++] = (byte) ((cdata[i] >> 8) & 0xff);\r\n        ret[j++] = (byte) (cdata[i] & 0xff);\r\n    }\r\n    return ret;\r\n}"
+}, {
+	"Path": "com.amazon.ask.dispatcher.request.handler.impl.ListItemsCreatedEventRequestHandler.canHandle",
+	"Comment": "returns true if the handler can dispatch the current request",
+	"Method": "boolean canHandle(HandlerInput input,ListItemsCreatedEventRequest listItemsCreatedEventRequest,boolean canHandle,HandlerInput handlerInput){\r\n    if (handlerInput.getRequest() instanceof ListItemsCreatedEventRequest) {\r\n        return canHandle(handlerInput, (ListItemsCreatedEventRequest) handlerInput.getRequest());\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "com.amazon.ask.dispatcher.request.handler.impl.NextCommandIssuedRequestHandler.canHandle",
+	"Comment": "returns true if the handler can dispatch the current request",
+	"Method": "boolean canHandle(HandlerInput input,NextCommandIssuedRequest nextCommandIssuedRequest,boolean canHandle,HandlerInput handlerInput){\r\n    if (handlerInput.getRequest() instanceof NextCommandIssuedRequest) {\r\n        return canHandle(handlerInput, (NextCommandIssuedRequest) handlerInput.getRequest());\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.MetaModel.checkAttribute",
+	"Comment": "checks if this model has a named attribute that has the same name as argument.throws illegalargumentexception in case it does not find it.",
+	"Method": "void checkAttribute(String attribute){\r\n    if (!hasAttribute(attribute)) {\r\n        String sb = \"Attribute: '\" + attribute + \"' is not defined in model: '\" + getModelClass() + \". \" + \"Available attributes: \" + getAttributeNames();\r\n        throw new IllegalArgumentException(sb);\r\n    }\r\n}"
+}, {
+	"Path": "act.util.ClassFilter.annotationType",
+	"Comment": "specify the annotation type that target class will be annotated",
+	"Method": "Class<ANNOTATION_TYPE> annotationType(){\r\n    return annotationType;\r\n}"
+}, {
+	"Path": "org.airsonic.player.service.TranscodingService.getTranscodeDirectory",
+	"Comment": "returns the directory in which all transcoders are installed.",
+	"Method": "File getTranscodeDirectory(){\r\n    File dir = new File(SettingsService.getAirsonicHome(), \"transcode\");\r\n    if (!dir.exists()) {\r\n        boolean ok = dir.mkdir();\r\n        if (ok) {\r\n            LOG.info(\"Created directory \" + dir);\r\n        } else {\r\n            LOG.warn(\"Failed to create directory \" + dir);\r\n        }\r\n    }\r\n    return dir;\r\n}"
+}, {
+	"Path": "org.javalite.common.HumanDate.inRange",
+	"Comment": "returns true if the val is between min and max,inclusively. otherwise returns false. this is implemented because java does not have nativesupport for ranges.",
+	"Method": "boolean inRange(long min,long max,long val){\r\n    return val >= min && val <= max;\r\n}"
+}, {
+	"Path": "org.airsonic.player.ajax.PlayQueueService.resetPlayQueue",
+	"Comment": "todo this method should be moved to a real playqueueservice not dedicated to ajax dwr.",
+	"Method": "PlayQueue resetPlayQueue(PlayQueue playQueue,int[] ids,boolean removeVideoFiles){\r\n    MediaFile currentFile = playQueue.getCurrentFile();\r\n    PlayQueue.Status status = playQueue.getStatus();\r\n    playQueue.clear();\r\n    addMediaFilesToPlayQueue(playQueue, ids, null, removeVideoFiles);\r\n    int index = currentFile == null ? -1 : playQueue.getFiles().indexOf(currentFile);\r\n    playQueue.setIndex(index);\r\n    playQueue.setStatus(status);\r\n    return playQueue;\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.DB.addBatch",
+	"Comment": "adds a batch statement using given java.sql.preparedstatement and parameters.",
+	"Method": "void addBatch(PreparedStatement ps,Object params){\r\n    try {\r\n        setParameters(ps, params);\r\n        ps.addBatch();\r\n    } catch (SQLException e) {\r\n        throw new DBException(e);\r\n    }\r\n}"
+}, {
+	"Path": "org.airsonic.player.service.MediaScannerService.getStatistics",
+	"Comment": "returns media library statistics, including the number of artists, albums and songs.",
+	"Method": "MediaLibraryStatistics getStatistics(){\r\n    return statistics;\r\n}"
+}, {
+	"Path": "com.amazon.ask.attributes.persistence.impl.PartitionKeyGenerators.userId",
+	"Comment": "produces a partition key from the user id contained in an incoming request.",
+	"Method": "Function<RequestEnvelope, String> userId(){\r\n    return r -> Optional.ofNullable(r).map(RequestEnvelope::getContext).map(Context::getSystem).map(SystemState::getUser).map(User::getUserId).orElseThrow(() -> new PersistenceException(\"Could not retrieve user ID from request envelope to generate persistence ID\"));\r\n}"
+}, {
+	"Path": "org.airsonic.player.domain.TransferStatus.isActive",
+	"Comment": "returns whether this transfer is active, i.e., if the connection is still established.",
+	"Method": "boolean isActive(){\r\n    return active;\r\n}"
+}, {
+	"Path": "act.test.Test.clearFixtures",
+	"Comment": "clear fixture data.requested by test executor and executed on test host tosetup testing data",
+	"Method": "void clearFixtures(){\r\n    List<Dao> toBeDeleted = new ArrayList();\r\n    for (DbService svc : dbServiceManager.registeredServices()) {\r\n        for (Class entityClass : svc.entityClasses()) {\r\n            try {\r\n                toBeDeleted.add(dbServiceManager.dao(entityClass));\r\n            } catch (IllegalArgumentException e) {\r\n                if (e.getMessage().contains(\"Cannot find out Dao for model type\")) {\r\n                    logger.debug(e, \"error getting dao for %s\", entityClass);\r\n                    continue;\r\n                }\r\n            }\r\n        }\r\n    }\r\n    int count = 1000;\r\n    while (!toBeDeleted.isEmpty() && count-- > 0) {\r\n        List<Dao> list = new ArrayList(toBeDeleted);\r\n        for (Dao dao : list) {\r\n            try {\r\n                TxScope.enter();\r\n                dao.drop();\r\n                try {\r\n                    TxScope.commit();\r\n                } catch (Exception e) {\r\n                    continue;\r\n                }\r\n                toBeDeleted.remove(dao);\r\n            } catch (Exception e) {\r\n            } finally {\r\n                TxScope.clear();\r\n            }\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.DB.attach",
+	"Comment": "attaches a database connection to current thread under a name provided to constructor.",
+	"Method": "void attach(Connection connection){\r\n    ConnectionsAccess.attach(name, connection, \"\");\r\n}"
+}, {
+	"Path": "act.app.App.asyncRefresh",
+	"Comment": "in dev mode it could request app to refresh. however ifthe request is issued in a thread that will be interruptede.g. the cli thread, it should call refresh in an new thread",
+	"Method": "void asyncRefresh(){\r\n    new Thread() {\r\n        @Override\r\n        public void run() {\r\n            refresh();\r\n        }\r\n    }.start();\r\n}"
+}, {
+	"Path": "act.app.App.asyncRefresh",
+	"Comment": "in dev mode it could request app to refresh. however ifthe request is issued in a thread that will be interruptede.g. the cli thread, it should call refresh in an new thread",
+	"Method": "void asyncRefresh(){\r\n    refresh();\r\n}"
+}, {
+	"Path": "org.airsonic.player.domain.InternetRadio.setChanged",
+	"Comment": "sets when the corresponding database entry was last changed.",
+	"Method": "void setChanged(Date changed){\r\n    this.changed = changed;\r\n}"
+}, {
+	"Path": "com.amazon.ask.dispatcher.request.handler.impl.PauseCommandIssuedRequestHandler.canHandle",
+	"Comment": "returns true if the handler can dispatch the current request",
+	"Method": "boolean canHandle(HandlerInput input,PauseCommandIssuedRequest pauseCommandIssuedRequest,boolean canHandle,HandlerInput handlerInput){\r\n    if (handlerInput.getRequest() instanceof PauseCommandIssuedRequest) {\r\n        return canHandle(handlerInput, (PauseCommandIssuedRequest) handlerInput.getRequest());\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "org.airsonic.player.domain.InternetRadio.getChanged",
+	"Comment": "returns when the corresponding database entry was last changed.",
+	"Method": "Date getChanged(){\r\n    return changed;\r\n}"
+}, {
+	"Path": "act.event.EventBus.emitSync",
+	"Comment": "emit a event object with parameters and force all listeners to be called synchronously.",
+	"Method": "EventBus emitSync(SysEventId eventId,EventBus emitSync,Enum<?> event,Object args,EventBus emitSync,String event,Object args,EventBus emitSync,EventObject event,Object args,EventBus emitSync,ActEvent event,Object args){\r\n    return _emitWithOnceBus(eventContextSync(event, args));\r\n}"
+}, {
+	"Path": "org.airsonic.player.service.TranscodingService.getTranscodeScheme",
+	"Comment": "returns the strictest transcoding scheme defined for the player and the user.",
+	"Method": "TranscodeScheme getTranscodeScheme(Player player){\r\n    String username = player.getUsername();\r\n    if (username != null) {\r\n        UserSettings userSettings = settingsService.getUserSettings(username);\r\n        return player.getTranscodeScheme().strictest(userSettings.getTranscodeScheme());\r\n    }\r\n    return player.getTranscodeScheme();\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.Model.willAttributeModifyModel",
+	"Comment": "verifies if the passed value for attributename will set this instance to modified state.",
+	"Method": "boolean willAttributeModifyModel(String attributeName,Object newValue){\r\n    Object currentValue = get(attributeName);\r\n    return currentValue != null ? !currentValue.equals(newValue) : newValue != null;\r\n}"
+}, {
+	"Path": "com.amazon.ask.dispatcher.request.handler.impl.SkillEnabledRequestHandler.canHandle",
+	"Comment": "returns true if the handler can dispatch the current request",
+	"Method": "boolean canHandle(HandlerInput input,SkillEnabledRequest skillEnabledRequest,boolean canHandle,HandlerInput handlerInput){\r\n    if (handlerInput.getRequest() instanceof SkillEnabledRequest) {\r\n        return canHandle(handlerInput, (SkillEnabledRequest) handlerInput.getRequest());\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "org.airsonic.player.service.MusicIndexService.getIndexedArtists",
+	"Comment": "returns a map from music indexes to sorted lists of artists that are direct children of the given music folders.",
+	"Method": "SortedMap<MusicIndex, List<MusicIndex.SortableArtistWithMediaFiles>> getIndexedArtists(List<MusicFolder> folders,boolean refresh,SortedMap<MusicIndex, List<MusicIndex.SortableArtistWithArtist>> getIndexedArtists,List<Artist> artists){\r\n    List<MusicIndex.SortableArtistWithArtist> sortableArtists = createSortableArtists(artists);\r\n    return sortArtists(sortableArtists);\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.Model.findOrInit",
+	"Comment": "a convenience method to fetch existing model from db or to create a new instance in memory initialized withsome attribute values.",
+	"Method": "T findOrInit(Object namesAndValues){\r\n    return ModelDelegate.findOrInit(modelClass(), namesAndValues);\r\n}"
+}, {
+	"Path": "com.amazon.ask.dispatcher.request.handler.impl.PreviousCommandIssuedRequestHandler.canHandle",
+	"Comment": "returns true if the handler can dispatch the current request",
+	"Method": "boolean canHandle(HandlerInput input,PreviousCommandIssuedRequest previousCommandIssuedRequest,boolean canHandle,HandlerInput handlerInput){\r\n    if (handlerInput.getRequest() instanceof PreviousCommandIssuedRequest) {\r\n        return canHandle(handlerInput, (PreviousCommandIssuedRequest) handlerInput.getRequest());\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "org.javalite.common.XmlEntities.createStringBuilder",
+	"Comment": "make the stringbuilder 10% larger than the source string to avoid growing the builder",
+	"Method": "StringBuilder createStringBuilder(String str){\r\n    return new StringBuilder(str.length() + (str.length() / 10));\r\n}"
+}, {
+	"Path": "act.ws.WebSocketConnectionRegistry.count",
+	"Comment": "returns the connection count by key specified in this registrynote it might count connections that are closed but not removed from registry yet",
+	"Method": "int count(int count,String key){\r\n    ConcurrentMap<WebSocketConnection, WebSocketConnection> bag = registry.get(key);\r\n    return null == bag ? 0 : bag.size();\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.Configuration.readPropertyFile",
+	"Comment": "read from classpath, if not found, read from file system. if not found there, throw exception",
+	"Method": "Properties readPropertyFile(String file){\r\n    String fileName = file.startsWith(\"/\") ? file : \"/\" + file;\r\n    LOGGER.info(\"Reading properties from: \" + fileName + \". Will try classpath, then file system.\");\r\n    return Util.readProperties(fileName);\r\n}"
+}, {
+	"Path": "com.amazon.ask.dispatcher.request.handler.impl.AccountLinkedRequestHandler.canHandle",
+	"Comment": "returns true if the handler can dispatch the current request",
+	"Method": "boolean canHandle(HandlerInput input,AccountLinkedRequest accountLinkedRequest,boolean canHandle,HandlerInput handlerInput){\r\n    if (handlerInput.getRequest() instanceof AccountLinkedRequest) {\r\n        return canHandle(handlerInput, (AccountLinkedRequest) handlerInput.getRequest());\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "org.airsonic.player.service.LastFmService.getSimilarSongs",
+	"Comment": "returns songs from similar artists, using last.fm rest api. typically used for artist radio features.",
+	"Method": "List<MediaFile> getSimilarSongs(org.airsonic.player.domain.Artist artist,int count,List<MusicFolder> musicFolders,List<MediaFile> getSimilarSongs,MediaFile mediaFile,int count,List<MusicFolder> musicFolders){\r\n    List<MediaFile> similarSongs = new ArrayList<MediaFile>();\r\n    String artistName = getArtistName(mediaFile);\r\n    MediaFile artist = mediaFileDao.getArtistByName(artistName, musicFolders);\r\n    if (artist != null) {\r\n        similarSongs.addAll(mediaFileService.getRandomSongsForParent(artist, count));\r\n    }\r\n    for (MediaFile similarArtist : getSimilarArtists(mediaFile, 100, false, musicFolders)) {\r\n        similarSongs.addAll(mediaFileService.getRandomSongsForParent(similarArtist, count));\r\n    }\r\n    Collections.shuffle(similarSongs);\r\n    return similarSongs.subList(0, Math.min(count, similarSongs.size()));\r\n}"
+}, {
+	"Path": "org.javalite.common.XmlEntities.entityName",
+	"Comment": "returns the name of the entity identified by the specified value.",
+	"Method": "String entityName(int value){\r\n    return map.name(value);\r\n}"
+}, {
+	"Path": "org.airsonic.player.ajax.PlayQueueService.addMediaFilesToPlayQueue",
+	"Comment": "todo this method should be moved to a real playqueueservice not dedicated to ajax dwr.",
+	"Method": "PlayQueue addMediaFilesToPlayQueue(PlayQueue playQueue,int[] ids,Integer index,boolean removeVideoFiles){\r\n    List<MediaFile> files = new ArrayList<MediaFile>(ids.length);\r\n    for (int id : ids) {\r\n        MediaFile ancestor = mediaFileService.getMediaFile(id);\r\n        files.addAll(mediaFileService.getDescendantsOf(ancestor, true));\r\n    }\r\n    if (removeVideoFiles) {\r\n        mediaFileService.removeVideoFiles(files);\r\n    }\r\n    if (index != null) {\r\n        playQueue.addFilesAt(files, index);\r\n    } else {\r\n        playQueue.addFiles(true, files);\r\n    }\r\n    playQueue.setRandomSearchCriteria(null);\r\n    return playQueue;\r\n}"
+}, {
+	"Path": "org.airsonic.player.dao.AbstractDao.getJdbcTemplate",
+	"Comment": "returns a jdbc template for performing database operations.",
+	"Method": "JdbcTemplate getJdbcTemplate(){\r\n    return daoHelper.getJdbcTemplate();\r\n}"
+}, {
+	"Path": "act.app.ActionContext.__appRenderArgNames",
+	"Comment": "called by bytecode enhancer to set the name list of the render arguments that is updateby the enhancer",
+	"Method": "ActionContext __appRenderArgNames(String names){\r\n    return super.__appRenderArgNames(names);\r\n}"
+}, {
+	"Path": "act.test.Test.loadFixtures",
+	"Comment": "load fixture data for testing.requested by test executor and executed on test host tosetup testing data",
+	"Method": "void loadFixtures(List<String> fixtures){\r\n    for (String fixture : fixtures) {\r\n        Job fixtureLoader = jobManager.jobById(fixture, false);\r\n        if (null != fixtureLoader) {\r\n            fixtureLoader.run();\r\n        } else {\r\n            yamlLoader.loadFixture(fixture, dbServiceManager);\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "org.airsonic.player.service.JukeboxService.canControl",
+	"Comment": "this method is only here due to legacy considerations and should be removedif the jukeboxlegacysubsonicservice is removed.",
+	"Method": "boolean canControl(Player airsonicPlayer){\r\n    switch(airsonicPlayer.getTechnology()) {\r\n        case JUKEBOX:\r\n            if (jukeboxLegacySubsonicService.getPlayer() == null) {\r\n                return false;\r\n            } else {\r\n                return jukeboxLegacySubsonicService.getPlayer().getId().equals(airsonicPlayer.getId());\r\n            }\r\n        case JAVA_JUKEBOX:\r\n            return true;\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.connection_config.DbConfiguration.getConnectionSpecWrappers",
+	"Comment": "provides a list of all connection wrappers corresponding to a given environment.",
+	"Method": "List<ConnectionSpecWrapper> getConnectionSpecWrappers(List<ConnectionSpecWrapper> getConnectionSpecWrappers,String env){\r\n    return connectionWrappers.get(env) == null ? new ArrayList() : connectionWrappers.get(env);\r\n}"
+}, {
+	"Path": "com.amazon.ask.dispatcher.request.handler.impl.ConnectionsRequestHandler.canHandle",
+	"Comment": "returns true if the handler can dispatch the current request",
+	"Method": "boolean canHandle(HandlerInput input,ConnectionsRequest connectionsRequest,boolean canHandle,HandlerInput handlerInput){\r\n    if (handlerInput.getRequest() instanceof ConnectionsRequest) {\r\n        return canHandle(handlerInput, (ConnectionsRequest) handlerInput.getRequest());\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "org.akka.essentials.unittest.example.ExampleUnitTest.testSupervisorStrategy1",
+	"Comment": "if you want to test how the supervisor strategy is working fine",
+	"Method": "void testSupervisorStrategy1(){\r\n    ActorRef supervisorActorRef1 = _system.actorOf(new Props(SupervisorActor.class), \"supervisor1\");\r\n    Duration timeout = Duration.parse(\"5 second\");\r\n    final ActorRef child = (ActorRef) Await.result(ask(supervisorActorRef1, new Props(BoomActor.class), 5000), timeout);\r\n    child.tell(123);\r\n    Assert.assertFalse(child.isTerminated());\r\n}"
+}, {
+	"Path": "org.airsonic.player.util.BoundedList.add",
+	"Comment": "adds an element to the tail of the list. if the list is full, the first element is removed.",
+	"Method": "boolean add(E e){\r\n    if (isFull()) {\r\n        removeFirst();\r\n    }\r\n    return super.add(e);\r\n}"
+}, {
+	"Path": "act.data.MultipartStream.setBoundary",
+	"Comment": "changes the boundary token used for partitioning the stream.this method allows single pass processing of nested multipartstreams.the boundary token of the nested stream is requiredto be of the same length as the boundary token in parent stream.restoring the parent stream boundary token after processing of anested stream is left to the application.",
+	"Method": "void setBoundary(byte[] boundary){\r\n    if (boundary.length != boundaryLength - BOUNDARY_PREFIX.length) {\r\n        throw new IllegalBoundaryException(\"The length of a boundary token can not be changed\");\r\n    }\r\n    System.arraycopy(boundary, 0, this.boundary, BOUNDARY_PREFIX.length, boundary.length);\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.DeleteCascadeTest.shouldDeletePolymorphicChildrenDeep",
+	"Comment": "this is to test models with annotations that override conventions.",
+	"Method": "void shouldDeletePolymorphicChildrenDeep(){\r\n    deleteAndPopulateTables(\"vehicles\", \"mammals\", \"classifications\");\r\n    Vehicle car = Vehicle.createIt(\"name\", \"car\");\r\n    Classification fourWheeled = Classification.create(\"name\", \"four wheeled\");\r\n    car.add(fourWheeled);\r\n    Classification sedan = Classification.create(\"name\", \"sedan\");\r\n    car.add(sedan);\r\n    sedan.add(SubClassification.create(\"name\", \"passenger\"));\r\n    a(SubClassification.count()).shouldBeEqual(1);\r\n    car.deleteCascade();\r\n    a(SubClassification.count()).shouldBeEqual(0);\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.Paginator.instance",
+	"Comment": "use to create a paginator instance, and provide arguments as needed.",
+	"Method": "PaginatorBuilder<E> instance(){\r\n    return new PaginatorBuilder();\r\n}"
+}, {
+	"Path": "org.airsonic.player.service.VersionService.isNewFinalVersionAvailable",
+	"Comment": "returns whether a new final version of airsonic is available.",
+	"Method": "boolean isNewFinalVersionAvailable(){\r\n    Version latest = getLatestFinalVersion();\r\n    Version local = getLocalVersion();\r\n    if (latest == null || local == null) {\r\n        return false;\r\n    }\r\n    return local.compareTo(latest) < 0;\r\n}"
+}, {
+	"Path": "com.amazon.ask.dispatcher.request.handler.impl.ListCreatedEventRequestHandler.canHandle",
+	"Comment": "returns true if the handler can dispatch the current request",
+	"Method": "boolean canHandle(HandlerInput input,ListCreatedEventRequest listCreatedEventRequest,boolean canHandle,HandlerInput handlerInput){\r\n    if (handlerInput.getRequest() instanceof ListCreatedEventRequest) {\r\n        return canHandle(handlerInput, (ListCreatedEventRequest) handlerInput.getRequest());\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "act.route.Router.registerRequestHandlerResolver",
+	"Comment": "register 3rd party action handler resolver with specified directive",
+	"Method": "void registerRequestHandlerResolver(String directive,RequestHandlerResolver resolver){\r\n    resolvers.put(directive, resolver);\r\n}"
+}, {
+	"Path": "org.javalite.test.jspec.Expectation.shouldNotBe",
+	"Comment": "invokes a boolean method and uses return value in comparison.",
+	"Method": "void shouldNotBe(String booleanMethod){\r\n    invokeBoolean(booleanMethod, Boolean.FALSE);\r\n}"
+}, {
+	"Path": "org.javalite.common.Convert.toBigDecimal",
+	"Comment": "converts value to bigdecimal if it can. if value is a bigdecimal, it is returned, if it is a bigdecimal, it ispromoted to bigdecimal and then returned, in all other cases, it converts the value to string,then tries to parse bigdecimal from it.",
+	"Method": "BigDecimal toBigDecimal(Object value){\r\n    if (value == null) {\r\n        return null;\r\n    } else if (value instanceof BigDecimal) {\r\n        return (BigDecimal) value;\r\n    } else {\r\n        try {\r\n            return new BigDecimal(value.toString().trim());\r\n        } catch (NumberFormatException e) {\r\n            throw new ConversionException(\"failed to convert: '\" + value + \"' to BigDecimal\", e);\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "org.javalite.test.SystemStreamUtil.replaceError",
+	"Comment": "replaces system.err with internal buffer. all calls such as system.err.print...will go to this buffer and not to stderr",
+	"Method": "void replaceError(){\r\n    err = System.err;\r\n    errorStream = new ByteArrayOutputStream();\r\n    System.setErr(new PrintStream(errorStream));\r\n}"
+}, {
+	"Path": "act.view.View.loadContent",
+	"Comment": "load template content.this method is used by error reporting feature when app running in dev mode",
+	"Method": "List<String> loadContent(String template){\r\n    File file = new File(templateRootDir(), template);\r\n    if (file.exists() && file.canRead()) {\r\n        return IO.readLines(file);\r\n    }\r\n    return C.list();\r\n}"
+}, {
+	"Path": "org.airsonic.player.service.VersionService.getLatestFinalVersion",
+	"Comment": "returns the version number for the latest available airsonic final version.",
+	"Method": "Version getLatestFinalVersion(){\r\n    refreshLatestVersion();\r\n    return latestFinalVersion;\r\n}"
+}, {
+	"Path": "org.airsonic.player.api.jukebox.AbstractAirsonicRestApiJukeboxIntTest.populateDatabase",
+	"Comment": "populate test datas in the database only once.creates 2 music folderscans the music folderscreates a test jukebox player",
+	"Method": "void populateDatabase(){\r\n    if (!dataBasePopulated) {\r\n        staticDaoHelper = daoHelper;\r\n        assertThat(musicFolderDao.getAllMusicFolders().size()).isEqualTo(1);\r\n        MusicFolderTestData.getTestMusicFolders().forEach(musicFolderDao::createMusicFolder);\r\n        settingsService.clearMusicFolderCache();\r\n        TestCaseUtils.execScan(mediaScannerService);\r\n        assertThat(playerDao.getAllPlayers().size()).isEqualTo(0);\r\n        createTestPlayer();\r\n        assertThat(playerDao.getAllPlayers().size()).isEqualTo(1);\r\n        dataBasePopulated = true;\r\n    }\r\n}"
+}, {
+	"Path": "org.javalite.activejdbc.validation.ValidatorAdapter.formatMessage",
+	"Comment": "provides default implementation, will look for a property in resource bundle, using set message as key.if property in resource bundle not found, treats message verbatim.",
+	"Method": "String formatMessage(Locale locale,Object params){\r\n    return Messages.message(message, locale, params);\r\n}"
+}]

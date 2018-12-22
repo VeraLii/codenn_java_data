@@ -1,0 +1,1133 @@
+[{
+	"Path": "org.jooby.Deferred.reject",
+	"Comment": "resolve the deferred with an error and handle it. this method will handle the given exception,send the response to a client and cleanup and close all the resources.",
+	"Method": "void reject(Throwable cause){\r\n    super.set(cause);\r\n    handler.handle(null, cause);\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.extension.PrinterAdapter.isSubstituteSuperTypes",
+	"Comment": "tells if this adapter substitutes types in extends or implements clauses.",
+	"Method": "boolean isSubstituteSuperTypes(){\r\n    return parentAdapter == null ? false : parentAdapter.isSubstituteSuperTypes();\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.util.Util.containsAssignableType",
+	"Comment": "tells if the given list contains an type which is assignable from type.",
+	"Method": "boolean containsAssignableType(Types types,List<Type> list,Type type){\r\n    for (Type t : list) {\r\n        if (types.isAssignable(t, type)) {\r\n            return true;\r\n        }\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "org.jnativehook.GlobalScreenTest.testRemoveNativeMouseMotionListener",
+	"Comment": "test of removenativemousemotionlistener method, of class globalscreen.",
+	"Method": "void testRemoveNativeMouseMotionListener(){\r\n    System.out.println(\"removeNativeMouseMotionListener\");\r\n    NativeMouseMotionListener listener = new NativeMouseInputListenerImpl();\r\n    GlobalScreen.addNativeMouseMotionListener(listener);\r\n    GlobalScreen.removeNativeMouseMotionListener(listener);\r\n    Field eventListeners = GlobalScreen.class.getDeclaredField(\"eventListeners\");\r\n    eventListeners.setAccessible(true);\r\n    EventListenerList listeners = (EventListenerList) eventListeners.get(GlobalScreen.class);\r\n    boolean found = false;\r\n    NativeMouseMotionListener[] nativeKeyListeners = listeners.getListeners(NativeMouseMotionListener.class);\r\n    for (int i = 0; i < nativeKeyListeners.length && !found; i++) {\r\n        if (nativeKeyListeners[i].equals(listener)) {\r\n            found = true;\r\n        }\r\n    }\r\n    if (found) {\r\n        fail(\"Found the listener after it was removed!\");\r\n    }\r\n}"
+}, {
+	"Path": "org.jupiter.common.util.internal.UnsafeUpdater.newLongFieldUpdater",
+	"Comment": "creates and returns an updater for objects with the given field.",
+	"Method": "UnsafeLongFieldUpdater<U> newLongFieldUpdater(Class<? super U> tClass,String fieldName){\r\n    try {\r\n        return new UnsafeLongFieldUpdater(UnsafeUtil.getUnsafe(), tClass, fieldName);\r\n    } catch (Throwable t) {\r\n        ThrowUtil.throwException(t);\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "com.bazaarvoice.jolt.defaultr.Key.processSpec",
+	"Comment": "recursively walk the spec input tree.handle arrays by telling defaultrkeys if they need to be arraykeys, and to find the max default array length.",
+	"Method": "Set<Key> processSpec(boolean parentIsArray,Map<String, Object> spec){\r\n    Set<Key> result = new HashSet();\r\n    for (String key : spec.keySet()) {\r\n        Object subSpec = spec.get(key);\r\n        if (parentIsArray) {\r\n            result.add(new ArrayKey(key, subSpec));\r\n        } else {\r\n            result.add(new MapKey(key, subSpec));\r\n        }\r\n    }\r\n    return result;\r\n}"
+}, {
+	"Path": "org.jnativehook.mouse.NativeMouseWheelEventTest.testGetScrollAmount",
+	"Comment": "test of getscrollamount method, of class nativemousewheelevent.",
+	"Method": "void testGetScrollAmount(){\r\n    System.out.println(\"getScrollAmount\");\r\n    NativeMouseWheelEvent event = new // Modifiers\r\n    NativeMouseWheelEvent(NativeMouseEvent.NATIVE_MOUSE_WHEEL, 0x00, 50, 75, // Scroll Amount\r\n    1, NativeMouseWheelEvent.WHEEL_UNIT_SCROLL, 3, -1);\r\n    assertEquals(3, event.getScrollAmount());\r\n}"
+}, {
+	"Path": "com.bazaarvoice.jolt.common.ComputedKeysComparator.fromOrder",
+	"Comment": "static factory method to get an comparator instance for a given order map",
+	"Method": "ComputedKeysComparator fromOrder(HashMap<Class, Integer> orderMap){\r\n    return new ComputedKeysComparator(orderMap);\r\n}"
+}, {
+	"Path": "com.bazaarvoice.jolt.modifier.function.Objects.toDouble",
+	"Comment": "returns double value of argument, if possible, wrapped in optionalinterprets string as number",
+	"Method": "Optional<Double> toDouble(Object arg){\r\n    if (arg instanceof Number) {\r\n        return Optional.of(((Number) arg).doubleValue());\r\n    } else if (arg instanceof String) {\r\n        Optional<? extends Number> optional = toNumber(arg);\r\n        if (optional.isPresent()) {\r\n            return Optional.of(optional.get().doubleValue());\r\n        } else {\r\n            return Optional.empty();\r\n        }\r\n    } else {\r\n        return Optional.empty();\r\n    }\r\n}"
+}, {
+	"Path": "org.jupiter.common.util.Reflects.getTotalTransformationCost",
+	"Comment": "returns the sum of the object transformation cost for each class in thesource argument list.",
+	"Method": "float getTotalTransformationCost(Class<?>[] srcArgs,Class<?>[] dstArgs){\r\n    float totalCost = 0.0f;\r\n    for (int i = 0; i < srcArgs.length; i++) {\r\n        Class<?> srcClass, dstClass;\r\n        srcClass = srcArgs[i];\r\n        dstClass = dstArgs[i];\r\n        totalCost += getObjectTransformationCost(srcClass, dstClass);\r\n    }\r\n    return totalCost;\r\n}"
+}, {
+	"Path": "org.jnativehook.GlobalScreen.unregisterNativeHook",
+	"Comment": "disable the native hook if it is currently registered. if the native\thook it is not registered the function has no effect.",
+	"Method": "void unregisterNativeHook(){\r\n    if (isNativeHookRegistered()) {\r\n        synchronized (hookThread) {\r\n            try {\r\n                hookThread.disable();\r\n                hookThread.join();\r\n            } catch (Exception e) {\r\n                throw new NativeHookException(e.getCause());\r\n            }\r\n        }\r\n        eventExecutor.shutdown();\r\n    }\r\n}"
+}, {
+	"Path": "com.bazaarvoice.jolt.JoltCli.runJolt",
+	"Comment": "the logic for running diffytool has been captured in a helper method that returns a boolean to facilitate unit testing.since system.exit terminates the jvm it would not be practical to test the main method.",
+	"Method": "boolean runJolt(String[] args){\r\n    ArgumentParser parser = ArgumentParsers.newArgumentParser(\"jolt\");\r\n    Subparsers subparsers = parser.addSubparsers().help(\"transform: given a Jolt transform spec, runs the specified transforms on the input data.\\n\" + \"diffy: diff two JSON documents.\\n\" + \"sort: sort a JSON document alphabetically for human readability.\");\r\n    for (Map.Entry<String, JoltCliProcessor> entry : JOLT_CLI_PROCESSOR_MAP.entrySet()) {\r\n        entry.getValue().intializeSubCommand(subparsers);\r\n    }\r\n    Namespace ns;\r\n    try {\r\n        ns = parser.parseArgs(args);\r\n    } catch (ArgumentParserException e) {\r\n        parser.handleError(e);\r\n        return false;\r\n    }\r\n    JoltCliProcessor joltToolProcessor = JOLT_CLI_PROCESSOR_MAP.get(args[0]);\r\n    if (joltToolProcessor != null) {\r\n        return joltToolProcessor.process(ns);\r\n    } else {\r\n        return false;\r\n    }\r\n}"
+}, {
+	"Path": "org.jooby.ResponseTest.file",
+	"Comment": "attempt to load a file from multiple location. required by unit and integration tests.",
+	"Method": "File file(String location){\r\n    for (String candidate : new String[] { location, \"jooby/\" + location, \"../../jooby/\" + location }) {\r\n        File file = new File(candidate);\r\n        if (file.exists()) {\r\n            return file;\r\n        }\r\n    }\r\n    return file(location);\r\n}"
+}, {
+	"Path": "com.graphhopper.jsprit.core.algorithm.state.StateManager.getStateUpdaters",
+	"Comment": "returns an unmodifiable collections of stateupdaters that have been added to this statemanager.",
+	"Method": "Collection<StateUpdater> getStateUpdaters(){\r\n    return Collections.unmodifiableCollection(updaters);\r\n}"
+}, {
+	"Path": "org.jnativehook.keyboard.NativeKeyListenerTest.testNativeKeyPressed",
+	"Comment": "test of nativekeypressed method, of class nativekeylistener.",
+	"Method": "void testNativeKeyPressed(){\r\n    System.out.println(\"nativeKeyPressed\");\r\n    NativeKeyEvent event = new // Raw Code\r\n    NativeKeyEvent(// Raw Code\r\n    NativeKeyEvent.NATIVE_KEY_PRESSED, NativeKeyEvent.SHIFT_MASK, 0x41, NativeKeyEvent.VC_A, NativeKeyEvent.CHAR_UNDEFINED, NativeKeyEvent.KEY_LOCATION_STANDARD);\r\n    NativeKeyListenerImpl listener = new NativeKeyListenerImpl();\r\n    listener.nativeKeyPressed(event);\r\n    assertEquals(event, listener.getLastEvent());\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.JSweetTranspiler.clearJsLibFiles",
+	"Comment": "clears javascript libraries that are used for the javascript evaluation.",
+	"Method": "void clearJsLibFiles(){\r\n    jsLibFiles.clear();\r\n}"
+}, {
+	"Path": "org.jooby.Session.set",
+	"Comment": "set a session local using a the given name. if a local already exists, it will be replacedwith the new value. keep in mind that null values are not allowed.",
+	"Method": "Builder set(String name,String value,Builder set,Map<String, String> attributes,Session set,String name,byte value,Session set,String name,char value,Session set,String name,boolean value,Session set,String name,short value,Session set,String name,int value,Session set,String name,long value,Session set,String name,float value,Session set,String name,double value,Session set,String name,CharSequence value,Session set,String name,String value){\r\n    return set(name, value.toString());\r\n}"
+}, {
+	"Path": "com.graphhopper.jsprit.core.algorithm.module.RuinAndRecreateModule.setMinUnassignedJobsToBeReinserted",
+	"Comment": "minimum number of unassigned jobs that is reinserted in each iteration.",
+	"Method": "void setMinUnassignedJobsToBeReinserted(int minUnassignedJobsToBeReinserted){\r\n    this.minUnassignedJobsToBeReinserted = minUnassignedJobsToBeReinserted;\r\n}"
+}, {
+	"Path": "com.graphhopper.jsprit.analysis.toolbox.Plotter.plotShipments",
+	"Comment": "flag that indicates whether shipments should be rendered as well.",
+	"Method": "Plotter plotShipments(boolean plotShipments){\r\n    this.plotShipments = plotShipments;\r\n    return this;\r\n}"
+}, {
+	"Path": "org.jupiter.common.atomic.AtomicUpdater.newAtomicReferenceFieldUpdater",
+	"Comment": "creates and returns an updater for objects with the given field.",
+	"Method": "AtomicReferenceFieldUpdater<U, W> newAtomicReferenceFieldUpdater(Class<U> tClass,Class<W> vClass,String fieldName){\r\n    try {\r\n        return new UnsafeAtomicReferenceFieldUpdater(UnsafeUtil.getUnsafe(), tClass, fieldName);\r\n    } catch (Throwable t) {\r\n        return AtomicReferenceFieldUpdater.newUpdater(tClass, vClass, fieldName);\r\n    }\r\n}"
+}, {
+	"Path": "org.jnativehook.mouse.NativeMouseListenerTest.testNativeMousePressed",
+	"Comment": "test of nativemousepressed method, of class nativemouselistener.",
+	"Method": "void testNativeMousePressed(){\r\n    System.out.println(\"nativeMousePressed\");\r\n    NativeMouseEvent event = new // Modifiers\r\n    NativeMouseEvent(NativeMouseEvent.NATIVE_MOUSE_PRESSED, 0x00, 50, 75, 1, NativeMouseEvent.BUTTON1);\r\n    NativeMouseInputListenerImpl listener = new NativeMouseInputListenerImpl();\r\n    listener.nativeMousePressed(event);\r\n    assertEquals(event, listener.getLastEvent());\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.JSweetTranspiler.addJsLibFiles",
+	"Comment": "add javascript libraries that are used for the javascript evaluation.",
+	"Method": "void addJsLibFiles(File files){\r\n    jsLibFiles.addAll(Arrays.asList(files));\r\n}"
+}, {
+	"Path": "com.pholser.junit.quickcheck.Objects.deepEquals",
+	"Comment": "sensitive to arrays and collections. collections must have predictable iteration order.",
+	"Method": "Matcher<Object> deepEquals(Object comparand,boolean deepEquals,Object first,Object second){\r\n    if (first == second)\r\n        return true;\r\n    if (first == null || second == null)\r\n        return false;\r\n    if (first instanceof Set<?> && second instanceof Set<?>)\r\n        return linearDeepEquals((Set<?>) first, (Set<?>) second);\r\n    if (first instanceof Collection<?> && second instanceof Collection<?>)\r\n        return linearDeepEquals((Collection<?>) first, (Collection<?>) second);\r\n    if (first instanceof Object[] && second instanceof Object[])\r\n        return linearDeepEquals((Object[]) first, (Object[]) second);\r\n    if (first.getClass().isArray() && second.getClass().isArray())\r\n        return toList(first).equals(toList(second));\r\n    return first.equals(second);\r\n}"
+}, {
+	"Path": "org.jupiter.common.concurrent.collection.ConcurrentAutoTable.set",
+	"Comment": "atomically set the sum of the striped counters to specified value.rather more expensive than a simple store, in order to remain atomic.",
+	"Method": "void set(long x){\r\n    CAT newcat = new CAT(null, 4, x);\r\n    while (!CAS_cat(_cat, newcat)) {\r\n    }\r\n}"
+}, {
+	"Path": "com.bazaarvoice.jolt.common.pathelement.TransposePathElement.parse",
+	"Comment": "parse a text value from a spec, into a transposepathelement.",
+	"Method": "TransposePathElement parse(String key){\r\n    if (key == null || key.length() < 2) {\r\n        throw new SpecException(\"'Transpose Input' key '@', can not be null or of length 1.  Offending key : \" + key);\r\n    }\r\n    if ('@' != key.charAt(0)) {\r\n        throw new SpecException(\"'Transpose Input' key must start with an '@'.  Offending key : \" + key);\r\n    }\r\n    String meat = key.substring(1);\r\n    if (meat.contains(\"@\")) {\r\n        throw new SpecException(\"@ pathElement can not contain a nested @. Was: \" + meat);\r\n    }\r\n    if (meat.contains(\"*\") || meat.contains(\"[]\")) {\r\n        throw new SpecException(\"'Transpose Input' can not contain expansion wildcards (* and []).  Offending key : \" + key);\r\n    }\r\n    if (meat.startsWith(\"(\")) {\r\n        if (meat.endsWith(\")\")) {\r\n            meat = meat.substring(1, meat.length() - 1);\r\n        } else {\r\n            throw new SpecException(\"@ path element that starts with '(' must have a matching ')'.  Offending key : \" + key);\r\n        }\r\n    }\r\n    return innerParse(key, meat);\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.TypeChecker.checkApply",
+	"Comment": "checks that the given invocation conforms to jsweet contraints.",
+	"Method": "boolean checkApply(JCMethodInvocation invocation,MethodSymbol methSym){\r\n    if (!JSweetConfig.isJDKReplacementMode() && !jdkAllowed) {\r\n        if (methSym.owner.toString().startsWith(\"java.\")) {\r\n            if (invocation.meth instanceof JCFieldAccess && \"super\".equals(((JCFieldAccess) invocation.meth).selected.toString())) {\r\n                translator.report(invocation, JSweetProblem.JDK_METHOD, methSym);\r\n                return false;\r\n            }\r\n            if (translator.getContext().strictMode || AUTHORIZED_OBJECT_METHODS.contains(methSym.name.toString())) {\r\n                return true;\r\n            }\r\n            if (methSym.owner.toString().equals(String.class.getName()) && AUTHORIZED_STRING_METHODS.contains(methSym.toString())) {\r\n                return true;\r\n            }\r\n            translator.report(invocation, JSweetProblem.JDK_METHOD, methSym);\r\n            return false;\r\n        }\r\n    }\r\n    return true;\r\n}"
+}, {
+	"Path": "org.jooby.handlers.Cors.withHeaders",
+	"Comment": "set one or more allowed headers. possible values are a header name orif anyheader is allowed.",
+	"Method": "Cors withHeaders(String headers,Cors withHeaders,List<String> headers){\r\n    this.requestHeaders = allMatch(headers);\r\n    return this;\r\n}"
+}, {
+	"Path": "org.jupiter.common.util.collection.LongObjectHashMap.growSize",
+	"Comment": "grows the map size after an insertion. if necessary, performs a rehash of the map.",
+	"Method": "void growSize(){\r\n    size++;\r\n    if (size > maxSize) {\r\n        if (keys.length == Integer.MAX_VALUE) {\r\n            throw new IllegalStateException(\"Max capacity reached at size=\" + size);\r\n        }\r\n        rehash(keys.length << 1);\r\n    }\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.util.Util.isGlobalsClassName",
+	"Comment": "tells if this qualified name denotes a jsweet globals class.",
+	"Method": "boolean isGlobalsClassName(String qualifiedName){\r\n    return qualifiedName != null && (JSweetConfig.GLOBALS_CLASS_NAME.equals(qualifiedName) || qualifiedName.endsWith(\".\" + JSweetConfig.GLOBALS_CLASS_NAME));\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.extension.PrinterAdapter.getParentAdapter",
+	"Comment": "gets the parent adapter. by default, an adapter delegates to the parent\tadapter when the behavior is not overridden.",
+	"Method": "PrinterAdapter getParentAdapter(){\r\n    return parentAdapter;\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.extension.PrinterAdapter.setParentAdapter",
+	"Comment": "sets the parent adapter. by default, an adapter delegates to the parent\tadapter when the behavior is not overridden.",
+	"Method": "void setParentAdapter(PrinterAdapter parentAdapter){\r\n    this.parentAdapter = parentAdapter;\r\n}"
+}, {
+	"Path": "com.bazaarvoice.jolt.common.pathelement.TransposePathElement.innerParse",
+	"Comment": "parse the core of the transposepathelement key, once basic errors have been checked and syntax has been handled.",
+	"Method": "TransposePathElement innerParse(String originalKey,String meat){\r\n    char first = meat.charAt(0);\r\n    if (Character.isDigit(first)) {\r\n        StringBuilder sb = new StringBuilder().append(first);\r\n        for (int index = 1; index < meat.length(); index++) {\r\n            char c = meat.charAt(index);\r\n            if (',' == c) {\r\n                int upLevel;\r\n                try {\r\n                    upLevel = Integer.valueOf(sb.toString());\r\n                } catch (NumberFormatException nfe) {\r\n                    throw new SpecException(\"@ path element with non/mixed numeric key is not valid, key=\" + originalKey);\r\n                }\r\n                return new TransposePathElement(originalKey, upLevel, meat.substring(index + 1));\r\n            } else if (Character.isDigit(c)) {\r\n                sb.append(c);\r\n            } else {\r\n                throw new SpecException(\"@ path element with non/mixed numeric key is not valid, key=\" + originalKey);\r\n            }\r\n        }\r\n        return new TransposePathElement(originalKey, Integer.valueOf(sb.toString()), null);\r\n    } else {\r\n        return new TransposePathElement(originalKey, 0, meat);\r\n    }\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.JSweetContext.isInvalidOverload",
+	"Comment": "tells if that method is part of an invalid overload in its declaring class.",
+	"Method": "boolean isInvalidOverload(MethodSymbol method){\r\n    Overload overload = getOverload((ClassSymbol) method.getEnclosingElement(), method);\r\n    return overload != null && overload.methods.size() > 1 && !overload.isValid;\r\n}"
+}, {
+	"Path": "org.jnativehook.mouse.NativeMouseListenerTest.testNativeMouseReleased",
+	"Comment": "test of nativemousereleased method, of class nativemouselistener.",
+	"Method": "void testNativeMouseReleased(){\r\n    System.out.println(\"nativeMouseReleased\");\r\n    NativeMouseEvent event = new // Modifiers\r\n    NativeMouseEvent(NativeMouseEvent.NATIVE_MOUSE_RELEASED, 0x00, 50, 75, 1, NativeMouseEvent.BUTTON1);\r\n    NativeMouseInputListenerImpl listener = new NativeMouseInputListenerImpl();\r\n    listener.nativeMouseReleased(event);\r\n    assertEquals(event, listener.getLastEvent());\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.extension.PrinterAdapter.types",
+	"Comment": "gets the types api, which provides a set of utilities on typemirror.",
+	"Method": "Types types(){\r\n    if (types == null) {\r\n        types = com.sun.tools.javac.model.JavacTypes.instance(context);\r\n    }\r\n    return types;\r\n}"
+}, {
+	"Path": "org.jnativehook.NativeInputEvent.getWhen",
+	"Comment": "gets the platform dependent native interval for chronological event sequencing.",
+	"Method": "long getWhen(){\r\n    return when;\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.extension.PrinterAdapter.eraseSuperClass",
+	"Comment": "tells if a super class has to be erased in the generated source.",
+	"Method": "boolean eraseSuperClass(TypeElement type,TypeElement superClass){\r\n    return parentAdapter == null ? false : parentAdapter.eraseSuperClass(type, superClass);\r\n}"
+}, {
+	"Path": "com.graphhopper.jsprit.core.problem.Capacity.max",
+	"Comment": "return the maximum, i.e. the maximum of each capacity dimension.",
+	"Method": "Capacity max(Capacity cap1,Capacity cap2){\r\n    if (cap1 == null || cap2 == null)\r\n        throw new IllegalArgumentException(\"arg must not be null\");\r\n    Capacity.Builder toReturnBuilder = Capacity.Builder.newInstance();\r\n    for (int i = 0; i < Math.max(cap1.getNuOfDimensions(), cap2.getNuOfDimensions()); i++) {\r\n        toReturnBuilder.addDimension(i, Math.max(cap1.get(i), cap2.get(i)));\r\n    }\r\n    return toReturnBuilder.build();\r\n}"
+}, {
+	"Path": "org.jnativehook.NativeMonitorInfo.getNumber",
+	"Comment": "get the logical number of this display.the primary display will always be zero.",
+	"Method": "short getNumber(){\r\n    return number;\r\n}"
+}, {
+	"Path": "org.jooby.internal.apitool.SwaggerBuilder.doModel",
+	"Comment": "mostly for kotlin null safe operator and immutable properties.",
+	"Method": "Model doModel(Type type,Model model){\r\n    Map<String, Property> properties = model.getProperties();\r\n    if (properties != null) {\r\n        BeanDescription desc = Json.mapper().getSerializationConfig().introspect(Json.mapper().constructType(type));\r\n        for (BeanPropertyDefinition beanProperty : desc.findProperties()) {\r\n            Property property = properties.get(beanProperty.getName());\r\n            if (property != null) {\r\n                property.setRequired(beanProperty.isRequired());\r\n            }\r\n        }\r\n    }\r\n    return model;\r\n}"
+}, {
+	"Path": "org.jupiter.common.util.internal.InternalThreadLocal.size",
+	"Comment": "returns the number of thread local variables bound to the current thread.",
+	"Method": "int size(){\r\n    InternalThreadLocalMap threadLocalMap = InternalThreadLocalMap.getIfSet();\r\n    if (threadLocalMap == null) {\r\n        return 0;\r\n    } else {\r\n        return threadLocalMap.size();\r\n    }\r\n}"
+}, {
+	"Path": "com.graphhopper.jsprit.core.algorithm.ruin.RuinRadial.ruinRoutes",
+	"Comment": "removes targetjob and its neighborhood and returns the removed jobs.",
+	"Method": "Collection<Job> ruinRoutes(Collection<VehicleRoute> vehicleRoutes,Collection<Job> ruinRoutes,Collection<VehicleRoute> vehicleRoutes,Job targetJob,int nOfJobs2BeRemoved){\r\n    List<Job> unassignedJobs = new ArrayList<Job>();\r\n    int nNeighbors = nOfJobs2BeRemoved - 1;\r\n    removeJob(targetJob, vehicleRoutes);\r\n    unassignedJobs.add(targetJob);\r\n    Iterator<Job> neighborhoodIterator = jobNeighborhoods.getNearestNeighborsIterator(nNeighbors, targetJob);\r\n    while (neighborhoodIterator.hasNext()) {\r\n        Job job = neighborhoodIterator.next();\r\n        if (removeJob(job, vehicleRoutes)) {\r\n            unassignedJobs.add(job);\r\n        }\r\n    }\r\n    return unassignedJobs;\r\n}"
+}, {
+	"Path": "com.googlecode.jsonrpc4j.JsonRpcBasicServer.setAllowExtraParams",
+	"Comment": "sets whether or not the server should allow superfluous\tparameters to method calls.",
+	"Method": "void setAllowExtraParams(boolean allowExtraParams){\r\n    this.allowExtraParams = allowExtraParams;\r\n}"
+}, {
+	"Path": "com.graphhopper.jsprit.core.algorithm.recreate.JobInsertionCostsCalculatorLightFactory.createStandardCalculator",
+	"Comment": "returns standard insertion calculator, i.e. the calculator that identifies best insertion positions for thejobs to be inserted. the position basically consists of the route and the according indices.",
+	"Method": "JobInsertionCostsCalculatorLight createStandardCalculator(VehicleRoutingProblem vrp,VehicleFleetManager fleetManager,StateManager stateManager,ConstraintManager constraintManager){\r\n    List<VehicleRoutingAlgorithmListeners.PrioritizedVRAListener> al = new ArrayList<VehicleRoutingAlgorithmListeners.PrioritizedVRAListener>();\r\n    List<InsertionListener> il = new ArrayList<InsertionListener>();\r\n    JobInsertionCostsCalculatorBuilder builder = new JobInsertionCostsCalculatorBuilder(il, al);\r\n    builder.setVehicleRoutingProblem(vrp).setConstraintManager(constraintManager).setStateManager(stateManager).setVehicleFleetManager(fleetManager);\r\n    final JobInsertionCostsCalculator calculator = builder.build();\r\n    return new JobInsertionCostsCalculatorLight() {\r\n        @Override\r\n        public InsertionData getInsertionData(Job unassignedJob, VehicleRoute route, double bestKnownCosts) {\r\n            return calculator.getInsertionData(route, unassignedJob, AbstractInsertionStrategy.NO_NEW_VEHICLE_YET, AbstractInsertionStrategy.NO_NEW_DEPARTURE_TIME_YET, AbstractInsertionStrategy.NO_NEW_DRIVER_YET, bestKnownCosts);\r\n        }\r\n    };\r\n}"
+}, {
+	"Path": "com.graphhopper.jsprit.core.algorithm.recreate.JobInsertionCostsCalculatorLightFactory.createStandardCalculator",
+	"Comment": "returns standard insertion calculator, i.e. the calculator that identifies best insertion positions for thejobs to be inserted. the position basically consists of the route and the according indices.",
+	"Method": "JobInsertionCostsCalculatorLight createStandardCalculator(VehicleRoutingProblem vrp,VehicleFleetManager fleetManager,StateManager stateManager,ConstraintManager constraintManager){\r\n    return calculator.getInsertionData(route, unassignedJob, AbstractInsertionStrategy.NO_NEW_VEHICLE_YET, AbstractInsertionStrategy.NO_NEW_DEPARTURE_TIME_YET, AbstractInsertionStrategy.NO_NEW_DRIVER_YET, bestKnownCosts);\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.util.Util.findFieldDeclaration",
+	"Comment": "finds the field in the given type that matches the given name.",
+	"Method": "VarSymbol findFieldDeclaration(ClassSymbol classSymbol,Name name){\r\n    if (classSymbol == null) {\r\n        return null;\r\n    }\r\n    Iterator<Symbol> it = classSymbol.members_field.getElementsByName(name, (symbol) -> {\r\n        return symbol instanceof VarSymbol;\r\n    }).iterator();\r\n    if (it.hasNext()) {\r\n        return (VarSymbol) it.next();\r\n    } else {\r\n        if (classSymbol.getSuperclass().tsym instanceof ClassSymbol) {\r\n            return findFieldDeclaration((ClassSymbol) classSymbol.getSuperclass().tsym, name);\r\n        } else {\r\n            return null;\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "org.jooby.internal.URLAssetTest.file",
+	"Comment": "attempt to load a file from multiple location. required by unit and integration tests.",
+	"Method": "File file(String location){\r\n    for (String candidate : new String[] { location, \"jooby/\" + location, \"../../jooby/\" + location }) {\r\n        File file = new File(candidate);\r\n        if (file.exists()) {\r\n            return file;\r\n        }\r\n    }\r\n    return new File(location);\r\n}"
+}, {
+	"Path": "org.jnativehook.GlobalScreenTest.testRemoveNativeKeyListener",
+	"Comment": "test of removenativekeylistener method, of class globalscreen.",
+	"Method": "void testRemoveNativeKeyListener(){\r\n    System.out.println(\"removeNativeKeyListener\");\r\n    NativeKeyListener listener = new NativeKeyListenerImpl();\r\n    GlobalScreen.addNativeKeyListener(listener);\r\n    GlobalScreen.removeNativeKeyListener(listener);\r\n    Field eventListeners = GlobalScreen.class.getDeclaredField(\"eventListeners\");\r\n    eventListeners.setAccessible(true);\r\n    EventListenerList listeners = (EventListenerList) eventListeners.get(GlobalScreen.class);\r\n    boolean found = false;\r\n    NativeKeyListener[] nativeKeyListeners = listeners.getListeners(NativeKeyListener.class);\r\n    for (int i = 0; i < nativeKeyListeners.length && !found; i++) {\r\n        if (nativeKeyListeners[i].equals(listener)) {\r\n            found = true;\r\n        }\r\n    }\r\n    if (found) {\r\n        fail(\"Found the listener after it was removed!\");\r\n    }\r\n}"
+}, {
+	"Path": "org.jooby.quartz.Quartz.with",
+	"Comment": "schedule the provided job and trigger. this method will setup a default name and group forboth.",
+	"Method": "Quartz with(JobDetail job,Trigger trigger,Quartz with,Class<?> jobClass,Quartz with,Class<? extends Job> jobClass,BiConsumer<JobBuilder, TriggerBuilder<Trigger>> configurer,Quartz with,Class<? extends Job> jobClass,Consumer<TriggerBuilder<Trigger>> configurer){\r\n    requireNonNull(jobClass, \"Job class is required.\");\r\n    JobBuilder job = JobBuilder.newJob(jobClass).withIdentity(JobKey.jobKey(jobClass.getSimpleName(), jobClass.getPackage().getName()));\r\n    TriggerBuilder<Trigger> trigger = TriggerBuilder.newTrigger().withIdentity(TriggerKey.triggerKey(jobClass.getSimpleName(), jobClass.getPackage().getName()));\r\n    configurer.accept(trigger);\r\n    return with(job.build(), trigger.build());\r\n}"
+}, {
+	"Path": "com.graphhopper.jsprit.core.algorithm.recreate.RegretInsertionConcurrent.setScoringFunction",
+	"Comment": "sets the scoring function.by default, the this.timewindowscorer is used.",
+	"Method": "void setScoringFunction(ScoringFunction scoringFunction){\r\n    this.scoringFunction = scoringFunction;\r\n}"
+}, {
+	"Path": "com.graphhopper.jsprit.core.analysis.SolutionAnalyser.hasShipmentConstraintViolationAtActivity",
+	"Comment": "returns true if shipment constraint is violated, i.e. if activity is delivershipment but no pickupshipment can befound before or activity is pickupshipment and no delivershipment can be found afterwards.",
+	"Method": "Boolean hasShipmentConstraintViolationAtActivity(TourActivity activity,VehicleRoute route){\r\n    if (route == null)\r\n        throw new IllegalArgumentException(\"route is missing.\");\r\n    if (activity == null)\r\n        throw new IllegalArgumentException(\"activity is missing.\");\r\n    if (activity instanceof Start)\r\n        return false;\r\n    if (activity instanceof End)\r\n        return false;\r\n    verifyThatRouteContainsAct(activity, route);\r\n    return stateManager.getActivityState(activity, shipmentId, Boolean.class);\r\n}"
+}, {
+	"Path": "com.graphhopper.jsprit.core.problem.misc.JobInsertionContext.getRelatedActivityContext",
+	"Comment": "returns pickup context. if no context available, returns null.",
+	"Method": "ActivityContext getRelatedActivityContext(){\r\n    return this.relatedActivityContext;\r\n}"
+}, {
+	"Path": "com.pholser.junit.quickcheck.random.SourceOfRandomness.toJDKRandom",
+	"Comment": "gives a jdk source of randomness, with the same internal state asthis source of randomness.",
+	"Method": "Random toJDKRandom(){\r\n    ByteArrayOutputStream bytesOut = new ByteArrayOutputStream();\r\n    try (ObjectOutputStream objectOut = new ObjectOutputStream(bytesOut)) {\r\n        objectOut.writeObject(delegate);\r\n    } catch (IOException ex) {\r\n        throw new IllegalStateException(ex);\r\n    }\r\n    ByteArrayInputStream bytesIn = new ByteArrayInputStream(bytesOut.toByteArray());\r\n    try (ObjectInputStream objectIn = new ObjectInputStream(bytesIn)) {\r\n        return (Random) objectIn.readObject();\r\n    } catch (IOException ex) {\r\n        throw new IllegalStateException(ex);\r\n    } catch (ClassNotFoundException shouldNeverHappen) {\r\n        throw new AssertionError(shouldNeverHappen);\r\n    }\r\n}"
+}, {
+	"Path": "org.jsweet.input.typescriptdef.ast.Context.checkConsistency",
+	"Comment": "checks that all modules and types are registered in the context",
+	"Method": "void checkConsistency(){\r\n    logger.info(\"context consistency check\");\r\n    for (QualifiedDeclaration<ModuleDeclaration> m : findDeclarations(ModuleDeclaration.class, \"*\")) {\r\n        if (getModuleName(m.getDeclaration()) == null) {\r\n            reportError(\"unregistered module: \" + m, (Token) null);\r\n        }\r\n    }\r\n    for (QualifiedDeclaration<TypeDeclaration> t : findDeclarations(TypeDeclaration.class, \"*\")) {\r\n        if (!t.getDeclaration().isAnonymous() && getTypeName(t.getDeclaration()) == null) {\r\n            reportError(\"unregistered type: \" + t, t.getDeclaration().getToken());\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "org.jupiter.common.util.internal.UnsafeUpdater.newIntegerFieldUpdater",
+	"Comment": "creates and returns an updater for objects with the given field.",
+	"Method": "UnsafeIntegerFieldUpdater<U> newIntegerFieldUpdater(Class<? super U> tClass,String fieldName){\r\n    try {\r\n        return new UnsafeIntegerFieldUpdater(UnsafeUtil.getUnsafe(), tClass, fieldName);\r\n    } catch (Throwable t) {\r\n        ThrowUtil.throwException(t);\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.JSweetContext.removeAnnotationManager",
+	"Comment": "removes the given annotation manager from the existing annotation manager\tchain.",
+	"Method": "void removeAnnotationManager(AnnotationManager annotationManager){\r\n    annotationManagers.remove(annotationManager);\r\n}"
+}, {
+	"Path": "com.googlecode.jsonrpc4j.JsonRpcBasicServer.getServiceName",
+	"Comment": "get the service name from the methodnode.in this class, it is always\tnull.subclasses may parse the methodnode for service name.",
+	"Method": "String getServiceName(String methodName){\r\n    return null;\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.util.Util.fillAllVariableAccesses",
+	"Comment": "fills the given map with all the variables beeing accessed within the given\tcode tree.",
+	"Method": "void fillAllVariableAccesses(Map<String, VarSymbol> vars,JCTree tree){\r\n    new TreeScanner() {\r\n        @Override\r\n        public void visitIdent(JCIdent ident) {\r\n            if (ident.sym.getKind() == ElementKind.LOCAL_VARIABLE) {\r\n                putVar(vars, (VarSymbol) ident.sym);\r\n            }\r\n        }\r\n        @Override\r\n        public void visitLambda(JCLambda lambda) {\r\n            if (lambda == tree) {\r\n                super.visitLambda(lambda);\r\n            }\r\n        }\r\n    }.scan(tree);\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.util.Util.fillAllVariableAccesses",
+	"Comment": "fills the given map with all the variables beeing accessed within the given\tcode tree.",
+	"Method": "void fillAllVariableAccesses(Map<String, VarSymbol> vars,JCTree tree){\r\n    if (ident.sym.getKind() == ElementKind.LOCAL_VARIABLE) {\r\n        putVar(vars, (VarSymbol) ident.sym);\r\n    }\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.util.Util.fillAllVariableAccesses",
+	"Comment": "fills the given map with all the variables beeing accessed within the given\tcode tree.",
+	"Method": "void fillAllVariableAccesses(Map<String, VarSymbol> vars,JCTree tree){\r\n    if (lambda == tree) {\r\n        super.visitLambda(lambda);\r\n    }\r\n}"
+}, {
+	"Path": "org.jnativehook.example.NativeHookDemo.windowOpened",
+	"Comment": "display information about the native keyboard and mouse along with any\terrors that may have occurred.",
+	"Method": "void windowOpened(WindowEvent e){\r\n    this.requestFocusInWindow();\r\n    menuItemEnable.setSelected(true);\r\n    txtEventInfo.append(\"JNativeHook Version \" + System.getProperty(\"jnativehook.lib.version\"));\r\n    txtEventInfo.append(\"\\nAuto Repeat Rate: \" + System.getProperty(\"jnativehook.key.repeat.rate\"));\r\n    txtEventInfo.append(\"\\n\" + \"Auto Repeat Delay: \" + System.getProperty(\"jnativehook.key.repeat.delay\"));\r\n    txtEventInfo.append(\"\\n\" + \"Double Click Time: \" + System.getProperty(\"jnativehook.button.multiclick.iterval\"));\r\n    txtEventInfo.append(\"\\n\" + \"Pointer Sensitivity: \" + System.getProperty(\"jnativehook.pointer.sensitivity\"));\r\n    txtEventInfo.append(\"\\n\" + \"Pointer Acceleration Multiplier: \" + System.getProperty(\"jnativehook.pointer.acceleration.multiplier\"));\r\n    txtEventInfo.append(\"\\n\" + \"Pointer Acceleration Threshold: \" + System.getProperty(\"jnativehook.pointer.acceleration.threshold\"));\r\n    try {\r\n        txtEventInfo.setCaretPosition(txtEventInfo.getLineStartOffset(txtEventInfo.getLineCount() - 1));\r\n    } catch (BadLocationException ex) {\r\n        txtEventInfo.setCaretPosition(txtEventInfo.getDocument().getLength());\r\n    }\r\n    menuItemKeyboardEvents.setSelected(true);\r\n    menuItemButtonEvents.setSelected(true);\r\n    menuItemMotionEvents.setSelected(true);\r\n    menuItemWheelEvents.setSelected(true);\r\n}"
+}, {
+	"Path": "com.bazaarvoice.jolt.cardinality.CardinalityCompositeSpec.applyKeyToLiteralAndComputed",
+	"Comment": "this method implements the cardinality matching behavior when we have both literal and computed children.for each input key, we see if it matches a literal, and it not, try to match the key with every computed child.",
+	"Method": "void applyKeyToLiteralAndComputed(CardinalityCompositeSpec spec,String subKeyStr,Object subInput,WalkedPath walkedPath,Object input){\r\n    CardinalitySpec literalChild = spec.literalChildren.get(subKeyStr);\r\n    if (literalChild != null) {\r\n        literalChild.applyCardinality(subKeyStr, subInput, walkedPath, input);\r\n    } else {\r\n        for (CardinalitySpec computedChild : spec.computedChildren) {\r\n            if (computedChild.applyCardinality(subKeyStr, subInput, walkedPath, input)) {\r\n                break;\r\n            }\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "org.jooby.assets.SvgSymbol.parse",
+	"Comment": "parse a css size unit value, like 10px or 18.919px and optionally round the value to theclosest integer.",
+	"Method": "Tuple<Number, String> parse(String value){\r\n    Matcher matcher = SIZE.matcher(value);\r\n    if (matcher.find()) {\r\n        String number = matcher.group(1);\r\n        String unit = matcher.group(_3);\r\n        boolean round = get(\"css.round\");\r\n        Number num = Double.parseDouble(number);\r\n        return new Tuple(round ? Math.round(num.doubleValue()) : num, unit);\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "com.graphhopper.jsprit.core.problem.solution.route.activity.TourActivities.removeActivity",
+	"Comment": "removes activity from this activity sequence. removes its corresponding job as well, if there are no other activitiesrelated to this job.",
+	"Method": "boolean removeActivity(TourActivity activity){\r\n    Job job = null;\r\n    if (activity instanceof JobActivity) {\r\n        job = ((JobActivity) activity).getJob();\r\n    }\r\n    boolean jobIsAlsoAssociateToOtherActs = false;\r\n    boolean actRemoved = false;\r\n    List<TourActivity> acts = new ArrayList<TourActivity>(tourActivities);\r\n    for (TourActivity act : acts) {\r\n        if (act == activity) {\r\n            tourActivities.remove(act);\r\n            actRemoved = true;\r\n        } else {\r\n            if (act instanceof JobActivity && job != null) {\r\n                if (((JobActivity) act).getJob().equals(job)) {\r\n                    jobIsAlsoAssociateToOtherActs = true;\r\n                }\r\n            }\r\n        }\r\n    }\r\n    if (!jobIsAlsoAssociateToOtherActs && actRemoved) {\r\n        jobs.remove(job);\r\n    }\r\n    return actRemoved;\r\n}"
+}, {
+	"Path": "org.jupiter.common.util.collection.IntObjectHashMap.growSize",
+	"Comment": "grows the map size after an insertion. if necessary, performs a rehash of the map.",
+	"Method": "void growSize(){\r\n    size++;\r\n    if (size > maxSize) {\r\n        if (keys.length == Integer.MAX_VALUE) {\r\n            throw new IllegalStateException(\"Max capacity reached at size=\" + size);\r\n        }\r\n        rehash(keys.length << 1);\r\n    }\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.JSweetContext.isCoreFunctionalType",
+	"Comment": "returns true if the given type symbol corresponds to a core functional type.",
+	"Method": "boolean isCoreFunctionalType(TypeSymbol type){\r\n    String name = type.getQualifiedName().toString();\r\n    return name.startsWith(\"java.util.function.\") || // \r\n    name.equals(Runnable.class.getName()) || // \r\n    name.startsWith(JSweetConfig.FUNCTION_CLASSES_PACKAGE + \".\") || (type.isInterface() && hasAnonymousFunction(type));\r\n}"
+}, {
+	"Path": "org.jnativehook.keyboard.NativeKeyEvent.paramString",
+	"Comment": "returns a parameter string identifying this event. this method is useful\tfor event logging and debugging.",
+	"Method": "String paramString(){\r\n    StringBuilder param = new StringBuilder(255);\r\n    switch(getID()) {\r\n        case NATIVE_KEY_PRESSED:\r\n            param.append(\"NATIVE_KEY_PRESSED\");\r\n            break;\r\n        case NATIVE_KEY_RELEASED:\r\n            param.append(\"NATIVE_KEY_RELEASED\");\r\n            break;\r\n        case NATIVE_KEY_TYPED:\r\n            param.append(\"NATIVE_KEY_TYPED\");\r\n            break;\r\n        default:\r\n            param.append(\"unknown type\");\r\n            break;\r\n    }\r\n    param.append(',');\r\n    param.append(\"keyCode=\");\r\n    param.append(keyCode);\r\n    param.append(',');\r\n    param.append(\"keyText=\");\r\n    param.append(getKeyText(keyCode));\r\n    param.append(',');\r\n    param.append(\"keyChar=\");\r\n    switch(keyChar) {\r\n        case VC_BACKSPACE:\r\n        case VC_DELETE:\r\n        case VC_ESCAPE:\r\n        case VC_ENTER:\r\n        case VC_TAB:\r\n            param.append(getKeyText(keyChar));\r\n            break;\r\n        case CHAR_UNDEFINED:\r\n            param.append(getKeyText(VC_UNDEFINED));\r\n            break;\r\n        default:\r\n            param.append('\\'');\r\n            param.append(keyChar);\r\n            param.append('\\'');\r\n            break;\r\n    }\r\n    param.append(',');\r\n    if (getModifiers() != 0) {\r\n        param.append(\"modifiers=\");\r\n        param.append(getModifiersText(getModifiers()));\r\n        param.append(',');\r\n    }\r\n    param.append(\"keyLocation=\");\r\n    switch(keyLocation) {\r\n        case KEY_LOCATION_UNKNOWN:\r\n            param.append(\"KEY_LOCATION_UNKNOWN\");\r\n            break;\r\n        case KEY_LOCATION_STANDARD:\r\n            param.append(\"KEY_LOCATION_STANDARD\");\r\n            break;\r\n        case KEY_LOCATION_LEFT:\r\n            param.append(\"KEY_LOCATION_LEFT\");\r\n            break;\r\n        case KEY_LOCATION_RIGHT:\r\n            param.append(\"KEY_LOCATION_RIGHT\");\r\n            break;\r\n        case KEY_LOCATION_NUMPAD:\r\n            param.append(\"KEY_LOCATION_NUMPAD\");\r\n            break;\r\n        default:\r\n            param.append(\"KEY_LOCATION_UNKNOWN\");\r\n            break;\r\n    }\r\n    param.append(',');\r\n    param.append(\"rawCode=\");\r\n    param.append(rawCode);\r\n    return param.toString();\r\n}"
+}, {
+	"Path": "com.graphhopper.jsprit.core.algorithm.recreate.InsertionStrategyBuilder.setLocalLevel",
+	"Comment": "if adddefaulmarginalcostcalculation is false, no calculator is set which implicitly assumes that marginal cost calculationis controlled by your custom soft constraints.",
+	"Method": "InsertionStrategyBuilder setLocalLevel(InsertionStrategyBuilder setLocalLevel,boolean addDefaultMarginalCostCalculation){\r\n    local = true;\r\n    addDefaultCostCalc = addDefaultMarginalCostCalculation;\r\n    return this;\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.util.AbstractTreePrinter.isFillSourceMap",
+	"Comment": "tells if this printer tries to preserve the original line numbers of the\tjava input.",
+	"Method": "boolean isFillSourceMap(){\r\n    return fillSourceMap;\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.TypeChecker.checkSelect",
+	"Comment": "checks that the given field access conforms to jsweet contraints.",
+	"Method": "boolean checkSelect(JCFieldAccess select){\r\n    if (!JSweetConfig.isJDKReplacementMode()) {\r\n        if (select.selected.type instanceof ClassType) {\r\n            String type = select.selected.type.tsym.toString();\r\n            if (type.startsWith(\"java.\")) {\r\n                if (!jdkAllowed && !(AUTHORIZED_ACCESSED_TYPES.contains(type) || type.startsWith(\"java.util.function\"))) {\r\n                    translator.report(select, JSweetProblem.JDK_TYPE, type);\r\n                    return false;\r\n                }\r\n            }\r\n        }\r\n    }\r\n    return true;\r\n}"
+}, {
+	"Path": "org.jnativehook.GlobalScreen.addNativeMouseListener",
+	"Comment": "adds the specified native mouse listener to receive mouse events from the\tnative system. if listener is null, no exception is thrown and no action\tis performed.",
+	"Method": "void addNativeMouseListener(NativeMouseListener listener){\r\n    if (listener != null) {\r\n        eventListeners.add(NativeMouseListener.class, listener);\r\n    }\r\n}"
+}, {
+	"Path": "org.jsweet.input.typescriptdef.util.DeclarationFinder.setMatchState",
+	"Comment": "to be called by a matcher to set the current match state of this finder.",
+	"Method": "void setMatchState(boolean match,boolean continueScanning){\r\n    this.match = match;\r\n    this.stopScan = !continueScanning;\r\n}"
+}, {
+	"Path": "com.bazaarvoice.jolt.removr.spec.RemovrLeafSpec.applyToMap",
+	"Comment": "build a list of keys to remove from the input map, using the pathelement from the spec.",
+	"Method": "List<String> applyToMap(Map<String, Object> inputMap){\r\n    if (inputMap == null) {\r\n        return null;\r\n    }\r\n    List<String> keysToBeRemoved = new LinkedList();\r\n    if (pathElement instanceof LiteralPathElement) {\r\n        if (inputMap.containsKey(pathElement.getRawKey())) {\r\n            keysToBeRemoved.add(pathElement.getRawKey());\r\n        }\r\n    } else if (pathElement instanceof StarPathElement) {\r\n        StarPathElement star = (StarPathElement) pathElement;\r\n        for (String key : inputMap.keySet()) {\r\n            if (star.stringMatch(key)) {\r\n                keysToBeRemoved.add(key);\r\n            }\r\n        }\r\n    }\r\n    return keysToBeRemoved;\r\n}"
+}, {
+	"Path": "com.graphhopper.jsprit.core.algorithm.ruin.RuinString.ruinRoutes",
+	"Comment": "ruins the collection of vehicleroutes, i.e. removes a share of jobs. first, it selects a job randomly. second, it identifies its neighborhood. and finally, it removesthe neighborhood plus the randomly selected job from the number of vehicleroutes. all removed jobs are then returned as a collection.",
+	"Method": "Collection<Job> ruinRoutes(Collection<VehicleRoute> vehicleRoutes){\r\n    if (vehicleRoutes.isEmpty() || vrp.getJobs().isEmpty()) {\r\n        return Collections.emptyList();\r\n    }\r\n    int noStrings;\r\n    if (kMin == kMax)\r\n        noStrings = kMax;\r\n    else\r\n        noStrings = kMin + random.nextInt((kMax - kMin));\r\n    noStrings = Math.min(noStrings, vehicleRoutes.size());\r\n    Set<Job> unassignedJobs = new HashSet();\r\n    Set<VehicleRoute> ruinedRoutes = new HashSet();\r\n    Job prevJob = RandomUtils.nextJob(vrp.getJobs().values(), random);\r\n    Iterator<Job> neighborhoodIterator = jobNeighborhoods.getNearestNeighborsIterator(kMax * lMax, prevJob);\r\n    while (neighborhoodIterator.hasNext() && ruinedRoutes.size() <= noStrings) {\r\n        if (!unassignedJobs.contains(prevJob)) {\r\n            VehicleRoute route = getRouteOf(prevJob, vehicleRoutes);\r\n            if (route != null && !ruinedRoutes.contains(route)) {\r\n                if (random.nextDouble() < .5) {\r\n                    ruinRouteWithStringRuin(route, prevJob, unassignedJobs);\r\n                } else {\r\n                    ruinRouteWithSplitStringRuin(route, prevJob, unassignedJobs);\r\n                }\r\n                ruinedRoutes.add(route);\r\n            }\r\n        }\r\n        prevJob = neighborhoodIterator.next();\r\n    }\r\n    return unassignedJobs;\r\n}"
+}, {
+	"Path": "com.bazaarvoice.jolt.JoltCliUtilities.printJsonObject",
+	"Comment": "prints the given json object to standard out, accounting for pretty printing and suppressed output.",
+	"Method": "boolean printJsonObject(Object output,Boolean uglyPrint,boolean suppressOutput){\r\n    try {\r\n        if (uglyPrint) {\r\n            printToStandardOut(JsonUtils.toJsonString(output), suppressOutput);\r\n        } else {\r\n            printToStandardOut(JsonUtils.toPrettyJsonString(output), suppressOutput);\r\n        }\r\n    } catch (Exception e) {\r\n        printToStandardOut(\"An error occured while attempting to print the output.\", suppressOutput);\r\n        return false;\r\n    }\r\n    return true;\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.JSweetContext.isUsingJavaRuntime",
+	"Comment": "tells if the transpiler is using j4ts java runtime. if yes, it will use the\tadapter that tries to delegate to the java emulation layer for the java api.",
+	"Method": "boolean isUsingJavaRuntime(){\r\n    return usingJavaRuntime;\r\n}"
+}, {
+	"Path": "org.jnativehook.keyboard.NativeKeyListenerTest.testNativeKeyReleased",
+	"Comment": "test of nativekeyreleased method, of class nativekeylistener.",
+	"Method": "void testNativeKeyReleased(){\r\n    System.out.println(\"nativeKeyReleased\");\r\n    NativeKeyEvent event = new // Raw Code\r\n    NativeKeyEvent(// Raw Code\r\n    NativeKeyEvent.NATIVE_KEY_RELEASED, NativeKeyEvent.SHIFT_MASK, 0x41, NativeKeyEvent.VC_A, NativeKeyEvent.CHAR_UNDEFINED, NativeKeyEvent.KEY_LOCATION_STANDARD);\r\n    NativeKeyListenerImpl listener = new NativeKeyListenerImpl();\r\n    listener.nativeKeyReleased(event);\r\n    assertEquals(event, listener.getLastEvent());\r\n}"
+}, {
+	"Path": "com.graphhopper.jsprit.core.problem.VehicleRoutingProblem.getFleetSize",
+	"Comment": "returns type of fleetsize, either infinite or finite.by default, it is infinite.",
+	"Method": "FleetSize getFleetSize(){\r\n    return fleetSize;\r\n}"
+}, {
+	"Path": "com.bazaarvoice.jolt.modifier.function.Objects.toLong",
+	"Comment": "returns long value of argument, if possible, wrapped in optionalinterprets string as number",
+	"Method": "Optional<Long> toLong(Object arg){\r\n    if (arg instanceof Number) {\r\n        return Optional.of(((Number) arg).longValue());\r\n    } else if (arg instanceof String) {\r\n        Optional<? extends Number> optional = toNumber(arg);\r\n        if (optional.isPresent()) {\r\n            return Optional.of(optional.get().longValue());\r\n        } else {\r\n            return Optional.empty();\r\n        }\r\n    } else {\r\n        return Optional.empty();\r\n    }\r\n}"
+}, {
+	"Path": "org.jsweet.util.DirectedGraph.buildEdges",
+	"Comment": "automatically builds the edges between all the nodes of the graph by\tusing the given comparator. if the comparator returns 0, then no edge is\tconstructor between the compared nodes.",
+	"Method": "void buildEdges(Comparator<U> nodeComparator){\r\n    for (T e1 : nodes.keySet()) {\r\n        for (T e2 : nodes.keySet()) {\r\n            @SuppressWarnings(\"unchecked\")\r\n            int i = nodeComparator.compare((U) e1, (U) e2);\r\n            if (i < 0) {\r\n                addEdge(e1, e2);\r\n            }\r\n            if (i > 0) {\r\n                addEdge(e2, e1);\r\n            }\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "org.jsweet.input.typescriptdef.visitor.ImportedAndExportedReferenceExpander.lookupModuleDeclaration",
+	"Comment": "overrides the default implementation because we intend to pass this\tscanner before the packages reorganization.",
+	"Method": "QualifiedDeclaration<ModuleDeclaration> lookupModuleDeclaration(String name){\r\n    for (int i = 0; i < getStack().size(); i++) {\r\n        String containerName = getContainerNameAtIndex(i);\r\n        String declFullName = StringUtils.isBlank(containerName) ? name : containerName + \".\" + name;\r\n        List<QualifiedDeclaration<ModuleDeclaration>> matches = context.findDeclarations(ModuleDeclaration.class, declFullName, (CompilationUnit) getRoot());\r\n        for (QualifiedDeclaration<ModuleDeclaration> m : matches) {\r\n            if (!m.getDeclaration().isQuotedName()) {\r\n                return m;\r\n            }\r\n        }\r\n        for (QualifiedDeclaration<ModuleDeclaration> m : matches) {\r\n            return m;\r\n        }\r\n    }\r\n    for (int i = 0; i < getStack().size(); i++) {\r\n        String containerName = getContainerNameAtIndex(i);\r\n        String declFullName = StringUtils.isBlank(containerName) ? name : containerName + \".\" + name;\r\n        List<QualifiedDeclaration<ModuleDeclaration>> matches = context.findDeclarations(ModuleDeclaration.class, declFullName);\r\n        for (QualifiedDeclaration<ModuleDeclaration> m : matches) {\r\n            if (!m.getDeclaration().isQuotedName()) {\r\n                return m;\r\n            }\r\n        }\r\n        for (QualifiedDeclaration<ModuleDeclaration> m : matches) {\r\n            return m;\r\n        }\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "org.jnativehook.keyboard.NativeKeyListenerTest.testNativeKeyTyped",
+	"Comment": "test of nativekeytyped method, of class nativekeylistener.",
+	"Method": "void testNativeKeyTyped(){\r\n    System.out.println(\"nativeKeyTyped\");\r\n    NativeKeyEvent event = new // Raw Code\r\n    NativeKeyEvent(// Raw Code\r\n    NativeKeyEvent.NATIVE_KEY_TYPED, NativeKeyEvent.SHIFT_MASK, 0x41, NativeKeyEvent.VC_UNDEFINED, 'A', NativeKeyEvent.KEY_LOCATION_STANDARD);\r\n    NativeKeyListenerImpl listener = new NativeKeyListenerImpl();\r\n    listener.nativeKeyTyped(event);\r\n    assertEquals(event, listener.getLastEvent());\r\n}"
+}, {
+	"Path": "org.jooby.eventbus.EventBusby.register",
+	"Comment": "register an event subscriber. subscriber will be provisioned by guice.",
+	"Method": "EventBusby register(Object subscriber,EventBusby register,Class subscriber){\r\n    initialSubscribers.add(subscriber);\r\n    return this;\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.util.Util.findMethodDeclarationInType",
+	"Comment": "finds the method in the given type that matches the given name and signature.",
+	"Method": "MethodSymbol findMethodDeclarationInType(Types types,TypeSymbol typeSymbol,JCMethodInvocation invocation,MethodSymbol findMethodDeclarationInType,Types types,TypeSymbol typeSymbol,String methodName,MethodType methodType,MethodSymbol findMethodDeclarationInType,Types types,TypeSymbol typeSymbol,String methodName,MethodType methodType,boolean overrides){\r\n    List<MethodSymbol> candidates = new LinkedList();\r\n    collectMatchingMethodDeclarationsInType(types, typeSymbol, methodName, methodType, overrides, candidates);\r\n    MethodSymbol bestMatch = null;\r\n    int lastScore = Integer.MIN_VALUE;\r\n    for (MethodSymbol candidate : candidates) {\r\n        int currentScore = getCandidateMethodMatchScore(candidate, methodType, types);\r\n        if (bestMatch == null || currentScore > lastScore) {\r\n            bestMatch = candidate;\r\n            lastScore = currentScore;\r\n        }\r\n    }\r\n    if (logger.isTraceEnabled()) {\r\n        logger.trace(\"method declaration match for \" + typeSymbol + \".\" + methodName + \" - \" + methodType + \" : \" + bestMatch + \" score=\" + lastScore);\r\n    }\r\n    return bestMatch;\r\n}"
+}, {
+	"Path": "org.jnativehook.GlobalScreen.removeNativeMouseWheelListener",
+	"Comment": "removes the specified native mouse wheel listener so that it no longer\treceives mouse wheel events from the native system. this method performs\tno function if the listener specified by the argument was not previously\tadded.if listener is null, no exception is thrown and no action is\tperformed.",
+	"Method": "void removeNativeMouseWheelListener(NativeMouseWheelListener listener){\r\n    if (listener != null) {\r\n        eventListeners.remove(NativeMouseWheelListener.class, listener);\r\n    }\r\n}"
+}, {
+	"Path": "org.jnativehook.mouse.NativeMouseWheelListenerTest.testNativeMouseWheelMoved",
+	"Comment": "test of nativemousewheelmoved method, of class nativemousewheellistener.",
+	"Method": "void testNativeMouseWheelMoved(){\r\n    System.out.println(\"nativeMouseWheelMoved\");\r\n    NativeMouseWheelEvent event = new // Modifiers\r\n    NativeMouseWheelEvent(NativeMouseEvent.NATIVE_MOUSE_WHEEL, 0x00, 50, 75, // Scroll Amount\r\n    1, NativeMouseWheelEvent.WHEEL_UNIT_SCROLL, 3, -1);\r\n    NativeMouseWheelListenerImpl listener = new NativeMouseWheelListenerImpl();\r\n    listener.nativeMouseWheelMoved(event);\r\n    assertEquals(event, listener.getLastEvent());\r\n}"
+}, {
+	"Path": "org.jnativehook.GlobalScreenTest.testAddNativeMouseListener",
+	"Comment": "test of addnativemouselistener method, of class globalscreen.",
+	"Method": "void testAddNativeMouseListener(){\r\n    System.out.println(\"addNativeMouseListener\");\r\n    NativeMouseListener listener = new NativeMouseInputListenerImpl();\r\n    GlobalScreen.addNativeMouseListener(listener);\r\n    Field eventListeners = GlobalScreen.class.getDeclaredField(\"eventListeners\");\r\n    eventListeners.setAccessible(true);\r\n    EventListenerList listeners = (EventListenerList) eventListeners.get(GlobalScreen.class);\r\n    boolean found = false;\r\n    NativeMouseListener[] nativeKeyListeners = listeners.getListeners(NativeMouseListener.class);\r\n    for (int i = 0; i < nativeKeyListeners.length && !found; i++) {\r\n        if (nativeKeyListeners[i].equals(listener)) {\r\n            found = true;\r\n        }\r\n    }\r\n    if (!found) {\r\n        fail(\"Could not find the listener after it was added!\");\r\n    }\r\n    GlobalScreen.removeNativeMouseListener(listener);\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.JSweetContext.hasAnnotationType",
+	"Comment": "tells if the given symbol is annotated with one of the given annotation\ttypes.",
+	"Method": "boolean hasAnnotationType(Symbol symbol,String annotationTypes){\r\n    String[] types = annotationTypes;\r\n    for (AnnotationManager annotationIntrospector : annotationManagers) {\r\n        for (String annotationType : types) {\r\n            Action state = annotationIntrospector.manageAnnotation(symbol, annotationType);\r\n            if (state == Action.ADD) {\r\n                return true;\r\n            } else if (state == Action.REMOVE) {\r\n                types = ArrayUtils.removeElement(annotationTypes, annotationType);\r\n            }\r\n        }\r\n    }\r\n    if (hasAnnotationFilters()) {\r\n        String signature = symbol.toString();\r\n        if (!(symbol instanceof TypeSymbol) && symbol.getEnclosingElement() != null) {\r\n            signature = symbol.getEnclosingElement().getQualifiedName().toString() + \".\" + signature;\r\n        }\r\n        for (String annotationType : annotationTypes) {\r\n            Collection<AnnotationFilterDescriptor> filterDescriptors = annotationFilters.get(annotationType);\r\n            if (filterDescriptors != null) {\r\n                for (AnnotationFilterDescriptor filterDescriptor : filterDescriptors) {\r\n                    if (filterDescriptor.inclusionPatterns == null) {\r\n                        logger.error(\"no inclusion patterns found for annotation filter: \" + annotationType);\r\n                    }\r\n                    for (Pattern include : filterDescriptor.inclusionPatterns) {\r\n                        if (include.matcher(signature).matches()) {\r\n                            boolean excluded = false;\r\n                            Collection<Pattern> excludePatterns = filterDescriptor.exclusionPatterns;\r\n                            if (excludePatterns != null) {\r\n                                for (Pattern exclude : excludePatterns) {\r\n                                    if (exclude.matcher(signature).matches()) {\r\n                                        excluded = true;\r\n                                        break;\r\n                                    }\r\n                                }\r\n                            }\r\n                            if (!excluded) {\r\n                                return true;\r\n                            }\r\n                        }\r\n                    }\r\n                }\r\n            }\r\n        }\r\n    }\r\n    return hasActualAnnotationType(symbol, annotationTypes);\r\n}"
+}, {
+	"Path": "org.jooby.assets.SvgSymbol.css",
+	"Comment": "generate a css rule, it reads the width and height attributes of the svg element or fallback toviewbox attribute.",
+	"Method": "CharSequence css(String id,Element svg){\r\n    Throwing.Function<String, Tuple<Tuple<Number, String>, Tuple<Number, String>>> viewBox = Throwing.<String, Tuple<Tuple<Number, String>, Tuple<Number, String>>>throwingFunction(name -> {\r\n        String vbox = svg.attr(name);\r\n        String[] dimension = vbox.split(\"\\\\s+\");\r\n        return new Tuple(parse(dimension[2]), parse(dimension[_3]));\r\n    }).memoized();\r\n    Tuple<Number, String> w = Optional.ofNullable(Strings.emptyToNull(svg.attr(\"width\"))).map(this::parse).orElseGet(() -> viewBox.apply(\"viewBox\")._1);\r\n    Tuple<Number, String> h = Optional.ofNullable(Strings.emptyToNull(svg.attr(\"height\"))).map(this::parse).orElseGet(() -> viewBox.apply(\"viewBox\")._2);\r\n    StringBuilder css = new StringBuilder();\r\n    css.append(get(\"css.prefix\").toString()).append(\".\").append(id).append(\" {\\n  width: \").append(w._1).append(w._2).append(\";\\n\").append(\"  height: \").append(h._1).append(h._2).append(\";\\n}\");\r\n    return css;\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.JSweetContext.getOrCreateOverload",
+	"Comment": "gets or create an overload instance for the given class and method.",
+	"Method": "Overload getOrCreateOverload(ClassSymbol clazz,MethodSymbol method){\r\n    Map<ClassSymbol, Map<String, Overload>> actualOverloads = method.isStatic() ? staticOverloads : overloads;\r\n    Map<String, Overload> m = actualOverloads.get(clazz);\r\n    if (m == null) {\r\n        m = new HashMap();\r\n        actualOverloads.put(clazz, m);\r\n    }\r\n    String name = method.name.toString();\r\n    Overload overload = m.get(name);\r\n    if (overload == null) {\r\n        overload = new Overload();\r\n        overload.methodName = name;\r\n        m.put(name, overload);\r\n    }\r\n    return overload;\r\n}"
+}, {
+	"Path": "org.jooby.pac4j.Pac4j.form",
+	"Comment": "add a simple login form. useful for development and quick startup.",
+	"Method": "Pac4j form(Pac4j form,String pattern){\r\n    return clientInternal(pattern, conf -> {\r\n        showDevLogin = true;\r\n        return new FormClient(\"/login\", new SimpleTestUsernamePasswordAuthenticator());\r\n    }, null);\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.extension.PrinterAdapter.getMappedType",
+	"Comment": "gets the string that corresponds to the given type, taking into account all\ttype mappings.\tsome type mappings are set by default, some are added in the context by\tadapters.",
+	"Method": "String getMappedType(TypeMirror type){\r\n    StringBuilder stringBuilder = new StringBuilder();\r\n    buildMappedType(stringBuilder, type);\r\n    return stringBuilder.toString();\r\n}"
+}, {
+	"Path": "org.jooby.pac4j.Auth.client",
+	"Comment": "add an auth client, like facebook, twitter, github, etc...please note the require dependencymust be in the classpath.",
+	"Method": "Auth client(Client<C, U> client,Auth client,Class<? extends Client<C, U>> client,Auth client,String pattern,Client<C, U> client,Auth client,Function<Config, Client<C, U>> provider,Auth client,String pattern,Function<Config, Client<C, U>> provider,Auth client,String pattern,Class<? extends Client<C, U>> client){\r\n    bindings.put(pattern, (binder, config) -> {\r\n        Multibinder.newSetBinder(binder, Client.class).addBinding().to(client);\r\n        Class profileType = ClientType.typeOf(client);\r\n        bindProfile(binder, profileType);\r\n        return new AuthFilter(client, profileType);\r\n    });\r\n    return this;\r\n}"
+}, {
+	"Path": "org.jupiter.common.util.internal.UnsafeUpdater.newReferenceFieldUpdater",
+	"Comment": "creates and returns an updater for objects with the given field.",
+	"Method": "UnsafeReferenceFieldUpdater<U, W> newReferenceFieldUpdater(Class<? super U> tClass,String fieldName){\r\n    try {\r\n        return new UnsafeReferenceFieldUpdater(UnsafeUtil.getUnsafe(), tClass, fieldName);\r\n    } catch (Throwable t) {\r\n        ThrowUtil.throwException(t);\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "com.bazaarvoice.jolt.ChainrFactory.fromFileSystem",
+	"Comment": "builds a chainr instance using the spec described in the data via the file path that is passed in.",
+	"Method": "Chainr fromFileSystem(String chainrSpecFilePath,Chainr fromFileSystem,String chainrSpecFilePath,ChainrInstantiator chainrInstantiator){\r\n    Object chainrSpec = JsonUtils.filepathToObject(chainrSpecFilePath);\r\n    return getChainr(chainrInstantiator, chainrSpec);\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.JSweetDiagnosticHandler.reportJavaError",
+	"Comment": "override this method to tune how jsweet reports the errors.",
+	"Method": "void reportJavaError(JCDiagnostic diagnostic,Locale locale){\r\n    transpilationHandler.report(JSweetProblem.INTERNAL_JAVA_ERROR, new SourcePosition(new File(diagnostic.getSource().getName()), null, (int) diagnostic.getLineNumber(), (int) diagnostic.getColumnNumber()), diagnostic.getMessage(locale));\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.extension.ExtensionManager.initExtensionClassPath",
+	"Comment": "initializes the classpath by adding the extension directory to the right\tclass loader.",
+	"Method": "void initExtensionClassPath(){\r\n    if (!extensionDir.exists()) {\r\n        return;\r\n    }\r\n    try {\r\n        if (!(PrinterAdapter.class.getClassLoader() instanceof URLClassLoader)) {\r\n            throw new RuntimeException(\"local extensions are not supported in this environment, please use a packaged extension\");\r\n        }\r\n        URLClassLoader urlClassLoader = (URLClassLoader) PrinterAdapter.class.getClassLoader();\r\n        Method addURLMethod = URLClassLoader.class.getDeclaredMethod(\"addURL\", URL.class);\r\n        addURLMethod.setAccessible(true);\r\n        boolean foundExtension = false;\r\n        for (URL url : urlClassLoader.getURLs()) {\r\n            if (url.getPath().endsWith(\"/\" + JSweetConfig.EXTENSION_DIR)) {\r\n                foundExtension = true;\r\n                break;\r\n            }\r\n        }\r\n        if (!foundExtension) {\r\n            addURLMethod.invoke(urlClassLoader, extensionDir.toURI().toURL());\r\n            logger.debug(\"updated classpath with: \" + extensionDir.toURI().toURL());\r\n        }\r\n    } catch (Exception e) {\r\n        throw new RuntimeException(\"fail to initalize extension classpath\", e);\r\n    }\r\n}"
+}, {
+	"Path": "org.jnativehook.GlobalScreenTest.testIsNativeHookRegistered",
+	"Comment": "test of isnativehookregistered method, of class globalscreen.",
+	"Method": "void testIsNativeHookRegistered(){\r\n    System.out.println(\"isNativeHookRegistered\");\r\n    GlobalScreen.registerNativeHook();\r\n    assertTrue(GlobalScreen.isNativeHookRegistered());\r\n    GlobalScreen.unregisterNativeHook();\r\n    assertFalse(GlobalScreen.isNativeHookRegistered());\r\n}"
+}, {
+	"Path": "org.jooby.couchbase.AsyncDatastore.remove",
+	"Comment": "removes an entity from the server.the an entity returned just has the document id and its cas value set, since the value and allother associated properties have been removed from the server.",
+	"Method": "AsyncRemoveCommand remove(Observable<Long> remove,Object entity,Observable<Long> remove,Class<?> entityClass,Object id){\r\n    return remove().execute(entityClass, id);\r\n}"
+}, {
+	"Path": "com.graphhopper.jsprit.core.algorithm.recreate.RegretInsertionConcurrentFast.setScoringFunction",
+	"Comment": "sets the scoring function.by default, the this.timewindowscorer is used.",
+	"Method": "void setScoringFunction(ScoringFunction scoringFunction){\r\n    this.scoringFunction = scoringFunction;\r\n}"
+}, {
+	"Path": "com.graphhopper.jsprit.core.algorithm.ruin.RuinRadialMultipleCenters.ruinRoutes",
+	"Comment": "ruins the collection of vehicleroutes, i.e. removes a share of jobs. first, it selects a job randomly. second, it identifies its neighborhood. and finally, it removesthe neighborhood plus the randomly selected job from the number of vehicleroutes. all removed jobs are then returned as a collection.",
+	"Method": "Collection<Job> ruinRoutes(Collection<VehicleRoute> vehicleRoutes){\r\n    if (vehicleRoutes.isEmpty()) {\r\n        return Collections.emptyList();\r\n    }\r\n    Set<Job> available = new HashSet<Job>(vrp.getJobs().values());\r\n    Collection<Job> ruined = new ArrayList<Job>();\r\n    for (int center = 0; center < noCenters; center++) {\r\n        int nOfJobs2BeRemoved = ruinShareFactory.createNumberToBeRemoved();\r\n        if (nOfJobs2BeRemoved == 0) {\r\n            return Collections.emptyList();\r\n        }\r\n        Job randomJob = pickRandomJob(available);\r\n        if (randomJob != null) {\r\n            ruined.addAll(ruinRoutes_(vehicleRoutes, randomJob, nOfJobs2BeRemoved, available));\r\n        }\r\n    }\r\n    return ruined;\r\n}"
+}, {
+	"Path": "org.jsweet.input.typescriptdef.util.NodeFinder.setMatchState",
+	"Comment": "to be called by a matcher to set the current match state of this finder.",
+	"Method": "void setMatchState(boolean match,boolean continueScanning){\r\n    this.match = match;\r\n    this.stopScan = !continueScanning;\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.JSweetContext.countStaticInitializer",
+	"Comment": "increments the count of static initialization blocks for the given class.",
+	"Method": "void countStaticInitializer(ClassSymbol clazz){\r\n    staticInitializerCounts.put(clazz, (staticInitializerCounts.containsKey(clazz) ? staticInitializerCounts.get(clazz) : 0) + 1);\r\n}"
+}, {
+	"Path": "org.jnativehook.mouse.NativeMouseEvent.getButton",
+	"Comment": "returns which, if any, of the mouse buttons has changed state.",
+	"Method": "int getButton(){\r\n    return button;\r\n}"
+}, {
+	"Path": "org.jnativehook.GlobalScreenTest.testUnregisterNativeHook",
+	"Comment": "test of unregisternativehook method, of class globalscreen.",
+	"Method": "void testUnregisterNativeHook(){\r\n    System.out.println(\"unregisterNativeHook\");\r\n    GlobalScreen.unregisterNativeHook();\r\n}"
+}, {
+	"Path": "com.bazaarvoice.jolt.common.SpecStringParser.parseDotNotation",
+	"Comment": "method that recursively parses a dotnotation string based on an iterator.this method will call out to parseatpathelement",
+	"Method": "List<String> parseDotNotation(List<String> pathStrings,Iterator<Character> iter,String dotNotationRef){\r\n    if (!iter.hasNext()) {\r\n        return pathStrings;\r\n    }\r\n    boolean prevIsEscape = false;\r\n    boolean currIsEscape = false;\r\n    StringBuilder sb = new StringBuilder();\r\n    char c;\r\n    while (iter.hasNext()) {\r\n        c = iter.next();\r\n        currIsEscape = false;\r\n        if (c == '\\\\' && !prevIsEscape) {\r\n            currIsEscape = true;\r\n        }\r\n        if (prevIsEscape && c != '.' && c != '\\\\') {\r\n            sb.append('\\\\');\r\n            sb.append(c);\r\n        } else if (c == '@') {\r\n            sb.append('@');\r\n            sb.append(parseAtPathElement(iter, dotNotationRef));\r\n            boolean isPartOfArray = sb.indexOf(\"[\") != -1 && sb.indexOf(\"]\") == -1;\r\n            if (!isPartOfArray) {\r\n                pathStrings.add(sb.toString());\r\n                sb = new StringBuilder();\r\n            }\r\n        } else if (c == '.') {\r\n            if (prevIsEscape) {\r\n                sb.append('.');\r\n            } else {\r\n                if (sb.length() != 0) {\r\n                    pathStrings.add(sb.toString());\r\n                }\r\n                return parseDotNotation(pathStrings, iter, dotNotationRef);\r\n            }\r\n        } else if (!currIsEscape) {\r\n            sb.append(c);\r\n        }\r\n        prevIsEscape = currIsEscape;\r\n    }\r\n    if (sb.length() != 0) {\r\n        pathStrings.add(sb.toString());\r\n    }\r\n    return pathStrings;\r\n}"
+}, {
+	"Path": "com.graphhopper.jsprit.core.algorithm.state.StateManager.hasActivityState",
+	"Comment": "returns true if a state value is associated to the specified activity, vehicle and stateid.",
+	"Method": "boolean hasActivityState(TourActivity act,Vehicle vehicle,StateId stateId){\r\n    if (act.getIndex() == 0)\r\n        throw new IllegalStateException(\"activity index is 0. this should not be.\");\r\n    return vehicleDependentActivityStates[act.getIndex()][vehicle.getVehicleTypeIdentifier().getIndex()][stateId.getIndex()] != null;\r\n}"
+}, {
+	"Path": "org.jsweet.util.DirectedGraph.retainAll",
+	"Comment": "keeps only the elements of the given collection in the graph.",
+	"Method": "boolean retainAll(Collection<?> c){\r\n    boolean b = false;\r\n    for (T element : nodes.keySet()) {\r\n        if (!c.contains(element)) {\r\n            remove(element);\r\n            b = true;\r\n        }\r\n    }\r\n    return b;\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.util.AbstractTreeScanner.dumpStackTrace",
+	"Comment": "pretty prints the current scanning trace.\tthis is useful for reporting internal errors and give information about\twhat happened to the user.",
+	"Method": "void dumpStackTrace(){\r\n    System.err.println(\"dumping transpiler's strack trace:\");\r\n    for (int i = stack.size() - 1; i >= 0; i--) {\r\n        JCTree tree = stack.get(i);\r\n        if (tree == null) {\r\n            continue;\r\n        }\r\n        String str = tree.toString().trim();\r\n        int intialLength = str.length();\r\n        int index = str.indexOf('\\n');\r\n        if (index > 0) {\r\n            str = str.substring(0, index + 1);\r\n        }\r\n        str = str.replace('\\n', ' ');\r\n        str = str.substring(0, Math.min(str.length() - 1, 30));\r\n        System.err.print(\"   [\" + stack.get(i).getClass().getSimpleName() + \"] \" + str + (str.length() < intialLength ? \"...\" : \"\") + \" (\" + compilationUnit.getSourceFile().getName() + \":\");\r\n        if (diagnosticSource == null) {\r\n            System.err.println(tree.pos + \")\");\r\n        } else {\r\n            System.err.println(diagnosticSource.getLineNumber(tree.pos) + \")\");\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "org.jooby.Deferred.resolve",
+	"Comment": "resolve the deferred value and handle it. this method will send the response to a client andcleanup and close all the resources.",
+	"Method": "void resolve(Object value){\r\n    if (value == null) {\r\n        handler.handle(null, null);\r\n    } else {\r\n        Result result;\r\n        if (value instanceof Result) {\r\n            super.set(value);\r\n            result = (Result) value;\r\n        } else {\r\n            super.set(value);\r\n            result = clone();\r\n        }\r\n        handler.handle(result, null);\r\n    }\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.util.AbstractTreeScanner.getParent",
+	"Comment": "gets the first parent matching the given type, looking up from the given\ttree in the scanning stack.",
+	"Method": "JCTree getParent(T getParent,Class<T> type,T getParent,Class<T> type,JCTree from){\r\n    for (int i = this.stack.size() - 1; i >= 0; i--) {\r\n        if (this.stack.get(i) == from) {\r\n            for (int j = i - 1; j >= 0; j--) {\r\n                if (type.isAssignableFrom(this.stack.get(j).getClass())) {\r\n                    return (T) this.stack.get(j);\r\n                }\r\n            }\r\n            return null;\r\n        }\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "org.jupiter.common.util.collection.LongObjectHashMap.indexOf",
+	"Comment": "locates the index for the given key. this method probes using double hashing.",
+	"Method": "int indexOf(long key){\r\n    int startIndex = hashIndex(key);\r\n    int index = startIndex;\r\n    for (; ; ) {\r\n        if (values[index] == null) {\r\n            return -1;\r\n        }\r\n        if (key == keys[index]) {\r\n            return index;\r\n        }\r\n        if ((index = probeNext(index)) == startIndex) {\r\n            return -1;\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "com.graphhopper.jsprit.core.algorithm.module.RuinAndRecreateModule.setProportionOfUnassignedJobsToBeReinserted",
+	"Comment": "proportion of unassigned jobs that is reinserted in each iteration.",
+	"Method": "void setProportionOfUnassignedJobsToBeReinserted(double proportionOfUnassignedJobsToBeReinserted){\r\n    this.proportionOfUnassignedJobsToBeReinserted = proportionOfUnassignedJobsToBeReinserted;\r\n}"
+}, {
+	"Path": "com.bazaarvoice.jolt.modifier.function.Objects.recursivelySquashNulls",
+	"Comment": "recursively squash nulls in maps and lists.modifies the data.",
+	"Method": "void recursivelySquashNulls(Object input){\r\n    Objects.squashNulls(input);\r\n    if (input instanceof List) {\r\n        List inputList = (List) input;\r\n        inputList.forEach(i -> recursivelySquashNulls(i));\r\n    } else if (input instanceof Map) {\r\n        Map<String, Object> inputMap = (Map<String, Object>) input;\r\n        for (Map.Entry<String, Object> entry : inputMap.entrySet()) {\r\n            recursivelySquashNulls(entry.getValue());\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.SourceFile.getSourceFiles",
+	"Comment": "gets all the java source files found in the given dirs and their subdirs.",
+	"Method": "SourceFile[] getSourceFiles(File dirs,SourceFile[] getSourceFiles,Iterable<File> dirs){\r\n    LinkedList<File> files = new LinkedList();\r\n    for (File dir : dirs) {\r\n        addFiles(\".java\", dir, files);\r\n    }\r\n    return toSourceFiles(files);\r\n}"
+}, {
+	"Path": "com.googlecode.jsonrpc4j.JsonRpcClient.invokeNotification",
+	"Comment": "invokes the given method on the remote service passing\tthe given argument without reading or expecting a return\tresponse.",
+	"Method": "void invokeNotification(String methodName,Object argument,OutputStream output){\r\n    writeRequest(methodName, argument, output, null);\r\n    output.flush();\r\n}"
+}, {
+	"Path": "org.jupiter.common.concurrent.collection.ConcurrentAutoTable.get",
+	"Comment": "current value of the counter.since other threads are updating furiouslythe value is only approximate, but it includes all counts made by thecurrent thread.requires a pass over the internally striped counters.",
+	"Method": "long get(){\r\n    return _cat.sum();\r\n}"
+}, {
+	"Path": "com.googlecode.jsonrpc4j.spring.AutoJsonRpcClientProxyCreator.resolvePackageToScan",
+	"Comment": "converts the scanpackage to something that the resource loader can handlerequest.",
+	"Method": "String resolvePackageToScan(){\r\n    return CLASSPATH_URL_PREFIX + convertClassNameToResourcePath(scanPackage) + \"/**/*.class\";\r\n}"
+}, {
+	"Path": "com.graphhopper.jsprit.core.algorithm.state.StateManager.getProblemState",
+	"Comment": "returns mapped state value that is associated to the specified stateid, or null if no value is associated tothe specified stateid.",
+	"Method": "T getProblemState(StateId stateId,Class<T> type){\r\n    return type.cast(problemStates[stateId.getIndex()]);\r\n}"
+}, {
+	"Path": "org.jsweet.util.DirectedGraph.containsAll",
+	"Comment": "tells if this graph contains the given collection as a node.",
+	"Method": "boolean containsAll(Collection<?> c){\r\n    for (Object o : c) {\r\n        if (!contains(o)) {\r\n            return false;\r\n        }\r\n    }\r\n    return true;\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.SourceFile.getJsFileLastTranspiled",
+	"Comment": "gets the timestamp of the last generation of the javascript file.",
+	"Method": "long getJsFileLastTranspiled(){\r\n    return jsFileLastTranspiled;\r\n}"
+}, {
+	"Path": "org.jupiter.common.concurrent.collection.NonBlockingHashMap.clone",
+	"Comment": "creates a shallow copy of this hashtable. all the structure of thehashtable itself is copied, but the keys and values are not cloned.this is a relatively expensive operation.",
+	"Method": "Object clone(){\r\n    try {\r\n        NonBlockingHashMap<TypeK, TypeV> t = (NonBlockingHashMap<TypeK, TypeV>) super.clone();\r\n        t.clear();\r\n        for (TypeK K : keySet()) {\r\n            final TypeV V = get(K);\r\n            t.put(K, V);\r\n        }\r\n        return t;\r\n    } catch (CloneNotSupportedException e) {\r\n        throw new InternalError();\r\n    }\r\n}"
+}, {
+	"Path": "org.jooby.frontend.Frontend.onStarted",
+	"Comment": "run a node task after application has been initialized and is ready to serve.",
+	"Method": "Frontend onStarted(Throwing.Consumer<NodeTask> callback){\r\n    this.onStarted = callback;\r\n    return this;\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.Java2TypeScriptTranslator.print",
+	"Comment": "prints either a string, or the tree if the the string is null.",
+	"Method": "void print(String exprStr,JCTree expr){\r\n    if (exprStr == null) {\r\n        print(expr);\r\n    } else {\r\n        print(exprStr);\r\n    }\r\n}"
+}, {
+	"Path": "source.decorator.Globals.MyAnnotation",
+	"Comment": "follows the decorators implementations as global functions.",
+	"Method": "Object MyAnnotation(Object object){\r\n    return null;\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.JSweetContext.getFunctionalTypeParameterCount",
+	"Comment": "returns the number of arguments declared by a function interface.",
+	"Method": "int getFunctionalTypeParameterCount(Type type){\r\n    String name = type.tsym.getSimpleName().toString();\r\n    String fullName = type.toString();\r\n    if (Runnable.class.getName().equals(fullName)) {\r\n        return 0;\r\n    } else if (type.toString().startsWith(JSweetConfig.FUNCTION_CLASSES_PACKAGE + \".\")) {\r\n        if (name.equals(\"TriFunction\")) {\r\n            return 3;\r\n        } else if (name.equals(\"TriConsumer\")) {\r\n            return 3;\r\n        } else if (name.equals(\"Consumer\")) {\r\n            return 1;\r\n        } else if (name.startsWith(\"Function\") || name.startsWith(\"Consumer\")) {\r\n            return Integer.parseInt(name.substring(8));\r\n        } else {\r\n            return -1;\r\n        }\r\n    } else if (type.toString().startsWith(\"java.util.function.\")) {\r\n        if (name.endsWith(\"Consumer\")) {\r\n            if (name.startsWith(\"Bi\")) {\r\n                return 2;\r\n            } else {\r\n                return 1;\r\n            }\r\n        } else if (name.endsWith(\"Function\")) {\r\n            if (name.startsWith(\"Bi\")) {\r\n                return 2;\r\n            } else {\r\n                return 1;\r\n            }\r\n        } else if (name.endsWith(\"UnaryOperator\")) {\r\n            return 1;\r\n        } else if (name.endsWith(\"BinaryOperator\")) {\r\n            return 2;\r\n        } else if (name.endsWith(\"Supplier\")) {\r\n            return 0;\r\n        } else if (name.endsWith(\"Predicate\")) {\r\n            if (name.startsWith(\"Bi\")) {\r\n                return 2;\r\n            } else {\r\n                return 1;\r\n            }\r\n        } else {\r\n            return -1;\r\n        }\r\n    } else {\r\n        if (hasAnnotationType(type.tsym, JSweetConfig.ANNOTATION_FUNCTIONAL_INTERFACE)) {\r\n            for (Element e : type.tsym.getEnclosedElements()) {\r\n                if (e instanceof MethodSymbol) {\r\n                    return ((MethodSymbol) e).getParameters().size();\r\n                }\r\n            }\r\n            return -1;\r\n        } else {\r\n            return -1;\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.JSweetContext.getExportedElements",
+	"Comment": "gets the exported elements for all the modules defined in the program.",
+	"Method": "Map<String, List<Symbol>> getExportedElements(){\r\n    return exportedElements;\r\n}"
+}, {
+	"Path": "com.pholser.junit.quickcheck.generator.Gen.pure",
+	"Comment": "gives a generation strategy that produces the given value, always.",
+	"Method": "Gen<U> pure(U constant){\r\n    return (random, status) -> constant;\r\n}"
+}, {
+	"Path": "org.jooby.apitool.RouteMethod.description",
+	"Comment": "route description. usually the javadoc of a script or mvc route.",
+	"Method": "Optional<String> description(RouteMethod description,String description){\r\n    this.description = emptyToNull(description);\r\n    return this;\r\n}"
+}, {
+	"Path": "org.jupiter.common.concurrent.queues.LinkedQueueNode.getAndNullValue",
+	"Comment": "gets the current value and nulls out the reference to it from this node.",
+	"Method": "E getAndNullValue(){\r\n    E temp = lpValue();\r\n    spValue(null);\r\n    return temp;\r\n}"
+}, {
+	"Path": "org.jnativehook.mouse.NativeMouseEventTest.testGetClickCount",
+	"Comment": "test of getclickcount method, of class nativemouseevent.",
+	"Method": "void testGetClickCount(){\r\n    System.out.println(\"getClickCount\");\r\n    NativeMouseEvent event = new // Modifiers\r\n    NativeMouseEvent(NativeMouseEvent.NATIVE_MOUSE_PRESSED, 0x00, 50, 75, 1, NativeMouseEvent.BUTTON1);\r\n    assertEquals(1, event.getClickCount());\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.JSweetContext.lookupGlobalMethod",
+	"Comment": "looks up a registered method from its fully qualified name.",
+	"Method": "JCTree[] lookupGlobalMethod(String fullyQualifiedName){\r\n    return globalMethods.get(fullyQualifiedName);\r\n}"
+}, {
+	"Path": "org.jooby.Jooby.exportConf",
+	"Comment": "export configuration from an application. useful for tooling, testing, debugging, etc...",
+	"Method": "Config exportConf(Jooby app){\r\n    AtomicReference<Config> conf = new AtomicReference(ConfigFactory.empty());\r\n    app.on(\"*\", c -> {\r\n        conf.set(c);\r\n    });\r\n    exportRoutes(app);\r\n    return conf.get();\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.util.AbstractTreeScanner.getParentElement",
+	"Comment": "gets the parent element matching the given type within the scanning\tstack.",
+	"Method": "ExtendedElement getParentElement(T getParentElement,Class<T> type){\r\n    for (int i = this.stack.size() - 2; i >= 0; i--) {\r\n        JCTree t = this.stack.get(i);\r\n        if (t instanceof JCClassDecl && type.isAssignableFrom(((JCClassDecl) t).sym.getClass())) {\r\n            return (T) ((JCClassDecl) t).sym;\r\n        } else if (t instanceof JCMethodDecl && type.isAssignableFrom(((JCMethodDecl) t).sym.getClass())) {\r\n            return (T) ((JCClassDecl) t).sym;\r\n        } else if (t instanceof JCVariableDecl && type.isAssignableFrom(((JCVariableDecl) t).sym.getClass())) {\r\n            return (T) ((JCClassDecl) t).sym;\r\n        }\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "org.jooby.Result.header",
+	"Comment": "sets a response header with the given name and value. if the header had already been set,the new value overwrites the previous one.",
+	"Method": "Result header(String name,Object value,Result header,String name,Object values,Result header,String name,Iterable<Object> values){\r\n    requireNonNull(name, \"Header's name is required.\");\r\n    requireNonNull(values, \"Header's values are required.\");\r\n    setHeader(name, values);\r\n    return this;\r\n}"
+}, {
+	"Path": "com.graphhopper.jsprit.core.algorithm.recreate.BestInsertionBuilder.setLocalLevel",
+	"Comment": "if adddefaulmarginalcostcalculation is false, no calculator is set which implicitly assumes that marginal cost calculationis controlled by your custom soft constraints.",
+	"Method": "BestInsertionBuilder setLocalLevel(BestInsertionBuilder setLocalLevel,boolean addDefaultMarginalCostCalculation){\r\n    local = true;\r\n    addDefaultCostCalc = addDefaultMarginalCostCalculation;\r\n    return this;\r\n}"
+}, {
+	"Path": "org.jupiter.common.util.JvmTools.jStack",
+	"Comment": "returns java stack traces of java threads for the current java process.",
+	"Method": "List<String> jStack(){\r\n    List<String> stackList = new LinkedList();\r\n    Map<Thread, StackTraceElement[]> allStackTraces = Thread.getAllStackTraces();\r\n    for (Map.Entry<Thread, StackTraceElement[]> entry : allStackTraces.entrySet()) {\r\n        Thread thread = entry.getKey();\r\n        StackTraceElement[] stackTraces = entry.getValue();\r\n        stackList.add(String.format(\"\\\"%s\\\" tid=%s isDaemon=%s priority=%s\" + JConstants.NEWLINE, thread.getName(), thread.getId(), thread.isDaemon(), thread.getPriority()));\r\n        stackList.add(\"java.lang.Thread.State: \" + thread.getState() + JConstants.NEWLINE);\r\n        if (stackTraces != null) {\r\n            for (StackTraceElement s : stackTraces) {\r\n                stackList.add(\"    \" + s.toString() + JConstants.NEWLINE);\r\n            }\r\n        }\r\n    }\r\n    return stackList;\r\n}"
+}, {
+	"Path": "org.jnativehook.GlobalScreen.addNativeMouseMotionListener",
+	"Comment": "adds the specified native mouse motion listener to receive mouse motion\tevents from the native system. if listener is null, no exception is\tthrown and no action is performed.",
+	"Method": "void addNativeMouseMotionListener(NativeMouseMotionListener listener){\r\n    if (listener != null) {\r\n        eventListeners.add(NativeMouseMotionListener.class, listener);\r\n    }\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.JSweetContext.isAnonymousClass",
+	"Comment": "returns true if this new class expression defines an anonymous class.",
+	"Method": "boolean isAnonymousClass(JCNewClass newClass){\r\n    if (newClass.clazz != null && newClass.def != null) {\r\n        if (hasAnnotationType(newClass.clazz.type.tsym, JSweetConfig.ANNOTATION_OBJECT_TYPE) || hasAnnotationType(newClass.clazz.type.tsym, JSweetConfig.ANNOTATION_INTERFACE)) {\r\n            return false;\r\n        }\r\n        if (newClass.def.defs.size() > 2) {\r\n            return true;\r\n        }\r\n        if (newClass.clazz.type.tsym.getModifiers().contains(Modifier.ABSTRACT)) {\r\n            return true;\r\n        }\r\n        for (JCTree def : newClass.def.defs) {\r\n            if (def instanceof JCVariableDecl) {\r\n                return true;\r\n            }\r\n            if (def instanceof JCMethodDecl && !(((JCMethodDecl) def).sym.isConstructor() && ((JCMethodDecl) def).sym.getParameters().isEmpty())) {\r\n                return true;\r\n            }\r\n            if (def instanceof JCBlock) {\r\n                for (JCStatement s : ((JCBlock) def).stats) {\r\n                    if (!isAllowedStatementInMap(s)) {\r\n                        return true;\r\n                    }\r\n                }\r\n            }\r\n        }\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "com.graphhopper.jsprit.core.problem.vehicle.VehicleImpl.equals",
+	"Comment": "two vehicles are equal if they have the same id and if their types are equal.",
+	"Method": "boolean equals(Object obj){\r\n    if (this == obj)\r\n        return true;\r\n    if (obj == null)\r\n        return false;\r\n    if (getClass() != obj.getClass())\r\n        return false;\r\n    VehicleImpl other = (VehicleImpl) obj;\r\n    if (id == null) {\r\n        if (other.id != null)\r\n            return false;\r\n    } else if (!id.equals(other.id))\r\n        return false;\r\n    if (type == null) {\r\n        if (other.type != null)\r\n            return false;\r\n    } else if (!type.equals(other.type))\r\n        return false;\r\n    return true;\r\n}"
+}, {
+	"Path": "org.jooby.hbm.Hbm.onEvent",
+	"Comment": "register an hibernate event listener. listener will be created and injected by guice.",
+	"Method": "Hbm onEvent(EventType<T> type,Class<? extends T> listenerType){\r\n    bindings.add(b -> b.bind(listenerType).asEagerSingleton());\r\n    listeners.add((s, r) -> {\r\n        ServiceRegistryImplementor serviceRegistry = s.getServiceRegistry();\r\n        EventListenerRegistry service = serviceRegistry.getService(EventListenerRegistry.class);\r\n        T listener = r.require(listenerType);\r\n        service.appendListeners(type, listener);\r\n    });\r\n    return this;\r\n}"
+}, {
+	"Path": "org.jooby.Env.ifMode",
+	"Comment": "runs the callback function if the current env matches the given name.",
+	"Method": "Optional<T> ifMode(String name,Supplier<T> fn){\r\n    if (name().equals(name)) {\r\n        return Optional.of(fn.get());\r\n    }\r\n    return Optional.empty();\r\n}"
+}, {
+	"Path": "org.jupiter.common.util.collection.ByteObjectHashMap.indexOf",
+	"Comment": "locates the index for the given key. this method probes using double hashing.",
+	"Method": "int indexOf(byte key){\r\n    int startIndex = hashIndex(key);\r\n    int index = startIndex;\r\n    for (; ; ) {\r\n        if (values[index] == null) {\r\n            return -1;\r\n        }\r\n        if (key == keys[index]) {\r\n            return index;\r\n        }\r\n        if ((index = probeNext(index)) == startIndex) {\r\n            return -1;\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "org.jooby.apitool.ApiParser.modify",
+	"Comment": "modify one or more route method who matches the filter. work as a api to fix possible missingmetadata.",
+	"Method": "ApiParser modify(Predicate<RouteMethod> matcher,Consumer<RouteMethod> customizer){\r\n    this.customizer.put(matcher, customizer);\r\n    return this;\r\n}"
+}, {
+	"Path": "org.jooby.apitool.ApiParser.parse",
+	"Comment": "parse application bytecode and build route methods from it.",
+	"Method": "List<RouteMethod> parse(String application){\r\n    return new BytecodeRouteParser(loader, dir).parse(application).stream().filter(filter).collect(Collectors.toList());\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.JSweetContext.getImportedNames",
+	"Comment": "the list of names imported by the given module of the transpiled program.",
+	"Method": "Set<String> getImportedNames(String moduleName){\r\n    Set<String> importedNames = importedNamesInModules.get(moduleName);\r\n    if (importedNames == null) {\r\n        importedNames = new HashSet();\r\n        importedNamesInModules.put(moduleName, importedNames);\r\n    }\r\n    return importedNames;\r\n}"
+}, {
+	"Path": "com.graphhopper.jsprit.core.problem.vehicle.VehicleFleetManagerImpl.getAvailableVehicles",
+	"Comment": "returns a collection of available vehicles.if there is no vehicle with a certain type and location anymore, it looks up whether a penalty vehicle has been specified withthis type and location. if so, it returns this penalty vehicle. if not, no vehicle with this type and location is returned.",
+	"Method": "Collection<Vehicle> getAvailableVehicles(Collection<Vehicle> getAvailableVehicles,Vehicle withoutThisType){\r\n    List<Vehicle> vehicles = new ArrayList<Vehicle>();\r\n    for (int i = 0; i < vehicleTypes.length; i++) {\r\n        if (!vehicleTypes[i].isEmpty() && i != withoutThisType.getVehicleTypeIdentifier().getIndex()) {\r\n            vehicles.add(vehicleTypes[i].getVehicle());\r\n        }\r\n    }\r\n    return vehicles;\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.extension.PrinterAdapter.getModuleImportDescriptor",
+	"Comment": "this method implements the default behavior to generate module imports. it\tmay be overridden by subclasses to implement specific behaviors.",
+	"Method": "ModuleImportDescriptor getModuleImportDescriptor(CompilationUnitElement currentCompilationUnit,String importedName,TypeElement importedClass){\r\n    if (util().isSourceElement(importedClass) && !importedClass.getQualifiedName().toString().startsWith(JSweetConfig.LIBS_PACKAGE + \".\")) {\r\n        String importedModule = util().getSourceFilePath(importedClass);\r\n        if (importedModule.equals(currentCompilationUnit.getSourceFilePath())) {\r\n            return null;\r\n        }\r\n        Element parent = importedClass.getEnclosingElement();\r\n        while (!(parent instanceof PackageSymbol)) {\r\n            importedName = parent.getSimpleName().toString();\r\n            parent = parent.getEnclosingElement();\r\n        }\r\n        while (importedClass.getEnclosingElement() instanceof ClassSymbol) {\r\n            importedClass = (ClassSymbol) importedClass.getEnclosingElement();\r\n        }\r\n        if (parent != null && !hasAnnotationType(importedClass, JSweetConfig.ANNOTATION_ERASED)) {\r\n            String pathToImportedClass = util().getRelativePath(\"@/\" + currentCompilationUnit.getPackage().toString().replace('.', '/'), \"@/\" + importedClass.toString().replace('.', '/'));\r\n            if (!pathToImportedClass.startsWith(\".\")) {\r\n                pathToImportedClass = \"./\" + pathToImportedClass;\r\n            }\r\n            return new ModuleImportDescriptor((PackageElement) parent, importedName, pathToImportedClass.replace('\\\\', '/'));\r\n        }\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "org.jsweet.input.typescriptdef.ast.Scanner.isInScope",
+	"Comment": "tells if the given declaration belongs to the current scanning stack.",
+	"Method": "boolean isInScope(Declaration declaration){\r\n    boolean inScope = false;\r\n    for (int i = 0; i < getStack().size(); i++) {\r\n        if (getStack().get(i) == declaration) {\r\n            inScope = true;\r\n            break;\r\n        }\r\n    }\r\n    return inScope;\r\n}"
+}, {
+	"Path": "com.googlecode.jsonrpc4j.spring.rest.MappingJacksonRPC2HttpMessageConverter.getJsonEncoding",
+	"Comment": "determine the json encoding to use for the given content type.",
+	"Method": "JsonEncoding getJsonEncoding(MediaType contentType){\r\n    if (contentType != null && contentType.getCharset() != null) {\r\n        Charset charset = contentType.getCharset();\r\n        for (JsonEncoding encoding : JsonEncoding.values()) {\r\n            if (charset.name().equals(encoding.getJavaName())) {\r\n                return encoding;\r\n            }\r\n        }\r\n    }\r\n    return JsonEncoding.UTF8;\r\n}"
+}, {
+	"Path": "org.jupiter.common.util.internal.UnsafeUtil.arrayBaseOffset",
+	"Comment": "reports the offset of the first element in the storage allocation of agiven array class.",
+	"Method": "int arrayBaseOffset(Class<?> clazz){\r\n    return unsafe != null ? unsafe.arrayBaseOffset(clazz) : -1;\r\n}"
+}, {
+	"Path": "org.jooby.apitool.raml.Raml.define",
+	"Comment": "register a java type and produces an equivalent raml type. it returns an existing raml type ifthe java type was registered already.",
+	"Method": "RamlType define(Type javaType,RamlType baseType,RamlType define,Type type,RamlType define,String type,Model model){\r\n    RamlType definition = types.get(type);\r\n    if (definition == null) {\r\n        RamlType object = new RamlType(\"object\", type);\r\n        types.put(type, object);\r\n        Map<String, Object> example = new LinkedHashMap();\r\n        Optional.ofNullable(model.getProperties()).ifPresent(properties -> properties.forEach((name, property) -> {\r\n            if (property instanceof RefProperty) {\r\n                String propertyType = propertyType(property);\r\n                object.newProperty(name, propertyType, false);\r\n            } else if (property instanceof ArrayProperty) {\r\n                String propertyType = propertyType(((ArrayProperty) property).getItems()) + \"[]\";\r\n                object.newProperty(name, propertyType, false);\r\n            } else {\r\n                String propertyType = propertyType(property);\r\n                List<String> enums = null;\r\n                if (property instanceof StringProperty) {\r\n                    enums = ((StringProperty) property).getEnum();\r\n                }\r\n                RamlType ramlType = RamlType.valueOf(propertyType);\r\n                object.newProperty(name, propertyType, false, Optional.ofNullable(enums).map(it -> it.toArray(new String[it.size()])).orElse(new String[0]));\r\n                example.put(name, Optional.ofNullable(enums).<Object>map(it -> it.get(0)).orElse(ramlType.getExample()));\r\n            }\r\n        }));\r\n        definition = object;\r\n        if (example.values().stream().filter(Objects::nonNull).count() > 0) {\r\n            object.setExample(example);\r\n        }\r\n    }\r\n    return definition;\r\n}"
+}, {
+	"Path": "com.graphhopper.jsprit.core.algorithm.state.StateManager.putProblemState",
+	"Comment": "associates the specified state to the stateid. if there already exists a state value for the stateid, this oldvalue is replaced by the new value.",
+	"Method": "void putProblemState(StateId stateId,Class<T> type,T state){\r\n    problemStates[stateId.getIndex()] = state;\r\n}"
+}, {
+	"Path": "org.jupiter.common.util.Pow2.roundToPowerOfTwo",
+	"Comment": "find the next larger positive power of two value up from the given value.if value is a power of two then this value will be returned.",
+	"Method": "int roundToPowerOfTwo(int value){\r\n    return 1 << (32 - Integer.numberOfLeadingZeros(value - 1));\r\n}"
+}, {
+	"Path": "org.jooby.mongodb.Monphia.doWith",
+	"Comment": "morphia startup callback, from here you can map classes, set mapper options, etc..",
+	"Method": "Monphia doWith(BiConsumer<Morphia, Config> callback,Monphia doWith,Consumer<Datastore> callback){\r\n    this.callback = requireNonNull(callback, \"Datastore callback is required.\");\r\n    return this;\r\n}"
+}, {
+	"Path": "org.jnativehook.mouse.NativeMouseListenerTest.testNativeMouseClicked",
+	"Comment": "test of nativemouseclicked method, of class nativemouselistener.",
+	"Method": "void testNativeMouseClicked(){\r\n    System.out.println(\"nativeMouseClicked\");\r\n    NativeMouseEvent event = new // Modifiers\r\n    NativeMouseEvent(NativeMouseEvent.NATIVE_MOUSE_CLICKED, 0x00, 50, 75, 1, NativeMouseEvent.BUTTON1);\r\n    NativeMouseInputListenerImpl listener = new NativeMouseInputListenerImpl();\r\n    listener.nativeMouseClicked(event);\r\n    assertEquals(event, listener.getLastEvent());\r\n}"
+}, {
+	"Path": "org.jooby.apitool.ApiTool.modify",
+	"Comment": "modify one or more route method who matches the filter. work as a api to fix possible missingmetadata.",
+	"Method": "ApiTool modify(Predicate<RouteMethod> matcher,Consumer<RouteMethod> customizer){\r\n    this.customizer.put(matcher, customizer);\r\n    return this;\r\n}"
+}, {
+	"Path": "com.graphhopper.jsprit.core.algorithm.state.StateManager.getActivityState",
+	"Comment": "returns the associated state value to the specified activity, vehicle and stateid, or null if no state value isassociated.if type class is not equal to the associated type class of the requested state value, it throws a classcastexception.",
+	"Method": "T getActivityState(TourActivity act,StateId stateId,Class<T> type,T getActivityState,TourActivity act,Vehicle vehicle,StateId stateId,Class<T> type){\r\n    if (act.getIndex() == 0)\r\n        throw new IllegalStateException(\"activity index is 0. this should not be.\");\r\n    if (act.getIndex() < 0)\r\n        return null;\r\n    T state;\r\n    try {\r\n        state = type.cast(vehicleDependentActivityStates[act.getIndex()][vehicle.getVehicleTypeIdentifier().getIndex()][stateId.getIndex()]);\r\n    } catch (ClassCastException e) {\r\n        Object state_class = vehicleDependentActivityStates[act.getIndex()][vehicle.getVehicleTypeIdentifier().getIndex()][stateId.getIndex()];\r\n        throw getClassCastException(e, stateId, type.toString(), state_class.getClass().toString());\r\n    }\r\n    return state;\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.JSweetContext.getAnnotationValue",
+	"Comment": "gets the first value of the given property for the given annotation type if\tfound on the given symbol.",
+	"Method": "T getAnnotationValue(Symbol symbol,String annotationType,Class<T> propertyClass,T defaultValue,T getAnnotationValue,Symbol symbol,String annotationType,String propertyName,Class<T> propertyClass,T defaultValue){\r\n    for (AnnotationManager annotationIntrospector : annotationManagers) {\r\n        T value = annotationIntrospector.getAnnotationValue(symbol, annotationType, propertyName, propertyClass, defaultValue);\r\n        if (value != null) {\r\n            return value;\r\n        }\r\n    }\r\n    if (hasAnnotationFilters()) {\r\n        String signature = symbol.toString();\r\n        if (symbol.getEnclosingElement() != null) {\r\n            signature = symbol.getEnclosingElement().getQualifiedName().toString() + \".\" + signature;\r\n        }\r\n        Collection<AnnotationFilterDescriptor> filterDescriptors = annotationFilters.get(annotationType);\r\n        if (filterDescriptors != null) {\r\n            for (AnnotationFilterDescriptor filterDescriptor : filterDescriptors) {\r\n                for (Pattern include : filterDescriptor.inclusionPatterns) {\r\n                    if (include.matcher(signature).matches()) {\r\n                        boolean excluded = false;\r\n                        Collection<Pattern> excludePatterns = filterDescriptor.exclusionPatterns;\r\n                        if (excludePatterns != null) {\r\n                            for (Pattern exclude : excludePatterns) {\r\n                                if (exclude.matcher(signature).matches()) {\r\n                                    excluded = true;\r\n                                    break;\r\n                                }\r\n                            }\r\n                        }\r\n                        if (!excluded) {\r\n                            if (filterDescriptor.parameter == null) {\r\n                                return defaultValue;\r\n                            } else if (filterDescriptor.parameter.startsWith(\"'\")) {\r\n                                return (T) filterDescriptor.parameter.substring(1, filterDescriptor.parameter.length() - 1);\r\n                            } else if (filterDescriptor.parameter.endsWith(\".class\")) {\r\n                                return (T) filterDescriptor.parameter.substring(0, filterDescriptor.parameter.length() - 6);\r\n                            } else {\r\n                                return (T) filterDescriptor.parameter;\r\n                            }\r\n                        }\r\n                    }\r\n                }\r\n            }\r\n        }\r\n    }\r\n    AnnotationMirror anno = getAnnotation(symbol, annotationType);\r\n    T val = defaultValue;\r\n    if (anno != null) {\r\n        T firstVal = getFirstAnnotationValue(anno, propertyName, propertyClass, null);\r\n        if (firstVal != null) {\r\n            val = firstVal;\r\n        }\r\n    }\r\n    return val;\r\n}"
+}, {
+	"Path": "org.jnativehook.GlobalScreen.addNativeMouseWheelListener",
+	"Comment": "adds the specified native mouse wheel listener to receive mouse wheel\tevents from the native system. if listener is null, no exception is\tthrown and no action is performed.",
+	"Method": "void addNativeMouseWheelListener(NativeMouseWheelListener listener){\r\n    if (listener != null) {\r\n        eventListeners.add(NativeMouseWheelListener.class, listener);\r\n    }\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.util.DirectedGraph.buildEdges",
+	"Comment": "automatically builds the edges between all the nodes of the graph by\tusing the given comparator. if the comparator returns 0, then no edge is\tconstructor between the compared nodes.",
+	"Method": "void buildEdges(Comparator<U> nodeComparator){\r\n    for (T e1 : nodes.keySet()) {\r\n        for (T e2 : nodes.keySet()) {\r\n            @SuppressWarnings(\"unchecked\")\r\n            int i = nodeComparator.compare((U) e1, (U) e2);\r\n            if (i < 0) {\r\n                addEdge(e1, e2);\r\n            }\r\n            if (i > 0) {\r\n                addEdge(e2, e1);\r\n            }\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.JSweetContext.getImportedElements",
+	"Comment": "the list of package names imported by the given m of the transpiled program.",
+	"Method": "Map<Symbol, String> getImportedElements(String moduleName){\r\n    Map<Symbol, String> importedElements = importedElementsInModules.get(moduleName);\r\n    if (importedElements == null) {\r\n        importedElements = new HashMap();\r\n        importedElementsInModules.put(moduleName, importedElements);\r\n    }\r\n    return importedElements;\r\n}"
+}, {
+	"Path": "com.bazaarvoice.jolt.JoltCliUtilities.readJsonInput",
+	"Comment": "this method will read in json, either from the given file or from standard inif the file is null. an object contain the ingested input is returned.",
+	"Method": "Object readJsonInput(File file,boolean suppressOutput){\r\n    Object jsonObject;\r\n    if (file == null) {\r\n        try {\r\n            jsonObject = JsonUtils.jsonToMap(System.in);\r\n        } catch (Exception e) {\r\n            printToStandardOut(\"Failed to process standard input.\", suppressOutput);\r\n            return null;\r\n        }\r\n    } else {\r\n        jsonObject = createJsonObjectFromFile(file, suppressOutput);\r\n    }\r\n    return jsonObject;\r\n}"
+}, {
+	"Path": "com.graphhopper.jsprit.core.analysis.SolutionAnalyserTest.lastTransportDistanceOfRoute1ShouldWork",
+	"Comment": "test the last transport distance at an activity are correct.",
+	"Method": "void lastTransportDistanceOfRoute1ShouldWork(){\r\n    testTransportCosts(TransportCostsTestType.LAST_DISTANCE);\r\n}"
+}, {
+	"Path": "org.jooby.couchbase.Datastore.remove",
+	"Comment": "removes an entity from the server.the an entity returned just has the document id and its cas value set, since the value and allotherassociated properties have been removed from the server.",
+	"Method": "RemoveCommand remove(long remove,Object entity,long remove,Class<?> entityClass,Object id){\r\n    return remove().execute(entityClass, id);\r\n}"
+}, {
+	"Path": "com.graphhopper.jsprit.core.algorithm.VehicleRoutingAlgorithm.addTerminationCriterion",
+	"Comment": "adds a termination criterion to the collection of already specified termination criteria. if oneof the termination criteria is fulfilled, the algorithm terminates prematurely.",
+	"Method": "void addTerminationCriterion(PrematureAlgorithmTermination terminationCriterion){\r\n    terminationManager.addTermination(terminationCriterion);\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.TypeChecker.checkUnionTypeAssignment",
+	"Comment": "checks that the given union type assignment conforms to jsweet\tcontraints.",
+	"Method": "boolean checkUnionTypeAssignment(Types types,JCTree parent,Type assigned,JCMethodInvocation union,boolean checkUnionTypeAssignment,Types types,JCTree parent,JCMethodInvocation union){\r\n    if (parent instanceof JCVariableDecl) {\r\n        JCVariableDecl decl = (JCVariableDecl) parent;\r\n        if (decl.init == union) {\r\n            return checkUnionTypeAssignment(types, parent, decl.type, union);\r\n        }\r\n    } else if (parent instanceof JCAssign) {\r\n        JCAssign assign = (JCAssign) parent;\r\n        if (assign.rhs == union) {\r\n            return checkUnionTypeAssignment(types, parent, assign.lhs.type, union);\r\n        }\r\n    } else if (parent instanceof JCMethodInvocation) {\r\n        JCMethodInvocation invocation = (JCMethodInvocation) parent;\r\n        for (JCTree arg : invocation.args) {\r\n            if (arg == union) {\r\n                return checkUnionTypeAssignment(types, parent, arg.type, union);\r\n            }\r\n        }\r\n    }\r\n    return true;\r\n}"
+}, {
+	"Path": "com.graphhopper.jsprit.core.algorithm.acceptor.AcceptNewRemoveFirst.acceptSolution",
+	"Comment": "accepts every solution if solution memory allows. if memory occupied, than accepts new solution only if better than the worst in memory.consequently, the worst solution is removed from solutions, and the new solution added.note that this modifies collection solutions.",
+	"Method": "boolean acceptSolution(Collection<VehicleRoutingProblemSolution> solutions,VehicleRoutingProblemSolution newSolution){\r\n    if (solutions.size() >= solutionMemory) {\r\n        solutions.remove(solutions.iterator().next());\r\n    }\r\n    solutions.add(newSolution);\r\n    return true;\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.JSweetContext.hasActualAnnotationType",
+	"Comment": "tells if the given symbol is annotated with one of the given annotation type\tnames.",
+	"Method": "boolean hasActualAnnotationType(Symbol symbol,String annotationTypes){\r\n    for (Compound a : symbol.getAnnotationMirrors()) {\r\n        for (String annotationType : annotationTypes) {\r\n            if (annotationType.equals(a.type.toString())) {\r\n                return true;\r\n            }\r\n        }\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "org.jooby.apitool.ApiParser.parseFully",
+	"Comment": "parse application bytecode, build route methods from it and merge output with the given routes.",
+	"Method": "List<RouteMethod> parseFully(Jooby application,List<RouteMethod> parseFully,String application,List<Route.Definition> routes){\r\n    List<RouteMethod> methods = parse(application);\r\n    BiFunction<String, String, OptionalInt> routeIndex = (verb, pattern) -> {\r\n        RouteMethod it = new RouteMethod(verb, pattern, new RouteResponse(void.class));\r\n        return IntStream.range(0, methods.size()).filter(i -> methods.get(i).equals(it)).findFirst();\r\n    };\r\n    List<RouteMethod> result = new ArrayList(routes.size());\r\n    for (Route.Definition route : routes) {\r\n        routeIndex.apply(route.method(), route.pattern()).ifPresent(i -> result.add(complement(route, methods.remove(i))));\r\n    }\r\n    customizer.entrySet().forEach(it -> result.stream().filter(it.getKey()).forEach(it.getValue()));\r\n    return result;\r\n}"
+}, {
+	"Path": "org.jooby.LifeCycle.lifeCycleAnnotation",
+	"Comment": "find a single method annotated with the given annotation in the provided type.",
+	"Method": "Optional<Throwing.Consumer<Object>> lifeCycleAnnotation(Class<?> rawType,Class<? extends Annotation> annotation){\r\n    for (Method method : rawType.getDeclaredMethods()) {\r\n        if (method.getAnnotation(annotation) != null) {\r\n            int mods = method.getModifiers();\r\n            if (Modifier.isStatic(mods)) {\r\n                throw new IllegalArgumentException(annotation.getSimpleName() + \" method should not be static: \" + method);\r\n            }\r\n            if (!Modifier.isPublic(mods)) {\r\n                throw new IllegalArgumentException(annotation.getSimpleName() + \" method must be public: \" + method);\r\n            }\r\n            if (method.getParameterCount() > 0) {\r\n                throw new IllegalArgumentException(annotation.getSimpleName() + \" method should not accept arguments: \" + method);\r\n            }\r\n            if (method.getReturnType() != void.class) {\r\n                throw new IllegalArgumentException(annotation.getSimpleName() + \" method should not return anything: \" + method);\r\n            }\r\n            return Optional.of(owner -> {\r\n                Try.run(() -> {\r\n                    method.setAccessible(true);\r\n                    method.invoke(owner);\r\n                }).unwrap(InvocationTargetException.class).throwException();\r\n            });\r\n        }\r\n    }\r\n    return Optional.empty();\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.extension.StringEnumAdapter.substituteMethodInvocation",
+	"Comment": "uses of enum api need to be translated accordingly to strings.",
+	"Method": "boolean substituteMethodInvocation(MethodInvocationElement invocation){\r\n    if (invocation.getTargetExpression() != null) {\r\n        Element targetType = invocation.getTargetExpression().getTypeAsElement();\r\n        if (isStringEnum(targetType)) {\r\n            switch(invocation.getMethodName()) {\r\n                case \"name\":\r\n                    printMacroName(invocation.getMethodName());\r\n                    print(invocation.getTargetExpression());\r\n                    return true;\r\n                case \"valueOf\":\r\n                    printMacroName(invocation.getMethodName());\r\n                    print(invocation.getArgument(0));\r\n                    return true;\r\n                case \"equals\":\r\n                    printMacroName(invocation.getMethodName());\r\n                    print(\"(\").print(invocation.getTargetExpression()).print(\" == \").print(invocation.getArguments().get(0)).print(\")\");\r\n                    return true;\r\n            }\r\n        }\r\n    }\r\n    return super.substituteMethodInvocation(invocation);\r\n}"
+}, {
+	"Path": "org.jnativehook.GlobalScreenTest.testProcessMouseEvent",
+	"Comment": "test of processmouseevent method, of class globalscreen.",
+	"Method": "void testProcessMouseEvent(){\r\n    System.out.println(\"processMouseEvent\");\r\n    NativeMouseInputListenerImpl listener = new NativeMouseInputListenerImpl();\r\n    GlobalScreen.addNativeMouseListener(listener);\r\n    NativeMouseEvent event = new // Modifiers\r\n    NativeMouseEvent(NativeMouseEvent.NATIVE_MOUSE_CLICKED, 0x00, 50, 75, 1, NativeMouseEvent.BUTTON1);\r\n    synchronized (listener) {\r\n        GlobalScreen.dispatchEvent(event);\r\n        listener.wait(3000);\r\n        assertEquals(event, listener.getLastEvent());\r\n    }\r\n    GlobalScreen.removeNativeMouseListener(listener);\r\n}"
+}, {
+	"Path": "com.graphhopper.jsprit.core.algorithm.acceptor.GreedyAcceptance.acceptSolution",
+	"Comment": "accepts every solution if solution memory allows. if memory occupied, than accepts new solution only if better than the worst in memory.consequently, the worst solution is removed from solutions, and the new solution added.note that this modifies collection solutions.",
+	"Method": "boolean acceptSolution(Collection<VehicleRoutingProblemSolution> solutions,VehicleRoutingProblemSolution newSolution){\r\n    boolean solutionAccepted = false;\r\n    if (solutions.size() < solutionMemory) {\r\n        solutions.add(newSolution);\r\n        solutionAccepted = true;\r\n    } else {\r\n        VehicleRoutingProblemSolution worstSolution = null;\r\n        for (VehicleRoutingProblemSolution s : solutions) {\r\n            if (worstSolution == null)\r\n                worstSolution = s;\r\n            else if (s.getCost() > worstSolution.getCost())\r\n                worstSolution = s;\r\n        }\r\n        if (newSolution.getCost() < worstSolution.getCost()) {\r\n            solutions.remove(worstSolution);\r\n            solutions.add(newSolution);\r\n            solutionAccepted = true;\r\n        }\r\n    }\r\n    return solutionAccepted;\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.Java2TypeScriptTranslator.enterComparisonMode",
+	"Comment": "selects a comparison mode for subsequently printed comparison operators.",
+	"Method": "void enterComparisonMode(ComparisonMode comparisonMode){\r\n    comparisonModeStack.push(comparisonMode);\r\n}"
+}, {
+	"Path": "org.jupiter.common.util.ThrowUtil.throwException",
+	"Comment": "raises an exception bypassing compiler checks for checked exceptions.",
+	"Method": "void throwException(Throwable t){\r\n    Unsafe unsafe = UnsafeUtil.getUnsafe();\r\n    if (unsafe != null) {\r\n        unsafe.throwException(t);\r\n    } else {\r\n        ThrowUtil.<RuntimeException>throwException0(t);\r\n    }\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.util.SourceMap.getSortedEntries",
+	"Comment": "gets all the sorted entries in this source map agains the given\tcomparator.",
+	"Method": "List<Entry> getSortedEntries(Comparator<Entry> comparator){\r\n    List<Entry> list = new ArrayList<Entry>(entries);\r\n    list.sort(comparator);\r\n    return list;\r\n}"
+}, {
+	"Path": "org.jnativehook.mouse.NativeMouseMotionListenerTest.testNativeMouseMoved",
+	"Comment": "test of nativemousemoved method, of class nativemousemotionlistener.",
+	"Method": "void testNativeMouseMoved(){\r\n    System.out.println(\"nativeMouseMoved\");\r\n    NativeMouseEvent event = new // Modifiers\r\n    NativeMouseEvent(NativeMouseEvent.NATIVE_MOUSE_MOVED, 0x00, 50, 75, 0, NativeMouseEvent.NOBUTTON);\r\n    NativeMouseInputListenerImpl listener = new NativeMouseInputListenerImpl();\r\n    listener.nativeMouseMoved(event);\r\n    assertEquals(event, listener.getLastEvent());\r\n}"
+}, {
+	"Path": "org.jooby.Jooby.port",
+	"Comment": "set the http port.keep in mind this work as a default port and can be reset via application.portproperty.",
+	"Method": "Jooby port(int port){\r\n    this.port = port;\r\n    return this;\r\n}"
+}, {
+	"Path": "org.jupiter.common.concurrent.collection.NonBlockingHashMap.print2",
+	"Comment": "print only the live values, broken down by the table they are in",
+	"Method": "void print2(Object[] kvs){\r\n    for (int i = 0; i < len(kvs); i++) {\r\n        Object key = key(kvs, i);\r\n        Object val = val(kvs, i);\r\n        Object U = Prime.unbox(val);\r\n        if (key != null && key != TOMBSTONE && val != null && U != TOMBSTONE) {\r\n            String p = (val == U) ? \"\" : \"prime_\";\r\n            System.out.println(\"\" + i + \" (\" + key + \",\" + p + val + \")\");\r\n        }\r\n    }\r\n    Object[] newkvs = chm(kvs)._newkvs;\r\n    if (newkvs != null) {\r\n        System.out.println(\"----\");\r\n        print2(newkvs);\r\n    }\r\n}"
+}, {
+	"Path": "com.googlecode.jsonrpc4j.JsonRpcClient.invokeAndReadResponse",
+	"Comment": "invokes the given method on the remote service\tpassing the given arguments and reads a response.",
+	"Method": "T invokeAndReadResponse(String methodName,Object argument,Class<T> clazz,OutputStream output,InputStream input,Object invokeAndReadResponse,String methodName,Object argument,Type returnType,OutputStream output,InputStream input,Object invokeAndReadResponse,String methodName,Object argument,Type returnType,OutputStream output,InputStream input,String id,T invokeAndReadResponse,String methodName,Object argument,Class<T> clazz,OutputStream output,InputStream input,String id){\r\n    return (T) invokeAndReadResponse(methodName, argument, Type.class.cast(clazz), output, input, id);\r\n}"
+}, {
+	"Path": "org.jnativehook.GlobalScreenTest.testRegisterNativeHook",
+	"Comment": "test of registernativehook method, of class globalscreen.",
+	"Method": "void testRegisterNativeHook(){\r\n    System.out.println(\"registerNativeHook\");\r\n    GlobalScreen.registerNativeHook();\r\n}"
+}, {
+	"Path": "org.jupiter.common.concurrent.collection.ConcurrentAutoTable.internal_size",
+	"Comment": "return the internal counter striping factor.useful for diagnosingperformance problems.",
+	"Method": "int internal_size(){\r\n    return _cat._t.length;\r\n}"
+}, {
+	"Path": "com.bazaarvoice.jolt.ChainrFactory.fromClassPath",
+	"Comment": "builds a chainr instance using the spec described in the data via the class path that is passed in.",
+	"Method": "Chainr fromClassPath(String chainrSpecClassPath,Chainr fromClassPath,String chainrSpecClassPath,ChainrInstantiator chainrInstantiator){\r\n    Object chainrSpec = JsonUtils.classpathToObject(chainrSpecClassPath);\r\n    return getChainr(chainrInstantiator, chainrSpec);\r\n}"
+}, {
+	"Path": "com.bazaarvoice.jolt.common.PathEvaluatingTraversal.write",
+	"Comment": "use the supplied walkedpath, in the evaluation of each of our pathelements to build a concrete output path.then use that output path to write the given data to the output.",
+	"Method": "void write(Object data,Map<String, Object> output,WalkedPath walkedPath){\r\n    List<String> evaledPaths = evaluate(walkedPath);\r\n    if (evaledPaths != null) {\r\n        traversr.set(output, evaledPaths, data);\r\n    }\r\n}"
+}, {
+	"Path": "org.jnativehook.GlobalScreen.addNativeKeyListener",
+	"Comment": "adds the specified native key listener to receive key events from the\tnative system. if listener is null, no exception is thrown and no action\tis performed.",
+	"Method": "void addNativeKeyListener(NativeKeyListener listener){\r\n    if (listener != null) {\r\n        eventListeners.add(NativeKeyListener.class, listener);\r\n    }\r\n}"
+}, {
+	"Path": "com.graphhopper.jsprit.core.problem.solution.VehicleRoutingProblemSolution.getUnassignedJobs",
+	"Comment": "returns bad jobs, i.e. jobs that are not assigned to any vehicle route.",
+	"Method": "Collection<Job> getUnassignedJobs(){\r\n    return unassignedJobs;\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.JSweetContext.isIgnored",
+	"Comment": "returns true if this class declaration is not to be output by the transpiler.",
+	"Method": "boolean isIgnored(JCClassDecl classdecl){\r\n    if (hasAnnotationType(classdecl.type.tsym, JSweetConfig.ANNOTATION_OBJECT_TYPE)) {\r\n        return true;\r\n    }\r\n    if (hasAnnotationType(classdecl.type.tsym, JSweetConfig.ANNOTATION_ERASED)) {\r\n        return true;\r\n    }\r\n    if (classdecl.type.tsym.getKind() == ElementKind.ANNOTATION_TYPE && !hasAnnotationType(classdecl.sym, JSweetConfig.ANNOTATION_DECORATOR)) {\r\n        return true;\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "com.bazaarvoice.jolt.chainr.spec.ChainrEntry.getErrorMessageIndexSuffix",
+	"Comment": "generate an error message suffix what lists the index of the chainrentry in the overall chainrspec.",
+	"Method": "String getErrorMessageIndexSuffix(){\r\n    return \" at index:\" + index + \".\";\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.JSweetTranspiler.setBundle",
+	"Comment": "sets this transpiler to generate javascript bundles for running in a web\tbrowser.",
+	"Method": "void setBundle(boolean bundle){\r\n    this.bundle = bundle;\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.util.Util.fillAllVariablesInScope",
+	"Comment": "finds all the variables accessible within the current scanning scope.",
+	"Method": "void fillAllVariablesInScope(Map<String, VarSymbol> vars,Stack<JCTree> scanningStack,JCTree from,JCTree to){\r\n    if (from == to) {\r\n        return;\r\n    }\r\n    int i = scanningStack.indexOf(from);\r\n    if (i == -1 || i == 0) {\r\n        return;\r\n    }\r\n    JCTree parent = scanningStack.get(i - 1);\r\n    List<JCStatement> statements = null;\r\n    switch(parent.getKind()) {\r\n        case BLOCK:\r\n            statements = ((JCBlock) parent).stats;\r\n            break;\r\n        case CASE:\r\n            statements = ((JCCase) parent).stats;\r\n            break;\r\n        case CATCH:\r\n            putVar(vars, ((JCCatch) parent).param.sym);\r\n            break;\r\n        case FOR_LOOP:\r\n            if (((JCForLoop) parent).init != null) {\r\n                for (JCStatement s : ((JCForLoop) parent).init) {\r\n                    if (s instanceof JCVariableDecl) {\r\n                        putVar(vars, ((JCVariableDecl) s).sym);\r\n                    }\r\n                }\r\n            }\r\n            break;\r\n        case ENHANCED_FOR_LOOP:\r\n            putVar(vars, ((JCEnhancedForLoop) parent).var.sym);\r\n            break;\r\n        case METHOD:\r\n            for (JCVariableDecl var : ((JCMethodDecl) parent).params) {\r\n                putVar(vars, var.sym);\r\n            }\r\n            break;\r\n        default:\r\n    }\r\n    if (statements != null) {\r\n        for (JCStatement s : statements) {\r\n            if (s == from) {\r\n                break;\r\n            } else if (s instanceof JCVariableDecl) {\r\n                putVar(vars, ((JCVariableDecl) s).sym);\r\n            }\r\n        }\r\n    }\r\n    fillAllVariablesInScope(vars, scanningStack, parent, to);\r\n}"
+}, {
+	"Path": "com.bazaarvoice.jolt.ChainrFactory.fromFile",
+	"Comment": "builds a chainr instance using the spec described in the file that is passed in.",
+	"Method": "Chainr fromFile(File chainrSpecFile,Chainr fromFile,File chainrSpecFile,ChainrInstantiator chainrInstantiator){\r\n    Object chainrSpec;\r\n    try {\r\n        FileInputStream fileInputStream = new FileInputStream(chainrSpecFile);\r\n        chainrSpec = JsonUtils.jsonToObject(fileInputStream);\r\n    } catch (Exception e) {\r\n        throw new RuntimeException(\"Unable to load chainr spec file \" + chainrSpecFile.getAbsolutePath());\r\n    }\r\n    return getChainr(chainrInstantiator, chainrSpec);\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.JSweetTranspiler.setSkipTypeScriptChecks",
+	"Comment": "tells tsc to skip some checks in order to reduce load time, useful in unit\ttests where transpiler is invoked many times",
+	"Method": "void setSkipTypeScriptChecks(boolean skipTypeScriptChecks){\r\n    this.skipTypeScriptChecks = skipTypeScriptChecks;\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.extension.PrinterAdapter.eraseSuperInterface",
+	"Comment": "tells if a super interface has to be erased in the generated source.",
+	"Method": "boolean eraseSuperInterface(TypeElement type,TypeElement superInterface){\r\n    return parentAdapter == null ? false : parentAdapter.eraseSuperInterface(type, superInterface);\r\n}"
+}, {
+	"Path": "org.jupiter.common.util.Reflects.getValue",
+	"Comment": "returns the value by name, on the specified object. the value isautomatically wrapped in an object if it has a primitive type.",
+	"Method": "Object getValue(Object o,String name){\r\n    Object value = null;\r\n    try {\r\n        Field fd = setAccessible(getField(o.getClass(), name));\r\n        value = fd.get(o);\r\n    } catch (Exception e) {\r\n        ThrowUtil.throwException(e);\r\n    }\r\n    return value;\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.util.DirectedGraph.containsAll",
+	"Comment": "tells if this graph contains the given collection as a node.",
+	"Method": "boolean containsAll(Collection<?> c){\r\n    for (Object o : c) {\r\n        if (!contains(o)) {\r\n            return false;\r\n        }\r\n    }\r\n    return true;\r\n}"
+}, {
+	"Path": "com.googlecode.jsonrpc4j.spring.AutoJsonRpcServiceImplExporter.findServiceBeanDefinitions",
+	"Comment": "finds the beans to expose.\tsearches parent factories as well.",
+	"Method": "Map<String, String> findServiceBeanDefinitions(ConfigurableListableBeanFactory beanFactory){\r\n    final Map<String, String> serviceBeanNames = new HashMap();\r\n    for (String beanName : beanFactory.getBeanDefinitionNames()) {\r\n        AutoJsonRpcServiceImpl autoJsonRpcServiceImplAnnotation = beanFactory.findAnnotationOnBean(beanName, AutoJsonRpcServiceImpl.class);\r\n        JsonRpcService jsonRpcServiceAnnotation = beanFactory.findAnnotationOnBean(beanName, JsonRpcService.class);\r\n        if (null != autoJsonRpcServiceImplAnnotation) {\r\n            if (null == jsonRpcServiceAnnotation) {\r\n                throw new IllegalStateException(\"on the bean [\" + beanName + \"], @\" + AutoJsonRpcServiceImpl.class.getSimpleName() + \" was found, but not @\" + JsonRpcService.class.getSimpleName() + \" -- both are required\");\r\n            }\r\n            List<String> paths = new ArrayList();\r\n            Collections.addAll(paths, autoJsonRpcServiceImplAnnotation.additionalPaths());\r\n            paths.add(jsonRpcServiceAnnotation.value());\r\n            for (String path : paths) {\r\n                if (!PATTERN_JSONRPC_PATH.matcher(path).matches()) {\r\n                    throw new RuntimeException(\"the path [\" + path + \"] for the bean [\" + beanName + \"] is not valid\");\r\n                }\r\n                logger.info(\"exporting bean [{}] ---> [{}]\", beanName, path);\r\n                if (isNotDuplicateService(serviceBeanNames, beanName, path)) {\r\n                    serviceBeanNames.put(path, beanName);\r\n                }\r\n            }\r\n        }\r\n    }\r\n    collectFromParentBeans(beanFactory, serviceBeanNames);\r\n    return serviceBeanNames;\r\n}"
+}, {
+	"Path": "com.pholser.junit.quickcheck.generator.Gen.map",
+	"Comment": "gives a generation strategy that produces a random value by having thisstrategy produce a random value, then applying the given function tothat value, and returning the result.",
+	"Method": "Gen<U> map(Function<? super T, ? extends U> mapper){\r\n    return (random, status) -> mapper.apply(_gen(random, status));\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.util.Util.isSourceElement",
+	"Comment": "tells if the given element is within the java sources being compiled.",
+	"Method": "boolean isSourceElement(Element element){\r\n    if (element == null || element instanceof PackageSymbol) {\r\n        return false;\r\n    }\r\n    if (element instanceof ClassSymbol) {\r\n        ClassSymbol clazz = (ClassSymbol) element;\r\n        if (clazz.sourcefile != null && clazz.sourcefile.getClass().getName().equals(\"com.sun.tools.javac.file.RegularFileObject\")) {\r\n            return true;\r\n        }\r\n    }\r\n    return isSourceElement(element.getEnclosingElement());\r\n}"
+}, {
+	"Path": "org.jupiter.common.util.Reflects.setValue",
+	"Comment": "sets new value by name, on the specified object. the new valueis automatically unwrapped if the underlying field has a primitive type.",
+	"Method": "void setValue(Object o,String name,Object value){\r\n    try {\r\n        Field fd = setAccessible(getField(o.getClass(), name));\r\n        fd.set(o, value);\r\n    } catch (Exception e) {\r\n        ThrowUtil.throwException(e);\r\n    }\r\n}"
+}, {
+	"Path": "com.pholser.junit.quickcheck.generator.Gen.flatMap",
+	"Comment": "gives a generation strategy that produces a random value by having thisstrategy produce a random value, then applying the given function tothat value, and asking the result to produce a value.",
+	"Method": "Gen<U> flatMap(Function<? super T, ? extends Gen<? extends U>> mapper){\r\n    return (random, status) -> mapper.apply(_gen(random, status))._gen(random, status);\r\n}"
+}, {
+	"Path": "com.graphhopper.jsprit.core.algorithm.recreate.RegretInsertionFast.setScoringFunction",
+	"Comment": "sets the scoring function.by default, the this.timewindowscorer is used.",
+	"Method": "void setScoringFunction(ScoringFunction scoringFunction){\r\n    this.scoringFunction = scoringFunction;\r\n}"
+}, {
+	"Path": "com.googlecode.jsonrpc4j.ReflectionUtil.parseArguments",
+	"Comment": "parses the given arguments for the given method optionally\tturning them into named parameters.",
+	"Method": "Object parseArguments(Method method,Object[] arguments){\r\n    JsonRpcParamsPassMode paramsPassMode = JsonRpcParamsPassMode.AUTO;\r\n    JsonRpcMethod jsonRpcMethod = getAnnotation(method, JsonRpcMethod.class);\r\n    if (jsonRpcMethod != null)\r\n        paramsPassMode = jsonRpcMethod.paramsPassMode();\r\n    Map<String, Object> namedParams = getNamedParameters(method, arguments);\r\n    switch(paramsPassMode) {\r\n        case ARRAY:\r\n            if (namedParams.size() > 0) {\r\n                Object[] parsed = new Object[namedParams.size()];\r\n                int i = 0;\r\n                for (Object value : namedParams.values()) {\r\n                    parsed[i++] = value;\r\n                }\r\n                return parsed;\r\n            } else {\r\n                return arguments != null ? arguments : new Object[] {};\r\n            }\r\n        case OBJECT:\r\n            if (namedParams.size() > 0) {\r\n                return namedParams;\r\n            } else {\r\n                if (arguments == null) {\r\n                    return new Object[] {};\r\n                }\r\n                throw new IllegalArgumentException(\"OBJECT parameters pass mode is impossible without declaring JsonRpcParam annotations for all parameters on method \" + method.getName());\r\n            }\r\n        case AUTO:\r\n        default:\r\n            if (namedParams.size() > 0) {\r\n                return namedParams;\r\n            } else {\r\n                return arguments != null ? arguments : new Object[] {};\r\n            }\r\n    }\r\n}"
+}, {
+	"Path": "org.jooby.Jooby.buildConfig",
+	"Comment": "build configuration properties, it configure system, app and modules properties.",
+	"Method": "Config buildConfig(Config source,Config args,List<Config> modules){\r\n    Config system = ConfigFactory.systemProperties();\r\n    Config tmpdir = source.hasPath(\"java.io.tmpdir\") ? source : system;\r\n    system = // file encoding got corrupted sometimes, override it.\r\n    system.withValue(\"file.encoding\", fromAnyRef(System.getProperty(\"file.encoding\"))).withValue(\"java.io.tmpdir\", fromAnyRef(Paths.get(tmpdir.getString(\"java.io.tmpdir\")).normalize().toString()));\r\n    Config moduleStack = ConfigFactory.empty();\r\n    for (Config module : ImmutableList.copyOf(modules).reverse()) {\r\n        moduleStack = moduleStack.withFallback(module);\r\n    }\r\n    String env = Arrays.asList(system, args, source).stream().filter(it -> it.hasPath(\"application.env\")).findFirst().map(c -> c.getString(\"application.env\")).orElse(\"dev\");\r\n    String cpath = Arrays.asList(system, args, source).stream().filter(it -> it.hasPath(\"application.path\")).findFirst().map(c -> c.getString(\"application.path\")).orElse(\"/\");\r\n    Config envconf = envConf(source, env);\r\n    Config conf = envconf.withFallback(source);\r\n    return system.withFallback(args).withFallback(conf).withFallback(moduleStack).withFallback(MediaType.types).withFallback(defaultConfig(conf, Route.normalize(cpath))).resolve();\r\n}"
+}, {
+	"Path": "org.jooby.Status.valueOf",
+	"Comment": "return the enum constant of this type with the specified numeric value.",
+	"Method": "Status valueOf(int statusCode){\r\n    Integer key = Integer.valueOf(statusCode);\r\n    Status status = statusMap.get(key);\r\n    return status == null ? new Status(key, key.toString()) : status;\r\n}"
+}, {
+	"Path": "org.jooby.Response.header",
+	"Comment": "sets a response header with the given name and value. if the header had already been set,the new value overwrites the previous one.",
+	"Method": "Mutant header(String name,Response header,String name,Object value,Response header,String name,Object values,Response header,String name,Iterable<Object> values,Mutant header,String name,Response header,String name,Object value,Response header,String name,Object values,Response header,String name,Iterable<Object> values){\r\n    return header(name, ImmutableList.builder().add(values).build());\r\n}"
+}, {
+	"Path": "org.jsweet.input.typescriptdef.visitor.ImportedAndExportedReferenceExpander.lookupTypeDeclaration",
+	"Comment": "overrides the default implementation because we intend to pass this\tscanner before the packages reorganization.",
+	"Method": "QualifiedDeclaration<TypeDeclaration> lookupTypeDeclaration(String name){\r\n    for (int i = 0; i < getStack().size(); i++) {\r\n        String containerName = getContainerNameAtIndex(i);\r\n        String declFullName = StringUtils.isBlank(containerName) ? name : containerName + \".\" + name;\r\n        QualifiedDeclaration<TypeDeclaration> match = context.findFirstDeclaration(TypeDeclaration.class, declFullName, (CompilationUnit) getRoot());\r\n        if (match != null) {\r\n            return match;\r\n        }\r\n        match = context.findFirstDeclaration(TypeDeclaration.class, declFullName);\r\n        if (match != null) {\r\n            return match;\r\n        }\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "com.bazaarvoice.jolt.modifier.function.Objects.toInteger",
+	"Comment": "returns int value of argument, if possible, wrapped in optionalinterprets string as number",
+	"Method": "Optional<Integer> toInteger(Object arg){\r\n    if (arg instanceof Number) {\r\n        return Optional.of(((Number) arg).intValue());\r\n    } else if (arg instanceof String) {\r\n        Optional<? extends Number> optional = toNumber(arg);\r\n        if (optional.isPresent()) {\r\n            return Optional.of(optional.get().intValue());\r\n        } else {\r\n            return Optional.empty();\r\n        }\r\n    } else {\r\n        return Optional.empty();\r\n    }\r\n}"
+}, {
+	"Path": "org.jooby.Request.locale",
+	"Comment": "get a locale that best matches the current request or the default locale as specifiedin application.lang.",
+	"Method": "Locale locale(Locale locale,BiFunction<List<LanguageRange>, List<Locale>, Locale> filter,Locale locale,BiFunction<List<Locale.LanguageRange>, List<Locale>, Locale> filter,Locale locale){\r\n    return locale((priorityList, locales) -> Optional.ofNullable(Locale.lookup(priorityList, locales)).orElse(locales.get(0)));\r\n}"
+}, {
+	"Path": "com.bazaarvoice.jolt.JsonUtils.cloneJson",
+	"Comment": "makes a deep copy of a map object by converting it to a string and thenback onto stock json objects.",
+	"Method": "Object cloneJson(Object obj){\r\n    return util.cloneJson(obj);\r\n}"
+}, {
+	"Path": "com.graphhopper.jsprit.core.problem.Capacity.isGreaterOrEqual",
+	"Comment": "returns true if this capacity is greater or equal than the capacity tocompare",
+	"Method": "boolean isGreaterOrEqual(Capacity toCompare){\r\n    if (toCompare == null)\r\n        throw new NullPointerException();\r\n    for (int i = 0; i < Math.max(this.getNuOfDimensions(), toCompare.getNuOfDimensions()); i++) {\r\n        if (this.get(i) < toCompare.get(i))\r\n            return false;\r\n    }\r\n    return true;\r\n}"
+}, {
+	"Path": "org.jnativehook.GlobalScreenTest.testRemoveNativeMouseListener",
+	"Comment": "test of removenativemouselistener method, of class globalscreen.",
+	"Method": "void testRemoveNativeMouseListener(){\r\n    System.out.println(\"removeNativeMouseListener\");\r\n    NativeMouseListener listener = new NativeMouseInputListenerImpl();\r\n    GlobalScreen.addNativeMouseListener(listener);\r\n    GlobalScreen.removeNativeMouseListener(listener);\r\n    Field eventListeners = GlobalScreen.class.getDeclaredField(\"eventListeners\");\r\n    eventListeners.setAccessible(true);\r\n    EventListenerList listeners = (EventListenerList) eventListeners.get(GlobalScreen.class);\r\n    boolean found = false;\r\n    NativeMouseListener[] nativeKeyListeners = listeners.getListeners(NativeMouseListener.class);\r\n    for (int i = 0; i < nativeKeyListeners.length && !found; i++) {\r\n        if (nativeKeyListeners[i].equals(listener)) {\r\n            found = true;\r\n        }\r\n    }\r\n    if (found) {\r\n        fail(\"Found the listener after it was removed!\");\r\n    }\r\n}"
+}, {
+	"Path": "com.googlecode.jsonrpc4j.JsonRpcMultiServer.getMethodName",
+	"Comment": "get the method name from the methodnode, stripping off the service name.",
+	"Method": "String getMethodName(String methodName){\r\n    if (methodName != null) {\r\n        int ndx = methodName.indexOf(this.separator);\r\n        if (ndx > 0) {\r\n            return methodName.substring(ndx + 1);\r\n        }\r\n    }\r\n    return methodName;\r\n}"
+}, {
+	"Path": "org.jooby.couchbase.Datastore.exists",
+	"Comment": "check whether a entity with the given id does exist in the bucket.",
+	"Method": "boolean exists(Class<?> entityClass,Object id){\r\n    return async().exists(entityClass, id).toBlocking().single();\r\n}"
+}, {
+	"Path": "org.jsweet.util.DirectedGraph.topologicalSort",
+	"Comment": "sorts this graph using a topological sort algorithm given in this stackoverflow thread.",
+	"Method": "List<T> topologicalSort(Consumer<Node<T>> cycleHandler){\r\n    List<Node<T>> allNodes = new ArrayList<Node<T>>(nodes.values());\r\n    ArrayList<Node<T>> L = new ArrayList<Node<T>>();\r\n    HashSet<Node<T>> S = new HashSet<Node<T>>();\r\n    for (Node<T> n : allNodes) {\r\n        if (n.inEdges.size() == 0) {\r\n            S.add(n);\r\n        }\r\n    }\r\n    while (!S.isEmpty()) {\r\n        Node<T> n = S.iterator().next();\r\n        S.remove(n);\r\n        L.add(n);\r\n        for (Iterator<Edge<T>> it = new ArrayList(n.outEdges).iterator(); it.hasNext(); ) {\r\n            Edge<T> e = it.next();\r\n            Node<T> m = e.to;\r\n            n.useOutEdge(e);\r\n            m.useInEdge(e);\r\n            if (m.inEdges.isEmpty()) {\r\n                S.add(m);\r\n            }\r\n        }\r\n    }\r\n    for (Node<T> n : allNodes) {\r\n        if (!n.inEdges.isEmpty()) {\r\n            if (cycleHandler != null) {\r\n                cycleHandler.accept(n);\r\n            }\r\n        }\r\n    }\r\n    for (Node<T> n : allNodes) {\r\n        n.resetEdges();\r\n    }\r\n    return toElements(L);\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.util.JavaCompilationEnvironment.create",
+	"Comment": "creates a new compilation environment with the given options and\tclasspath.",
+	"Method": "JavaCompilationEnvironment create(JSweetOptions jsweetOptions,String classPath){\r\n    JSweetContext context = new JSweetContext(jsweetOptions);\r\n    Options options = Options.instance(context);\r\n    options.put(Option.CLASSPATH, classPath);\r\n    options.put(Option.XLINT, \"path\");\r\n    context.put(Log.outKey, new PrintWriter(System.out));\r\n    options.put(Option.XLINT_CUSTOM.text + \"-\" + LintCategory.OVERRIDES.option, \"true\");\r\n    JavacFileManager.preRegister(context);\r\n    JavaFileManager fileManager = context.get(JavaFileManager.class);\r\n    Log log = Log.instance(context);\r\n    log.emitWarnings = false;\r\n    log.suppressNotes = true;\r\n    Types javacTypes = Types.instance(context);\r\n    JavaCompiler compiler = JavaCompiler.instance(context);\r\n    compiler.attrParseOnly = true;\r\n    compiler.verbose = false;\r\n    compiler.genEndPos = true;\r\n    compiler.keepComments = true;\r\n    Names names = Names.instance(context);\r\n    Symtab symtab = Symtab.instance(context);\r\n    return new JavaCompilationEnvironment(fileManager, compiler, options, context, log, javacTypes, names, symtab);\r\n}"
+}, {
+	"Path": "org.jnativehook.DefaultLibraryLocator.getLibraries",
+	"Comment": "perform default procedures to interface with the native library. these\tprocedures include unpacking and loading the library into the java\tvirtual machine.",
+	"Method": "Iterator<File> getLibraries(){\r\n    List<File> libraries = new ArrayList<File>(1);\r\n    String libName = System.getProperty(\"jnativehook.lib.name\", \"JNativeHook\");\r\n    String basePackage = GlobalScreen.class.getPackage().getName().replace('.', '/');\r\n    String libNativeName = System.mapLibraryName(libName);\r\n    libNativeName = libNativeName.replaceAll(\"\\\\.jnilib$\", \"\\\\.dylib\");\r\n    int i = libNativeName.lastIndexOf('.');\r\n    String libNativePrefix = libNativeName.substring(0, i) + '-';\r\n    String libNativeArch = NativeSystem.getArchitecture().toString().toLowerCase();\r\n    String libNativeSuffix = '.' + libNativeArch + libNativeName.substring(i);\r\n    String libNativeVersion = null;\r\n    StringBuilder libResourcePath = new StringBuilder(\"/\");\r\n    libResourcePath.append(basePackage).append(\"/lib/\");\r\n    libResourcePath.append(NativeSystem.getFamily().toString().toLowerCase()).append('/');\r\n    libResourcePath.append(libNativeArch).append('/');\r\n    libResourcePath.append(libNativeName);\r\n    InputStream libInputStream = GlobalScreen.class.getResourceAsStream(libResourcePath.toString());\r\n    if (libInputStream != null) {\r\n        try {\r\n            URL jarFile = GlobalScreen.class.getProtectionDomain().getCodeSource().getLocation();\r\n            JarInputStream jarInputStream = new JarInputStream(jarFile.openStream());\r\n            Manifest manifest = jarInputStream.getManifest();\r\n            if (manifest != null) {\r\n                Attributes attributes = manifest.getAttributes(basePackage);\r\n                if (attributes != null) {\r\n                    String version = attributes.getValue(\"Specification-Version\");\r\n                    String revision = attributes.getValue(\"Implementation-Version\");\r\n                    libNativeVersion = version + '.' + revision;\r\n                } else {\r\n                    logger.warning(\"Invalid library manifest!\\n\");\r\n                }\r\n            } else {\r\n                logger.warning(\"Cannot find library manifest!\\n\");\r\n            }\r\n            jarInputStream.close();\r\n        } catch (IOException e) {\r\n            logger.severe(e.getMessage());\r\n        }\r\n        File libFile = null;\r\n        if (libNativeVersion != null) {\r\n            libFile = new File(System.getProperty(\"java.io.tmpdir\"), libNativePrefix + libNativeVersion + libNativeSuffix);\r\n            if (libFile.exists()) {\r\n                libraries.add(libFile);\r\n                System.setProperty(\"jnativehook.lib.version\", libNativeVersion);\r\n                logger.info(\"Found existing library: \" + libFile.getPath() + \" (\" + libNativeVersion + \").\\n\");\r\n            }\r\n        }\r\n        if (libraries.isEmpty()) {\r\n            try {\r\n                if (libFile == null) {\r\n                    libFile = File.createTempFile(libNativePrefix, libNativeSuffix);\r\n                }\r\n                byte[] buffer = new byte[4 * 1024];\r\n                int size;\r\n                FileOutputStream libOutputStream = new FileOutputStream(libFile);\r\n                MessageDigest sha1 = MessageDigest.getInstance(\"SHA-1\");\r\n                DigestInputStream digestInputStream = new DigestInputStream(libInputStream, sha1);\r\n                while ((size = digestInputStream.read(buffer)) != -1) {\r\n                    libOutputStream.write(buffer, 0, size);\r\n                }\r\n                digestInputStream.close();\r\n                libInputStream.close();\r\n                libOutputStream.close();\r\n                String sha1Sum = new BigInteger(1, sha1.digest()).toString(16).toUpperCase();\r\n                if (libNativeVersion == null) {\r\n                    libNativeVersion = sha1Sum;\r\n                    File newFile = new File(System.getProperty(\"java.io.tmpdir\"), libNativePrefix + libNativeVersion + libNativeSuffix);\r\n                    if (libFile.renameTo(newFile)) {\r\n                        libFile = newFile;\r\n                    }\r\n                }\r\n                libraries.add(libFile);\r\n                System.setProperty(\"jnativehook.lib.version\", libNativeVersion);\r\n                logger.info(\"Library extracted successfully: \" + libFile.getPath() + \" (0X\" + sha1Sum + \").\\n\");\r\n            } catch (IOException e) {\r\n                throw new IllegalStateException(e.getMessage(), e);\r\n            } catch (NoSuchAlgorithmException e) {\r\n                throw new IllegalStateException(e.getMessage(), e);\r\n            }\r\n        }\r\n    } else {\r\n        logger.severe(\"Unable to extract the native library \" + libResourcePath.toString() + \"!\\n\");\r\n    }\r\n    return libraries.iterator();\r\n}"
+}, {
+	"Path": "com.pholser.junit.quickcheck.generator.Generator.canRegisterAsType",
+	"Comment": "tells whether this generator is allowed to be used for propertyparameters of the given type.",
+	"Method": "boolean canRegisterAsType(Class<?> type){\r\n    return true;\r\n}"
+}, {
+	"Path": "org.jupiter.common.util.Reflects.getObjectTransformationCost",
+	"Comment": "gets the number of steps required needed to turn the source class intothe destination class. this represents the number of steps in the objecthierarchy graph.",
+	"Method": "float getObjectTransformationCost(Class<?> srcClass,Class<?> dstClass){\r\n    if (dstClass.isPrimitive()) {\r\n        return getPrimitivePromotionCost(srcClass, dstClass);\r\n    }\r\n    float cost = 0.0f;\r\n    while (srcClass != null && !dstClass.equals(srcClass)) {\r\n        if (dstClass.isInterface() && isAssignable(srcClass, dstClass, true)) {\r\n            cost += 0.25f;\r\n            break;\r\n        }\r\n        cost++;\r\n        srcClass = srcClass.getSuperclass();\r\n    }\r\n    if (srcClass == null) {\r\n        cost += 1.5f;\r\n    }\r\n    return cost;\r\n}"
+}, {
+	"Path": "com.bazaarvoice.jolt.modifier.spec.ModifierSpec.setData",
+	"Comment": "static utility method for facilitating writes on input object",
+	"Method": "void setData(Object parent,MatchedElement matchedElement,Object value,OpMode opMode){\r\n    if (parent instanceof Map) {\r\n        Map source = (Map) parent;\r\n        String key = matchedElement.getRawKey();\r\n        if (opMode.isApplicable(source, key)) {\r\n            source.put(key, value);\r\n        }\r\n    } else if (parent instanceof List && matchedElement instanceof ArrayMatchedElement) {\r\n        List source = (List) parent;\r\n        int origSize = ((ArrayMatchedElement) matchedElement).getOrigSize();\r\n        int reqIndex = ((ArrayMatchedElement) matchedElement).getRawIndex();\r\n        if (opMode.isApplicable(source, reqIndex, origSize)) {\r\n            source.set(reqIndex, value);\r\n        }\r\n    } else {\r\n        throw new RuntimeException(\"Should not come here!\");\r\n    }\r\n}"
+}, {
+	"Path": "org.jnativehook.GlobalScreenTest.testAddNativeMouseMotionListener",
+	"Comment": "test of addnativemousemotionlistener method, of class globalscreen.",
+	"Method": "void testAddNativeMouseMotionListener(){\r\n    System.out.println(\"addNativeMouseMotionListener\");\r\n    NativeMouseMotionListener listener = new NativeMouseInputListenerImpl();\r\n    GlobalScreen.addNativeMouseMotionListener(listener);\r\n    Field eventListeners = GlobalScreen.class.getDeclaredField(\"eventListeners\");\r\n    eventListeners.setAccessible(true);\r\n    EventListenerList listeners = (EventListenerList) eventListeners.get(GlobalScreen.class);\r\n    boolean found = false;\r\n    NativeMouseMotionListener[] nativeKeyListeners = listeners.getListeners(NativeMouseMotionListener.class);\r\n    for (int i = 0; i < nativeKeyListeners.length && !found; i++) {\r\n        if (nativeKeyListeners[i].equals(listener)) {\r\n            found = true;\r\n        }\r\n    }\r\n    if (!found) {\r\n        fail(\"Could not find the listener after it was added!\");\r\n    }\r\n    GlobalScreen.removeNativeMouseMotionListener(listener);\r\n}"
+}, {
+	"Path": "org.jupiter.common.concurrent.collection.NonBlockingHashMap.putAll",
+	"Comment": "copies all of the mappings from the specified map to this one, replacingany existing mappings.",
+	"Method": "void putAll(Map<? extends TypeK, ? extends TypeV> m){\r\n    for (Map.Entry<? extends TypeK, ? extends TypeV> e : m.entrySet()) put(e.getKey(), e.getValue());\r\n}"
+}, {
+	"Path": "org.jnativehook.mouse.NativeMouseEvent.getClickCount",
+	"Comment": "returns the number of button clicks associated with this event.",
+	"Method": "int getClickCount(){\r\n    return clickCount;\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.util.DirectedGraph.topologicalSort",
+	"Comment": "sorts this graph using a topological sort algorithm given in this\tstackoverflow thread.",
+	"Method": "List<T> topologicalSort(Consumer<Node<T>> cycleHandler){\r\n    List<Node<T>> allNodes = new ArrayList<Node<T>>(nodes.values());\r\n    ArrayList<Node<T>> L = new ArrayList<Node<T>>();\r\n    LinkedHashSet<Node<T>> S = new LinkedHashSet<Node<T>>();\r\n    for (Node<T> n : allNodes) {\r\n        if (n.inEdges.size() == 0) {\r\n            S.add(n);\r\n        }\r\n    }\r\n    while (!S.isEmpty()) {\r\n        Node<T> n = S.iterator().next();\r\n        S.remove(n);\r\n        L.add(n);\r\n        for (Iterator<Edge<T>> it = new ArrayList(n.outEdges).iterator(); it.hasNext(); ) {\r\n            Edge<T> e = it.next();\r\n            Node<T> m = e.to;\r\n            n.useOutEdge(e);\r\n            m.useInEdge(e);\r\n            if (m.inEdges.isEmpty()) {\r\n                S.add(m);\r\n            }\r\n        }\r\n    }\r\n    for (Node<T> n : allNodes) {\r\n        if (!n.inEdges.isEmpty()) {\r\n            if (cycleHandler != null) {\r\n                cycleHandler.accept(n);\r\n            }\r\n        }\r\n    }\r\n    for (Node<T> n : allNodes) {\r\n        n.resetEdges();\r\n    }\r\n    return toElements(L);\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.extension.PrinterAdapter.substitute",
+	"Comment": "upcalled by the transpiler to forward to the right subtitution method\tdepending on the actual extended element type.",
+	"Method": "boolean substitute(ExtendedElement extendedElement){\r\n    if (extendedElement instanceof VariableAccessElement) {\r\n        return substituteVariableAccess((VariableAccessElement) extendedElement);\r\n    } else if (extendedElement instanceof IdentifierElement) {\r\n        return substituteIdentifier((IdentifierElement) extendedElement);\r\n    } else {\r\n        return false;\r\n    }\r\n}"
+}, {
+	"Path": "org.jnativehook.GlobalScreenTest.testProcessMouseWheelEvent",
+	"Comment": "test of processmousewheelevent method, of class globalscreen.",
+	"Method": "void testProcessMouseWheelEvent(){\r\n    System.out.println(\"processMouseWheelEvent\");\r\n    NativeMouseWheelListenerImpl listener = new NativeMouseWheelListenerImpl();\r\n    GlobalScreen.addNativeMouseWheelListener(listener);\r\n    NativeMouseWheelEvent event = new // Modifiers\r\n    NativeMouseWheelEvent(NativeMouseEvent.NATIVE_MOUSE_WHEEL, 0x00, 50, 75, // Scroll Amount\r\n    1, NativeMouseWheelEvent.WHEEL_UNIT_SCROLL, 3, -1);\r\n    synchronized (listener) {\r\n        GlobalScreen.dispatchEvent(event);\r\n        listener.wait(3000);\r\n        assertEquals(event, listener.getLastEvent());\r\n    }\r\n    GlobalScreen.removeNativeMouseWheelListener(listener);\r\n}"
+}, {
+	"Path": "com.bazaarvoice.jolt.cardinality.CardinalitySpec.parse",
+	"Comment": "once all the cardinalitytransform specific logic is extracted.",
+	"Method": "List<PathElement> parse(String key){\r\n    if (key.contains(AT)) {\r\n        return Arrays.<PathElement>asList(new AtPathElement(key));\r\n    } else if (STAR.equals(key)) {\r\n        return Arrays.<PathElement>asList(new StarAllPathElement(key));\r\n    } else if (key.contains(STAR)) {\r\n        if (StringTools.countMatches(key, STAR) == 1) {\r\n            return Arrays.<PathElement>asList(new StarSinglePathElement(key));\r\n        } else {\r\n            return Arrays.<PathElement>asList(new StarRegexPathElement(key));\r\n        }\r\n    } else {\r\n        return Arrays.<PathElement>asList(new LiteralPathElement(key));\r\n    }\r\n}"
+}, {
+	"Path": "com.graphhopper.jsprit.core.problem.Capacity.addup",
+	"Comment": "adds up two capacities, i.e. sums up each and every capacity dimension, and returns the resulting capacity.note that this assumes that capacity dimension can be added up.",
+	"Method": "Capacity addup(Capacity cap1,Capacity cap2){\r\n    if (cap1 == null || cap2 == null)\r\n        throw new NullPointerException(\"arguments must not be null\");\r\n    Capacity.Builder capacityBuilder = Capacity.Builder.newInstance();\r\n    for (int i = 0; i < Math.max(cap1.getNuOfDimensions(), cap2.getNuOfDimensions()); i++) {\r\n        capacityBuilder.addDimension(i, cap1.get(i) + cap2.get(i));\r\n    }\r\n    return capacityBuilder.build();\r\n}"
+}, {
+	"Path": "org.jupiter.common.util.collection.LongObjectHashMap.removeAt",
+	"Comment": "removes entry at the given index position. also performs opportunistic, incremental rehashingif necessary to not break conflict chains.",
+	"Method": "boolean removeAt(int index){\r\n    --size;\r\n    keys[index] = 0;\r\n    values[index] = null;\r\n    int nextFree = index;\r\n    int i = probeNext(index);\r\n    for (V value = values[i]; value != null; value = values[i = probeNext(i)]) {\r\n        long key = keys[i];\r\n        int bucket = hashIndex(key);\r\n        if (i < bucket && (bucket <= nextFree || nextFree <= i) || bucket <= nextFree && nextFree <= i) {\r\n            keys[nextFree] = key;\r\n            values[nextFree] = value;\r\n            keys[i] = 0;\r\n            values[i] = null;\r\n            nextFree = i;\r\n        }\r\n    }\r\n    return nextFree != index;\r\n}"
+}, {
+	"Path": "org.jupiter.registry.DefaultRegistry.doUnregister",
+	"Comment": "notify to registry server unpublish corresponding service.",
+	"Method": "void doUnregister(RegisterMeta meta){\r\n    Message msg = new Message(serializerType.value());\r\n    msg.messageCode(JProtocolHeader.PUBLISH_CANCEL_SERVICE);\r\n    msg.data(meta);\r\n    channel.writeAndFlush(msg).addListener(new ChannelFutureListener() {\r\n        @Override\r\n        public void operationComplete(ChannelFuture future) throws Exception {\r\n            if (!future.isSuccess()) {\r\n                Channel ch = future.channel();\r\n                if (ch.isActive()) {\r\n                    ch.pipeline().fireExceptionCaught(future.cause());\r\n                } else {\r\n                    if (logger.isWarnEnabled()) {\r\n                        logger.warn(\"Unregister {} fail because of channel is inactive: {}.\", meta, stackTrace(future.cause()));\r\n                    }\r\n                }\r\n            }\r\n        }\r\n    });\r\n    MessageNonAck msgNonAck = new MessageNonAck(msg);\r\n    messagesNonAck.put(msgNonAck.id, msgNonAck);\r\n}"
+}, {
+	"Path": "org.jupiter.registry.DefaultRegistry.doUnregister",
+	"Comment": "notify to registry server unpublish corresponding service.",
+	"Method": "void doUnregister(RegisterMeta meta){\r\n    if (!future.isSuccess()) {\r\n        Channel ch = future.channel();\r\n        if (ch.isActive()) {\r\n            ch.pipeline().fireExceptionCaught(future.cause());\r\n        } else {\r\n            if (logger.isWarnEnabled()) {\r\n                logger.warn(\"Unregister {} fail because of channel is inactive: {}.\", meta, stackTrace(future.cause()));\r\n            }\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "com.bazaarvoice.jolt.common.PathElementBuilder.parseSingleKeyLHS",
+	"Comment": "visible for testing.inspects the key in a particular order to determine the correct sublass of pathelement to create.",
+	"Method": "PathElement parseSingleKeyLHS(String origKey){\r\n    String elementKey;\r\n    String keyToInspect;\r\n    if (origKey.contains(\"\\\\\")) {\r\n        keyToInspect = removeEscapedValues(origKey);\r\n        elementKey = removeEscapeChars(origKey);\r\n    } else {\r\n        keyToInspect = origKey;\r\n        elementKey = origKey;\r\n    }\r\n    if (\"@\".equals(keyToInspect)) {\r\n        return new AtPathElement(elementKey);\r\n    } else if (\"*\".equals(keyToInspect)) {\r\n        return new StarAllPathElement(elementKey);\r\n    } else if (keyToInspect.startsWith(\"[\")) {\r\n        if (StringTools.countMatches(keyToInspect, \"[\") != 1 || StringTools.countMatches(keyToInspect, \"]\") != 1) {\r\n            throw new SpecException(\"Invalid key:\" + origKey + \" has too many [] references.\");\r\n        }\r\n        return new ArrayPathElement(elementKey);\r\n    } else if (keyToInspect.startsWith(\"@\") || keyToInspect.contains(\"@(\")) {\r\n        return TransposePathElement.parse(origKey);\r\n    } else if (keyToInspect.contains(\"@\")) {\r\n        throw new SpecException(\"Invalid key:\" + origKey + \" can not have an @ other than at the front.\");\r\n    } else if (keyToInspect.contains(\"$\")) {\r\n        return new DollarPathElement(elementKey);\r\n    } else if (keyToInspect.contains(\"[\")) {\r\n        if (StringTools.countMatches(keyToInspect, \"[\") != 1 || StringTools.countMatches(keyToInspect, \"]\") != 1) {\r\n            throw new SpecException(\"Invalid key:\" + origKey + \" has too many [] references.\");\r\n        }\r\n        return new ArrayPathElement(elementKey);\r\n    } else if (keyToInspect.contains(\"&\")) {\r\n        if (keyToInspect.contains(\"*\")) {\r\n            throw new SpecException(\"Invalid key:\" + origKey + \", Can't mix * with & ) \");\r\n        }\r\n        return new AmpPathElement(elementKey);\r\n    } else if (keyToInspect.contains(\"*\")) {\r\n        int numOfStars = StringTools.countMatches(keyToInspect, \"*\");\r\n        if (numOfStars == 1) {\r\n            return new StarSinglePathElement(elementKey);\r\n        } else if (numOfStars == 2) {\r\n            return new StarDoublePathElement(elementKey);\r\n        } else {\r\n            return new StarRegexPathElement(elementKey);\r\n        }\r\n    } else if (keyToInspect.contains(\"#\")) {\r\n        return new HashPathElement(elementKey);\r\n    } else {\r\n        return new LiteralPathElement(elementKey);\r\n    }\r\n}"
+}, {
+	"Path": "com.bazaarvoice.jolt.ChainrFactory.getChainr",
+	"Comment": "the main engine in chainrfactory for building a chainr instance.",
+	"Method": "Chainr getChainr(ChainrInstantiator chainrInstantiator,Object chainrSpec){\r\n    Chainr chainr;\r\n    if (chainrInstantiator == null) {\r\n        chainr = Chainr.fromSpec(chainrSpec);\r\n    } else {\r\n        chainr = Chainr.fromSpec(chainrSpec, chainrInstantiator);\r\n    }\r\n    return chainr;\r\n}"
+}, {
+	"Path": "com.graphhopper.jsprit.core.problem.solution.route.activity.TourActivities.jobSize",
+	"Comment": "returns number of jobs assiciated to activities in this activity sequence.",
+	"Method": "int jobSize(){\r\n    return jobs.size();\r\n}"
+}, {
+	"Path": "org.jupiter.common.util.collection.IntObjectHashMap.removeAt",
+	"Comment": "removes entry at the given index position. also performs opportunistic, incremental rehashingif necessary to not break conflict chains.",
+	"Method": "boolean removeAt(int index){\r\n    --size;\r\n    keys[index] = 0;\r\n    values[index] = null;\r\n    int nextFree = index;\r\n    int i = probeNext(index);\r\n    for (V value = values[i]; value != null; value = values[i = probeNext(i)]) {\r\n        int key = keys[i];\r\n        int bucket = hashIndex(key);\r\n        if (i < bucket && (bucket <= nextFree || nextFree <= i) || bucket <= nextFree && nextFree <= i) {\r\n            keys[nextFree] = key;\r\n            values[nextFree] = value;\r\n            keys[i] = 0;\r\n            values[i] = null;\r\n            nextFree = i;\r\n        }\r\n    }\r\n    return nextFree != index;\r\n}"
+}, {
+	"Path": "com.graphhopper.jsprit.core.algorithm.state.StateManager.hasRouteState",
+	"Comment": "returns true if a state is assigned to the specified route, vehicle and stateid. otherwise it returns false.",
+	"Method": "boolean hasRouteState(VehicleRoute route,Vehicle vehicle,StateId stateId){\r\n    if (!vehicleDependentRouteStateMap.containsKey(route))\r\n        return false;\r\n    return vehicleDependentRouteStateMap.get(route)[vehicle.getVehicleTypeIdentifier().getIndex()][stateId.getIndex()] != null;\r\n}"
+}, {
+	"Path": "org.jnativehook.GlobalScreen.removeNativeMouseMotionListener",
+	"Comment": "removes the specified native mouse motion listener so that it no longer\treceives mouse motion events from the native system. this method performs\tno function if the listener specified by the argument was not previously\tadded.if listener is null, no exception is thrown and no action is\tperformed.",
+	"Method": "void removeNativeMouseMotionListener(NativeMouseMotionListener listener){\r\n    if (listener != null) {\r\n        eventListeners.remove(NativeMouseMotionListener.class, listener);\r\n    }\r\n}"
+}, {
+	"Path": "org.jupiter.common.util.ConstantPool.getOrCreate",
+	"Comment": "get existing constant by name or creates new one if not exists. threadsafe",
+	"Method": "T getOrCreate(String name){\r\n    T constant = constants.get(name);\r\n    if (constant == null) {\r\n        final T newConstant = newConstant(nextId.getAndIncrement(), name);\r\n        constant = constants.putIfAbsent(name, newConstant);\r\n        if (constant == null) {\r\n            constant = newConstant;\r\n        }\r\n    }\r\n    return constant;\r\n}"
+}, {
+	"Path": "org.jupiter.common.util.internal.UnsafeUtil.arrayIndexScale",
+	"Comment": "reports the scale factor for addressing elements in the storageallocation of a given array class.",
+	"Method": "int arrayIndexScale(Class<?> clazz){\r\n    return unsafe != null ? unsafe.arrayIndexScale(clazz) : -1;\r\n}"
+}, {
+	"Path": "com.graphhopper.jsprit.core.problem.Capacity.subtract",
+	"Comment": "subtracts cap2subtract from cap and returns the resulting capacity.",
+	"Method": "Capacity subtract(Capacity cap,Capacity cap2subtract){\r\n    if (cap == null || cap2subtract == null)\r\n        throw new NullPointerException(\"arguments must not be null\");\r\n    Capacity.Builder capacityBuilder = Capacity.Builder.newInstance();\r\n    for (int i = 0; i < Math.max(cap.getNuOfDimensions(), cap2subtract.getNuOfDimensions()); i++) {\r\n        int dimValue = cap.get(i) - cap2subtract.get(i);\r\n        capacityBuilder.addDimension(i, dimValue);\r\n    }\r\n    return capacityBuilder.build();\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.JSweetContext.getWildcards",
+	"Comment": "gets the registered wildcards for the given type parameter holder.",
+	"Method": "List<JCWildcard> getWildcards(Symbol holder){\r\n    return wildcards.get(holder);\r\n}"
+}, {
+	"Path": "org.skife.jdbi.v2.ExpandedStmtRewriter.rewrite",
+	"Comment": "munge up the sql as desired. responsible for figuring out ow to bind anyarguments in to the resultant prepared statement.",
+	"Method": "RewrittenStatement rewrite(String sql,Binding params,StatementContext ctx){\r\n    final ParsedStatement stmt = new ParsedStatement();\r\n    try {\r\n        final String parsedSql = parseString(sql, stmt, params);\r\n        return new MyRewrittenStatement(parsedSql, stmt, ctx);\r\n    } catch (IllegalArgumentException e) {\r\n        throw new UnableToCreateStatementException(\"Exception parsing for named parameter replacement\", e, ctx);\r\n    }\r\n}"
+}, {
+	"Path": "org.jnativehook.GlobalScreenTest.testAddNativeMouseWheelListener",
+	"Comment": "test of addnativemousewheellistener method, of class globalscreen.",
+	"Method": "void testAddNativeMouseWheelListener(){\r\n    System.out.println(\"addNativeMouseWheelListener\");\r\n    NativeMouseWheelListener listener = new NativeMouseWheelListenerImpl();\r\n    GlobalScreen.addNativeMouseWheelListener(listener);\r\n    Field eventListeners = GlobalScreen.class.getDeclaredField(\"eventListeners\");\r\n    eventListeners.setAccessible(true);\r\n    EventListenerList listeners = (EventListenerList) eventListeners.get(GlobalScreen.class);\r\n    boolean found = false;\r\n    NativeMouseWheelListener[] nativeKeyListeners = listeners.getListeners(NativeMouseWheelListener.class);\r\n    for (int i = 0; i < nativeKeyListeners.length && !found; i++) {\r\n        if (nativeKeyListeners[i].equals(listener)) {\r\n            found = true;\r\n        }\r\n    }\r\n    if (!found) {\r\n        fail(\"Could not find the listener after it was added!\");\r\n    }\r\n    GlobalScreen.removeNativeMouseWheelListener(listener);\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.JSweetContext.getActualName",
+	"Comment": "gets the actual name of a symbol from a jsweet convention, so including\tpotential jsweet.lang.name annotation.",
+	"Method": "String getActualName(Symbol symbol){\r\n    String name = symbol.getSimpleName().toString();\r\n    if (hasAnnotationType(symbol, JSweetConfig.ANNOTATION_NAME)) {\r\n        String originalName = getAnnotationValue(symbol, JSweetConfig.ANNOTATION_NAME, String.class, null);\r\n        if (!isBlank(originalName)) {\r\n            name = originalName;\r\n        }\r\n    }\r\n    return name;\r\n}"
+}, {
+	"Path": "com.bazaarvoice.jolt.JsonUtils.customJsonUtil",
+	"Comment": "construct a jsonutil with a jackson objectmapper that has been preconfigured with custom modules or mixins.",
+	"Method": "JsonUtil customJsonUtil(ObjectMapper mapper){\r\n    return new JsonUtilImpl(mapper);\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.util.JavaCompilationEnvironment.parseAndAttributeJavaFiles",
+	"Comment": "parses and attributes the given files within this compilation\tenvironment.",
+	"Method": "List<JCCompilationUnit> parseAndAttributeJavaFiles(List<File> javaFiles){\r\n    List<JavaFileObject> sources = toJavaFileObjects(fileManager, javaFiles);\r\n    List<JCCompilationUnit> compilationUnits = compiler.enterTrees(compiler.parseFiles(sources));\r\n    compiler.attribute(compiler.todo);\r\n    return compilationUnits;\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.JSweetContext.grabSupportedInterfaceNames",
+	"Comment": "grabs the names of all the support interfaces in the class and interface\thierarchy.",
+	"Method": "void grabSupportedInterfaceNames(Set<String> interfaces,TypeSymbol type){\r\n    if (type == null) {\r\n        return;\r\n    }\r\n    if (isInterface(type)) {\r\n        interfaces.add(type.getQualifiedName().toString());\r\n    }\r\n    if (type instanceof ClassSymbol) {\r\n        for (Type t : ((ClassSymbol) type).getInterfaces()) {\r\n            grabSupportedInterfaceNames(interfaces, t.tsym);\r\n        }\r\n        grabSupportedInterfaceNames(interfaces, ((ClassSymbol) type).getSuperclass().tsym);\r\n    }\r\n}"
+}, {
+	"Path": "com.googlecode.jsonrpc4j.spring.AutoJsonRpcServiceExporter.findServiceBeanDefinitions",
+	"Comment": "finds the beans to expose\tsearches parent factories as well.",
+	"Method": "Map<String, String> findServiceBeanDefinitions(ConfigurableListableBeanFactory beanFactory){\r\n    final Map<String, String> serviceBeanNames = new HashMap();\r\n    for (String beanName : beanFactory.getBeanDefinitionNames()) {\r\n        JsonRpcService jsonRpcPath = beanFactory.findAnnotationOnBean(beanName, JsonRpcService.class);\r\n        if (hasServiceAnnotation(jsonRpcPath)) {\r\n            String pathValue = jsonRpcPath.value();\r\n            logger.debug(\"Found JSON-RPC path '{}' for bean [{}].\", pathValue, beanName);\r\n            if (isNotDuplicateService(serviceBeanNames, beanName, pathValue))\r\n                serviceBeanNames.put(pathValue, beanName);\r\n        }\r\n    }\r\n    collectFromParentBeans(beanFactory, serviceBeanNames);\r\n    return serviceBeanNames;\r\n}"
+}, {
+	"Path": "org.jnativehook.mouse.NativeMouseMotionListenerTest.testNativeMouseDragged",
+	"Comment": "test of nativemousedragged method, of class nativemousemotionlistener.",
+	"Method": "void testNativeMouseDragged(){\r\n    System.out.println(\"nativeMouseDragged\");\r\n    NativeMouseEvent event = new // X\r\n    NativeMouseEvent(// X\r\n    NativeMouseEvent.NATIVE_MOUSE_DRAGGED, NativeMouseEvent.BUTTON1_MASK, 50, 75, 0, NativeMouseEvent.NOBUTTON);\r\n    NativeMouseInputListenerImpl listener = new NativeMouseInputListenerImpl();\r\n    listener.nativeMouseDragged(event);\r\n    assertEquals(event, listener.getLastEvent());\r\n}"
+}, {
+	"Path": "com.bazaarvoice.jolt.common.PathElementBuilder.buildMatchablePathElement",
+	"Comment": "create a path element and ensures it is a matchable path element",
+	"Method": "MatchablePathElement buildMatchablePathElement(String rawJsonKey){\r\n    PathElement pe = PathElementBuilder.parseSingleKeyLHS(rawJsonKey);\r\n    if (!(pe instanceof MatchablePathElement)) {\r\n        throw new SpecException(\"Spec LHS key=\" + rawJsonKey + \" is not a valid LHS key.\");\r\n    }\r\n    return (MatchablePathElement) pe;\r\n}"
+}, {
+	"Path": "com.pholser.junit.quickcheck.generator.Gen.frequency",
+	"Comment": "gives a generation strategy that produces a random value by choosingone of the given generators at random with probability in proportionto their given weights, and having it generate a value.",
+	"Method": "Gen<U> frequency(Pair<Integer, Gen<? extends U>> first,Pair<Integer, Gen<? extends U>> rest){\r\n    List<Pair<Integer, Gen<? extends U>>> pairs = new ArrayList();\r\n    pairs.add(first);\r\n    Collections.addAll(pairs, rest);\r\n    List<Weighted<Gen<? extends U>>> weighted = pairs.stream().map(p -> new Weighted<Gen<? extends U>>(p.second, p.first)).collect(toList());\r\n    return (random, status) -> Items.chooseWeighted(weighted, random)._gen(random, status);\r\n}"
+}, {
+	"Path": "org.jooby.Request.push",
+	"Comment": "send a push promise frame to the client and push the resource identified by the given path.",
+	"Method": "Request push(String path,Request push,String path,Map<String, Object> headers,Request push,String path,Request push,String path,Map<String, Object> headers){\r\n    return push(path, ImmutableMap.of());\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.util.AbstractTreePrinter.printArgList",
+	"Comment": "prints an invocation argument list, with type assignment.",
+	"Method": "AbstractTreePrinter printArgList(List<Type> assignedTypes,List<? extends JCTree> args,Consumer<JCTree> printer,AbstractTreePrinter printArgList,JCMethodInvocation inv,AbstractTreePrinter printArgList,List<Type> assignedTypes,List<? extends JCTree> args){\r\n    return printArgList(assignedTypes, args, null);\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.util.Util.containsMethods",
+	"Comment": "tells if the given type declaration contains some method declarations.",
+	"Method": "boolean containsMethods(JCClassDecl classDeclaration){\r\n    for (JCTree member : classDeclaration.getMembers()) {\r\n        if (member instanceof JCMethodDecl) {\r\n            JCMethodDecl method = (JCMethodDecl) member;\r\n            if (method.pos == classDeclaration.pos) {\r\n                continue;\r\n            }\r\n            return true;\r\n        } else if (member instanceof JCVariableDecl) {\r\n            if (((JCVariableDecl) member).mods.getFlags().contains(Modifier.STATIC)) {\r\n                return true;\r\n            }\r\n        }\r\n    }\r\n    return false;\r\n}"
+}, {
+	"Path": "com.graphhopper.jsprit.core.analysis.SolutionAnalyser.informSolutionChanged",
+	"Comment": "sets the specified solution and calculates all necessary indicators again.",
+	"Method": "void informSolutionChanged(VehicleRoutingProblemSolution newSolution){\r\n    this.solution = newSolution;\r\n    refreshStates();\r\n}"
+}, {
+	"Path": "com.bazaarvoice.jolt.common.spec.SpecBuilder.createSpec",
+	"Comment": "given a lhs key and rhs spec object, determine, create and return appropriate spec",
+	"Method": "List<T> createSpec(Map<String, Object> rawSpec,T createSpec,String lhsKey,Object rhsSpec){\r\n    List<T> result = new ArrayList();\r\n    Set<String> actualKeys = new HashSet();\r\n    for (String rawLhsStr : rawSpec.keySet()) {\r\n        Object rawRhs = rawSpec.get(rawLhsStr);\r\n        String[] keyStrings = rawLhsStr.split(\"\\\\|\");\r\n        for (String keyString : keyStrings) {\r\n            T childSpec = createSpec(keyString, rawRhs);\r\n            String childCanonicalString = childSpec.getPathElement().getCanonicalForm();\r\n            if (actualKeys.contains(childCanonicalString)) {\r\n                throw new IllegalArgumentException(\"Duplicate canonical key found : \" + childCanonicalString);\r\n            }\r\n            actualKeys.add(childCanonicalString);\r\n            result.add(childSpec);\r\n        }\r\n    }\r\n    return result;\r\n}"
+}, {
+	"Path": "org.jnativehook.GlobalScreenTest.testAddNativeKeyListener",
+	"Comment": "test of addnativekeylistener method, of class globalscreen.",
+	"Method": "void testAddNativeKeyListener(){\r\n    System.out.println(\"addNativeKeyListener\");\r\n    NativeKeyListener listener = new NativeKeyListenerImpl();\r\n    GlobalScreen.addNativeKeyListener(listener);\r\n    Field eventListeners = GlobalScreen.class.getDeclaredField(\"eventListeners\");\r\n    eventListeners.setAccessible(true);\r\n    EventListenerList listeners = (EventListenerList) eventListeners.get(GlobalScreen.class);\r\n    boolean found = false;\r\n    NativeKeyListener[] nativeKeyListeners = listeners.getListeners(NativeKeyListener.class);\r\n    for (int i = 0; i < nativeKeyListeners.length && !found; i++) {\r\n        if (nativeKeyListeners[i].equals(listener)) {\r\n            found = true;\r\n        }\r\n    }\r\n    if (!found) {\r\n        fail(\"Could not find the listener after it was added!\");\r\n    }\r\n    GlobalScreen.removeNativeKeyListener(listener);\r\n}"
+}, {
+	"Path": "org.jnativehook.NativeInputEventTest.testGetModifiersText",
+	"Comment": "test of getmodifierstext method, of class nativeinputevent.",
+	"Method": "void testGetModifiersText(){\r\n    System.out.println(\"getModifiersText\");\r\n    int mask = NativeInputEvent.ALT_MASK | NativeInputEvent.BUTTON1_MASK;\r\n    assertFalse(NativeInputEvent.getModifiersText(mask).equals(\"\"));\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.JSweetTranspiler.isTscWatchMode",
+	"Comment": "tells if this transpiler is using a tsc watch process to automatically\tregenerate the javascript when one of the source file changes.",
+	"Method": "boolean isTscWatchMode(){\r\n    return tscWatchMode;\r\n}"
+}, {
+	"Path": "org.jupiter.common.util.Preconditions.checkNotNull",
+	"Comment": "ensures that an object reference passed as a parameter to the callingmethod is not null.",
+	"Method": "T checkNotNull(T reference,T checkNotNull,T reference,Object errorMessage){\r\n    if (reference == null) {\r\n        throw new NullPointerException(String.valueOf(errorMessage));\r\n    }\r\n    return reference;\r\n}"
+}, {
+	"Path": "org.jupiter.common.util.JvmTools.jMap",
+	"Comment": "dumps the heap to the outputfile file in the same format as the hprof heap dump.",
+	"Method": "void jMap(String outputFile,boolean live){\r\n    File file = new File(outputFile);\r\n    if (file.exists()) {\r\n        file.delete();\r\n    }\r\n    MXBeanHolder.hotSpotDiagnosticMxBean.dumpHeap(outputFile, live);\r\n}"
+}, {
+	"Path": "com.graphhopper.jsprit.core.problem.constraint.PickupAndDeliverShipmentLoadActivityLevelConstraint.fulfilled",
+	"Comment": "checks whether there is enough capacity to insert newact between prevact and nextact.",
+	"Method": "ConstraintsStatus fulfilled(JobInsertionContext iFacts,TourActivity prevAct,TourActivity newAct,TourActivity nextAct,double prevActDepTime){\r\n    if (!(newAct instanceof PickupShipment) && !(newAct instanceof DeliverShipment)) {\r\n        return ConstraintsStatus.FULFILLED;\r\n    }\r\n    Capacity loadAtPrevAct;\r\n    if (prevAct instanceof Start) {\r\n        loadAtPrevAct = stateManager.getRouteState(iFacts.getRoute(), InternalStates.LOAD_AT_BEGINNING, Capacity.class);\r\n        if (loadAtPrevAct == null)\r\n            loadAtPrevAct = defaultValue;\r\n    } else {\r\n        loadAtPrevAct = stateManager.getActivityState(prevAct, InternalStates.LOAD, Capacity.class);\r\n        if (loadAtPrevAct == null)\r\n            loadAtPrevAct = defaultValue;\r\n    }\r\n    if (newAct instanceof PickupShipment) {\r\n        if (!Capacity.addup(loadAtPrevAct, newAct.getSize()).isLessOrEqual(iFacts.getNewVehicle().getType().getCapacityDimensions())) {\r\n            return ConstraintsStatus.NOT_FULFILLED;\r\n        }\r\n    }\r\n    if (newAct instanceof DeliverShipment) {\r\n        if (!Capacity.addup(loadAtPrevAct, Capacity.invert(newAct.getSize())).isLessOrEqual(iFacts.getNewVehicle().getType().getCapacityDimensions()))\r\n            return ConstraintsStatus.NOT_FULFILLED_BREAK;\r\n    }\r\n    return ConstraintsStatus.FULFILLED;\r\n}"
+}, {
+	"Path": "com.googlecode.jsonrpc4j.ProxyUtil.createCompositeServiceProxy",
+	"Comment": "creates a composite service using all of the given\tservices and implementing the given interfaces.",
+	"Method": "Object createCompositeServiceProxy(ClassLoader classLoader,Object[] services,boolean allowMultipleInheritance,Object createCompositeServiceProxy,ClassLoader classLoader,Object[] services,Class<?>[] serviceInterfaces,boolean allowMultipleInheritance){\r\n    Set<Class<?>> interfaces = collectInterfaces(services, serviceInterfaces);\r\n    final Map<Class<?>, Object> serviceClassToInstanceMapping = buildServiceMap(services, allowMultipleInheritance, interfaces);\r\n    return Proxy.newProxyInstance(classLoader, interfaces.toArray(new Class<?>[0]), new InvocationHandler() {\r\n        @Override\r\n        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {\r\n            Class<?> clazz = method.getDeclaringClass();\r\n            if (clazz == Object.class) {\r\n                return proxyObjectMethods(method, proxy, args);\r\n            }\r\n            return method.invoke(serviceClassToInstanceMapping.get(clazz), args);\r\n        }\r\n    });\r\n}"
+}, {
+	"Path": "com.googlecode.jsonrpc4j.ProxyUtil.createCompositeServiceProxy",
+	"Comment": "creates a composite service using all of the given\tservices and implementing the given interfaces.",
+	"Method": "Object createCompositeServiceProxy(ClassLoader classLoader,Object[] services,boolean allowMultipleInheritance,Object createCompositeServiceProxy,ClassLoader classLoader,Object[] services,Class<?>[] serviceInterfaces,boolean allowMultipleInheritance){\r\n    Class<?> clazz = method.getDeclaringClass();\r\n    if (clazz == Object.class) {\r\n        return proxyObjectMethods(method, proxy, args);\r\n    }\r\n    return method.invoke(serviceClassToInstanceMapping.get(clazz), args);\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.util.AbstractTreeScanner.getStaticImports",
+	"Comment": "gets the map of static imports in the current compilation unit.",
+	"Method": "Map<String, JCImport> getStaticImports(){\r\n    return staticImports;\r\n}"
+}, {
+	"Path": "com.graphhopper.jsprit.core.algorithm.recreate.InsertionBuilder.setLocalLevel",
+	"Comment": "if adddefaulmarginalcostcalculation is false, no calculator is set which implicitly assumes that marginal cost calculationis controlled by your custom soft constraints.",
+	"Method": "InsertionBuilder setLocalLevel(InsertionBuilder setLocalLevel,boolean addDefaultMarginalCostCalculation){\r\n    local = true;\r\n    addDefaultCostCalc = addDefaultMarginalCostCalculation;\r\n    return this;\r\n}"
+}, {
+	"Path": "source.syntax.DocComments.m",
+	"Comment": "a method, which has some doc comment.\tanother line of comment.",
+	"Method": "String m(String s1,String s2,int i,int m,String base1,int base2,int m,String base1,int base2){\r\n    return \"\";\r\n}"
+}, {
+	"Path": "org.jupiter.common.util.Reflects.getPrimitivePromotionCost",
+	"Comment": "gets the number of steps required to promote a primitive number to anothertype.",
+	"Method": "float getPrimitivePromotionCost(Class<?> srcClass,Class<?> dstClass){\r\n    float cost = 0.0f;\r\n    Class<?> cls = srcClass;\r\n    if (!cls.isPrimitive()) {\r\n        cost += 0.1f;\r\n        cls = wrapperToPrimitive(cls);\r\n    }\r\n    for (int i = 0; cls != dstClass && i < ORDERED_PRIMITIVE_TYPES.length; i++) {\r\n        if (cls == ORDERED_PRIMITIVE_TYPES[i]) {\r\n            cost += 0.1f;\r\n            if (i < ORDERED_PRIMITIVE_TYPES.length - 1) {\r\n                cls = ORDERED_PRIMITIVE_TYPES[i + 1];\r\n            }\r\n        }\r\n    }\r\n    return cost;\r\n}"
+}, {
+	"Path": "org.jupiter.common.util.collection.IntObjectHashMap.indexOf",
+	"Comment": "locates the index for the given key. this method probes using double hashing.",
+	"Method": "int indexOf(int key){\r\n    int startIndex = hashIndex(key);\r\n    int index = startIndex;\r\n    for (; ; ) {\r\n        if (values[index] == null) {\r\n            return -1;\r\n        }\r\n        if (key == keys[index]) {\r\n            return index;\r\n        }\r\n        if ((index = probeNext(index)) == startIndex) {\r\n            return -1;\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "org.jnativehook.GlobalScreenTest.testRemoveNativeMouseWheelListener",
+	"Comment": "test of removenativemousewheellistener method, of class globalscreen.",
+	"Method": "void testRemoveNativeMouseWheelListener(){\r\n    System.out.println(\"removeNativeMouseWheelListener\");\r\n    NativeMouseWheelListener listener = new NativeMouseWheelListenerImpl();\r\n    GlobalScreen.addNativeMouseWheelListener(listener);\r\n    GlobalScreen.removeNativeMouseWheelListener(listener);\r\n    Field eventListeners = GlobalScreen.class.getDeclaredField(\"eventListeners\");\r\n    eventListeners.setAccessible(true);\r\n    EventListenerList listeners = (EventListenerList) eventListeners.get(GlobalScreen.class);\r\n    boolean found = false;\r\n    NativeMouseWheelListener[] nativeKeyListeners = listeners.getListeners(NativeMouseWheelListener.class);\r\n    for (int i = 0; i < nativeKeyListeners.length && !found; i++) {\r\n        if (nativeKeyListeners[i].equals(listener)) {\r\n            found = true;\r\n        }\r\n    }\r\n    if (found) {\r\n        fail(\"Found the listener after it was removed!\");\r\n    }\r\n}"
+}, {
+	"Path": "org.jnativehook.mouse.NativeMouseWheelEventTest.testParamString",
+	"Comment": "test of paramstring method, of class nativemousewheelevent.",
+	"Method": "void testParamString(){\r\n    System.out.println(\"paramString\");\r\n    NativeMouseWheelEvent event = new // Modifiers\r\n    NativeMouseWheelEvent(NativeMouseEvent.NATIVE_MOUSE_WHEEL, 0x00, 50, 75, // Scroll Amount\r\n    1, NativeMouseWheelEvent.WHEEL_UNIT_SCROLL, 3, -1);\r\n    assertFalse(event.paramString().equals(\"\"));\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.extension.ExtensionManager.checkAndCompileExtension",
+	"Comment": "checks if some java source files are to be compiled in the extension\tdirectory, and compile them if necessary.",
+	"Method": "void checkAndCompileExtension(File workingDir,String compileClassPath){\r\n    if (!extensionDir.exists()) {\r\n        return;\r\n    }\r\n    logger.info(\"checking extension (working dir = \" + workingDir + \")\");\r\n    initExtensionClassPath();\r\n    SourceFile[] sourceFiles = SourceFile.getSourceFiles(extensionDir);\r\n    JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();\r\n    StandardJavaFileManager fileManager = compiler.getStandardFileManager(null, null, null);\r\n    List<String> optionList = new ArrayList<String>();\r\n    optionList.addAll(Arrays.asList(\"-classpath\", compileClassPath));\r\n    File extensionDescriptorFile = new File(workingDir, \"extension.json\");\r\n    Map<String, String> extensionDescriptor = new HashMap();\r\n    try {\r\n        extensionDescriptor = new Gson().fromJson(FileUtils.readFileToString(extensionDescriptorFile), new TypeToken<Map<String, String>>() {\r\n        }.getType());\r\n    } catch (Exception e) {\r\n    }\r\n    List<File> filesToCompile = Arrays.asList(SourceFile.toFiles(sourceFiles));\r\n    boolean change = filesToCompile.size() != extensionDescriptor.size();\r\n    if (!change) {\r\n        for (File f : filesToCompile) {\r\n            if (!(extensionDescriptor.containsKey(f.getPath()) && extensionDescriptor.get(f.getPath()).equals(\"\" + f.lastModified()))) {\r\n                change = true;\r\n                break;\r\n            }\r\n        }\r\n    }\r\n    if (change) {\r\n        logger.info(\"compiling \" + filesToCompile.size() + \" extension file(s)\");\r\n        extensionDescriptor.clear();\r\n        for (File f : filesToCompile) {\r\n            extensionDescriptor.put(f.getPath(), \"\" + f.lastModified());\r\n        }\r\n        try {\r\n            logger.debug(\"writing extension descriptor: \" + extensionDescriptor);\r\n            FileUtils.deleteQuietly(extensionDescriptorFile);\r\n            FileUtils.writeStringToFile(extensionDescriptorFile, new Gson().toJson(extensionDescriptor));\r\n            if (!extensionDescriptorFile.exists()) {\r\n                throw new Exception();\r\n            } else {\r\n                logger.debug(\"created \" + extensionDescriptorFile.getAbsolutePath());\r\n            }\r\n        } catch (Exception e) {\r\n            throw new RuntimeException(\"unable to create extension description file\", e);\r\n        }\r\n        Iterable<? extends JavaFileObject> compilationUnits1 = fileManager.getJavaFileObjectsFromFiles(filesToCompile);\r\n        if (!compiler.getTask(null, fileManager, null, optionList, null, compilationUnits1).call()) {\r\n            throw new RuntimeException(\"JSweet extension compilation failed\");\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "org.jupiter.common.util.collection.ByteObjectHashMap.growSize",
+	"Comment": "grows the map size after an insertion. if necessary, performs a rehash of the map.",
+	"Method": "void growSize(){\r\n    size++;\r\n    if (size > maxSize) {\r\n        if (keys.length == Integer.MAX_VALUE) {\r\n            throw new IllegalStateException(\"Max capacity reached at size=\" + size);\r\n        }\r\n        rehash(keys.length << 1);\r\n    }\r\n}"
+}, {
+	"Path": "org.jnativehook.mouse.NativeMouseWheelEventTest.testGetWheelRotation",
+	"Comment": "test of getwheelrotation method, of class nativemousewheelevent.",
+	"Method": "void testGetWheelRotation(){\r\n    System.out.println(\"getWheelRotation\");\r\n    NativeMouseWheelEvent event = new // Modifiers\r\n    NativeMouseWheelEvent(NativeMouseEvent.NATIVE_MOUSE_WHEEL, 0x00, 50, 75, // Scroll Amount\r\n    1, NativeMouseWheelEvent.WHEEL_UNIT_SCROLL, 3, -1);\r\n    assertEquals(-1, event.getWheelRotation());\r\n}"
+}, {
+	"Path": "org.jupiter.common.util.collection.ByteObjectHashMap.removeAt",
+	"Comment": "removes entry at the given index position. also performs opportunistic, incremental rehashingif necessary to not break conflict chains.",
+	"Method": "boolean removeAt(int index){\r\n    --size;\r\n    keys[index] = 0;\r\n    values[index] = null;\r\n    boolean movedBack = false;\r\n    int nextFree = index;\r\n    for (int i = probeNext(index); values[i] != null; i = probeNext(i)) {\r\n        int bucket = hashIndex(keys[i]);\r\n        if (i < bucket && (bucket <= nextFree || nextFree <= i) || bucket <= nextFree && nextFree <= i) {\r\n            keys[nextFree] = keys[i];\r\n            values[nextFree] = values[i];\r\n            movedBack = true;\r\n            keys[i] = 0;\r\n            values[i] = null;\r\n            nextFree = i;\r\n        }\r\n    }\r\n    return movedBack;\r\n}"
+}, {
+	"Path": "org.jnativehook.GlobalScreenTest.testStartEventDispatcher",
+	"Comment": "test of starteventdispatcher method, of class globalscreen.",
+	"Method": "void testStartEventDispatcher(){\r\n    System.out.println(\"startEventDispatcher\");\r\n    Field eventExecutor = GlobalScreen.class.getDeclaredField(\"eventExecutor\");\r\n    eventExecutor.setAccessible(true);\r\n    assertNotNull(eventExecutor.get(GlobalScreen.class));\r\n}"
+}, {
+	"Path": "org.jupiter.common.util.timer.HashedWheelTimer.start",
+	"Comment": "starts the background thread explicitly.the background thread willstart automatically on demand even if you did not call this method.",
+	"Method": "void start(){\r\n    switch(workerStateUpdater.get(this)) {\r\n        case WORKER_STATE_INIT:\r\n            if (workerStateUpdater.compareAndSet(this, WORKER_STATE_INIT, WORKER_STATE_STARTED)) {\r\n                workerThread.start();\r\n            }\r\n            break;\r\n        case WORKER_STATE_STARTED:\r\n            break;\r\n        case WORKER_STATE_SHUTDOWN:\r\n            throw new IllegalStateException(\"cannot be started once stopped\");\r\n        default:\r\n            throw new Error(\"Invalid WorkerState\");\r\n    }\r\n    while (startTime == 0) {\r\n        try {\r\n            startTimeInitialized.await();\r\n        } catch (InterruptedException ignore) {\r\n        }\r\n    }\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.JSweetTranspiler.setModuleResolution",
+	"Comment": "sets the module strategy when transpiling to code using javascript modules.",
+	"Method": "void setModuleResolution(ModuleResolution moduleResolution){\r\n    this.moduleResolution = moduleResolution;\r\n}"
+}, {
+	"Path": "org.jnativehook.mouse.NativeMouseWheelEventTest.testGetScrollType",
+	"Comment": "test of getscrolltype method, of class nativemousewheelevent.",
+	"Method": "void testGetScrollType(){\r\n    System.out.println(\"getScrollType\");\r\n    NativeMouseWheelEvent event = new // Modifiers\r\n    NativeMouseWheelEvent(NativeMouseEvent.NATIVE_MOUSE_WHEEL, 0x00, 50, 75, // Scroll Amount\r\n    1, NativeMouseWheelEvent.WHEEL_UNIT_SCROLL, 3, -1);\r\n    assertEquals(NativeMouseWheelEvent.WHEEL_UNIT_SCROLL, event.getScrollType());\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.extension.PrinterAdapter.needsImport",
+	"Comment": "returns the import qualified id if the given import requires an import\tstatement to be printed.",
+	"Method": "String needsImport(ImportElement importElement,String qualifiedName){\r\n    return parentAdapter == null ? (importElement.getImportedType() == null ? null : getRootRelativeName(importElement.getImportedType())) : parentAdapter.needsImport(importElement, qualifiedName);\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.util.AbstractTreeScanner.getFirstParent",
+	"Comment": "gets the first tree in the scanning stack that matched one of the given\ttree types.",
+	"Method": "JCTree getFirstParent(Class<?> types){\r\n    for (int i = this.stack.size() - 2; i >= 0; i--) {\r\n        for (Class<?> type : types) {\r\n            if (type.isAssignableFrom(this.stack.get(i).getClass())) {\r\n                return this.stack.get(i);\r\n            }\r\n        }\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "org.jsweet.transpiler.util.Util.findParameter",
+	"Comment": "finds and returns the parameter matching the given name if any.",
+	"Method": "JCVariableDecl findParameter(JCMethodDecl method,String name){\r\n    for (JCVariableDecl parameter : method.getParameters()) {\r\n        if (name.equals(parameter.name.toString())) {\r\n            return parameter;\r\n        }\r\n    }\r\n    return null;\r\n}"
+}, {
+	"Path": "org.jooby.apitool.ApiParser.export",
+	"Comment": "parse application bytecode, build route methods from it and export all metadata to .json.",
+	"Method": "Path export(Path outputBaseDir,String application){\r\n    return new BytecodeRouteParser(loader, dir).export(outputBaseDir, application);\r\n}"
+}]
